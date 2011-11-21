@@ -38,7 +38,12 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
+    if @category.news==nil
+      puts "nilllllllllllllllllllllllllllllllllllllllllllllll"
+      @category.destroy
+    else
+      puts "nottttttttttttttttttttttttttttttttttttttttttttttttt nil"
+    end
     redirect_to admin_categories_url,notice: t('delete_succ',w: t('_category'))
   end
 
