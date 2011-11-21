@@ -1,0 +1,20 @@
+%h1 Login
+=form_for @user,:url => { :action => "create" } do |f|
+  =if @user.errors.any?
+    #error_explanation
+      %h2
+        =pluralize(@user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul
+        =@user.errors.full_messages.each do |msg|
+          %li msg
+  .field
+    =f.label :登录名
+    %br
+    =f.text_field :username
+  .field
+    =f.label :密码
+    %br
+    =f.password_field :passwd
+  .actions
+    =f.submit

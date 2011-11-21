@@ -1,0 +1,12 @@
+=render 'shared/head'
+.container
+  订餐热线：40088888888(如果没填，显示：请进入分店查询)
+  %br
+  %h2 新闻公告
+  %table
+    -@news.each do |news|
+      %tr
+        %td
+          =link_to news.category.name,news_index_path
+          =link_to news.title,news
+          =(news.updated_at+8.hour).strftime '%m.%d'

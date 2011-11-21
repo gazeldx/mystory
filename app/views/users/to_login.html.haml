@@ -1,0 +1,12 @@
+%h1 Login
+=form_tag "users/login" do
+  .field
+    =label_tag :username,"登录名"
+    %br
+    =text_field_tag :username
+  .field
+    =label_tag :passwd,"密码"
+    %br
+    =password_field_tag :passwd
+  .actions
+    =submit_tag("登录")

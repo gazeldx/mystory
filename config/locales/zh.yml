@@ -1,0 +1,32 @@
+# Sample localization file for Chinese. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+#TODO news should be defined by user，and Model should be changed to defined Chinese.
+zh:
+  edit: "编辑"
+  delete: "删除"
+  up: "上移"
+  down: "下移"
+  create_succ: "%{w}创建成功！"
+  delete_succ: "%{w}删除成功！"
+  taken: "%{w}已存在！"
+  submit: "提交"
+  hello: "你好"
+  category:
+    name: "分类名"
+  _category: "分类"
+  category_addtip: "新增分类，请输入分类名："
+  login2:
+    failed: "密码错误！"
+  news: "新闻"
+  num_error: "个原因"
+  op_error: "使得操作未成功"
+  activerecord:
+    errors:
+      template:
+        header:
+          one:   "操作没能成功"
+          other: "%{count} 个错误使得 %{model} 未能成功保存"
+        body:    "下面一些原因使得操作未成功:"
+      messages:
+        taken: "应该是唯一的。系统里已经存在这个值，请修改！"
+        blank: "是必填项哦！"

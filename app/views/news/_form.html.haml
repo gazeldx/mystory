@@ -1,0 +1,26 @@
+= javascript_include_tag "javascripts/ckeditor/ckeditor.js"
+=form_for(@news) do |f|
+  =if @news.errors.any?
+    #error_explanation
+      %h2
+        =pluralize(@news.errors.count, "error")
+        prohibited this news from being saved:
+      %ul
+        =@news.errors.full_messages.each do |msg|
+          %li msg
+  .field
+    =f.label :标题
+    %br
+    =f.text_field :title
+  .field
+    =f.label :内容
+    %br
+    =f.text_area :content
+    =ckeditor_js "news_content"
+  .field
+    =f.label :分类
+    =collection_select :news, :category_id, Category.all, :id, :name
+    /=cktext_area_tag("test_area", "Ckeditor is the best")
+    /=cktext_area_tag("content", "Ckeditor", :input_html => {:cols => 10, :rows => 20}, :toolbar => 'Easy')
+  .actions
+    =f.submit

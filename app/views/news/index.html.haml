@@ -1,0 +1,22 @@
+=render 'shared/head'
+.container
+  %h1 新闻列表
+  %table
+    %tr
+      %th 分类
+      %th 标题
+      %th 日期
+      %th
+      %th
+      %th
+    -@news.each do |news|
+      %tr
+        %td
+          \[
+          =link_to news.category.name,news_index_path
+          \]
+        /%td{:title=>news.content}
+        %td{:title=>news.content}
+          =link_to news.title,news
+        /TODO this should be write in a helper
+        %td=(news.updated_at+8.hour).strftime '%Y.%m.%d'

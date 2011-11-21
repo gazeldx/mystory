@@ -1,0 +1,17 @@
+=render 'shared/head'
+.container
+  %p#notice
+    =notice
+  .span-15.prepend-1.colborder
+    %h2=@news.title
+    %br
+    =(@news.updated_at+8.hour).strftime '%Y.%m.%d'
+    发表在
+    =link_to @news.category.name,category_path
+    下
+    %br
+    !=@news.content
+  .span-7.last
+    -@categories.each do |category|
+      =link_to category.name,categories_path
+      %br
