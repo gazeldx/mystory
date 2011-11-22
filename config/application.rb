@@ -47,5 +47,7 @@ module Cms
     config.assets.version = '1.0'
     #add a paths by zhangjian for ckeditor
     #config.assets.paths << "#{Rails.root}/public/assets/javascripts/ckeditor"
+    # Let Heroku not cache. add by zhangjian
+    config.assets.compile = true
   end
 end
