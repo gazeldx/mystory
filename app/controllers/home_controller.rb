@@ -2,18 +2,12 @@ class HomeController < ApplicationController
   #before_filter :audit
   
   def index
-    puts "index in now _____________________________________________"
     @news = News.order("updated_at DESC").limit(6)
-
     #TODO notice that order by update_at,so they can do which show in index
-    respond_to do |format|
-      format.html
-    end
   end
 
   private
   def audit
-    
     redirect_to "/gazeldx"
     #abc.def.xxx.com
     puts request.url#http://abc.def.xxx.com

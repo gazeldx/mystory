@@ -1,20 +1,19 @@
-.container
-  #notice=notice
-  =form_for [:admin, @category] do |f|
-    =f.label t('category_addtip')
-    =f.text_field :name,:size => 20
-    =f.submit t(:submit)
-  %h1 分类列表
-  %table
+=render 'admin/shared/head'
+=form_for [:admin, @category] do |f|
+  =f.label t('category_addtip')
+  =f.text_field :name,:size => 20
+  =f.submit t(:submit)
+/TODO Left align
+%table
+  %tr
+    %th 分类名
+    %th
+    %th
+    %th{colspan:2} 排序
+  -@categories.each do |category|
     %tr
-      %th 分类名
-      %th
-      %th
-      %th{colspan:2} 排序
-    -@categories.each do |category|
-      %tr
-        %td=category.name
-        %td=link_to t(:edit), edit_admin_category_path(category)
-        %td=link_to t(:delete), admin_category_path(category), confirm:'确定删除吗?', method: :delete
-        %td=link_to t(:up), admin_category_path(category)
-        %td=link_to t(:down), admin_category_path(category)
+      %td=category.name
+      %td=link_to t(:edit), edit_admin_category_path(category)
+      %td=link_to t(:delete), admin_category_path(category), confirm:'确定删除吗?', method: :delete
+      %td=link_to t(:up), admin_category_path(category)
+      %td=link_to t(:down), admin_category_path(category)

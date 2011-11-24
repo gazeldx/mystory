@@ -1,9 +1,9 @@
-.container
-  -u=session[:user]
-  =t :hello
-  =u.name
-  %br
-  /%h2=link_to '控制面板','/admin'
-  %h1
-    =link_to "新闻", admin_news_index_path
-    =link_to "分类", admin_categories_path
+-u=session[:user]
+=t :hello
+,
+=u.name
+%h1
+  =navigation_item2('news','新闻',admin_news_index_path)
+  =navigation_item2('categories','分类',admin_categories_path)
+#notice=notice
+=tip_info

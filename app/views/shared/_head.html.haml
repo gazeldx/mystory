@@ -1,18 +1,17 @@
 -head_query
-.container
-  /#TODO why hr is stronger than sample.html?
-  %span.home-title{:title=>"返回首页"}
-    =link_to @user.name,"/"
-  %span.home-maxim 来了还想来！
-  %span.right=link_to "联系我们","/contact"
-  %hr
-  %h1
-    =link_to "首页", "/"
-    =link_to "新闻", news_index_path
-    =link_to "优惠", news_index_path
-    =link_to "点美食", news_index_path
-    =link_to "分店", news_index_path
-    =link_to "加盟", news_index_path
-    =link_to "招聘", news_index_path
-    =link_to "企业介绍", news_index_path
-  %hr
+/#TODO why hr is stronger than sample.html?
+%span.home-title{:title=>"返回首页"}
+  =link_to @user.name,"/"
+%span.home-maxim 来了还想来！
+%span.right=link_to "联系我们","/contact"
+%hr
+%h1
+  =navigation_item('home','首页','/')
+  =navigation_item('news','新闻',news_index_path)
+  =link_to "优惠", news_index_path
+  =link_to "点美食", news_index_path
+  =link_to "分店", news_index_path
+  =link_to "加盟", news_index_path
+  =link_to "招聘", news_index_path
+  =link_to "企业介绍", news_index_path
+%hr

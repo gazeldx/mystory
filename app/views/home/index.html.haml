@@ -7,6 +7,6 @@
     -@news.each do |news|
       %tr
         %td
-          =link_to news.category.name,news_index_path
+          =link_to news.category.name,news.category
           =link_to news.title,news
           =(news.updated_at+8.hour).strftime '%m.%d'

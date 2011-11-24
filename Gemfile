@@ -7,7 +7,6 @@ gem 'rails', '3.1.0'
 
 #gem 'sqlite3'
 gem "pg"
-
 gem 'json'
 
 # Gems used only for assets and not required
@@ -24,8 +23,10 @@ gem 'therubyracer'
 gem 'haml', '3.1.3'
 #ckeditor3.6.3
 gem "ckeditor"
-#paperclip2.4.5
+#paperclip2.4.5 it is for upload
 gem "paperclip"
+#will_paginate3.0.2
+gem 'will_paginate', '~> 3.0'
 #gem "mongo", "~> 1.3.1"
 #gem "bson", "~> 1.3.1"
 #gem "bson_ext", "~> 1.3.1"

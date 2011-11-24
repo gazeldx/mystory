@@ -1,6 +1,6 @@
 class Admin::NewsController < Admin::ApplicationController
   def index
-    @news = News.where(["user_id = ?", session[:user_id]])
+    @news = News.where(["user_id = ?", session[:user_id]]).order("created_at DESC")
   end
 
   def new

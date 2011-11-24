@@ -30,7 +30,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update_attributes(params[:category])
-      redirect_to edit_admin_category_path, notice: 'Category was successfully updated.'
+      redirect_to edit_admin_category_path, notice: t('update_succ')
     else
       render :edit
     end
@@ -38,20 +38,18 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    if @category.news==nil
-      puts "nilllllllllllllllllllllllllllllllllllllllllllllll"
-      @category.destroy
+    #I think exists? is better than any? because exists? is SELECT 1 FROM "news" WHERE "news"."category_id" = 2 LIMIT 1
+    # and any? is SELECT COUNT(*) FROM "news" WHERE "news"."category_id" = 2
+    if @category.news.exists?
+      notice=t('used')
     else
-      puts "nottttttttttttttttttttttttttttttttttttttttttttttttt nil"
+      @category.destroy
+      notice=t('delete_succ')
     end
-    redirect_to admin_categories_url,notice: t('delete_succ',w: t('_category'))
+    redirect_to admin_categories_url,notice: notice
   end
 
   def show
     @category = Category.find(params[:id])
-    
-    respond_to do |format|
-      format.html
-    end
   end
 end

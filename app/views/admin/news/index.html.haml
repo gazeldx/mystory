@@ -1,26 +1,22 @@
-.container
-  #notice=notice
-  %h1 新闻列表
-  =link_to '添加新闻',new_admin_news_path
-  %br
-  %table
+=render 'admin/shared/head'
+=link_to '添加新闻',new_admin_news_path
+%br
+%table
+  %tr
+    %th 标题
+    %th 分类
+    %th 日期
+    %th
+    %th
+    %th
+  -@news.each do |news|
     %tr
-      %th 分类
-      %th 标题
-      %th 日期
-      %th
-      %th
-      %th
-    -@news.each do |news|
-      %tr
-        %td
-          \[
-          =link_to news.category.name,news_index_path
-          \]
-        /%td{:title=>news.content}
-        %td{:title=>news.content}
-          =link_to news.title,news
-        /TODO this should be write in a helper
-        %td=(news.updated_at+8.hour).strftime '%Y.%m.%d'
-        %td=link_to '编辑', edit_admin_news_path(news)
-        %td=link_to '删除', admin_news_path(news), :confirm => '确定删除吗?', :method => :delete
+      %td
+        =link_to news.title,news
+      %td
+        =news.category.name
+        /=link_to news.category.name,news_index_path
+      /TODO this should be write in a helper
+      %td=(news.created_at+8.hour).strftime '%Y.%m.%d'
+      %td=link_to '编辑', edit_admin_news_path(news)
+      %td=link_to '删除', admin_news_path(news), :confirm => '确定删除吗?', :method => :delete

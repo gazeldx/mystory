@@ -1,5 +1,4 @@
-= javascript_include_tag "javascripts/ckeditor/ckeditor.js"
-#notice=notice
+=javascript_include_tag "javascripts/ckeditor/ckeditor.js"
 =form_for [:admin, @news] do |f|
   =error_msg @news
   .field
@@ -14,5 +13,9 @@
   .field
     =f.label :分类
     =collection_select :news, :category_id, Category.all, :id, :name
+  .field
+    =f.label :发布日期
+    %br
+    =date_select :news, :created_at
   .actions
     =f.submit
