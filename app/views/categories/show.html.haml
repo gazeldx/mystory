@@ -10,10 +10,10 @@
     %br
   =will_paginate @news
 .span-7.last
-  %h3 分类目录
+  %h3=t('category_')
   -@categories.each do |category|
     -if category.id==@category.id
-      =link_to category.name,category,:class => "selected"
+      =link_to category.name,category,class:'selected'
     -else
       =link_to category.name,category
     %br

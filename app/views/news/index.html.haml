@@ -8,9 +8,8 @@
     =(news.created_at+8.hour).strftime '%Y.%m.%d'
     %br
   =will_paginate @news
-  /=page_entries_info @news, :model => News, :html => false
 .span-7.last
-  %h3 分类目录
+  %h3=t 'category_'
   -@categories.each do |category|
     =link_to category.name,category
     %br

@@ -6,14 +6,14 @@
 /TODO Left align
 %table
   %tr
-    %th 分类名
+    %th=t('category.name')
     %th
     %th
-    %th{colspan:2} 排序
+    %th{colspan:2}=t('sort')
   -@categories.each do |category|
     %tr
       %td=category.name
       %td=link_to t(:edit), edit_admin_category_path(category)
-      %td=link_to t(:delete), admin_category_path(category), confirm:'确定删除吗?', method: :delete
+      %td=link_to t(:delete), admin_category_path(category), confirm:t('confirm.delete'), method: :delete
       %td=link_to t(:up), admin_category_path(category)
       %td=link_to t(:down), admin_category_path(category)

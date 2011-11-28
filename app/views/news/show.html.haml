@@ -8,10 +8,10 @@
   %br
   !=@news.content
 .span-7.last
-  %h3 分类目录
+  %h3=t 'category_'
   -@categories.each do |category|
     -if @news.category.id==category.id
-      =link_to category.name,category,:class => "selected"
+      =link_to category.name,category,class:'selected'
     -else
       =link_to category.name,category
     %br
@@ -20,7 +20,7 @@
     =t 'article_in'
   -@news.category.news.order("created_at DESC").limit(15).each do |news|
     -if news.id==@news.id
-      =link_to news.title, news, :class => "selected"
+      =link_to news.title,news,class:'selected'
     -else
-      =link_to news.title, news
+      =link_to news.title,news
     %br

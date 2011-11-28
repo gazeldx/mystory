@@ -20,16 +20,42 @@ zh:
   taken: "%{w}已存在！"
   submit: "提交"
   hello: "你好"
+
+  category_: "分类目录"
   category:
     name: "分类名"
   _category: "分类"
-  category_addtip: "新增分类，请输入分类名："
+  category_addtip: "添加新分类，请输入分类名："
+
+  _news: "新闻"
+  news:
+    title: "标题"
+    content: "内容"
+    add: "添加新文章"
+
+  login: "登录"
   login2:
     failed: "密码错误！"
-  news_: "新闻"
-  #news: "新闻"
+    who: "管理员登录"
+
   num_error: "个原因"
   op_error: "使得操作未成功"
+  sort: "排序"
+  confirm:
+    delete: "确定删除吗?"
+
+  release_date: "发布日期"
+  password: "密码"
+  caption: "提示："
+
+  home_page: "首页"
+  return_home: "返回首页"
+  contact_us: "联系我们"
+
+  book_phone: "订餐热线:"
+  is_permanent_url: "是本站的永久访问地址"
+
+  
 #  activerecord:
 #    errors:
 #      template:

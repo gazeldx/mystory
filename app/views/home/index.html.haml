@@ -1,12 +1,69 @@
 =render 'shared/head'
-.container
-  订餐热线：40088888888(如果没填，显示：请进入分店查询)
+=t('book_phone')
+40088888888
+/(如果没填，显示：请进入分店查询)
+%br
+.span-7.colborder
+  
+  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="240")
+    %br
+    %a.selected “牡丹雪”餐厅环境
+    /%br
+    /%a 9折全菜品，截至2011年11月28日
+.span-8.colborder
+  %img(src="http://www.cashcity.com.tw/images/index/pic3.png")
+  %h2 经营理念
+  我們希望，來雋永邨的朋友們，
+  都能夠品嚐到傳統台灣小吃的美味，
+  這是一個耐人尋味的地方
+  當你對我們的名稱有了疑問時
+  就是你尋得答案之時。
+  期待你的答案，期待你的答案
+  期待你的答案，期待你的答案
+  期待你的答案，期待你的答案
+  期待你的答案，期待你的答案
+  期待你的答案，期待你的答案
+  期待你的答案，期待你的答案
+  (140个字)
+.span-7.last
   %br
-  %h2 新闻公告
-  %table
-    -@news.each do |news|
-      %tr
-        %td
-          =link_to news.category.name,news.category
-          =link_to news.title,news
-          =(news.updated_at+8.hour).strftime '%m.%d'
+  用户名：
+  %input(type='text')
+  %br
+  密码：
+  %input(type='text')
+  %br
+  %input(type='submit' value='会员登录') 注册 忘记密码
+%hr
+%hr.space
+.span-15.prepend-1.colborder
+  %h3 招牌菜
+  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 板栗烧肉
+  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 蘑菇小鸡堡
+  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 蒜泥生菜
+  %a 更多美食
+.span-7.last
+  %h2
+    %a 新闻
+    |
+    %a 优惠
+    |
+    %a 媒体报道
+  -@news.each do |news|
+    /=link_to news.category.name,news.category
+    =link_to news.title, news
+    &nbsp;
+    =(news.created_at+8.hour).strftime '%Y/%m/%d'
+    %br
+  %a 更多
+  %h2 重点推介
+  %h3
+    %a 浦江店隆重开业
+  %h3
+    %a 又出新品啦！抢鲜
+  %h3
+    %a 年夜饭怎么吃？
+%hr
+志杰大酒店版权所有 技术支持：苏州志杰信息
+网页设计：
+%a(href="http://5android.com/")第五工作室

@@ -1,15 +1,15 @@
-%h1 管理员登录
+%h1=t('login2.who')
 %p#notice
   =notice
 =form_tag "login2/login" do
   .field
-    =label_tag :passwd,"密码"
+    =label_tag :passwd,t('password')
     %br
     =password_field_tag :passwd
   .actions
-    =submit_tag("登录")
+    =submit_tag t('login')
   
-  提示：
+  =t('caption')
   -s='http://'+@user.username+'.diancai.la'
   =link_to s,s
-  是本站的永久访问地址
+  =t('is_permanent_url')
