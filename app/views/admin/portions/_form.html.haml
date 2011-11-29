@@ -1,0 +1,15 @@
+=javascript_include_tag "javascripts/ckeditor/ckeditor.js"
+=form_for [:admin, @portion] do |f|
+  =error_msg @portion
+  .field
+    =f.label t('title')
+    %br
+    =f.text_field :title
+  .field
+    =t('content')
+    =t('portion.memo')
+    %br
+    =f.text_area :content
+    =ckeditor_js "portion_content"
+  .actions
+    =f.submit

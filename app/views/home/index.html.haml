@@ -11,10 +11,8 @@
     /%br
     /%a 9折全菜品，截至2011年11月28日
 .span-8.colborder
-  %img(src="http://www.cashcity.com.tw/images/index/pic3.png")
-  %h2 经营理念
-  也许你会问为什么叫悠仙美地？他是美国加利福尼亚洲一个风景秀丽与大自然为一体的国家公园，称为YOS·MITE,音译为“优胜美地”或“悠仙美地”，已经有几百年的历史。20世纪90年代，“刘建中”先生到了美国，被这里怡人的自然风景所吸引，它的壮丽及迷人，无不令人赞叹造物者的神奇伟大，所以那里成为最让他留念的景点。回国后创始了现在的“悠仙美地”
-  %a 了解更多
+  %h2=@portion.title
+  =raw @portion.content
 .span-7.last
   %br
   用户名：
@@ -34,11 +32,9 @@
   %a 更多美食
 .span-7.last
   %h2
-    %a 新闻
-    |
-    %a 优惠
-    |
-    %a 媒体报道
+    -@categories.each do |category|
+      =link_to category.name,category
+      |
   -@news.each do |news|
     /=link_to news.category.name,news.category
     =link_to news.title, news

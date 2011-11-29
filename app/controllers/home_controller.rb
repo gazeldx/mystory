@@ -2,8 +2,10 @@ class HomeController < ApplicationController
   #before_filter :audit
   
   def index
-    @news = News.order("updated_at DESC").limit(6)
     #TODO notice that order by update_at,so they can do which show in index
+    @news = News.where(["user_id = ?", @user.id]).order("created_at DESC").limit(7)
+    @portion = Portion.find_by_user_id(@user.id)
+    @categories = Category.where(["user_id = ?", @user.id])
   end
 
   private

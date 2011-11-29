@@ -1,19 +1,21 @@
 Cms::Application.routes.draw do
-  resources :posts
-
   match "login" => "login#to_login"
   match "login2" => "login2#to_login"
   match "login2/login" => "login2#login"
-  match "admin" => "admin/admin#index"
+  match "admin" => "admin/home#index"
   resources :users,:categories,:news,:posts
   namespace :admin do
-    resources :categories,:news
+    resources :categories,:news,:portions
+    #match "portion" => "portions#edit"
+    get "poem" => "portions#edit"
   end
+
   #This match must in below
   #match "/:username/news" => "news#index"
   #match "/:username" => "users#home"
   #root :to => "users#to_login"
   root :to => "home#index"
+  
   #get tell us home/index is a router path which match controller "home" and action "index" and verb is get
   #get "home/index"
   #match 'news' => 'news#index'

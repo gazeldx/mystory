@@ -1,0 +1,2 @@
+module PortionsHelper
+end

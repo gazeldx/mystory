@@ -1,6 +1,8 @@
 module Admin::HeadHelper
   def navigation_item2(controller,title,link)
-    if controller_path=="admin/"+controller
+    puts controller_path
+    puts admin_portions_path
+    if controller_path=="admin/"+controller || (controller_path=='admin/portions' && controller=='home')
       link_to title,link,:class => "selected"
     else
       link_to title,link

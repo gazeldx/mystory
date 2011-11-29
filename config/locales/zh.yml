@@ -20,7 +20,8 @@ zh:
   taken: "%{w}已存在！"
   submit: "提交"
   hello: "你好"
-
+  title: "标题"
+  content: "内容"
   category_: "分类目录"
   category:
     name: "分类名"
@@ -28,9 +29,7 @@ zh:
   category_addtip: "添加新分类，请输入分类名："
 
   _news: "新闻"
-  news:
-    title: "标题"
-    content: "内容"
+  news:    
     add: "添加新文章"
 
   login: "登录"
@@ -54,7 +53,9 @@ zh:
 
   book_phone: "订餐热线:"
   is_permanent_url: "是本站的永久访问地址"
-
+  portion:
+    default_title: "一段话介绍"
+    memo: "(可以是一段像散文般优美的公司经营理念，也可以是你想对网友说的一段话，字数在120-140字之间，这样显示效果最好)"
   
 #  activerecord:
 #    errors:
