@@ -12,9 +12,10 @@
     =ckeditor_js "news_content"
   .field
     =f.label t('_category')
-    =collection_select :news, :category_id, Category.all, :id, :name
+    =collection_select :news, :category_id, query_categories, :id, :name
   .field
-    =f.label t('release_date')
+    =t('release_date')
+    =t('news.memo')
     %br
     =date_select :news, :created_at
   .actions

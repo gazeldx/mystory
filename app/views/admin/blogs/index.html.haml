@@ -1,0 +1,22 @@
+=link_to t('blog.add'),new_admin_blog_path
+%br
+%table
+  %tr
+    %th=t('title')
+    %th=t('_category')
+    %th=t('release_date')
+    %th
+    %th
+    %th
+  -@blogs.each do |blog|
+    %tr
+      %td
+        =link_to blog.title,blog
+      %td
+        -if blog.category.nil?
+          =t('no_category')
+        -else
+          =blog.category.name
+      %td=(blog.created_at+8.hour).strftime '%Y.%m.%d'
+      %td=link_to t(:edit), edit_admin_blog_path(blog)
+      %td=link_to t(:delete), admin_blog_path(blog), confirm:t('confirm.delete'), method: :delete

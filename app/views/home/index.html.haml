@@ -1,57 +1,43 @@
-=render 'shared/head'
-=t('book_phone')
-40088888888
-/(如果没填，显示：请进入分店查询)
+.span-7.last
+  %h3
+    =link_to t('register_new_user'), register_path
+  =form_tag "login/member_login" do
+    -if flash[:error]
+      #error=flash[:error]
+    /weibo login is good
+    邮箱/会员帐号/个性域名
+    =text_field_tag :loginname
+    %br
+    密码
+    %br
+    =password_field_tag :passwd
+    %br
+    %input(type='checkbox')下次自动登录
+    =t('forgot_password')
+    %br
+    %input(type='submit' value='登录')
+%hr
+%h3=t('hot_blog')
+-@hot_blogs.each do |blog|
+  =link_to blog.title, blog
+  %br
+%h3=t('hot_note')
+-@hot_notes.each do |note|
+  =link_to note.content, note
+  %br
 %br
-.span-7.colborder
-  
-  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="240")
-    %br
-    %a.selected “牡丹雪”餐厅环境
-    /%br
-    /%a 9折全菜品，截至2011年11月28日
-.span-8.colborder
-  %h2=@portion.title
-  =raw @portion.content
-.span-7.last
+%h3=t('newest_blog')
+-@new_blogs.each do |blog|
+  =link_to blog.title, blog
   %br
-  用户名：
-  %input(type='text')
+%h3=t('newest_note')
+-@new_notes.each do |note|
+  =link_to note.content, note
   %br
-  密码：
-  %input(type='text')
+/editor think best list
+%br
+/TOP关注度会员
+%h3=t('newest_user')
+-@users.each do |user|
+  =link_to user.name, user.domain
   %br
-  %input(type='submit' value='会员登录') 注册 忘记密码
-%hr
-%hr.space
-.span-15.prepend-1.colborder
-  %h3 招牌菜
-  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 板栗烧肉
-  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 蘑菇小鸡堡
-  %img(src="http://bookings.xinxianghui.com/Picture/100440/%e9%a6%8b%e5%98%b4%e7%89%9b%e8%9b%99-ws.jpg" width="200") 蒜泥生菜
-  %a 更多美食
-.span-7.last
-  %h2
-    -@categories.each do |category|
-      =link_to category.name,category
-      |
-  -@news.each do |news|
-    /=link_to news.category.name,news.category
-    =link_to news.title, news
-    &nbsp;
-    =(news.created_at+8.hour).strftime '%Y/%m/%d'
-    %br
-  %a 更多
-  %h2 重点推介
-  %h3
-    %a 浦江店隆重开业
-  %h3
-    %a 又出新品啦！抢鲜
-  %h3
-    %a 年夜饭怎么吃？
-%hr
-苏州志杰餐饮管理有限公司版权所有 技术支持：
-%a(href="http://www.atech.com.cn") 苏州志杰信息
-网页设计：
-%a(href="http://5android.com/")第五工作室
-沪ICP备07034093号

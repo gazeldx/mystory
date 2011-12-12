@@ -1,8 +1,6 @@
 module Admin::HeadHelper
-  def navigation_item2(controller,title,link)
-    puts controller_path
-    puts admin_portions_path
-    if controller_path=="admin/"+controller || (controller_path=='admin/portions' && controller=='home')
+  def navigation_item2(title,link)
+    if '/'+controller_path==link || (title==t('home_page') && controller_path=='admin/home')
       link_to title,link,:class => "selected"
     else
       link_to title,link
@@ -18,7 +16,7 @@ module Admin::HeadHelper
       tv='list'
     end
     if tv!='list'
-      content_tag(:h1,t(tv))
+      content_tag(:h3,t(tv))
     end
   end
 end

@@ -1,6 +1,6 @@
 %h1=t('login2.who')
-%p#notice
-  =notice
+-if flash[:error]
+  #error=flash[:error]
 =form_tag "login2/login" do
   .field
     =label_tag :passwd,t('password')
@@ -8,7 +8,7 @@
     =password_field_tag :passwd
   .actions
     =submit_tag t('login')
-  
+
   =t('caption')
   -s='http://'+@user.username+'.diancai.la'
   =link_to s,s

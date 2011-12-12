@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+  layout 'portal'
+  
   def index
     @users = User.all
   end
@@ -19,7 +20,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to @user, notice: t('create_succ')
+      flash[:notice]=t('regiter_succ_memo')
+      login_now
     else
       render :action=> "new"
     end

@@ -2,9 +2,13 @@
 =t :hello
 ,
 =u.name
+%span.right=link_to '退出', admin_logout_path
 %h1
-  =navigation_item2('home',t('home_page'),admin_path)
-  =navigation_item2('news',t('_news'),admin_news_index_path)
-  =navigation_item2('categories',t('_category'),admin_categories_path)
-#notice=notice
-=tip_info
+  =navigation_item2(t('home_page'),admin_path)
+  =navigation_item2(t('_note'),admin_notes_path)
+  =navigation_item2(t('_blog'),admin_blogs_path)
+  =navigation_item2(t('_category'),admin_categories_path)
+-if flash[:notice]
+  #notice=flash[:notice]
+-if flash[:error]
+  #error=flash[:error]

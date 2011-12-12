@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - <%= yield :title %></title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class='container'>
+<%= render 'admin/shared/head' %>
+<%=yield :link_up%>
+<%=tip_info%>
+<%= yield %>
+</div>
+</body>
+</html>

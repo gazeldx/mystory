@@ -1,12 +1,17 @@
 class NewsController < ApplicationController
 
-  def index
+  def index    
     @news = News.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")    
-    @categories = Category.where(["user_id = ?", @user.id])
+    q_categories
   end
 
   def show
     @news = News.find(params[:id])
-    @categories = Category.where(["user_id = ?", @user.id])
+    q_categories
+  end
+
+  private
+  def q_categories
+    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
   end
 end

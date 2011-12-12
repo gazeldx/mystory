@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @note.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @note.content %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @note.category %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @note.user %>
+</p>
+
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>

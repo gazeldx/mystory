@@ -5,11 +5,12 @@ class Login2Controller < ApplicationController
 
   def login
     if @user.passwd==params[:passwd]
-      session['user_id']=@user.id
-      session['user']=@user
-      redirect_to "/admin"
+      session[:user_id]=@user.id
+      session[:user]=@user
+      redirect_to admin_path
     else
-      redirect_to "/login2",notice:t('login2.failed')
+      flash[:error]=t('login2.failed')
+      redirect_to "/login2"
     end
   end
 end

@@ -27,15 +27,48 @@ zh:
     name: "分类名"
   _category: "分类"
   category_addtip: "添加新分类，请输入分类名："
+  no_category: "未分类"
+  
+  
+  site:
+    desc: "人，诗意处栖居！"
+    
+  my_story: "我的故事"
+  my_note: "我的日记"
+  my_blog: "我的作品"
+  my_photo: "我的相册"
+  my_vedio: "我的视频"
+  my_memoir: "我的自传"
+  my_idol: "我的偶像"
+  my_info: "关于我"
+  i_follow: "我关注的人"
+  follow_him: "关注他"
+  _note: "日记"
+  _blog: "作品"
+  _photo: "相册"
+  _vedio: "视频"
+  _memoir: "自传"
 
-  _news: "新闻"
-  news:    
-    add: "添加新文章"
+  note:
+    add: "写日记"
+  blog:
+    add: "发表作品"
+    memo: "文章会按照发布日期排序"
+  
+  _login: "登录"
+  login:
+    password_wrong: "密码错误！"
+    user_exist_password_wrong: "用户是存在的，但密码错误！"
+    user_not_exist: "用户不存在！"
+  hello_login: "你好，%{w}。请输入你的管理密码："
 
-  login: "登录"
-  login2:
-    failed: "密码错误！"
-    who: "管理员登录"
+  #member_login: "会员登录"
+  register_new_user: "注册新用户"
+  _register: "注册"
+  forgot_password: "忘记密码"
+  regiter_succ_memo: "您的帐号已经创建成功。“我的故事”网站是关于你的一切。你是独一无二的，你最珍贵。请发布原创文章。我们将尽一切努力保护您的版权和收益。现在就阅读“网站守则”吧！"
+  newest_user: "最近加入会员"
+  
 
   num_error: "个原因"
   op_error: "使得操作未成功"
@@ -48,15 +81,32 @@ zh:
   caption: "提示："
 
   home_page: "首页"
-  return_home: "返回首页"
+  return_home: "返回他的首页"
+  return_root: "我的故事首页"
   contact_us: "联系我们"
+  hot_blog: "热门作品"
+  newest_blog: "最新作品"
+  hot_note: "热门日记"
+  newest_note: "最新日记"
+  view_as_him: "切换到他的视角"
 
-  book_phone: "订餐热线:"
-  is_permanent_url: "是本站的永久访问地址"
-  portion:
-    default_title: "一段话介绍"
-    memo: "(可以是一段像散文般优美的公司经营理念，也可以是你想对网友说的一段话，字数在120-140字之间，这样显示效果最好)"
+
+  #sitename: "网站名称"
+  #official_website: "官方网站"
+  #_menu: "导航"
+#  menu:
+#    name: "名称"
+#    url: "链接url"
+#    description: "描述"
+#    add: "添加新导航"
+
   
+  
+  #book_phone: "订餐热线:"
+  #is_permanent_url: "是本站的永久访问地址"
+
+  #invalid_format: "格式不合要求！"
+
 #  activerecord:
 #    errors:
 #      template:
@@ -249,6 +299,7 @@ zh:
       prompt: "请选择"
 
   errors:
+    #TODO How to change %{attribute} to Chinese name?
     format: "%{attribute} %{message}"
     messages: &errors_messages
       inclusion: "不包含于列表中"
@@ -257,7 +308,7 @@ zh:
       confirmation: "与确认值不匹配"
       accepted: "必须是可被接受的"
       empty: "不能留空"
-      blank: "不能为空字符"
+      blank: "是必填项"
       too_long: "过长（最长为 %{count} 个字符）"
       too_short: "过短（最短为 %{count} 个字符）"
       wrong_length: "长度非法（必须为 %{count} 个字符）"
@@ -291,6 +342,7 @@ zh:
     select:
       prompt: "请选择"
     submit:
-      create: "新增%{model}"
-      update: "更新%{model}"
-      submit: "储存%{model}"
+      #新增%{model}
+      create: "新增"
+      update: "更新"
+      submit: "提交"

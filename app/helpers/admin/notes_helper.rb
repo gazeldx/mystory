@@ -1,0 +1,2 @@
+module Admin::NotesHelper
+end

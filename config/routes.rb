@@ -1,23 +1,51 @@
 Cms::Application.routes.draw do
-  match "login" => "login#to_login"
-  match "login2" => "login2#to_login"
-  match "login2/login" => "login2#login"
-  match "admin" => "admin/home#index"
-  resources :users,:categories,:news,:posts
+
+  match 'login2' => 'login2#to_login'
+  match 'login2/login'
+  match 'admin' => 'admin/home#index'
+  match 'register' => 'users#new'
+  match 'login' => 'login#to_login'
+  match 'login/login'
+  match 'login/member_login'
+  match 'like' => 'like#index'
+  match 'i' => 'i/home#index'
+  resources :users,:categories,:news,:posts,:clients,:notes,:blogs
   namespace :admin do
-    resources :categories,:news,:portions
-    #match "portion" => "portions#edit"
-    get "poem" => "portions#edit"
+    resources :menus do
+      member do
+        get 'up'
+        get 'down'
+      end
+    end
+    resources :categories do
+      member do
+        get 'up'
+        get 'down'
+      end
+    end
+    resources :news,:portions,:lines,:params,:notes,:blogs
+    get 'poem' => 'portions#edit'
+    get 'link' => 'lines#edit'
+    get 'options' => 'params#edit'
+    get 'blog' => 'blogs#index'
+    get 'note' => 'notes#index'
+    get 'diary' => 'notes#index'
+    get 'diaries' => 'notes#index'
+    get 'logout' => 'home#logout'
+  end
+
+  namespace :i do
+    
   end
 
   #This match must in below
-  #match "/:username/news" => "news#index"
-  #match "/:username" => "users#home"
-  #root :to => "users#to_login"
-  root :to => "home#index"
+  #match '/:username/news' => 'news#index'
+  #match '/:username' => 'users#home'
+  #root :to => 'users#to_login'
+  root :to => 'home#index'
   
-  #get tell us home/index is a router path which match controller "home" and action "index" and verb is get
-  #get "home/index"
+  #get tell us home/index is a router path which match controller 'home' and action 'index' and verb is get
+  #get 'home/index'
   #match 'news' => 'news#index'
   #match 'news/:id' => 'news#show'
   # The priority is based upon order of creation:

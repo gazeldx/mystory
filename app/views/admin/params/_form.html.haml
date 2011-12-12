@@ -1,0 +1,16 @@
+=form_for [:admin, @param] do |f|
+  =error_msg @param
+  .field
+    =f.label t('sitename')
+    %br
+    =f.text_field :sitename
+  .field
+    =f.label t('param.memo')
+    %br
+    =f.text_field :memo
+  .field
+    =f.label t('param.teldesc')
+    %br
+    =f.text_field :teldesc
+  .actions
+    =f.submit

@@ -1,6 +1,6 @@
-class Admin::NewsController < Admin::ApplicationController
+class Admin::NewsController < Admin::BaseController
   def index
-    @news = News.where(["user_id = ?", session[:user_id]]).order("created_at DESC")
+    @news = News.where(["user_id = ?", session[:user_id]]).order('created_at DESC')
   end
 
   def new
@@ -14,12 +14,21 @@ class Admin::NewsController < Admin::ApplicationController
   def create
     @news = News.new(params[:news])
     @news.user_id=session[:user_id]
-    redirect_to admin_news_index_path,notice: t('create_succ') if @news.save
+    if @news.save
+      redirect_to admin_news_index_path,notice: t('create_succ')
+    else
+      render :new
+    end
   end
 
   def update
+    #flash[:notice] =  flash will fade away when the second redirect_to happen.
     @news = News.find(params[:id])
-    redirect_to :back, notice: t('update_succ') if @news.update_attributes(params[:news])
+    if @news.update_attributes(params[:news])
+      redirect_to edit_admin_news_path,notice: t('update_succ')
+    else
+      render :edit
+    end
   end
 
   def destroy

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  hotelname: MyString
+  memo: MyText
+  logo: MyText
+  teldesc: MyText
+  user: 
+
+two:
+  hotelname: MyString
+  memo: MyText
+  logo: MyText
+  teldesc: MyText
+  user: 

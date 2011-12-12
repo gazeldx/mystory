@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: atech_development
+  database: mystory_development
   pool: 5
   username: postgres
   password: 85918825
@@ -12,7 +12,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: atech_test
+  database: mystory_test
   pool: 5
   username: postgres
   password: 85918825
@@ -20,7 +20,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: atech_production
+  database: mystory_production
   pool: 5
   username: postgres
   password: 85918825

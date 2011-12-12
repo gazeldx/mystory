@@ -1,21 +1,24 @@
 -head_query
 /#TODO why hr is stronger than sample.html?
 %span.home-title{title:t('return_home')}
-  =link_to @user.name,"/"
-%span.home-maxim 人，诗意处栖居
+  =link_to '张健',"/"
+%span.home-maxim 路独行！
 %span.right
-  =link_to '新浪微博',"/contact"
-  =link_to '留言',"/contact"
-  =link_to '论坛',"/contact"
-  =link_to t('contact_us'),"/contact"
+  /=link_to '新浪微博',"/contact"
+  /=link_to '留言',"/contact"
+  /=link_to '论坛',"/contact"
+  /=link_to t('contact_us'),"/contact"
 %hr
 %h2
-  =navigation_item('home',t('home_page'),'/')
-  =navigation_item('news','新闻动态',news_index_path)
-  =link_to "优惠活动", news_index_path
-  =link_to "美食在线", news_index_path
-  =link_to "分店介绍", news_index_path
-  =link_to "加盟经营", news_index_path
-  =link_to "招募人才", news_index_path
-  =link_to "企业文化", news_index_path
+  =navigation_item(t('_note'),notes_path)
+  =navigation_item(t('_blog'),blogs_path)
+  =navigation_item(t('_photo'),blogs_path)
+  =navigation_item(t('_vedio'),blogs_path)
+  =navigation_item(t('_memoir'),blogs_path)
+  /=link_to "优惠活动", news_index_path
+  /=link_to "美食在线", news_index_path
+  /=link_to "分店介绍", news_index_path
+  /=link_to "加盟经营", news_index_path
+  /=link_to "招募人才", news_index_path
+  /=link_to "企业文化", news_index_path
 %hr

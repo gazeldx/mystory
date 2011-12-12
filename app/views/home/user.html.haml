@@ -1,0 +1,26 @@
+.span-15.prepend-1.colborder
+  %h3=t('my_note')
+  -@blogs.each do |blog|
+    =link_to blog.title, blog
+    %br
+  %h3=t('my_blog')
+  -@notes.each do |note|
+    =link_to note.title, note
+    %br
+  %h3=t('my_photo')
+  %h3=t('my_vedio')
+.span-7.last
+  %h3
+    =link_to t('view_as_him'), 'http://'+@user.domain+".mystory.cc"+like_path
+  %h3
+    =t('my_info')
+  my_img
+  三十不惑。介绍一下自己，描述下自己的人生信念和理想。
+  %h3
+    =link_to t('my_memoir'), root_path
+  遇到一个人，改变了一生。
+  %h3
+    =link_to t('i_follow'), root_path
+  张婷婷 张肖肖
+  %h3=t('my_idol')
+  老子 松本行弘 洛克菲勒 黄家驹 稻盛和夫 海子 乔布斯 彼得*林奇 爱因斯坦 雷军 莫拉维亚

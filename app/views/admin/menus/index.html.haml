@@ -1,0 +1,24 @@
+=title t('_menu')
+=link_to t('menu.add'),new_admin_menu_path
+%br
+%table
+  %tr
+    %th=t('menu.name')
+    %th=t('menu.url')
+    %th=t('menu.description')
+    %th
+    %th
+  -@menus.each_with_index do |menu,i|
+    %tr
+      %td=menu.name
+      %td=menu.url
+      %td=menu.description
+      %td=link_to t(:edit), edit_admin_menu_path(menu)
+      %td=link_to t(:delete), admin_menu_path(menu), confirm:t('confirm.delete'), method: :delete
+      %td
+        -if i>0
+          =link_to t(:up), up_admin_menu_path(menu)
+        -else
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        -if i<@menus.length-1
+          =link_to t(:down), down_admin_menu_path(menu)

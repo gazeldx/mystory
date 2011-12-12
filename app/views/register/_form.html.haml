@@ -1,0 +1,24 @@
+=form_for @user do |f|
+  =error_msg @user
+  /diandian reg is good
+  用户名
+  =f.text_field :username
+  可用于登录，英文字母、数字和_
+  %br
+  邮箱
+  =f.text_field :email
+  可用于登录
+  %br
+  个性域名
+  =f.text_field :domain
+  可用于登录，支持http://yourname.mystory.cc 和 http://mystory.cc/yourname访问，建议你使用姓名的拼音
+  %br
+  真实姓名
+  =f.text_field :name
+  “我的故事”是真实社交网络
+  %br
+  密码
+  =f.password_field :passwd
+  %br
+  .actions
+    =f.submit
