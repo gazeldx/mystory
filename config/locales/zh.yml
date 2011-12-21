@@ -22,7 +22,7 @@ zh:
   hello: "你好"
   title: "标题"
   content: "内容"
-  category_: "分类目录"
+  _category: "分类目录"
   category:
     name: "分类名"
   _category: "分类"
@@ -32,7 +32,11 @@ zh:
   
   site:
     desc: "人，诗意处栖居！"
-    
+  more: "更多"
+  avatar: "头像"
+
+  my_home_page: "我的主页"
+  plaza: "广场"
   my_story: "我的故事"
   my_note: "我的日记"
   my_blog: "我的作品"
@@ -40,9 +44,9 @@ zh:
   my_vedio: "我的视频"
   my_memoir: "我的自传"
   my_idol: "我的偶像"
-  my_info: "关于我"
+  my_info: "个人资料"
   i_follow: "我关注的人"
-  follow_him: "关注他"
+  follow_him: "加关注"
   _note: "日记"
   _blog: "作品"
   _photo: "相册"
@@ -54,21 +58,38 @@ zh:
   blog:
     add: "发表作品"
     memo: "文章会按照发布日期排序"
-  
+  _profile: "查看详细资料"
+  maxim: "座右铭"
+  profile:
+    memo: "个人介绍"
+    memo_memo: "介绍下你的经历，性格，信念，梦想等"
+  account_settings: "帐号设置"
+  _post: "发布"
+
+  _account: "帐号"
+  _admin_title: "管理我的帐号"
   _login: "登录"
   login:
     password_wrong: "密码错误！"
     user_exist_password_wrong: "用户是存在的，但密码错误！"
     user_not_exist: "用户不存在！"
   hello_login: "你好，%{w}。请输入你的管理密码："
+  logout: "退出"
+  password: "密码"
 
   #member_login: "会员登录"
   register_new_user: "注册新用户"
   _register: "注册"
   forgot_password: "忘记密码"
-  regiter_succ_memo: "您的帐号已经创建成功。“我的故事”网站是关于你的一切。你是独一无二的，你最珍贵。请发布原创文章。我们将尽一切努力保护您的版权和收益。现在就阅读“网站守则”吧！"
-  newest_user: "最近加入会员"
-  
+  regiter_succ_memo: "您的帐号已经创建成功。“我的故事”网站是关于你的一切。请发布原创文章。我们将努力保护您的版权和收益。网站才刚起步，希望你能常来看看。"
+  new_user: "最近加入会员"
+  user_name: "用户名"
+  user_name_desc: "可用于登录，英文字母、数字和_"
+  can_login: "可用于登录"
+  domain: "个性域名"
+  domain_desc: "可用于登录，建议你使用姓名的拼音，支持http://yourname.mystory.cc 和 http://mystory.cc/yourname访问"
+  real_name: "真实姓名"
+  name_desc: "“我的故事”是真实社交网络"
 
   num_error: "个原因"
   op_error: "使得操作未成功"
@@ -80,17 +101,20 @@ zh:
   password: "密码"
   caption: "提示："
 
+  #view: "视角"
   home_page: "首页"
   return_home: "返回他的首页"
   return_root: "我的故事首页"
   contact_us: "联系我们"
   hot_blog: "热门作品"
-  newest_blog: "最新作品"
+  new_blog: "最新作品"
   hot_note: "热门日记"
-  newest_note: "最新日记"
-  view_as_him: "切换到他的视角"
+  new_note: "最新日记"
+  view_as_him: "看他所看"
+  view_as_him_desc: "切换到他的视角，看他每天都看些什么"
 
-
+  unfinished: "尚未完工，敬请期待"
+  
   #sitename: "网站名称"
   #official_website: "官方网站"
   #_menu: "导航"

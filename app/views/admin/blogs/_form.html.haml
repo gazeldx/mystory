@@ -1,22 +1,30 @@
-=javascript_include_tag "javascripts/ckeditor/ckeditor.js"
-=form_for [:admin, @blog] do |f|
-  =error_msg @blog
+= javascript_include_tag "javascripts/ckeditor/ckeditor.js"
+= form_for [:admin, @blog] do |f|
+  = error_msg @blog
   .field
-    =f.label t('title')
+    = f.label t'title'
     %br
-    =f.text_field :title
+    = f.text_field :title
   .field
-    =f.label t('content')
+    = f.label t'content'
     %br
-    =f.text_area :content
-    =ckeditor_js "news_content"
+    = f.text_area :content
+    = ckeditor_js "blog_content"
+  - query_categories
+  - if @_categories.blank?
+    .field
+      = f.label t'_category'
+      %br
+      = text_field_tag :category_name
+      填写后将自动创建分类
+  - else
+    .field
+      = f.label t'_category'
+      = collection_select :blog, :category_id, @_categories, :id, :name
   .field
-    =f.label t('_category')
-    =collection_select :blog, :category_id, query_categories, :id, :name
-  .field
-    =t('release_date')
-    =t('blog.memo')
+    = t'release_date'
     %br
-    =date_select :blog, :created_at
+    = date_select :blog, :created_at
+    = t'blog.memo'
   .actions
-    =f.submit
+    = f.submit t'_post'

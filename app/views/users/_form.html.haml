@@ -1,24 +1,23 @@
-=form_for @user do |f|
-  =error_msg @user
+= form_for @user, :html => {:multipart => true} do |f|
+  = error_msg @user
   /diandian reg is good
-  用户名
-  =f.text_field :username
-  可用于登录，英文字母、数字和_
+  = t'user_name'
+  = f.text_field :username
+  = t'user_name_desc'
   %br
-  邮箱
-  =f.text_field :email
-  可用于登录
+  Email
+  = f.text_field :email
+  = t'can_login'
   %br
-  个性域名
-  =f.text_field :domain
-  可用于登录，建议你使用姓名的拼音，支持http://yourname.mystory.cc 和 http://mystory.cc/yourname访问
+  = t'domain'
+  = f.text_field :domain
+  = t'domain_desc'
   %br
-  真实姓名
-  =f.text_field :name
-  “我的故事”是真实社交网络
+  = t'real_name'
+  = f.text_field :name
+  = t'name_desc'
   %br
-  密码
-  =f.password_field :passwd
-  %br
+  = t'password'
+  = f.password_field :passwd
   .actions
-    =f.submit
+    = f.submit t'_register'

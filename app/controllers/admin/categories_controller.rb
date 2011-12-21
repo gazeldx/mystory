@@ -7,7 +7,7 @@ class Admin::CategoriesController < Admin::BaseController
   #respond_to :html, :js
   
   def index
-    @categories = Category.where(["user_id = ?", session[:user_id]]).order('created_at')
+    @categories = Category.where(["user_id = ?", session[:id]]).order('created_at')
     @category = Category.new
   end
 
@@ -55,13 +55,13 @@ class Admin::CategoriesController < Admin::BaseController
 
   def up
     @category = Category.find(params[:id])
-    @category_t=Category.where(["user_id = ? AND created_at < ?", session[:user_id],@category.created_at]).order('created_at DESC').first
+    @category_t=Category.where(["user_id = ? AND created_at < ?", session[:id],@category.created_at]).order('created_at DESC').first
     exchange_create_at
   end
 
   def down
     @category = Category.find(params[:id])
-    @category_t=Category.where(["user_id = ? AND created_at > ?", session[:user_id],@category.created_at]).order('created_at').first
+    @category_t=Category.where(["user_id = ? AND created_at > ?", session[:id],@category.created_at]).order('created_at').first
     exchange_create_at
   end
 

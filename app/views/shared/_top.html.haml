@@ -1,5 +1,11 @@
 %span.right
-  =link_to t('home_page'),"/",title:t('return_root')
-  =link_to t('follow_him'),"/contact"
-  =link_to t('_login'),"/contact"
-  =link_to t('_register'),"/contact"
+  /TODO search web here
+  - if session[:id].nil?
+    = link_to t('my_story'), SITE_URL, title: t('return_root')
+    = link_to t('_login'), SITE_URL
+    = link_to t('_register'), SITE_URL + register_path
+  - else
+    = link_to t('home_page'), my_site + like_path
+    = link_to t('plaza'), SITE_URL
+    /= link_to session[:name], my_site
+    = link_to t('_account'), my_site + admin_path, title: t('_admin_title')

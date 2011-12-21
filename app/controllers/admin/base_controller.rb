@@ -3,9 +3,9 @@ class Admin::BaseController < ActionController::Base
 
   protect_from_forgery
   before_filter :check_session
-
+  
   private
   def check_session
-    redirect_to "/login" if session[:user_id].nil?
+    redirect_to "/login" if session[:id].nil?
   end
 end

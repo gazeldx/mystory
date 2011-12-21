@@ -1,0 +1,46 @@
+=title t('_blog')
+.span-15.prepend-1.colborder
+  %h2=@blog.title
+  发布于
+  =(@blog.created_at+8.hour).strftime '%Y年%m月%d日 %H:%M'
+  -unless @blog.category.nil?
+    分类:
+    =link_to @blog.category.name, @blog.category
+  %br
+  !=@blog.content
+  %br
+  新一篇
+  -if @blog_pre.nil?
+    无
+  -else
+    =link_to @blog_pre.title, @blog_pre
+  %br
+  旧一篇
+  -if @blog_next.nil?
+    无
+  -else
+    =link_to @blog_next.title, @blog_next
+.span-7.last
+  %h3=t '_category'
+  -@categories.each do |category|
+    -if !@blog.category.nil? && @blog.category.id==category.id
+      =link_to category.name, category, class:'selected'
+    -else
+      =link_to category.name, category
+    %br
+  %h3
+    某某人推荐你阅读
+  -@blogs_recommend.each do |blog|
+    -if blog.id==@blog.id
+      =link_to blog.title, blog, class:'selected'
+    -else
+      =link_to blog.title, blog
+    %br
+  %h3
+    某某人最近作品
+  -@blogs_new.each do |blog|
+    -if blog.id==@blog.id
+      =link_to blog.title, blog, class:'selected'
+    -else
+      =link_to blog.title, blog
+    %br

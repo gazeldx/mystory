@@ -1,0 +1,25 @@
+<%= form_for(@follow) do |f| %>
+  <% if @follow.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@follow.errors.count, "error") %> prohibited this follow from being saved:</h2>
+
+      <ul>
+      <% @follow.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :me %><br />
+    <%= f.number_field :me %>
+  </div>
+  <div class="field">
+    <%= f.label :you %><br />
+    <%= f.number_field :you %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

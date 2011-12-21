@@ -5,24 +5,25 @@ class HomeController < ApplicationController
     if @user.nil?
       #@portion = Portion.find_by_user_id(@user.id)
       #@line = Line.find_by_user_id(@user.id)
-      @new_notes = Note.order("created_at DESC").limit(20)
-      @new_blogs = Blog.order("created_at DESC").limit(20)
-      @hot_notes = Note.order("created_at DESC").limit(20)
-      @hot_blogs = Blog.order("created_at DESC").limit(20)
+      @notes_new = Note.order("created_at DESC").limit(20)
+      @blogs_new = Blog.order("created_at DESC").limit(20)
+      @notes_hot = Note.order("created_at DESC").limit(20)
+      @blogs_hot = Blog.order("created_at DESC").limit(20)
       #@categories = Category.where(["user_id = ?", @user.id])
-      @users = User.order("created_at DESC").limit(20)
+      @users = User.order("created_at DESC").limit(20)      
       render layout:'portal'
     else
       @notes = Note.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
       @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
-      q_categories
+      sidebar_query
+      query_categories
       render :user
     end
   end
 
-  def q_categories
-    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
-  end
+#  def q_categories
+#    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
+#  end
 
   private
   def audit

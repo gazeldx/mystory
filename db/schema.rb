@@ -11,11 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205090002) do
+ActiveRecord::Schema.define(:version => 20111220013101) do
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
     t.text     "content"
+    t.boolean  "recommend",   :default => false
     t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -32,63 +33,18 @@ ActiveRecord::Schema.define(:version => 20111205090002) do
     t.datetime "updated_at"
   end
 
-  create_table "ckeditor_assets", :force => true do |t|
-    t.string   "data_file_name",                  :null => false
-    t.string   "data_content_type"
-    t.integer  "data_file_size"
-    t.integer  "assetable_id"
-    t.string   "assetable_type",    :limit => 30
-    t.string   "type",              :limit => 30
+  create_table "follows", :force => true do |t|
+    t.integer  "followable_id",                      :null => false
+    t.string   "followable_type",                    :null => false
+    t.integer  "follower_id",                        :null => false
+    t.string   "follower_type",                      :null => false
+    t.boolean  "blocked",         :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
-  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
-
-  create_table "clients", :force => true do |t|
-    t.string   "loginname"
-    t.string   "name"
-    t.string   "passwd"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "lines", :force => true do |t|
-    t.string   "title"
-    t.string   "content1"
-    t.string   "url1"
-    t.string   "content2"
-    t.string   "url2"
-    t.string   "content3"
-    t.string   "url3"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "lines", ["user_id"], :name => "index_lines_on_user_id"
-
-  create_table "menus", :force => true do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "description"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "menus", ["user_id"], :name => "index_menus_on_user_id"
-
-  create_table "news", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "category_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
+  add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
   create_table "notes", :force => true do |t|
     t.text     "content"
@@ -98,26 +54,6 @@ ActiveRecord::Schema.define(:version => 20111205090002) do
   end
 
   add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
-
-  create_table "params", :force => true do |t|
-    t.string   "sitename"
-    t.string   "memo"
-    t.string   "logo"
-    t.string   "teldesc"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "params", ["user_id"], :name => "index_params_on_user_id"
-
-  create_table "portions", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "posts", :force => true do |t|
     t.string   "name"
@@ -133,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20111205090002) do
     t.string   "passwd"
     t.string   "email"
     t.string   "domain"
+    t.string   "memo"
+    t.string   "maxim"
+    t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

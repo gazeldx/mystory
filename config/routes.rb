@@ -1,42 +1,38 @@
 Cms::Application.routes.draw do
-
-  match 'login2' => 'login2#to_login'
-  match 'login2/login'
   match 'admin' => 'admin/home#index'
+
   match 'register' => 'users#new'
   match 'login' => 'login#to_login'
   match 'login/login'
   match 'login/member_login'
+
   match 'like' => 'like#index'
-  match 'i' => 'i/home#index'
-  resources :users,:categories,:news,:posts,:clients,:notes,:blogs
+
+  match 'follow_me' => 'follows#follow_me'
+
+  #TODO need to changed to blog
+  #match '/blo/:id' => 'blogs#view'
+  #get 'note' => 'notes#index'
+  #get 'diary' => 'notes#index'
+  #get 'blog' => 'blogs#index'
+  resources :users,:categories,:posts,:notes,:blogs,:follows
+  
   namespace :admin do
-    resources :menus do
-      member do
-        get 'up'
-        get 'down'
-      end
-    end
     resources :categories do
       member do
         get 'up'
         get 'down'
       end
     end
-    resources :news,:portions,:lines,:params,:notes,:blogs
-    get 'poem' => 'portions#edit'
-    get 'link' => 'lines#edit'
-    get 'options' => 'params#edit'
-    get 'blog' => 'blogs#index'
-    get 'note' => 'notes#index'
-    get 'diary' => 'notes#index'
-    get 'diaries' => 'notes#index'
-    get 'logout' => 'home#logout'
-  end
+    resources :users,:notes,:blogs
 
-  namespace :i do
-    
-  end
+    get 'logout' => 'home#logout'
+    match 'profile' => 'users#edit'
+    #    get 'diaries' => 'notes#index'
+    #    get 'blog' => 'blogs#index'
+    #    get 'note' => 'notes#index'
+    #    get 'diary' => 'notes#index'
+  end 
 
   #This match must in below
   #match '/:username/news' => 'news#index'

@@ -1,0 +1,16 @@
+.span-7.last
+  %h3
+    = link_to t('my_memoir'), root_path
+  遇到一个人，改变了一生。
+  %h3
+    = link_to t('i_follow'), root_path
+  - @user.all_following.each do |guy|
+    = link_to guy.name, site(guy)
+    &nbsp;
+  %h3= t'my_idol'
+  老子 松本行弘 洛克菲勒 黄家驹 稻盛和夫 海子 乔布斯 彼得*林奇 爱因斯坦 雷军 莫拉维亚
+  %h3
+    我推荐你阅读
+  - @blogs_recommend.each do |blog|
+    = link_to blog.title, blog
+    %br

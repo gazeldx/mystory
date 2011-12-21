@@ -1,0 +1,39 @@
+= form_for [:admin, @_user] do |f|
+  = error_msg @_user
+  = t'avatar'
+  \:
+  = image_tag(@_user.avatar.thumb.url)
+  = f.file_field :avatar
+  = f.hidden_field :avatar_cache
+  %br
+  = t'user_name'
+  \:
+  = @_user.username
+  = t'can_login'
+  %br
+  Email :
+  = @_user.email
+  = t'can_login'
+  %br
+  = t'real_name'
+  = f.text_field :name
+  = t'name_desc'
+  %br
+  = t'domain'
+  = f.text_field :domain
+  = t'domain_desc'  
+  %br
+  = t'maxim'
+  = f.text_field :maxim
+  %br
+  = t'profile.memo'
+  = f.text_area :memo, size: "40x3"
+  = t'profile.memo_memo'  
+  .actions
+    = f.submit
+= form_for [:admin, @_user] do |f|
+  = error_msg @_user
+  = t'password'
+  = f.password_field :passwd
+  .actions
+    = f.submit

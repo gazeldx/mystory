@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Me:</b>
+  <%= @follow.me %>
+</p>
+
+<p>
+  <b>You:</b>
+  <%= @follow.you %>
+</p>
+
+
+<%= link_to 'Edit', edit_follow_path(@follow) %> |
+<%= link_to 'Back', follows_path %>

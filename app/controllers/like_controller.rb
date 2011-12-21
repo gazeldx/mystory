@@ -1,3 +1,7 @@
 class LikeController < ApplicationController
-  layout 'portal'
+#  layout 'like'
+
+  def index
+    sidebar_query
+  end
 end

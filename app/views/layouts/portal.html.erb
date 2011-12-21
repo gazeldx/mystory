@@ -8,8 +8,11 @@
 </head>
 <body>
 <div class='container'>
-<%= render 'shared/head_portal' %>
-<%= yield %>
+<div class='span-15 prepend-1 colborder'>
+  <%= render 'shared/head_portal' %>
+  <%= yield %>
+</div>
+<%= render 'shared/side_portal' %>
 </div>
 </body>
 </html>

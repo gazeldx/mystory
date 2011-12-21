@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Phote</th>
     <th>Username</th>
     <th>Name</th>
     <th>Passwd</th>
@@ -14,6 +15,7 @@
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= image_tag(user.avatar.thumb.url) %></td>
     <td><%= user.username %></td>
     <td><%= user.name %></td>
     <td><%= user.passwd %></td>

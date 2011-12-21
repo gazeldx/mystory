@@ -9,8 +9,11 @@
 <body>
 <div class='container'>
 <%= render 'shared/top' %>
-<%= render 'shared/head' %>
-<%= yield %>
+<div class='span-15 prepend-1 colborder'>
+  <%= render 'shared/head_user' %>
+  <%= yield %>
+</div>
+<%= render 'shared/side_user' %>
 </div>
 </body>
 </html>

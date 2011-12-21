@@ -1,43 +1,23 @@
-.span-7.last
-  %h3
-    =link_to t('register_new_user'), register_path
-  =form_tag "login/member_login" do
-    -if flash[:error]
-      #error=flash[:error]
-    /weibo login is good
-    邮箱/会员帐号/个性域名
-    =text_field_tag :loginname
-    %br
-    密码
-    %br
-    =password_field_tag :passwd
-    %br
-    %input(type='checkbox')下次自动登录
-    =t('forgot_password')
-    %br
-    %input(type='submit' value='登录')
-%hr
-%h3=t('hot_blog')
--@hot_blogs.each do |blog|
-  =link_to blog.title, blog
+/TODO tags and search need to add here
+/%h3= t'hot_blog'
+/- @blogs_hot.each do |blog|
+/  = link_to blog.title, blog_path(blog)
+/  = link_to blog.user.name, site(blog.user)
+/  %br
+/%h3= t'hot_note'
+/- @notes_hot.each do |note|
+/  = link_to note.content, note
+/  = link_to note.user.name, site(note.user)
+/  %br
+/%br
+%h3= t'new_blog'
+- @blogs_new.each do |blog|
+  = link_to blog.title, blog
+  = link_to blog.user.name, site(blog.user)
   %br
-%h3=t('hot_note')
--@hot_notes.each do |note|
-  =link_to note.content, note
-  %br
-%br
-%h3=t('newest_blog')
--@new_blogs.each do |blog|
-  =link_to blog.title, blog
-  %br
-%h3=t('newest_note')
--@new_notes.each do |note|
-  =link_to note.content, note
+%h3= t'new_note'
+- @notes_new.each do |note|
+  = link_to note.content, note
+  = link_to note.user.name, site(note.user)
   %br
 /editor think best list
-%br
-/TOP关注度会员
-%h3=t('newest_user')
--@users.each do |user|
-  =link_to user.name, user.domain
-  %br

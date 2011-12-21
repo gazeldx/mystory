@@ -1,6 +1,6 @@
 #Client login
 class LoginController < ApplicationController
-
+  layout 'others'
   #in user domain login directly
   def login
     if @user.passwd==params[:passwd]
@@ -14,12 +14,12 @@ class LoginController < ApplicationController
   #login in home page
   def member_login
     if params[:loginname] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-      @user=User.find_by_email(params[:loginname])
+      @user = User.find_by_email(params[:loginname])
       judge_user
     else
-      @user=User.find_by_username(params[:loginname])
+      @user = User.find_by_username(params[:loginname])
       if @user.nil? || @user.passwd!=params[:passwd]
-        @user=User.find_by_domain(params[:loginname])
+        @user = User.find_by_domain(params[:loginname])
         judge_user
       else
         login_now
@@ -28,6 +28,14 @@ class LoginController < ApplicationController
   end
 
   private
+
+  def login_now
+    session[:id] = @user.id
+    session[:name] = @user.name
+    session[:domain] = @user.domain
+    redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
+  end
+  
   def judge_user
     if @user.nil?
       flash[:error]=t('login.user_not_exist')

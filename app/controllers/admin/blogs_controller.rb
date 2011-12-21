@@ -1,6 +1,6 @@
 class Admin::BlogsController < Admin::BaseController
   def index
-    @blogs = Blog.where(["user_id = ?", session[:user_id]]).order('created_at DESC')
+    @blogs = Blog.where(["user_id = ?", session[:id]]).order('created_at DESC')
   end
 
   def new
@@ -13,7 +13,24 @@ class Admin::BlogsController < Admin::BaseController
 
   def create
     @blog = Blog.new(params[:blog])
-    @blog.user_id=session[:user_id]
+    @blog.user_id = session[:id]
+    if params[:category_name].nil?
+      create_proc
+    else
+      @category = Category.new()
+      @category.name = params[:category_name]
+      @category.user_id = session['user_id']
+      if @category.save
+        @blog.category_id = @category.id
+        create_proc
+      else
+        flash[:error]=t('taken',w: @category.name)
+        render :new
+      end
+    end
+  end
+
+  def create_proc
     if @blog.save
       redirect_to admin_blogs_path,notice: t('create_succ')
     else

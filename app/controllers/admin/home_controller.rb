@@ -4,8 +4,8 @@ class Admin::HomeController < Admin::BaseController
   end
 
   def logout
-    session[:user_id] = nil
-    session[:user] = nil
+    session[:id] = nil
+    session[:name] = nil
     redirect_to root_path
   end
 end

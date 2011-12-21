@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'portal'
+  layout 'others'
   
   def index
     @users = User.all
@@ -9,22 +9,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def new
-    @user = User.new
-  end
-
   def edit
     @user = User.find(params[:id])
-  end
-
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:notice]=t('regiter_succ_memo')
-      login_now
-    else
-      render :action=> "new"
-    end
   end
 
   def update
@@ -33,6 +19,27 @@ class UsersController < ApplicationController
       redirect_to @user, notice: t('update_succ')
     else
       render action: "edit"
+    end
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(params[:user])
+    @user.avatar = params[:file]
+    #TODO change file name
+    #@user.avatar = File.open('somewhere')
+    #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
+    if @user.save
+      flash[:notice]=t'regiter_succ_memo'
+      session[:id] = @user.id
+      session[:name] = @user.name
+      session[:domain] = @user.domain
+      redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
+    else
+      render :action=> "new"
     end
   end
 
