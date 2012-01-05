@@ -2,6 +2,7 @@
 log/*.log
 tmp/
 .sass-cache/
+nbproject/
 config/routes.rb
 Gemfile
 Gemfile.lock

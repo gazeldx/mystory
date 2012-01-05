@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111220013101) do
+ActiveRecord::Schema.define(:version => 20120104101311) do
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
@@ -46,6 +46,29 @@ ActiveRecord::Schema.define(:version => 20111220013101) do
   add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
+  create_table "hobbies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "idols", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "memoirs", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memoirs", ["user_id"], :name => "index_memoirs_on_user_id"
+
   create_table "notes", :force => true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -63,6 +86,46 @@ ActiveRecord::Schema.define(:version => 20111220013101) do
     t.datetime "updated_at"
   end
 
+  create_table "rblogs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "blog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rblogs", ["blog_id"], :name => "index_rblogs_on_blog_id"
+  add_index "rblogs", ["user_id"], :name => "index_rblogs_on_user_id"
+
+  create_table "rhobbies", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "hobby_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rhobbies", ["hobby_id"], :name => "index_rhobbies_on_hobby_id"
+  add_index "rhobbies", ["user_id"], :name => "index_rhobbies_on_user_id"
+
+  create_table "ridols", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "idol_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ridols", ["idol_id"], :name => "index_ridols_on_idol_id"
+  add_index "ridols", ["user_id"], :name => "index_ridols_on_user_id"
+
+  create_table "rnotes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "note_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rnotes", ["note_id"], :name => "index_rnotes_on_note_id"
+  add_index "rnotes", ["user_id"], :name => "index_rnotes_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "name"
@@ -72,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20111220013101) do
     t.string   "memo"
     t.string   "maxim"
     t.string   "avatar"
+    t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

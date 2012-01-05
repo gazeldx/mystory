@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :memo
       t.string :maxim
       t.string :avatar
+      t.string :city
       t.timestamps
     end
   end

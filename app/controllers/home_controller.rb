@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   #before_filter :audit  
   def index
     #TODO here login user will see the guy he attention like douban.com .I will do it later
-    if @user.nil?
+    if @user.nil?      
       #@portion = Portion.find_by_user_id(@user.id)
       #@line = Line.find_by_user_id(@user.id)
       @notes_new = Note.order("created_at DESC").limit(20)
@@ -10,20 +10,20 @@ class HomeController < ApplicationController
       @notes_hot = Note.order("created_at DESC").limit(20)
       @blogs_hot = Blog.order("created_at DESC").limit(20)
       #@categories = Category.where(["user_id = ?", @user.id])
-      @users = User.order("created_at DESC").limit(20)      
+      @users = User.order("created_at DESC").limit(20)
       render layout:'portal'
     else
-      @notes = Note.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
-      @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
-      sidebar_query
-      query_categories
+      @notes = @user.notes.order("created_at DESC").limit(10)
+      #      @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
+      @blogs = @user.blogs.order("created_at DESC").limit(10)
+      #      query_categories
       render :user
     end
   end
 
-#  def q_categories
-#    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
-#  end
+  #  def q_categories
+  #    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
+  #  end
 
   private
   def audit

@@ -1,23 +1,4 @@
-/TODO tags and search need to add here
-/%h3= t'hot_blog'
-/- @blogs_hot.each do |blog|
-/  = link_to blog.title, blog_path(blog)
-/  = link_to blog.user.name, site(blog.user)
-/  %br
-/%h3= t'hot_note'
-/- @notes_hot.each do |note|
-/  = link_to note.content, note
-/  = link_to note.user.name, site(note.user)
-/  %br
-/%br
-%h3= t'new_blog'
-- @blogs_new.each do |blog|
-  = link_to blog.title, blog
-  = link_to blog.user.name, site(blog.user)
-  %br
-%h3= t'new_note'
-- @notes_new.each do |note|
-  = link_to note.content, note
-  = link_to note.user.name, site(note.user)
-  %br
-/editor think best list
+/TODO tags and search need to add here. hot blog and hot note hot pic etc
+= title t('web_desc') + " -- 我的故事原创社交网络"
+= render 'portal_top'
+= render 'portal_article'

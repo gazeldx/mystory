@@ -19,7 +19,7 @@ class Admin::BlogsController < Admin::BaseController
     else
       @category = Category.new()
       @category.name = params[:category_name]
-      @category.user_id = session['user_id']
+      @category.user_id = session[:id]
       if @category.save
         @blog.category_id = @category.id
         create_proc

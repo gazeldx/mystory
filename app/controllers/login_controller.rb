@@ -1,6 +1,6 @@
 #Client login
 class LoginController < ApplicationController
-  layout 'others'
+  layout 'portal_others'
   #in user domain login directly
   def login
     if @user.passwd==params[:passwd]

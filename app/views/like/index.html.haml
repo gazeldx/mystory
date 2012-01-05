@@ -1,2 +1,69 @@
-.span-7.last
-  %h3 我关注的人的信息
+= title t('active_state', w: @user.name)
+#miniblog
+  - if @user.id == session[:id]
+    #db-talk.mod.talk-disable
+      = form_for @note do |f|
+        .item
+          = f.text_area :content
+        .btn
+          %span.tipmsg
+            - if flash[:notice]
+              #notice= flash[:notice]
+          %span.bn-flat
+            = f.submit t'_post'
+  #db-timeline-hd.clearfix
+    %ul.menu-list
+      - url = link_to t('all'), like_path
+      - if params[:t].nil?
+        %li.on= url
+      - else
+        %li= url
+      - url = link_to t('_note'), like_path + '?t=note'
+      - if params[:t] == 'note'
+        %li.on= url
+      - else
+        %li= url
+      - url = link_to t('_blog'), like_path + '?t=blog'
+      - if params[:t] == 'blog'
+        %li.on= url
+      - else
+        %li= url
+  %ul.mbt
+    - @all.each do |item|
+      - if item.is_a?(Note)
+        %li.mbtl
+          %a{:href => site(item.user), :target => '_blank'}
+            /= image_tag(blog.user.avatar.thumb.url)
+            = render 'test'
+        %li.mbtr
+          = link_to item.user.name, site(item.user), :target => '_blank'
+          \:
+          %span.inq
+            = summary(item.content, 200)
+            %br
+            %span.pl
+              = (item.created_at + 8.hour).strftime '%m月%d日 %H:%M'
+            &nbsp;
+            = link_to t('recommend'), site(item.user) + blog_path(item), :target => '_blank'
+            &nbsp;
+            = link_to t('_comment'), site(item.user) + blog_path(item), :target => '_blank'
+      - elsif item.is_a?(Blog)
+        %li.mbtl
+          %a{:href => site(item.user), :target => '_blank'}
+            /= image_tag(blog.user.avatar.thumb.url)
+            = render 'test'
+        %li.mbtr
+          = link_to item.user.name, site(item.user), :target => '_blank'
+          %span.pl
+            发表作品
+            = link_to item.title, site(item.user) + blog_path(item), :target => '_blank'
+          /.quote
+          %span.inq
+            = summary(item.content, 200)
+            %br
+            %span.pl
+              = (item.created_at + 8.hour).strftime '%m月%d日 %H:%M'
+            &nbsp;
+            = link_to t('recommend'), site(item.user) + blog_path(item), :target => '_blank'
+            &nbsp;
+            = link_to t('_comment'), site(item.user) + blog_path(item), :target => '_blank'

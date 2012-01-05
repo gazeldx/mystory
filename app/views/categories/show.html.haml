@@ -1,18 +1,10 @@
-.span-15.prepend-1.colborder
-  %h2
-    =@category.name
-    =t 'article_in'
-  -@news.each do |news|
-    =link_to news.title, news
-    &nbsp;
-    =(news.created_at+8.hour).strftime '%Y.%m.%d'
-    %br
-  =will_paginate @news
-.span-7.last
-  %h3=t('category_')
-  -@categories.each do |category|
-    -if category.id==@category.id
-      =link_to category.name,category,class:'selected'
-    -else
-      =link_to category.name,category
-    %br
+%h3
+  = t'my_blog'
+  >>
+  = @category.name
+- @blogs.each do |blog|
+  = blog.content.size
+  = link_to blog.title, blog
+  = (blog.created_at + 8.hour).strftime '%m月%d日 %H:%M'
+  != blog.content[0,160]
+  %br

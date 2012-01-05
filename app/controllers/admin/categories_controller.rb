@@ -17,7 +17,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def create
     @category = Category.new(params[:category])
-    @category.user_id=session['user_id']
+    @category.user_id=session[:id]
     if @category.save
       flash[:notice]=t('create_succ',w: t('_category'))
     else

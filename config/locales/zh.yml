@@ -22,14 +22,27 @@ zh:
   hello: "你好"
   title: "标题"
   content: "内容"
-  _category: "分类目录"
+  _category: "作品分类"
   category:
     name: "分类名"
-  _category: "分类"
   category_addtip: "添加新分类，请输入分类名："
   no_category: "未分类"
+
+  _dot: "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"
+  chinese_etc: "⋯⋯"
+  web_desc: "这世界，我来过"
+  he_editor: "他当主编"
+  see_what_he_edit: "看他推荐的内容"
+  note_post_succ: "日记发布成功！"
   
+  all: "全部"
+  recommend: "推荐"
+  _comment: "评论"
+  active_state: "%{w}关注的人动态"
   
+  whole_article: "全文"
+  ren: "人"
+  #all: "阅读全文"
   site:
     desc: "人，诗意处栖居！"
   more: "更多"
@@ -42,17 +55,31 @@ zh:
   my_blog: "我的作品"
   my_photo: "我的相册"
   my_vedio: "我的视频"
-  my_memoir: "我的自传"
-  my_idol: "我的偶像"
+  #my_memoir: "我的自传"
+  #my_idol: "我的偶像"
   my_info: "个人资料"
+  s_home_page: "%{w}的主页"
+  s_note: "%{w}的日记"
+  s_blog: "%{w}的作品"
+  s_memoir: "%{w}自传"
+  s_follow: "%{w}关注的人"
+  s_categories: "%{w}作品"
+  s_recommend: "%{w}推荐阅读"
+  s_idol: "%{w}的偶像"
+  _recommend: "推荐阅读："
+
+  r_note: "%{w}推荐的日记"
+  r_blog: "%{w}推荐的作品"
+
   i_follow: "我关注的人"
   follow_him: "加关注"
+  unfollow: "取消关注"
   _note: "日记"
   _blog: "作品"
   _photo: "相册"
   _vedio: "视频"
   _memoir: "自传"
-
+  _memoir_name: "自传名"
   note:
     add: "写日记"
   blog:
@@ -66,7 +93,9 @@ zh:
   account_settings: "帐号设置"
   _post: "发布"
 
-  _account: "帐号"
+  user_help: "帮助中心"
+  #_account: "帐号"
+  manage: "管理"
   _admin_title: "管理我的帐号"
   _login: "登录"
   login:
@@ -87,9 +116,9 @@ zh:
   user_name_desc: "可用于登录，英文字母、数字和_"
   can_login: "可用于登录"
   domain: "个性域名"
-  domain_desc: "可用于登录，建议你使用姓名的拼音，支持http://yourname.mystory.cc 和 http://mystory.cc/yourname访问"
+  domain_desc: "可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc和http://mystory.cc/yourname访问"
   real_name: "真实姓名"
-  name_desc: "“我的故事”是真实社交网络"
+  name_desc: "“我的故事”是真实社交网络，请务必填写真实姓名！"
 
   num_error: "个原因"
   op_error: "使得操作未成功"

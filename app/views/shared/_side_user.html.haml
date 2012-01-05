@@ -1,16 +1,63 @@
-.span-7.last
-  %h3
-    = link_to t('my_memoir'), root_path
-  遇到一个人，改变了一生。
-  %h3
-    = link_to t('i_follow'), root_path
+#event
+  %h2
+    = t('s_memoir',w: @user.name)
+    &nbsp;·&nbsp;·&nbsp;·
+    %span.pl
+      &nbsp;(
+      = link_to t('whole_article'), memoirs_path
+      )
+  .text
+    - @memoir = Memoir.find_by_user_id(@user.id)
+    - if @memoir.nil?
+      我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
+      %br
+      - if @user.id == session[:id]
+        现在就开始
+        = link_to "写自传", edit_memoirs_path
+    - else
+      %b
+        = @memoir.title
+      = summary(@memoir.content, 260)
+      %span#edi{:style=>"display: inline;"}
+        (
+        = link_to t('edit'), edit_memoirs_path
+        )
+= render 'shared/blog_categories'
+#friend
+  %h2
+    = t('s_follow',w: @user.name)
+    &nbsp;·&nbsp;·&nbsp;·
+    %span.pl
+      &nbsp;(
+      = link_to t('all') + @user.follow_count.to_s + t('ren'), '#'
+      |
+      = link_to t('view_as_him'), site(@user) + like_path, title:t('view_as_him_desc')
+      )
+  /TODO all_following.limit() add a watch as him
   - @user.all_following.each do |guy|
-    = link_to guy.name, site(guy)
-    &nbsp;
-  %h3= t'my_idol'
+    %dl.obu
+      %dt
+        %a{:href => site(guy), :class => 'nbg'}
+          /%img{:src => '', :class => 'm_sub_img'}
+          = image_tag(guy.avatar.thumb.url, :class => 'm_sub_img')
+      %dd
+        = link_to guy.name, site(guy)
+  /%br{:clear => 'all'}
+#artist
+  %h2
+    = t('s_idol',w: @user.name)
   老子 松本行弘 洛克菲勒 黄家驹 稻盛和夫 海子 乔布斯 彼得*林奇 爱因斯坦 雷军 莫拉维亚
-  %h3
-    我推荐你阅读
-  - @blogs_recommend.each do |blog|
-    = link_to blog.title, blog
-    %br
+
+/= render 'shared/blog_categories'
+/%h3
+/  = link_to t('i_follow'), root_path
+/- @user.all_following.each do |guy|
+/  = link_to guy.name, site(guy)
+/  &nbsp;
+/%h3= t'my_idol'
+/老子 松本行弘 洛克菲勒 黄家驹 稻盛和夫 海子 乔布斯 彼得*林奇 爱因斯坦 雷军 莫拉维亚
+/%h3
+/  我推荐你阅读
+/- Blog.where(["user_id = ? AND recommend = true", @user.id]).limit(5).each do |blog|
+/  = link_to blog.title, blog
+/  %br

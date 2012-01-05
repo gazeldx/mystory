@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'others'
+  layout 'portal_others'
   
   def index
     @users = User.all
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(session[:id])
   end
 
   def update
@@ -37,7 +37,8 @@ class UsersController < ApplicationController
       session[:id] = @user.id
       session[:name] = @user.name
       session[:domain] = @user.domain
-      redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
+#      redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
+      redirect_to my_site + edit_profile_path
     else
       render :action=> "new"
     end

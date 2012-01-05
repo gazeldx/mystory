@@ -1,23 +1,35 @@
 = form_for @user, :html => {:multipart => true} do |f|
   = error_msg @user
-  /diandian reg is good
-  = t'user_name'
-  = f.text_field :username
-  = t'user_name_desc'
-  %br
-  Email
-  = f.text_field :email
-  = t'can_login'
-  %br
-  = t'domain'
-  = f.text_field :domain
-  = t'domain_desc'
-  %br
-  = t'real_name'
-  = f.text_field :name
-  = t'name_desc'
-  %br
-  = t'password'
-  = f.password_field :passwd
-  .actions
-    = f.submit t'_register'
+  .item.extra-tips
+    %label
+      = t'user_name'
+    = f.text_field :username, :class => "basic-input"
+    %span.tips
+      = t'user_name_desc'
+  .item.extra-tips
+    %label
+      Email
+    = f.text_field :email, :class => "basic-input"
+    %span.tips
+      = t'can_login'
+  .item.extra-tips
+    %label
+      = t'domain'
+    = f.text_field :domain, :class => "basic-input"
+  .suggestion
+    %span.tips
+      = t'domain_desc'
+  .item.extra-tips
+    %label
+      = t'real_name'
+    = f.text_field :name, :class => "basic-input"
+    %span.tips
+      = t'name_desc'
+  .item.extra-tips
+    %label
+      = t'password'
+    = f.password_field :passwd, :class => "basic-input"
+  .item-submit
+    %label
+      &nbsp;
+    = f.submit "注 册", :class => "btn-submit disabled enabled"

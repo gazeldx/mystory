@@ -24,7 +24,7 @@
   .field
     = t'release_date'
     %br
-    = date_select :blog, :created_at
+    = datetime_select :blog, :created_at
     = t'blog.memo'
   .actions
     = f.submit t'_post'

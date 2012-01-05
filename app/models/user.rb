@@ -13,14 +13,19 @@ class User < ActiveRecord::Base
   has_many :blogs
   has_many :notes
   has_many :categories
+  has_many :rblogs
+  has_many :r_blogs, :through => :rblogs, :source => :blog
+  has_many :rnotes
+  has_many :r_notes, :through => :rnotes, :source => :note
 
   acts_as_followable
   acts_as_follower
 #  has_many :following, :through => :follows, :source => "followed_id"
 #  has_many :followers, :through => :follows, :source => "follower_id"
 #  has_many :follows, :foreign_key => "follower_id", :dependent => :destroy
-  validates :username, :uniqueness => true, :length => { :minimum => 5 }
-  validates :name, :length => { :minimum => 2 }
+  validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{5,25}$/,
+    :message => "Only letters and digital _ allowed" }
+  validates :name, :length => { :in => 2..4 }
   validates :email, :uniqueness => true, :length => { :minimum => 9 }, :email => true
   validates :domain, :uniqueness => true, :length => { :minimum => 4 }
   validates :passwd, :length => { :minimum => 6 }

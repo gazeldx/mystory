@@ -1,40 +1,30 @@
-/-head_query
-/#TODO why hr is stronger than sample.html?
-%h3
-  %table
-    %tr
-      %td
-        = image_tag(@user.avatar.thumb.url)
-      %td
-        /TODO HIM inplace with the name
-        %span.home-title{title:t('return_home')}
-          = link_to @user.name, "/"
-        %span.home-maxim
-          = @user.maxim
-        /%img(src="photos/#{@user.id}/me.jpg" title='view profile')
-        %br
+.pic
+  %a{href:"/"}
+    = image_tag(@user.avatar.thumb.url)
+.info
+  %h1
+    = banner_text
+    %span#display.pl (#{@user.maxim})
+  %ul
+    %li
+      - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
         = link_to t('follow_him'), follow_me_path
-        = link_to t('my_info'), '/profile'
-        = link_to t('view_as_him'), site(@user) + like_path, title:t('view_as_him_desc')
-        /= link_to t('more'), '#', title:t('unfinished')
-        %br
-        关注
-        = @user.follow_count
-        | 粉丝
-        = @user.followers_count
-        | 日记85 | 作品23
-        %br
-        = @user.memo
-%h2
-  /renren make disabled no data url,but show title
-  =navigation_item(t('_note'), notes_path)
-  =navigation_item(t('_blog'), blogs_path)
-  =navigation_item(t('_photo'), blogs_path)
-  =navigation_item(t('_vedio'), blogs_path)
-  =navigation_item(t('_memoir'), blogs_path)
-  /=link_to "优惠活动", news_index_path
-  /=link_to "美食在线", news_index_path
-  /=link_to "分店介绍", news_index_path
-  /=link_to "加盟经营", news_index_path
-  /=link_to "招募人才", news_index_path
-  /=link_to "企业文化", news_index_path
+      - elsif myself.following?(@user)
+        = link_to t('unfollow'), unfollow_path
+      = link_to t('my_info'), '/profile'
+      = link_to t('view_as_him'), site(@user) + like_path, title:t('view_as_him_desc')
+      = link_to t('he_editor'), site(@user) + editor_path, title:t('see_what_he_edit')
+  %ul
+    %li
+      关注
+      = @user.follow_count
+      | 粉丝
+      = @user.followers_count
+      | 日记
+      = Note.where(["user_id = ?", @user.id]).count
+      | 作品
+      = Blog.where(["user_id = ?", @user.id]).count
+  %ul= @user.memo
+  %ul= @user.city
+  %ul
+    = render 'shared/user_navigation'

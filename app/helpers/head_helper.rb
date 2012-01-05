@@ -8,11 +8,20 @@ module HeadHelper
 #    @menus = Menu.where(["user_id = ?", @user.id]).order('created_at')
   end
 
+  def banner_text
+    if ['home','like'].include?(controller_path)
+      @user.name
+    elsif controller_path=='notes'
+      t('s_note',w: @user.name)
+    elsif controller_path=='blogs'
+      t('s_blog',w: @user.name)
+    elsif controller_path=='memoirs'
+      t('s_memoir',w: @user.name)
+    end
+  end
+
   def navigation_item(title,link)
-#    puts controller_path
-#    puts link
-    if controller_path==link || (controller_path=='categories' && link=='news') ||
-        (title==t('home_page') && link=='/' && controller_path=='home')
+    if "/" + controller_path==link || (controller_path=='categories' && link==blogs_path)
       link_to title,link,:class => "selected"
     else
       link_to title,link
