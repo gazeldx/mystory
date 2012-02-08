@@ -1,7 +1,10 @@
 class Note < ActiveRecord::Base
   belongs_to :user
+  has_many :notecomments, :dependent => :destroy
+  has_many :rnotes, :dependent => :destroy
 
-  validates :content, :presence => true
+  validates :title, :length => { :in => 0..30 }
+  validates :content, :length => { :in => 1..3000 }
   validates :user_id, :presence => true
   self.per_page = 10
 end

@@ -11,12 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120104101311) do
+ActiveRecord::Schema.define(:version => 20120203065936) do
+
+  create_table "albums", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "user_id"
+    t.integer  "photo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "albums", ["user_id"], :name => "index_albums_on_user_id"
+
+  create_table "blogcomments", :force => true do |t|
+    t.text     "body"
+    t.integer  "blog_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blogcomments", ["blog_id"], :name => "index_blogcomments_on_blog_id"
+  add_index "blogcomments", ["user_id"], :name => "index_blogcomments_on_user_id"
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
     t.text     "content"
-    t.boolean  "recommend",   :default => false
     t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -32,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "customizes", :force => true do |t|
+    t.string   "bgimage"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customizes", ["user_id"], :name => "index_customizes_on_user_id"
 
   create_table "follows", :force => true do |t|
     t.integer  "followable_id",                      :null => false
@@ -69,7 +99,19 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
 
   add_index "memoirs", ["user_id"], :name => "index_memoirs_on_user_id"
 
+  create_table "notecomments", :force => true do |t|
+    t.text     "body"
+    t.integer  "note_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notecomments", ["note_id"], :name => "index_notecomments_on_note_id"
+  add_index "notecomments", ["user_id"], :name => "index_notecomments_on_user_id"
+
   create_table "notes", :force => true do |t|
+    t.string   "title"
     t.text     "content"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -77,6 +119,16 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
   end
 
   add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
+
+  create_table "photos", :force => true do |t|
+    t.string   "description"
+    t.string   "avatar"
+    t.integer  "album_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["album_id"], :name => "index_photos_on_album_id"
 
   create_table "posts", :force => true do |t|
     t.string   "name"
@@ -87,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
   end
 
   create_table "rblogs", :force => true do |t|
+    t.string   "body"
     t.integer  "user_id"
     t.integer  "blog_id"
     t.datetime "created_at"
@@ -117,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
   add_index "ridols", ["user_id"], :name => "index_ridols_on_user_id"
 
   create_table "rnotes", :force => true do |t|
+    t.string   "body"
     t.integer  "user_id"
     t.integer  "note_id"
     t.datetime "created_at"
@@ -136,6 +190,10 @@ ActiveRecord::Schema.define(:version => 20120104101311) do
     t.string   "maxim"
     t.string   "avatar"
     t.string   "city"
+    t.integer  "birthday"
+    t.string   "jobs"
+    t.string   "company"
+    t.string   "school"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

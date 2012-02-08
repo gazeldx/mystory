@@ -1,23 +1,32 @@
 module HeadHelper
-  def head_query
-#    if @user.nil?
-#      @user = User.find_by_username(params[:username])
-#      #@user = User.where(["username = ?", "gazeldx"]).first
-#    end
-#    @param = Param.find_by_user_id(@user.id)
-#    @menus = Menu.where(["user_id = ?", @user.id]).order('created_at')
-  end
 
   def banner_text
     if ['home','like'].include?(controller_path)
       @user.name
     elsif controller_path=='notes'
-      t('s_note',w: @user.name)
+      t('s_note', w: @user.name)
     elsif controller_path=='blogs'
-      t('s_blog',w: @user.name)
+      t('s_blog', w: @user.name)
     elsif controller_path=='memoirs'
-      t('s_memoir',w: @user.name)
+      t('s_memoir', w: @user.name)
+    elsif controller_path=='editor'
+      t('s_editor', w: @user.name)
+    elsif controller_path=='users'
+      t('s_my_info', w: @user.name)
+    elsif controller_path=='idols'
+      t('s_idol', w: @user.name)
+    elsif controller_path=='hobbies'
+      t('s_hobby', w: @user.name)
+    elsif ['albums','photos'].include?(controller_path)
+      if @album.nil? or @album.name.nil?
+        t('s_album', w: @user.name)
+      else
+        t('s_album_in', w: @user.name, w2: @album.name)
+      end
+    elsif controller_path=='categories'
+      t('s_category', w: @user.name, w2: @category.name)
     end
+    #TODO add title here show maxim.
   end
 
   def navigation_item(title,link)

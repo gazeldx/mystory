@@ -1,15 +1,6 @@
 #Client login
 class LoginController < ApplicationController
   layout 'portal_others'
-  #in user domain login directly
-  def login
-    if @user.passwd==params[:passwd]
-      login_now
-    else
-      flash[:error]=t('login.password_wrong')
-      redirect_to "/login"
-    end
-  end
 
   #login in home page
   def member_login
@@ -26,6 +17,16 @@ class LoginController < ApplicationController
       end
     end
   end
+  
+  #in user domain login directly
+  def login
+    if @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
+      login_now
+    else
+      flash[:error]=t('login.password_wrong')
+      redirect_to "/login"
+    end
+  end 
 
   private
 
@@ -33,14 +34,14 @@ class LoginController < ApplicationController
     session[:id] = @user.id
     session[:name] = @user.name
     session[:domain] = @user.domain
-    redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
+    redirect_to my_site + like_path
   end
   
   def judge_user
     if @user.nil?
       flash[:error]=t('login.user_not_exist')
       redirect_to root_path
-    elsif @user.passwd==params[:passwd]
+    elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
       login_now
     else
       flash[:error]=t('login.user_exist_password_wrong')

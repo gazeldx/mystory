@@ -3,23 +3,50 @@ class UsersController < ApplicationController
   
   def index
     @users = User.all
+    
   end
 
   def show
-    @user = User.find(params[:id])
+    render layout: 'application'
   end
 
   def edit
-    @user = User.find(session[:id])
+    @_user = User.find(session[:id])
+  end
+
+  def edit_password
+    @_user = User.find(session[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      redirect_to @user, notice: t('update_succ')
+    @_user = User.find(session[:id])
+    @_user.avatar = params[:file]
+    puts "---------------------------ipppppppppppppppppppppppp"
+    puts params[:user][:passwd]
+    @_user.birthday = params[:date][:year]
+    if @_user.update_attributes(params[:user])
+      #TODO user = User.find(@_user.id) TEST IT
+      @_user.reload
+      session[:name] = @_user.name
+      session[:domain] = @_user.domain
+      redirect_to profile_path, notice: t('update_succ')
     else
-      render action: "edit"
+      render :edit
     end
+  end
+
+  def update_password
+    @_user = User.find(session[:id])
+    if params[:user][:newpasswd2] != params[:user][:newpasswd]
+      flash[:error] = t'password_confirm_wrong'
+    elsif Digest::SHA1.hexdigest(params[:user][:passwd]) != @_user.passwd
+      flash[:error] = t'old_password_wrong'
+    else
+      if @_user.update_attribute('passwd', Digest::SHA1.hexdigest(params[:user][:newpasswd]))
+        flash[:notice] = t'update_succ'
+      end
+    end
+    redirect_to edit_password_path
   end
 
   def new
@@ -29,6 +56,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.avatar = params[:file]
+    @user.passwd = Digest::SHA1.hexdigest(params[:user][:passwd])
     #TODO change file name
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
@@ -37,7 +65,6 @@ class UsersController < ApplicationController
       session[:id] = @user.id
       session[:name] = @user.name
       session[:domain] = @user.domain
-#      redirect_to "http://" + @user.domain + "." + DOMAIN_NAME + ":3000/like"
       redirect_to my_site + edit_profile_path
     else
       render :action=> "new"

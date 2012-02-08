@@ -18,7 +18,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    "/images/fallback/" + [version_name, "default.jpg"].compact.join('_')
+    pic_type = "jpg"
+    if version_name == :bigpic
+      pic_type = "gif"
+    end
+    "/images/fallback/" + [version_name, "default." + pic_type].compact.join('_')
   end
 
   #Maybe means max width is 800 and max height is 1000
@@ -27,16 +31,14 @@ class AvatarUploader < CarrierWave::Uploader::Base
   process :resize_to_limit => [800, nil]
   # Process files as they are uploaded:
   #process :scale => [800, 800]
-#
-#  def scale(width, height)
-#     # do something
-#     process :resize_to_fit => [width, height]
-#  end
 
   # Create different versions of your uploaded files:
   version :thumb do
-   # process :scale => [50, 50]
-   process :resize_to_limit => [100, nil]
+   process :resize_to_fill => [48, 48]
+  end
+
+  version :bigpic do
+   process :resize_to_fill => [180, 180]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

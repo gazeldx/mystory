@@ -7,9 +7,7 @@ class Admin::NotesController < Admin::BaseController
     @note = Note.new
   end
 
-  def edit
-    @note = Note.find(params[:id])
-  end
+  
 
   def create
     @note = Note.new(params[:note])
@@ -19,6 +17,10 @@ class Admin::NotesController < Admin::BaseController
     else
       render :new
     end
+  end
+
+  def edit
+    @note = Note.find(params[:id])
   end
 
   def update

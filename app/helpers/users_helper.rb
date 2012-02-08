@@ -16,47 +16,77 @@ module UsersHelper
     User.find(session[:id])
   end
 
-  #TODO Question: why · will error?Why ""+link_to(t('all'), url) is different from link_to(t('all', url))+""?
-#  def all_link(url)
-#     "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"+
-#    content_tag(:span, ""+link_to(t('all'), url) , :class => 'pl')
-#  end
   def blank_dot
     raw t('_dot')
   end
-  
-  def show_note(note)
-    if note.content.size > 180
-      note.content[0,150].gsub(/\r\n/,'&nbsp;') + (link_to ' >>>', note)
-    else
-      note.content.gsub(/\r\n/,'&nbsp;')
-    end
-  end
 
-  def summary_with_etc(someting, size)
-    if someting.size > size
+  def summary(something, size)
+    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+    if tmp.size > size + 30
       #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
-      raw someting[0,size-30].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "") + t('chinese_etc')
+      raw tmp[0, size] + (link_to t('chinese_etc') + ' >>', something)
     else
-      raw someting.gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+      raw tmp
     end
   end
 
-#  def show_blog(blog)
-#    if blog.content.size > 260
-#      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
-#      blog.content[0,200].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "") + t('chinese_etc')
-#    else
-#      blog.content.gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+  def summary_blank(something, size)
+    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+    if tmp.size > size + 30
+      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
+      raw tmp[0, size] + t('chinese_etc')
+    else
+      raw tmp
+    end
+  end
+
+  def summary_comment(something, size)
+    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+    if something.is_a?(Note)
+      count = something.notecomments.size
+    elsif something.is_a?(Blog)
+      count = something.blogcomments.size
+    end
+    comments = ""
+    if count > 0
+      comments = ' ' + t('comments', w: count)
+    end
+    if tmp.size > size + 30
+      if count == 0
+        comments = " >>"
+      end
+      raw tmp[0, size] + (link_to t('chinese_etc') + comments, something)
+    else
+      raw tmp + (link_to comments, something)
+    end
+  end
+
+  def user_summary(something, size)
+    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+    if tmp.size > size + 30
+      raw tmp[0, size] + (link_to t('chinese_etc') + ' >>', site(something.user))
+    else
+      raw tmp
+    end
+  end
+
+  def pic_name(something)
+    a = /src="\/uploads\/image\/.*" alt="" \/>/.match(something.content)
+    unless a.nil?
+      a[0].sub(/src="\/uploads\/image\//,'').sub(/" alt="" \/>/,'').sub(/\//, '/thumb_')
+    end
+  end
+
+#  def thumb_here(something)
+#    a = /src="\/uploads\/image\/.*" alt="" \/>/.match(something.content)
+##    puts something.content
+##    puts "-------------------aa"
+##    puts a
+##    puts a.nil?
+#    unless a.nil?
+#      pic_name = a[0].sub(/src="\/uploads\/image\//,'').sub(/" alt="" \/>/,'')
+#      puts '<img src="/uploads/thumb/'+ pic_name +'"/>'
+#      raw '<img src="/uploads/image/'+ pic_name +'" height="229"/>'
 #    end
 #  end
-
-  def summary(someting, size)
-    if someting.size > size
-      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
-      raw someting[0,size-30].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "") + t('chinese_etc')
-    else
-      raw someting.gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
-    end
-  end
 end

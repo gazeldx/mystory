@@ -10,6 +10,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :maxim
       t.string :avatar
       t.string :city
+      t.integer :birthday
+      t.string :jobs
+      t.string :company
+      t.string :school
       t.timestamps
     end
   end

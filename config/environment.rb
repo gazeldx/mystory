@@ -5,5 +5,6 @@ require File.expand_path('../application', __FILE__)
 Cms::Application.initialize!
 
 DOMAIN_NAME = "mystory.cc"
-SITE_URL = "http://" + DOMAIN_NAME + ":3000"
+SITE_URL = "http://" + DOMAIN_NAME + ":8080"
 
+#Slim::Engine.set_default_options :sections => true

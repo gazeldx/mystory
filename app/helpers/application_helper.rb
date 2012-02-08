@@ -3,5 +3,5 @@ module ApplicationHelper
     content_for :title do
       _title
     end
-  end
+  end  
 end
