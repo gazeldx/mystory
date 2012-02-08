@@ -4,5 +4,7 @@ tmp/
 .sass-cache/
 nbproject/
 config/routes.rb
+public/photos
+public/uploads
 Gemfile
 Gemfile.lock
