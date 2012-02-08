@@ -1,0 +1,40 @@
+= title @album.name + ' - ' + t('s_album',w: @user.name)
+.pl style='padding:3px;border-bottom:1px solid #ddd;margin:0 0 10px 0;text-align:center' 
+  span.rr
+    | &gt; 
+    = link_to t('album.return'), album_path(@album)
+  span.ll
+    | #{@photo_position}/#{@album.photos.size}
+  | &nbsp;
+  - unless @photo_new.nil?
+    = link_to t('a_new_photo'), album_photo_path(@album, @photo_new), id: 'pre_photo'
+  - if (!@photo_new.nil? && !@photo_old.nil?)
+    |  / 
+  - unless @photo_old.nil?
+    = link_to t('a_old_photo'), album_photo_path(@album, @photo_old), id: 'next_photo'
+div style='text-align:center'
+  - if @photo_old.nil?
+    = image_tag(@photo.avatar.url)
+  - else
+    a.mainphoto href=(album_photo_path(@album, @photo_old)) title=t'click_show_old'
+      = image_tag(@photo.avatar.url)
+.photo_descri
+  .j.a_editable.edtext.pl
+    span#photo_desc
+      = @photo.description
+    - if @user.id == session[:id]
+      span#edi
+        = link_to t('modify'), '#edit', onclick: 'showDescEtc()'
+      span#notice2
+      div#editDiv style='display:none'
+        = text_area_tag :description, @photo.description
+        = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
+        = radio_button_tag :setascover, '1'
+        = label_tag(:setascover_1, '设为封面')
+div style='color:#999;margin-bottom:5px' 
+  | 上传于 
+  = @photo.created_at.strftime t'date_format'
+  - if @user.id == session[:id]
+    span.gact
+      | &gt;&nbsp;
+      = link_to '删除照片', album_photo_path(@album, @photo), confirm: t('confirm.delete'), method: :delete

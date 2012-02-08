@@ -1,0 +1,2 @@
+module NotecommentsHelper
+end

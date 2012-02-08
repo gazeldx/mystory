@@ -1,0 +1,13 @@
+= title t('s_idol',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+- @idols.each do |idol|
+  = idol.name
+  = link_to '×', idol, method: :delete, title: t('delete')
+  | &nbsp;&nbsp;&nbsp;
+= form_for @idol do |f|
+  | 偶像姓名:
+  = f.text_field :name, size: 12
+  = f.submit t'new'
+javascript:
+  $('#idol_name').focus()

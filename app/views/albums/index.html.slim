@@ -1,0 +1,28 @@
+= title t('s_album',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+.wr
+  - @albums.each_with_index do |album, i|
+    .albumlst
+      a.album_photo href=(album_path(album)) 
+        - if album.photo_id.nil?
+          = image_tag('/images/fallback/photos/cover_default.png', class: 'album')
+        - else
+          = image_tag(album.photo.avatar.cover.url, class: 'album')
+      .albumlst_r
+        .pl2
+          = link_to album.name, album
+        .albumlst_descri
+          = album.description
+        span.pl
+          = album.photos.size
+          | 张照片
+          br
+        - if @user.id == session[:id]
+          | &gt;
+          = link_to t('album.modify'), edit_album_path(album)
+          |  &nbsp;&gt;
+          = link_to t('add_photo'), new_album_photo_path(album)
+      br
+    - unless i%2 == 0
+      .clear

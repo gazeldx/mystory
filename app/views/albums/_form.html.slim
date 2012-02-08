@@ -1,0 +1,13 @@
+= form_for @album do |f|
+  = error_msg @album
+  .field
+    = f.label t'album.name'
+    br
+    = f.text_field :name
+  br
+  .field
+    = f.label t'album.description'
+    br
+    = f.text_area :description, size: '50x5'
+  .actions
+    = f.submit

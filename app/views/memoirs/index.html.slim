@@ -1,0 +1,15 @@
+= title t('s_memoir', w: @user.name)
+- if @memoir.nil?
+  | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
+  - if @user.id == session[:id]
+    | 现在就开始
+    = link_to "写自传", edit_memoirs_path
+- else
+  h2
+    = @memoir.title
+    |  
+    = link_to t('edit'), edit_memoirs_path
+  span.pl
+    = @memoir.updated_at.strftime t'time_format'
+    |  更新
+  == @memoir.content

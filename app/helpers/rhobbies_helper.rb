@@ -1,0 +1,2 @@
+module RhobbiesHelper
+end

@@ -1,0 +1,19 @@
+= title t('s_category', w: @user.name, w2: @category.name)
+- @blogs.each do |blog|
+  div id='note-#{blog.id}'
+    div
+      span.wrap
+        h3
+          = link_to blog.title, blog, class: 'll'
+      div
+        span.pl
+          = blog.created_at.strftime t'no_year'
+          - if blog.user_id == session[:id]
+            | &nbsp;
+            = link_to t('edit'), edit_blog_path(blog)
+            | &nbsp;
+            = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
+    div id='note_#{blog.id}_full'
+      pre.note
+        = summary(blog, 260)
+= will_paginate @blogs

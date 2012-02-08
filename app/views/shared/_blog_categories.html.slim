@@ -1,0 +1,18 @@
+#event
+  h2
+    = t('s_categories',w: @user.name)
+  - user_categories
+  - @categories_.each do |category|
+    = link_to category.name, category, :class => 'pl2'
+    br
+  span
+    | (
+    = link_to t('category.edit'), categories_path
+    | )
+  br
+  = t'_recommend'
+  br  
+  - ids = @user.blogs.select('id')
+  - @user.r_blogs.where(:id => ids).limit(5).each do |blog|
+    = link_to blog.title, blog, :class => 'pl2'
+    br

@@ -1,0 +1,63 @@
+= title t('s_editor', w: @user.name)
+#note
+  h2
+    = t('r_note',w: @user.name)
+    = blank_dot
+  ul.mbt
+    - @rnotes.each do |item|
+      - user = item.user
+      - note = item.note
+      li.mbtl
+        a href=site(item.user) target='_blank'
+          = image_tag(user.avatar.thumb.url)
+      - unless item.body.nil?
+        - title = user.name + '的推荐理由：' + item.body
+      li.mbtr title=title
+        = link_to user.name, site(user), :target => '_blank'
+        | :
+        span.pl
+          |  
+          - if note.title.length > 1
+            = link_to note.title, site(user) + note_path(note), target: '_blank'
+            br        
+        span.inq
+          = summary_comment(note, 260)
+          br
+          span.pl
+            - if note.title.length > 1
+              = note.created_at.strftime(t'date_format')
+            - else
+              = link_to note.created_at.strftime(t'date_format'), note
+          = recommend_etc note
+          br
+          a href=note_path(note)
+            img src='/uploads/thumb/#{pic_name(note)}'
+#note
+  h2
+    = t('r_blog',w: @user.name)
+    = blank_dot
+  ul.mbt
+    - @rblogs.each do |item|
+      - user = item.user
+      - blog = item.blog
+      li.mbtl
+        a href=site(user) target='_blank'
+          = image_tag(user.avatar.thumb.url)
+      - unless item.body.nil?
+        - title = user.name + '的推荐理由：' + item.body
+      li.mbtr title=title
+        = link_to user.name, site(user), target: '_blank'
+        | :
+        span.pl
+          | 《
+          = link_to blog.title, site(user) + blog_path(blog), target: '_blank'
+          | 》
+        span.inq
+          = summary_comment(blog, 260)
+          br
+          span.pl
+            = blog.created_at.strftime t'no_year'
+          = recommend_etc blog
+          br
+          a href=blog_path(blog)
+            img src='/uploads/thumb/#{pic_name(blog)}'

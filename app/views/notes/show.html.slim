@@ -1,0 +1,82 @@
+= title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
+div id='note-#{@note.id}'
+  .note-header
+    - if @note.title.length > 1
+      h3
+        = @note.title
+        - if @note.user_id == session[:id]
+          | &nbsp;
+          = link_to t('edit'), edit_note_path(@note)
+          | &nbsp;
+          = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
+      div
+        span.pl
+          = @note.created_at.strftime t'time_format'
+    - else
+      h3
+        = @note.created_at.strftime t'time_format'
+        - if @note.user_id == session[:id]
+          | &nbsp;
+          = link_to t('edit'), edit_note_path(@note)
+          | &nbsp;
+          = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
+  div id='note_#{@note.id}_full'
+    == @note.content
+div.note-ft id='note_#{@note.id}_footer'
+  .note_upper_footer
+  .sns-bar
+    .sns-bar-fav
+      - if session[:id].nil?
+        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
+      - else
+        - ri = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
+        - if ri.nil?
+          = hidden_field_tag :ri_id
+          span#ri_body
+          span#edit
+          = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
+        - else
+          = hidden_field_tag :ri_id, ri.id
+          span#ri_body= ri.body
+          span#edit
+            - if ri.body.nil?
+              = link_to '修改推荐理由', '#edit', onclick: 'showBodyEtc()'
+            - else
+              = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
+          = link_to '已推荐', '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: '点击可取消推荐'
+    #bodydiv style='text-align:right;display:none' 
+      span
+        | 推荐理由：
+      = text_area_tag :body
+      = button_tag t('submit'), onclick: 'modify_ri("note")'
+span
+  | 新一篇 
+  - if @note_pre.nil?
+    | 无
+  - else
+    - if @note_pre.title.length > 1
+      = link_to @note_pre.title, @note_pre
+    - else
+      = link_to @note_pre.created_at.strftime(t'date_format'), @note_pre
+  br
+  | 旧一篇 
+  - if @note_next.nil?
+    | 无
+  - else
+    - if @note_next.title.length > 1
+      = link_to @note_next.title, @note_next
+    - else
+      = link_to @note_next.created_at.strftime(t'date_format') + '的日记', @note_next
+#comments
+  = render 'notecomments/notecomment'
+- if session[:id].nil?
+  = t'comment_login_first'
+- else
+  h2
+    | 发表评论 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+  = render 'notecomments/form'
+
+javascript:
+  $('#recommend').live('click', function() {
+    recommend_note_in(#{@note.id});
+  });

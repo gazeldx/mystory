@@ -1,0 +1,30 @@
+= title t('s_my_info',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+- if @user.id == session[:id]
+  .xbar
+    div
+      = link_to t('edit_profile'), edit_profile_path
+table align='center' width='100%' cellpadding='5' style='clear:both' 
+  tbody
+    tr
+      td align='right' valign='top' class='m' width='20%' 
+        | 出生年份:
+      td valign='top' 
+        = @user.birthday
+    tr
+      td align='right' valign='top' class='m' 
+        | 职业:
+      td valign='top' 
+        = @user.jobs
+    tr
+      td align='right' valign='top' class='m' 
+        | 公司:
+      td valign='top' 
+        = @user.company
+    tr
+      td align='right' valign='top' class='m' 
+        | 毕业学校:
+      td valign='top' 
+        = @user.school
+        

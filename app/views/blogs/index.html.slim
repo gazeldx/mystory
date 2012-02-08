@@ -1,0 +1,27 @@
+= title t('s_blog',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+- if @user.id == session[:id]
+  .xbar
+    div
+      = link_to t('post_blog'), new_blog_path
+- @blogs.each do |blog|
+  div id='note-#{blog.id}'
+    div
+      span.wrap
+        h3
+          = link_to blog.title, blog, class: 'll'
+      div
+        span.pl
+          = post_info blog
+          - if blog.user_id == session[:id]
+            | &nbsp;
+            = link_to t('edit'), edit_blog_path(blog)
+            | &nbsp;
+            = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
+    .note id='blog_#{blog.id}_full'
+      .ll
+        a href=blog_path(blog)
+          img src='/uploads/thumb/#{pic_name(blog)}'
+      = summary_comment(blog, 260)
+= will_paginate @blogs

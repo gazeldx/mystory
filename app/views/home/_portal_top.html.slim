@@ -1,0 +1,36 @@
+- if session[:id].nil?
+  .anony-nav
+    .bd
+      .reg
+        strong= t'my_story'
+        div
+          b 分享我的故事，让生活更美。
+          br
+          em 原创社交网络
+        a class='lnk-reg' href=(register_path) 
+          strong
+            = t('register_new_user')
+      .login
+        = form_tag "login/member_login",:id => 'lzform' do
+          - if flash[:error]
+            #error= flash[:error]
+          fieldset
+            legend
+            .item
+              label
+                | 邮箱/帐号/域名
+              = text_field_tag :loginname
+            .item
+              label
+                = t'password'
+              = password_field_tag :passwd
+              /!忘记密码
+            .item1
+              label
+                input type='checkbox' 
+                | 记住我
+            .item1
+              input type='submit' value='登  录' class='bn-submit' 
+- else
+  = render 'shared/top'
+  

@@ -1,0 +1,2 @@
+module RblogsHelper
+end

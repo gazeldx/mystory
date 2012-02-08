@@ -1,0 +1,20 @@
+- @all_comments.each do |comment|
+  - user = comment.user
+  .comment-item
+    .pic
+      a href=site(user)
+        = image_tag(user.avatar.thumb.url, alt: user.name)
+    .content
+      .author
+        = comment.created_at.strftime t'time_format'
+        |  
+        = link_to user.name, site(user)
+      p
+        - if comment.is_a?(Rblog)
+          | 推荐理由：
+        = comment.body
+      - if session[:id] == user.id
+        .admin-lnks
+          - if comment.is_a?(Blogcomment)
+            | &gt;
+            = link_to t('delete'), [@blog, comment], method: :delete

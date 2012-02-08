@@ -1,0 +1,26 @@
+= title @album.name + ' - ' + t('s_album',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+.pl.photitle
+  - if @user.id == session[:id]
+    = link_to t('album.modify'), edit_album_path(@album)
+    | &nbsp;&gt;&nbsp;
+    = link_to t('add_photo'), new_album_photo_path(@album)
+  | &nbsp;&gt;&nbsp;
+  = link_to t('album.return_home'), albums_path
+.photolst.clearfix
+  - @photos.each_with_index do |photo, i|
+    .photo_wrap
+      a.photolst_photo href=album_photo_path(@album, photo)
+        = image_tag(photo.avatar.thumb.url)
+      br
+      .pl
+        = photo.description
+        - if @user.id == session[:id]
+          = link_to t('modify_desc'), album_photo_path(@album, photo)
+      div style='color:#999' 
+    - if i%3 == 2
+      .clear
+  .clear
+.pl style="padding-bottom:30px" 
+  = @album.description

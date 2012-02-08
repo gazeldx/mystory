@@ -1,0 +1,2 @@
+module RidolsHelper
+end

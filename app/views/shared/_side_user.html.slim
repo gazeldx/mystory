@@ -1,0 +1,54 @@
+#event
+  h2
+    = t('s_memoir',w: @user.name)
+    | &nbsp;·&nbsp;·&nbsp;·
+    span.pl
+      | &nbsp;(
+      = link_to t('whole_article'), memoirs_path
+      | )
+  .text
+    - @memoir = Memoir.find_by_user_id(@user.id)
+    - if @memoir.nil?
+      | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
+      br
+      - if @user.id == session[:id]
+        | 现在就开始
+        = link_to "写自传", edit_memoirs_path
+    - else
+      b
+        = @memoir.title
+      = summary(@memoir, 200)
+      - if @user.id == session[:id]
+        span
+          | (
+          = link_to t('edit'), edit_memoirs_path
+          | )
+= render 'shared/blog_categories'
+#friend
+  h2
+    = t('s_following',w: @user.name)
+    | &nbsp;·&nbsp;·&nbsp;·
+    span.pl
+      | &nbsp;(
+      = link_to t('all') + @user.follow_count.to_s + t('ren'), following_path
+      |  · 
+      = link_to t('view_as_him'), site(@user) + like_path, title: t('view_as_him_desc')
+      | )
+  - @user.all_following.each do |guy|
+    dl.obu
+      dt
+        a.nbg href=site(guy)
+          = image_tag(guy.avatar.thumb.url, class: 'm_sub_img')
+      dd
+        = link_to guy.name, site(guy)
+#artist
+  h2
+    = t('s_idol',w: @user.name)
+  - @user.idols.each do |idol|
+    = idol.name
+    |  
+  - if @user.id == session[:id]
+    span
+      | (
+      = link_to t('edit'), idols_path
+      | )

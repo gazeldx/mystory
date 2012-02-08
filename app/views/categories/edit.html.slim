@@ -1,0 +1,5 @@
+= form_for @category do |f|
+  = error_msg @category
+  = f.label t'category.name'
+  = f.text_field :name, size: 20
+  = f.submit t(:submit)

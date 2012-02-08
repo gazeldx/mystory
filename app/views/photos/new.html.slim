@@ -1,0 +1,7 @@
+= title t('add_photos') + ' - ' + t('s_album',w: @user.name)
+#photos-upload
+  = render 'form'
+  br
+  span.pl
+    | 注：请上传原创照片，不要上传与自己无关的照片。
+    | 照片过大会被自动压缩。

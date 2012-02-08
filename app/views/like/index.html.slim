@@ -1,0 +1,124 @@
+= title t('active_state', w: @user.name)
+#miniblog
+  = render 'shared/post_note'
+  #db-timeline-hd.clearfix
+    ul.menu-list
+      - url = link_to t('all'), like_path
+      - if params[:t].nil?
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_note'), like_path + '?t=note'
+      - if params[:t] == 'note'
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_blog'), like_path + '?t=blog'
+      - if params[:t] == 'blog'
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_photo'), like_path + '?t=photo'
+      - if params[:t] == 'photo'
+        li.on= url
+      - else
+        li= url
+  ul.mbt
+    - @all.each do |item|
+      - if item.is_a?(Note)
+        li.mbtl
+          a href=site(item.user) target='_blank'
+            = image_tag(item.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user), target: '_blank'
+          | : 
+          span.inq
+            = summary_comment(item, 300)
+            br
+            a href=note_path(item)
+              img src='/uploads/thumb/#{pic_name(item)}'
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+            = recommend_etc item
+      - elsif item.is_a?(Blog)
+        li.mbtl
+          a href=site(item.user) target='_blank'
+            = image_tag(item.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user), target: '_blank'
+          span.pl
+            |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
+            | --
+          span.inq
+            = summary_comment(item, 300)
+            br
+            a href=blog_path(item)
+              img src='/uploads/thumb/#{pic_name(item)}'
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Rnote)
+        li.mbtl
+          a href=site(item.user) target='_blank'
+            = image_tag(item.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user), target: '_blank'
+          span.pl
+            |  推荐日记
+          | :
+          = item.body
+          br
+          span.inq
+            | &nbsp;&nbsp;原文 
+            = link_to item.note.user.name, site(item.note.user), target: '_blank'
+            | : 
+            = summary_comment(item.note, 300)
+            br
+            a href=note_path(item.note)
+              img src='/uploads/thumb/#{pic_name(item.note)}'
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Rblog)
+        li.mbtl
+          a href=site(item.user) target='_blank'
+            = image_tag(item.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user), target: '_blank'
+          span.pl
+            |  推荐作品
+          | :
+          = item.body
+          br
+          span.inq
+            | &nbsp;&nbsp;原文 
+            = link_to item.blog.user.name, site(item.blog.user), target: '_blank'
+            span.pl  发表作品
+            | 《#{link_to item.blog.title, site(item.user) + blog_path(item.blog), target: '_blank'}》
+            | --
+            = summary_comment(item.blog, 300)
+            br
+            a href=blog_path(item.blog)
+              img src='/uploads/thumb/#{pic_name(item.blog)}'
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Photo)
+        li.mbtl
+          a href=site(item.album.user) target='_blank'
+            = image_tag(item.album.user.avatar.thumb.url)
+        li.mbtr
+          span.inq
+            = link_to item.album.user.name, site(item.album.user), target: '_blank'
+            span.pl  上传照片到 
+            = link_to item.album.name, album_path(item.album), target: '_blank'
+            br
+            = item.description
+            br
+            a href=album_photo_path(item.album, item)
+              = image_tag(item.avatar.thumb.url)
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+

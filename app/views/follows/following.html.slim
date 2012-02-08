@@ -1,0 +1,40 @@
+= title t('s_following',w: @user.name)
+h1
+  = t('s_following',w: @user.name)
+  | (#{@user.follow_count})
+ul.user-list
+  - @user.all_following.each do |guy|
+    li.clearfix id='u#{guy.id}'
+      a href=site(guy) title=guy.name
+        = image_tag(guy.avatar.thumb.url, class: 'face')
+      .info
+        h3
+          a href=site(guy) = guy.name
+          |  
+          span.pl
+            = guy.city
+            |  
+            = guy.jobs
+            | &nbsp;
+            = guy.maxim
+          .user-group-opt
+            |  
+        span.pl
+          | 关注
+          = guy.follow_count
+          |  | 粉丝
+          = guy.followers_count
+          |  | 日记
+          = guy.notes.count
+          |  | 作品
+          = guy.blogs.size
+        br
+        span.pl
+          - guy.hobbies.each_with_index do |hobby, i|
+            - if i==0
+              | 爱好:
+            = hobby.name
+            |
+        br
+        span.pl
+          = guy.memo

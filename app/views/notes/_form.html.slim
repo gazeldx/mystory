@@ -1,0 +1,15 @@
+= form_for @note do |f|
+  = error_msg @note
+  .pl2
+    - unless @note.created_at.nil?
+      = t('s_note', w: @note.created_at.strftime(t'date_format'))
+  br
+  .pl2
+    = t'title'
+    | (可不填)
+    = f.text_field :title, class: 'notnull input_basic2', size: 40
+  br
+  .pl2
+    = f.text_area :content, size: "70x22", :id => "kindeditor_id"
+  .actions
+    = f.submit

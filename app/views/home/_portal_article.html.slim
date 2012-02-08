@@ -1,0 +1,40 @@
+#wrapper
+  #content
+    .grid-16-8.clearfix
+      .article
+        #db-music-artists.block4
+          h2
+            | 最近诞生的作品
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+          .bd
+            - @blogs_new.each do |blog|
+              .headline
+                a.pic href=site(blog.user)
+                  = image_tag(blog.user.avatar.thumb.url, class: 'm_sub_img')
+                .desc
+                  h3
+                    = link_to blog.user.name, site(blog.user)
+                    | ：《
+                    = link_to blog.title, site(blog.user) + blog_path(blog)
+                    | 》
+                    span.pl
+                      = blog.created_at.strftime t'no_year'
+                  = user_summary(blog, 260)
+      .aside
+        #db-music-artists.block4
+          h2
+            | 最新日记
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+          .bd
+            - @notes_new.each do |note|
+              .headline
+                a.pic href=site(note.user)
+                  = image_tag(note.user.avatar.thumb.url, class: 'm_sub_img')
+                .desc
+                  = link_to note.user.name, site(note.user)
+                  | ：
+                  = user_summary(note, 160)
+                  br
+                  span.pl
+                    = note.created_at.strftime t'no_year'
+  = render 'shared/footer_portal'

@@ -1,0 +1,26 @@
+= title t('s_note',w: @user.name)
+= render 'shared/post_note'
+- @notes.each do |note|
+  div id='note-#{note.id}'
+    div
+      span.pl
+        - if note.title.length < 1
+          = link_to note.created_at.strftime(t'date_format'), note
+        - else
+          = link_to note.title, note
+          | &nbsp;
+          = note.created_at.strftime(t'date_format')
+        - if note.user_id == session[:id]
+          | &nbsp;
+          = link_to t('edit'), edit_note_path(note)
+          | &nbsp;
+          = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
+    div id='note-#{note.id}_full'
+      == note.content
+      - count = note.notecomments.size
+      - if count > 0
+        |  
+        = link_to t('comments_', w: count), note
+      = recommend_etc note
+  br
+= will_paginate @notes

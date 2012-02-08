@@ -1,0 +1,13 @@
+= title t('s_hobby',w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
+- @hobbies.each do |hobby|
+  = hobby.name
+  = link_to '×', hobby, method: :delete, title: t('delete')
+  | &nbsp;&nbsp;&nbsp;
+= form_for @hobby do |f|
+  | 爱好:
+  = f.text_field :name, size: 12
+  = f.submit t'new'
+javascript:
+  $('#hobby_name').focus()

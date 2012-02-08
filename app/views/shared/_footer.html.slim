@@ -1,0 +1,7 @@
+#footer
+  span#icp.fleft.gray-link
+    | © 本页内容是#{@user.name}原创，未经许可不得转载
+  span.fright
+    = link_to t('contact_us'), whose_site('zhangjian')
+    |  · 
+    = link_to t('user_help'), help_path
