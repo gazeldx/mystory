@@ -3,8 +3,9 @@ log/*.log
 tmp/
 .sass-cache/
 nbproject/
-config/routes.rb
 public/photos
 public/uploads
-Gemfile
-Gemfile.lock
+#config/routes.rb
+#config/environment.rb
+#Gemfile
+#Gemfile.lock

@@ -1,4 +1,3 @@
-#Client login
 class LoginController < ApplicationController
   layout 'portal_others'
 
