@@ -6,6 +6,6 @@ nbproject/
 public/photos
 public/uploads
 config/routes.rb
-config/environment.rb
+#config/environment.rb
 Gemfile
 Gemfile.lock

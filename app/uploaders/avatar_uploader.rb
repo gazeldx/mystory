@@ -28,7 +28,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #Maybe means max width is 800 and max height is 1000
   #process :resize_to_fit => [800, 1000]
   #Maybe means max width is 800 and height is not limited
-  process :resize_to_limit => [800, nil]
+  process :resize_to_limit => [600, 600]
   # Process files as they are uploaded:
   #process :scale => [800, 800]
 

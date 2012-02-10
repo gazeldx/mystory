@@ -10,7 +10,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
     "/images/fallback/photos/" + [version_name, "default.png"].compact.join('_')
   end
 
-  process :resize_to_limit => [950, nil]
+  process :resize_to_limit => [600, 600]
   #  process :resize_to_fit => [width, height]
 
   version :thumb do
