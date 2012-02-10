@@ -35,9 +35,10 @@
           span.inq
             = summary_comment(item, 300)
             br
-            a href=note_path(item)
-              img src='/uploads/thumb/#{pic_name(item)}'
-            br
+            - unless pic_name(item).nil?
+              a href=note_path(item)
+                img src='/uploads/thumb/#{pic_name(item)}'
+              br
             span.pl
               = item.created_at.strftime t'no_year'
             = recommend_etc item
@@ -53,9 +54,10 @@
           span.inq
             = summary_comment(item, 300)
             br
-            a href=blog_path(item)
-              img src='/uploads/thumb/#{pic_name(item)}'
-            br
+            - unless pic_name(item).nil?
+              a href=blog_path(item)
+                img src='/uploads/thumb/#{pic_name(item)}'
+              br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rnote)
@@ -75,9 +77,10 @@
             | : 
             = summary_comment(item.note, 300)
             br
-            a href=note_path(item.note)
-              img src='/uploads/thumb/#{pic_name(item.note)}'
-            br
+            - unless pic_name(item).nil?
+              a href=note_path(item.note)
+                img src='/uploads/thumb/#{pic_name(item.note)}'
+              br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rblog)
@@ -99,9 +102,10 @@
             | --
             = summary_comment(item.blog, 300)
             br
-            a href=blog_path(item.blog)
-              img src='/uploads/thumb/#{pic_name(item.blog)}'
-            br
+            - unless pic_name(item).nil?
+              a href=blog_path(item.blog)
+                img src='/uploads/thumb/#{pic_name(item.blog)}'
+              br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Photo)

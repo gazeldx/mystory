@@ -26,8 +26,9 @@ br
         .clear
         .note id='note_#{note.id}_short'
           .ll
-            a href=note_path(note)
-              img src='/uploads/thumb/#{pic_name(note)}'
+            - unless pic_name(note).nil?
+              a href=note_path(note)
+                img src='/uploads/thumb/#{pic_name(note)}'
           = summary_comment(note, 260)
       .clear
     .clear
@@ -51,8 +52,9 @@ br
         .clear
         .note id='blog_#{blog.id}_short'
           .ll
-            a href=blog_path(blog)
-              img src='/uploads/thumb/#{pic_name(blog)}'
+            - unless pic_name(blog).nil?
+              a href=blog_path(blog)
+                img src='/uploads/thumb/#{pic_name(blog)}'
           = summary_comment(blog, 260)
       .clear
     .clear

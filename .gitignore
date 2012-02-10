@@ -5,7 +5,7 @@ tmp/
 nbproject/
 public/photos
 public/uploads
-#config/routes.rb
-#config/environment.rb
-#Gemfile
-#Gemfile.lock
+config/routes.rb
+config/environment.rb
+Gemfile
+Gemfile.lock

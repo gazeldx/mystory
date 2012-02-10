@@ -21,7 +21,8 @@
             = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
     .note id='blog_#{blog.id}_full'
       .ll
-        a href=blog_path(blog)
-          img src='/uploads/thumb/#{pic_name(blog)}'
+        - unless pic_name(blog).nil?
+          a href=blog_path(blog)
+            img src='/uploads/thumb/#{pic_name(blog)}'
       = summary_comment(blog, 260)
 = will_paginate @blogs

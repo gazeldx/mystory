@@ -7,7 +7,7 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem "mysql2", "~> 0.3.11"
+#gem "mysql2", "~> 0.3.11"
 #gem 'sqlite3'
 gem "acts_as_follower"
 gem "pg", '0.11.0'
