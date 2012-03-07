@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  include_kindeditor :only => [:new, :edit]
+  layout 'memoir'
   
   def index
     @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
     @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
-    @all_comments = (@blog.blogcomments | @blog.rblogs.select{|x| x.body.size > 0}).sort_by{|x| x.created_at}
+    @all_comments = (@blog.blogcomments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
   end
 
   def new
@@ -67,5 +67,11 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @blog.destroy
     redirect_to blogs_path, notice: t('delete_succ')
+  end
+
+  def click_show_blog
+    @blog = Blog.find(params[:id])
+    _html = summary_comment_style(@blog, 4000)
+    render json: '{"id":"' + _html + '"}'.as_json()
   end
 end

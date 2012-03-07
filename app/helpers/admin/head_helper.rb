@@ -7,16 +7,16 @@ module Admin::HeadHelper
     end
   end
 
-  def tip_info
-    if /.+\/edit\z/=~request.url
-      tv='edit'
-    elsif /.+\/new\z/=~request.url
-      tv='new'
-    else
-      tv='list'
-    end
-    if tv!='list'
-      content_tag(:h3,t(tv))
-    end
-  end
+#  def tip_info
+#    if /.+\/edit\z/=~request.url
+#      tv='edit'
+#    elsif /.+\/new\z/=~request.url
+#      tv='new'
+#    else
+#      tv='list'
+#    end
+#    if tv!='list'
+#      content_tag(:h3, t(tv))
+#    end
+#  end
 end

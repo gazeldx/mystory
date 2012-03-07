@@ -3,7 +3,7 @@
   #notice= flash[:notice]
 div id='note-#{@blog.id}'
   .note-header
-    h3
+    h2
       = @blog.title
       - if @blog.user_id == session[:id]
         | &nbsp;
@@ -14,7 +14,8 @@ div id='note-#{@blog.id}'
       span.pl
         = post_info @blog
   div id='note_#{@blog.id}_full'
-    == @blog.content
+    pre.note
+      = style_it @blog.content
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer
   .sns-bar

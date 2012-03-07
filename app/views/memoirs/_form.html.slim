@@ -1,16 +1,17 @@
+- content_for :select_photos do
+  = render '/shared/select_photos'
 - if flash[:notice]
   #notice= flash[:notice]
 = form_for @memoir do |f|
   = error_msg @memoir
-  .pl2
-    = f.label t'_memoir_name'
-    br
-    = f.text_field :title, class: 'notnull input_basic2', size: 50
-  br
-  .pl2
-    = f.label t'content'
-    br
-    = f.text_area :content, :id => "kindeditor_id"
-  br
-  .actions
-    = f.submit
+  .row.note-title
+    label.field
+      = t'_memoir_name'
+    = f.text_field :title, id: 'note_title'
+  .row.note-text
+    = render '/shared/insert_photo'
+    label.field
+      | 自传内容
+    = f.text_area :content, id: "note_text"
+  = f.submit class: 'btn'
+= render '/shared/tip_tag_usage'

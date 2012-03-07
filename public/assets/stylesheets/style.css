@@ -84,7 +84,7 @@ input[type=text]:focus,input[type=password]:focus,textarea:focus {
   outline:0
 }
 body {
-  font:12px Tahoma,Geneva,sans-serif;
+  font:13px Tahoma,Geneva,sans-serif;
   margin:15px 0
 }
 #wrapper {
@@ -267,7 +267,7 @@ textarea {
   overflow:auto
 }
 input {
-  font-size:12px
+  font-size:13px
 }
 a {
   cursor:pointer
@@ -295,7 +295,7 @@ a img {
   vertical-align:middle
 }
 body,td,th {
-  font:12px Arial,Helvetica,sans-serif;
+  font:13px Arial,Helvetica,sans-serif;
   line-height:162%
 }
 table {
@@ -344,7 +344,7 @@ h4 {
   background:url(/images/topicbar.gif) no-repeat right top
 }
 h2 {
-  font:14px Arial,Helvetica,sans-serif;
+  font:16px Arial,Helvetica,sans-serif;
   color:#060;
   margin:0 0 12px 0;
   line-height:150%
@@ -1076,7 +1076,7 @@ blockquote {
   margin:0
 }
 .pl {
-  font:12px Arial,Helvetica,sans-serif;
+  font:13px Arial,Helvetica,sans-serif;
   line-height:150%;
   color:#666
 }
@@ -2422,7 +2422,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   padding:0 0 10px 0;
   line-height:1.65em;
   float:left;
-  width:49%
+  width:25%
 }
 .albumlst_r {
   overflow:hidden;
@@ -2439,7 +2439,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
 .photo_wrap {
   float:left;
   display:inline;
-  width:170px;
+  width:164px;
   overflow:hidden;
   margin:10px 13px 25px
 }
@@ -2685,7 +2685,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   line-height:1.4
 }
 .note {
-  font-size:13px;
+  font-size:14px;
   line-height:1.62;
   font-family:Arial,Helvetica,sans-serif;
   word-wrap:break-word;
@@ -2695,7 +2695,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   margin-top:10px
 }
 #note .note {
-  font-size:12px;
+  font-size:13px;
   line-height:1.62
 }
 #form_note textarea {
@@ -8665,10 +8665,8 @@ a.a_folder:hover .bn-arrow {
   background: url(/images/arrow1.gif) no-repeat 0 0
 }
 
-#notice {
-  color: green; }
-#error {
-  color: red; }
+#notice {color: green;}
+#error {color: red;}
 
 .field_with_errors {
   padding: 2px;

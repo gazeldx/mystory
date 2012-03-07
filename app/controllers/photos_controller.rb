@@ -45,6 +45,8 @@ class PhotosController < ApplicationController
 
   def destroy
     @photo = Photo.find(params[:id])
+    # Can this be auto updated?
+    @photo.album.update_attribute(:photo_id, nil) if (@photo.album.photo_id == @photo.id)
     @photo.destroy
     redirect_to album_path(@photo.album), notice: t('delete_succ')
   end

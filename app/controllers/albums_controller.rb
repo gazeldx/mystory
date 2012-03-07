@@ -38,8 +38,6 @@ class AlbumsController < ApplicationController
     end
   end
 
-  # DELETE /albums/1
-  # DELETE /albums/1.json
   def destroy
     @album = Album.find(params[:id])
     @album.destroy
@@ -48,6 +46,17 @@ class AlbumsController < ApplicationController
       format.html { redirect_to albums_url }
       format.json { head :ok }
     end
+  end
+
+  def select_albums
+    @albums = Album.where(["user_id = ?", session[:id]]).order("created_at")
+    render layout: 'select_photos'
+  end
+
+  def select_photos
+    @album = Album.find(params[:album_id])
+    @photos = Photo.where(["album_id = ?", params[:album_id]]).page(params[:page]).order("created_at DESC")
+    render layout: 'select_photos'
   end
 
 end

@@ -1,0 +1,7 @@
+- @albums.each_with_index do |album, i|
+  = link_to album.name, "select_photos/#{album.id}", style: "font-size:14px"
+  span.pl2
+    | &nbsp;
+    = album.photos.size
+    | 张
+    br

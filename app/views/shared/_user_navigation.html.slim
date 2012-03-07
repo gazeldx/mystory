@@ -1,9 +1,8 @@
-li.pl2
+li
   = navigation_item(t('_note'), notes_path)
-li.pl2= navigation_item(t('_blog'), blogs_path)
-li.pl2= navigation_item(t('_album'), albums_path)
-/!%li.pl2{:title=>t('unfinished')}= t('_vedio')
-li.pl2= navigation_item(t('_memoir'), memoirs_path)
+li= navigation_item(t('_blog'), blogs_path)
+li= navigation_item(t('_album'), albums_path)
+li= navigation_item(t('_memoir'), memoirs_path)
 - if controller_path != 'home'
-  li.pl2
+  li
     = navigation_item(t('s_home_page',w: @user.name), root_path)

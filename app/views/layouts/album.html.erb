@@ -11,7 +11,7 @@
     <%= render 'shared/top' %>
     <div id='wrapper'>
       <div id='content'>
-        <div class='grid-16-8 clearfix'>
+        <div class='grid-24-0 clearfix'>
           <div class='article'>
             <div id='db-usr-profile'>
               <%= render 'shared/head_user' %>
@@ -20,10 +20,10 @@
             <br/>
             <%= yield %>
           </div>
-          <div class='aside'>
-            <%= render 'shared/side_album' %>
-          </div>
-          <div class="extra"> </div>
+          <%#*<div class='aside'>%>
+            <%#= render 'shared/side_album' %>
+          <%#*</div>%>
+          <%#*<div class="extra"> </div>%>
         </div>
       </div>
       <%= render 'shared/footer' %>

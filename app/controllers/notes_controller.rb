@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
-  include_kindeditor :only => [:new, :edit, :index, :update]
+  layout 'memoir'
+  
   def index
     @note = Note.new
     @notes = Note.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
@@ -20,7 +21,7 @@ class NotesController < ApplicationController
     #TODO change to max or min?
     @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
     @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
-    @all_comments = (@note.notecomments | @note.rnotes.select{|x| x.body.size > 0}).sort_by{|x| x.created_at}
+    @all_comments = (@note.notecomments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
   end
 
   def edit

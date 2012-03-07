@@ -1,8 +1,8 @@
-= title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
+= title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
 div id='note-#{@note.id}'
   .note-header
     - if @note.title.length > 1
-      h3
+      h2
         = @note.title
         - if @note.user_id == session[:id]
           | &nbsp;
@@ -13,7 +13,7 @@ div id='note-#{@note.id}'
         span.pl
           = @note.created_at.strftime t'time_format'
     - else
-      h3
+      h2
         = @note.created_at.strftime t'time_format'
         - if @note.user_id == session[:id]
           | &nbsp;
@@ -21,7 +21,8 @@ div id='note-#{@note.id}'
           | &nbsp;
           = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
   div id='note_#{@note.id}_full'
-    == @note.content
+    pre.note
+      = style_it @note.content
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer
   .sns-bar
@@ -39,7 +40,7 @@ div.note-ft id='note_#{@note.id}_footer'
           = hidden_field_tag :ri_id, ri.id
           span#ri_body= ri.body
           span#edit
-            - if ri.body.nil?
+            - if ri.body.nil? 
               = link_to '修改推荐理由', '#edit', onclick: 'showBodyEtc()'
             - else
               = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'

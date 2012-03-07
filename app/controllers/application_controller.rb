@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   private
   def query_user_by_domain
     if request.domain==DOMAIN_NAME
-      @user = User.where(["domain = ?", request.subdomain]).first
-    else
-      @user = User.where(["domain = ?", request.domain]).first
+      @user = User.find_by_domain(request.subdomain)
+#    else
+#      @user = User.find(["domain = ?", request.domain])
     end
   end
 
@@ -30,5 +30,113 @@ class ApplicationController < ActionController::Base
     unless @user.id == session[:id]
       redirect_to site(@user)
     end
+  end
+
+  def summary_comment_style(something, size)
+    puts 'into .....'
+    _style = style_it(something.content[0, size])
+    puts 'into 2.....'
+#    _text = text_it(something.content[0, size])
+#    summary_common(something, size + _style.size - _text.size, _style)
+    summary_common(something, size, _style)
+  end
+
+  def summary_common(something, size, tmp)
+    if something.is_a?(Note)
+      count = something.notecomments.size
+    elsif something.is_a?(Blog)
+      count = something.blogcomments.size
+    end
+    comments = ""
+    if count > 0
+      comments = ' ' + t('comments', w: count)
+    end
+    if something.content.size > size
+      tmp + t('etc') + (link_to t('whole_article') + comments, something)
+    else
+#      tmp + (link_to comments, something)
+      tmp
+    end
+  end
+
+  def style_it(something)
+    puts 'into style_it'
+    s = auto_draft(something)
+    puts 'into auto_link'
+    s = auto_link(s)
+    puts 'into auto_photo'
+    auto_style(auto_photo(s))
+  end
+
+  def auto_style(mystr)
+    puts 'into auto_style'
+    m = mystr.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
+    m.each do |e|
+      unless e[1].nil?
+        g = "<span style='"
+        e[1].split('').each do |v|
+          case v
+          when 'b'
+            g += "font-weight:bold;"
+          when 'x'
+            g += "font-size:1.5em;"
+          when 's'
+            g += "font-size:0.8em;"
+          when 'r'
+            g += "color:red;"
+          when 'g'
+            g += "color:green;"
+          when 'y'
+            g += "color:#FF8800;"
+          when 'l'
+            g += "color:#0000FF;"
+          when 'h'
+            g += "color:#AAAAAA;"
+          end
+        end
+        g += "'>" + e[2] + "</span>"
+        mystr = mystr.sub(e[0], g)
+      end
+    end
+    puts mystr
+    mystr
+  end
+
+  def auto_link(mystr)
+    require 'uri'
+    x = URI.extract(mystr, ['http', 'https', 'ftp'])
+    x.each do |e|
+      m = mystr.match(/([ \n][^ \n]*)#{e}/)
+      unless m.nil?
+        if m[1] != " "
+          g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
+          mystr = mystr.sub(m[0], g)
+        else
+          g = "<a href='#{e}' target='_blank'>" + e + "</a>"
+          mystr = mystr.sub(e, g)
+        end
+      end
+    end
+    mystr
+  end
+
+  def auto_draft(mystr)
+    m = mystr.scan(/(##(.*?)##)/m)
+    m.each do |e|
+      mystr = mystr.sub(e[0], t('has_draft'))
+    end
+    mystr
+  end
+
+  def auto_photo(mystr)
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.each do |e|
+      photo = Photo.find_by_id(e[1])
+      unless (photo.nil? or photo.album.user_id!=@user.id)
+        g = "<div style='text-align:center'><img src='#{photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{photo.description}</span></div>"
+        mystr = mystr.sub(e[0], g)
+      end
+    end
+    mystr
   end
 end

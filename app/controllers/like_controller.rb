@@ -1,6 +1,5 @@
 class LikeController < ApplicationController
   layout 'like'
-  include_kindeditor :only => [:index]
 
   def index
     following = Follow.where(["follower_id = ?", @user.id])

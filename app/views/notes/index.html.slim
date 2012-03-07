@@ -1,26 +1,31 @@
 = title t('s_note',w: @user.name)
-= render 'shared/post_note'
+- if @user.id == session[:id]
+  = render 'shared/post_note'
 - @notes.each do |note|
   div id='note-#{note.id}'
     div
-      span.pl
-        - if note.title.length < 1
-          = link_to note.created_at.strftime(t'date_format'), note
-        - else
-          = link_to note.title, note
-          | &nbsp;
-          = note.created_at.strftime(t'date_format')
-        - if note.user_id == session[:id]
-          | &nbsp;
-          = link_to t('edit'), edit_note_path(note)
-          | &nbsp;
-          = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
-    div id='note-#{note.id}_full'
-      == note.content
-      - count = note.notecomments.size
-      - if count > 0
-        |  
-        = link_to t('comments_', w: count), note
+      span.wrap
+        h3
+          - if note.title.length < 1
+            = link_to note.created_at.strftime(t'date_format'), note, class: 'll'
+          - else
+            = link_to note.title, note, class: 'll'
+            | &nbsp;
+            = note.created_at.strftime(t'date_format')
+          .rr
+            a id="#{note.id}" onclick="javascript:showArticle('#{note.id}')" title="展开文章"
+              img src="/images/arrow2.gif"
+        span.pl
+          - if note.user_id == session[:id]
+            | &nbsp;
+            = link_to t('edit'), edit_note_path(note)
+            | &nbsp;
+            = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
+    .note id='note_#{note.id}_short'
+      .ll
+        = thumb_here note
+      = summary_comment(note, 260)
+    .note id='note_#{note.id}_full' style="display: none;"
+      = summary_comment_style(note, 2000)
       = recommend_etc note
-  br
 = will_paginate @notes

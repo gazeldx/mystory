@@ -19,7 +19,7 @@
         - if @user.id == session[:id]
           = link_to t('modify_desc'), album_photo_path(@album, photo)
       div style='color:#999' 
-    - if i%3 == 2
+    - if i%5 == 4
       .clear
   .clear
 .pl style="padding-bottom:30px" 

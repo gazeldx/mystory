@@ -29,8 +29,6 @@ class RecommendController < ApplicationController
 
   def modify_blog
     @rblog = Rblog.find(params[:id])
-    puts "sddddddddddddddddddddddddddkk"
-    puts @rblog.inspect
     head :ok if @rblog.update_attributes(params[:ri])
   end
   

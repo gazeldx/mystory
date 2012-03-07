@@ -1,6 +1,7 @@
 class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :file
+#  storage :file
+  storage :upyun
 
   def store_dir
     "photos/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"

@@ -8,7 +8,7 @@
         td valign='top' 
           = image_tag(@_user.avatar.thumb.url)
           = f.file_field :avatar
-          = f.hidden_field :avatar_cache
+          /= f.hidden_field :avatar_cache
       tr
         td align='right' valign='top' class='m' 
           = t'user_name'

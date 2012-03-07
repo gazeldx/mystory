@@ -1,0 +1,56 @@
+<form method="post" id="form_note">
+  <div style="display:none;">
+    <input type="hidden" value="lMxR" name="ck">
+  </div>
+  <input type="hidden" value="202344248" name="note_id" id="note_id">
+  <div class="row note-title">
+    <label for="note_title" class="field">题目:</label>
+    <div>
+      <input type="text" autofocus="" value="" name="note_title" id="note_title" tabindex="1">
+    </div>
+  </div>
+  <div class="row note-text">
+    <ul class="control-panel">
+      <li class="image-btn">
+        <a title="插入图片" href="#image" class="lnk-flat">图片</a>
+      </li>
+      <li class="link-btn">
+        <a title="插入链接" href="#link" class="lnk-flat">链接</a>
+      </li>
+    </ul>
+    <label for="note_text" class="field">正文:</label>
+    <textarea name="note_text" id="note_text" tabindex="2"></textarea>
+  </div>
+  <div class="images">
+  </div>
+  <div class="row note-privacy">
+    <label class="field">设置可见: </label>
+    <label>
+      <input type="radio" checked="" value="P" name="note_privacy" tabindex="3"><span>所有人可见</span>
+    </label>
+    <label>
+      <input type="radio" value="S" name="note_privacy" tabindex="4"><span>仅朋友可见</span>
+    </label>
+    <label>
+      <input type="radio" value="X" name="note_privacy" tabindex="5"><span>仅自己可见</span>
+    </label>
+  </div>
+  <div class="row note-reply">
+    <label for="cannot_reply" class="field">权限设置: </label>
+    <label>
+      <input type="checkbox" name="cannot_reply" id="cannot_reply" tabindex="6"><span>不允许回应</span>
+    </label>
+  </div>
+  <div class="row footer">
+    <div class="error-msg board">
+    </div>
+    <span class="bn-flat cancel-note">
+      <input type="submit" name="cancel_note" class="bn-flat" value="取消" id="cancel_note" tabindex="9">
+    </span>
+    <span class="bn-flat">
+      <input type="button" class="bn-flat" value="预览" id="preview_note" tabindex="7">
+    </span>
+    &nbsp;
+    <input type="submit" name="note_submit" class="btn" value="发表" id="publish_note" tabindex="8">
+  </div>
+</form>

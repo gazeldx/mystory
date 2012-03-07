@@ -2,10 +2,12 @@
 <html class="ua-ff4" lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
-    <link href="/assets/stylesheets/style.css" rel="stylesheet" type="text/css">
-    <link href="/assets/stylesheets/form.css" rel="stylesheet" type="text/css">
+    <link href="/assets/stylesheets/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/stylesheets/form.css" rel="stylesheet" type="text/css"/>
+<%#*TODO special css not all include%>
+    <link href="/assets/stylesheets/create_note.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/stylesheets/dialog.css" rel="stylesheet" type="text/css"/>
     <%= javascript_include_tag "application" %>
-    <%= include_kindeditor_if_needed %>
     <%= csrf_meta_tags %>
     <% if @user.customize %>
       <style>
@@ -14,8 +16,13 @@
         }
       </style>
     <% end %>
+<%# if controller_path == 'blogs' && controller.action_name='show' %>
+<%# if !@blog.nil? && @blog.id == 2 %>
+<%#*<BGSOUND SRC="/uploads/music/wedding.mp3">%>
+<%# end %>
+<%# end %>
   </head>
-  <body>    
+  <body>
     <%= render 'shared/top' %>
     <div id='wrapper'>
       <div id='content' <% if @user.customize %>style="background: none repeat scroll 0 0 #FFFFFF;"<% end %>>
@@ -36,5 +43,6 @@
       </div>
       <%= render 'shared/footer' %>
     </div>
+    <%= yield :select_photos %>
   </body>
 </html>

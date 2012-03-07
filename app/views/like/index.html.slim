@@ -1,6 +1,7 @@
 = title t('active_state', w: @user.name)
 #miniblog
-  = render 'shared/post_note'
+  - if @user.id == session[:id]
+    = render 'shared/post_note'
   #db-timeline-hd.clearfix
     ul.menu-list
       - url = link_to t('all'), like_path
@@ -35,10 +36,8 @@
           span.inq
             = summary_comment(item, 300)
             br
-            - unless pic_name(item).nil?
-              a href=note_path(item)
-                img src='/uploads/thumb/#{pic_name(item)}'
-              br
+            = thumb_here item
+            br
             span.pl
               = item.created_at.strftime t'no_year'
             = recommend_etc item
@@ -54,10 +53,8 @@
           span.inq
             = summary_comment(item, 300)
             br
-            - unless pic_name(item).nil?
-              a href=blog_path(item)
-                img src='/uploads/thumb/#{pic_name(item)}'
-              br
+            = thumb_here item
+            br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rnote)
@@ -77,10 +74,8 @@
             | : 
             = summary_comment(item.note, 300)
             br
-            - unless pic_name(item).nil?
-              a href=note_path(item.note)
-                img src='/uploads/thumb/#{pic_name(item.note)}'
-              br
+            = thumb_here item.note
+            br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rblog)
@@ -102,10 +97,8 @@
             | --
             = summary_comment(item.blog, 300)
             br
-            - unless pic_name(item).nil?
-              a href=blog_path(item.blog)
-                img src='/uploads/thumb/#{pic_name(item.blog)}'
-              br
+            = thumb_here item.blog
+            br
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Photo)

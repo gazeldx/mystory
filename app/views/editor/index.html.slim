@@ -29,10 +29,8 @@
             - else
               = link_to note.created_at.strftime(t'date_format'), note
           = recommend_etc note
-          - unless pic_name(note).nil?
-            br
-            a href=note_path(note)
-              img src='/uploads/thumb/#{pic_name(note)}'
+          br
+          = thumb_here note
 #note
   h2
     = t('r_blog',w: @user.name)
@@ -59,7 +57,5 @@
           span.pl
             = blog.created_at.strftime t'no_year'
           = recommend_etc blog
-          - unless pic_name(blog).nil?
-            br
-            a href=blog_path(blog)
-              img src='/uploads/thumb/#{pic_name(blog)}'
+          br
+          = thumb_here blog

@@ -7,9 +7,12 @@
 - else
   h2
     = @memoir.title
-    |  
-    = link_to t('edit'), edit_memoirs_path
+    - if @user.id == session[:id]
+      |  
+      = link_to t('edit'), edit_memoirs_path
   span.pl
     = @memoir.updated_at.strftime t'time_format'
     |  更新
-  == @memoir.content
+  div id='note_#{@memoir.id}_full'
+    pre.note
+      = style_it @memoir.content

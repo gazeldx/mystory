@@ -5,6 +5,9 @@
       span.wrap
         h3
           = link_to blog.title, blog, class: 'll'
+          .rr
+            a id="#{blog.id}" onclick="javascript:showArticle('#{blog.id}')" title="展开文章"
+              img src="/images/arrow2.gif"
       div
         span.pl
           = blog.created_at.strftime t'no_year'
@@ -13,7 +16,10 @@
             = link_to t('edit'), edit_blog_path(blog)
             | &nbsp;
             = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
-    div id='note_#{blog.id}_full'
-      pre.note
-        = summary(blog, 260)
+    .note id='note_#{blog.id}_short'
+      .ll
+        = thumb_here blog
+      = summary_comment(blog, 260)
+    .note id='note_#{blog.id}_full' style="display: none;"
+      = summary_comment_style(blog, 1000)
 = will_paginate @blogs

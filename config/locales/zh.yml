@@ -25,6 +25,7 @@ zh:
   hello: "你好"
   title: "标题"
   content: "内容"
+  insert_photo: "插照片"
   _category: "作品分类"
   category:
     name: "分类名"
@@ -37,8 +38,10 @@ zh:
   comments_: "评论%{w}"
   comment: "评论"
 
+  pic: "图"
   _dot: "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"
-  chinese_etc: "⋯⋯"
+  etc: "……"
+  whole_article: "全文"
 #  web_desc: "这世界，我来过"
   he_editor: "他的推荐"
   see_what_he_edit: "看他推荐的内容"
@@ -54,7 +57,6 @@ zh:
   _comment: "评论"
   active_state: "%{w}关注的人动态"
   
-  whole_article: "全文"
   ren: "人"
   #all: "阅读全文"
   site:
@@ -64,6 +66,7 @@ zh:
   avatar: "头像"
 
   _photo: "照片"
+  has_draft: "（这儿有一段草稿）"
 
   my_home_page: "我的主页"
   plaza: "广场"
@@ -90,6 +93,7 @@ zh:
   s_my_info: "%{w}的个人资料"
   s_album: "%{w}影集"
   s_note_date: "%{w2} - %{w}日记"
+  s_note_date2: "%{w} - %{w3}%{w2}日记"
   s_category: "%{w2} - %{w}作品"
   s_album_in: "%{w2} - %{w}影集"
   _recommend: "推荐阅读："
@@ -106,6 +110,7 @@ zh:
   _note: "日记"
   _blog: "作品"
   _album: "影集"
+    
   add_photos: "添加照片"
   _vedio: "视频"
   _memoir: "自传"
@@ -133,12 +138,12 @@ zh:
   _post: "发布"
 
   album:
+    add: "创建新影集"
     name: "影集名称"
     description: "影集描述"
     modify: "修改影集属性"
     return_home: "返回影集首页"
     return: "返回影集"
-  add_photo: "添加照片"
   a_new_photo: "新一张"
   a_old_photo: "旧一张"
   click_show_old: "点击查看旧一张"

@@ -1,18 +1,16 @@
-- if @user.id == session[:id]
-  #db-talk.mod.talk-disable
-    = form_for @note do |f|
-      .item.pl2
-        = t'title'
-        | (可不填)
-        = f.text_field :title, size: 30
-      .item
-        = f.text_area :content, :id => "kindeditor_id"
-      .btn
-        span.tipmsg
-          - if flash[:notice]
-            #notice= flash[:notice]
-        span.bn-flat
-          = f.submit t'_post'
-javascript:
-  /TODO FOCUS IT
-  $('#kindeditor_id').focus()
+- content_for :select_photos do
+  = render '/shared/select_photos'
+#db-talk.mod.talk-disable
+  = form_for @note do |f|
+    .item.pl2
+      = t'title'
+      = f.text_field :title, id: "note_"
+      | (可不填)
+      = render '/shared/insert_photo'
+    .item
+      = f.text_area :content, value: "日记内容", onfocus: "if (this.value=='日记内容') {this.value=''}", id: "note_text"
+    span.tipmsg
+      - if flash[:notice]
+        #notice= flash[:notice]
+    span.bn-flat style="float: right"
+      = f.submit t'_post'
