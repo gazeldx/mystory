@@ -13,6 +13,12 @@ div id='note-#{@blog.id}'
     div
       span.pl
         = post_info @blog
+        | &nbsp;&nbsp;其它分类：
+        - @categories.each do |category|
+          - if category.id != @blog.category.id
+            | [
+            = link_to category.name, category
+            | ]&nbsp;&nbsp;
   div id='note_#{@blog.id}_full'
     pre.note
       = style_it @blog.content
@@ -43,18 +49,28 @@ div id='note-#{@blog.id}'
         | 推荐理由：
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("blog")'
-span
-  | 新一篇 
+.ll
+  span.pl
+    | 新一篇 
   - if @blog_pre.nil?
     | 无
   - else
     = link_to @blog_pre.title, @blog_pre
   br
-  | 旧一篇 
+  span.pl
+    | 旧一篇 
   - if @blog_next.nil?
     | 无
   - else
     = link_to @blog_next.title, @blog_next
+.rr
+  span.pl
+    = t'_recommend'
+  br
+  - ids = @user.blogs.select('id')
+  - @user.r_blogs.where(id: ids).limit(5).each do |blog|
+    = link_to blog.title, blog
+    br
 #comments
   = render 'blogcomments/blogcomment'
 - if session[:id].nil?

@@ -5,6 +5,7 @@
     <link href="/assets/stylesheets/style.css" rel="stylesheet" type="text/css">
     <link href="/assets/stylesheets/form.css" rel="stylesheet" type="text/css">
     <link href="/assets/stylesheets/create_note.css" rel="stylesheet" type="text/css">
+    <link href="/assets/stylesheets/dialog.css" rel="stylesheet" type="text/css"/>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <style>
@@ -42,7 +43,7 @@
     <%= render 'shared/top' %>
     <div id='wrapper'>
       <div id='content'>
-        <div class='grid-16-8 clearfix'>
+        <div class='grid-24-0 clearfix'>
           <div class='article'>
             <% if @user.id != session[:id] %>
               <div id='db-usr-profile'>
@@ -53,13 +54,10 @@
             <% end %>
             <%= yield %>
           </div>
-          <div class='aside'>
-            <%= render 'shared/side_user' %>
-          </div>
-          <div class="extra"> </div>
         </div>
       </div>
-      <%= render 'shared/footer' %>
+      <%= render 'shared/footer_like' %>
     </div>
+    <%= yield :select_photos %>
   </body>
 </html>

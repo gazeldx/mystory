@@ -1,3 +1,4 @@
+= title t('category.edit')
 = render '/shared/notice_error'
 = form_for @category do |f|
   = f.label t'category_addtip'
@@ -5,16 +6,20 @@
   = f.submit t(:submit)
 table
   tr
-    th= t('category.name')
+    th
+      = t'category.name'
     th
     th
     th colspan=2
       = t'sort'
   - @categories.each_with_index do |category, i|
     tr
-      td= category.name
-      td= link_to t(:edit), edit_category_path(category)
-      td= link_to t(:delete), category_path(category), confirm:t('confirm.delete'), method: :delete
+      td
+        = category.name
+      td
+        = link_to t(:edit), edit_category_path(category)
+      td
+        = link_to t(:delete), category_path(category), confirm:t('confirm.delete'), method: :delete
       td
         - if i > 0
           = link_to t(:up), up_category_path(category)

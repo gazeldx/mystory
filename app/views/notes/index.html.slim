@@ -13,7 +13,7 @@
             | &nbsp;
             = note.created_at.strftime(t'date_format')
           .rr
-            a id="#{note.id}" onclick="javascript:showArticle('#{note.id}')" title="展开文章"
+            a id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title="展开文章"
               img src="/images/arrow2.gif"
         span.pl
           - if note.user_id == session[:id]
@@ -26,6 +26,6 @@
         = thumb_here note
       = summary_comment(note, 260)
     .note id='note_#{note.id}_full' style="display: none;"
-      = summary_comment_style(note, 2000)
+    .note id='note_#{note.id}_full2' style="display: none;"
       = recommend_etc note
 = will_paginate @notes

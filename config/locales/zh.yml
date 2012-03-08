@@ -126,6 +126,7 @@ zh:
   time_format: "%Y年%m月%d日 %H:%M"
   date_format: "%Y年%m月%d日"
   no_year: "%m月%d日 %H:%M"
+  h_m: "%H:%M"
   posted_in: "发表在"
 
   view_blogs_in_category: "查看该分类下的作品"

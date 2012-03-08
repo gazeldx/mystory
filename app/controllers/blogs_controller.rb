@@ -3,9 +3,11 @@ class BlogsController < ApplicationController
   
   def index
     @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
+    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
   end
 
   def show
+    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
     @blog = Blog.find(params[:id])
     @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
     @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
@@ -25,12 +27,10 @@ class BlogsController < ApplicationController
     @blog = Blog.new(params[:blog])
     @blog.user_id = session[:id]
     if params[:category_name].nil?
-      puts "nilllllllllllllllllllllllllllllllllllllllllll"
       create_proc
     else
       @category = Category.new()
       @category.name = params[:category_name]
-      puts "not nilllllllllllllllllllllllllllllllllllllllllll"
       @category.user_id = session[:id]
       if @category.save
         @blog.category_id = @category.id
@@ -71,7 +71,7 @@ class BlogsController < ApplicationController
 
   def click_show_blog
     @blog = Blog.find(params[:id])
-    _html = summary_comment_style(@blog, 4000)
-    render json: '{"id":"' + _html + '"}'.as_json()
+    @blog.content = summary_comment_style(@blog, 4000)
+    render json: @blog.as_json()
   end
 end

@@ -2,7 +2,6 @@ class RecommendController < ApplicationController
   
   def blog
     _r = Rblog.find_by_user_id_and_blog_id(session[:id], params[:id])
-    puts _r
     if _r.nil?
       rblog = Rblog.new
       rblog.user_id = session[:id]

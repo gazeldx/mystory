@@ -5,7 +5,7 @@ class HomeController < ApplicationController
       @blogs_new = Blog.order("created_at DESC").limit(20)
       #TODO hotest blog and note
       @users = User.order("created_at DESC").limit(20)
-      render layout:'portal'
+      render layout: 'portal'
     else
       @notes = @user.notes.order("created_at DESC").limit(10)
       @blogs = @user.blogs.order("created_at DESC").limit(10)

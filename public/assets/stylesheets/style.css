@@ -320,7 +320,7 @@ h1 .year {
 h3 {
   height:26px;
   margin-left:4px;
-  font:14px Arial,Helvetica,sans-serif;
+  font:15px Arial,Helvetica,sans-serif;
   color:#666;
   margin-bottom:1px;
   line-height:150%;
@@ -8665,8 +8665,8 @@ a.a_folder:hover .bn-arrow {
   background: url(/images/arrow1.gif) no-repeat 0 0
 }
 
-#notice {color: green;}
-#error {color: red;}
+#notice {color: green;font-size:14px}
+#error {color: red;font-size:14px}
 
 .field_with_errors {
   padding: 2px;

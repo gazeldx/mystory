@@ -38,3 +38,8 @@ div id='note-#{note.id}_full'
         success: (d) ->
           #alert d['id']
           $('#note_'+id+'_full').html(htmlDecode(d['id']))
+
+= summary_comment_style(blog, 4000)
+
+
+        #,type: "GET"

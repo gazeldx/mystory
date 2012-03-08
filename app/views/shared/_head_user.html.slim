@@ -44,7 +44,8 @@
     br
     - @user.hobbies.each_with_index do |hobby, i|
       - if i==0
-        | 爱好: 
+        span.pl
+          | 爱好:
       = hobby.name
       |  
     - if @user.id == session[:id]
@@ -53,7 +54,8 @@
         = link_to t('edit_hobby'), hobbies_path
         | )
     br
-    = @user.memo
+    span.pl
+      = @user.memo
     br
     .info style="font-size:16px"
       ul

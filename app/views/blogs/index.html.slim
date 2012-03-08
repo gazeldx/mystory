@@ -2,8 +2,19 @@
 - if flash[:notice]
   #notice= flash[:notice]
 - if @user.id == session[:id]
-  div style="font-size:14px"
+  h2
     = link_to t('post_blog'), new_blog_path
+h2
+  | 作品分类：
+  - @categories.each do |category|
+    | [
+    = link_to category.name, category
+    | ]&nbsp;&nbsp;
+  - if session[:id]==@user.id
+    span
+      | (
+      = link_to t('edit'), categories_path
+      | )
 - @blogs.each do |blog|
   div id='note-#{blog.id}'
     div
@@ -11,7 +22,7 @@
         h3
           = link_to blog.title, blog, class: 'll'
           .rr
-            a id="#{blog.id}" onclick="javascript:showArticle('#{blog.id}')" title="展开文章"
+            a id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title="展开文章"
               img src="/images/arrow2.gif"
         span.pl
           = post_info blog
@@ -25,13 +36,4 @@
         = thumb_here blog
       = summary_comment(blog, 360)
     .note id='note_#{blog.id}_full' style="display: none;"
-      = summary_comment_style(blog, 4000)
 = will_paginate @blogs
-javascript:
-  function htmlEncode(value){
-    return $('<div/>').text(value).html();
-  }
-
-  function htmlDecode(value){
-    return $('<div/>').html(value).text();
-  }

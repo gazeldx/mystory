@@ -20,8 +20,6 @@ class UsersController < ApplicationController
   def update
     @_user = User.find(session[:id])
     @_user.avatar = params[:file]
-    puts "---------------------------ipppppppppppppppppppppppp"
-    puts params[:user][:passwd]
     @_user.birthday = params[:date][:year]
     if @_user.update_attributes(params[:user])
       #TODO user = User.find(@_user.id) TEST IT
@@ -74,5 +72,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to users_url
+  end
+
+  def help
+    render layout: 'help'
   end
 end

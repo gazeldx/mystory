@@ -21,8 +21,6 @@ class ApplicationController < ActionController::Base
   def query_user_by_domain
     if request.domain==DOMAIN_NAME
       @user = User.find_by_domain(request.subdomain)
-#    else
-#      @user = User.find(["domain = ?", request.domain])
     end
   end
 
@@ -33,18 +31,16 @@ class ApplicationController < ActionController::Base
   end
 
   def summary_comment_style(something, size)
-    puts 'into .....'
     _style = style_it(something.content[0, size])
-    puts 'into 2.....'
-#    _text = text_it(something.content[0, size])
-#    summary_common(something, size + _style.size - _text.size, _style)
     summary_common(something, size, _style)
   end
 
   def summary_common(something, size, tmp)
     if something.is_a?(Note)
+      si = note_path(something)
       count = something.notecomments.size
     elsif something.is_a?(Blog)
+      si = blog_path(something)
       count = something.blogcomments.size
     end
     comments = ""
@@ -52,24 +48,19 @@ class ApplicationController < ActionController::Base
       comments = ' ' + t('comments', w: count)
     end
     if something.content.size > size
-      tmp + t('etc') + (link_to t('whole_article') + comments, something)
+      tmp + t('etc') + "<a href='#{si}'>" + t('whole_article') + comments + "</a>"
     else
-#      tmp + (link_to comments, something)
-      tmp
+      tmp + "<a href='#{si}'>" + comments + "</a>"
     end
   end
 
   def style_it(something)
-    puts 'into style_it'
     s = auto_draft(something)
-    puts 'into auto_link'
     s = auto_link(s)
-    puts 'into auto_photo'
     auto_style(auto_photo(s))
   end
 
   def auto_style(mystr)
-    puts 'into auto_style'
     m = mystr.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
     m.each do |e|
       unless e[1].nil?
@@ -98,7 +89,6 @@ class ApplicationController < ActionController::Base
         mystr = mystr.sub(e[0], g)
       end
     end
-    puts mystr
     mystr
   end
 

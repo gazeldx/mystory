@@ -32,7 +32,7 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update_attributes(params[:note])
-      redirect_to notes_path, notice: t('update_succ')
+      redirect_to note_path, notice: t('update_succ')
     else
       render :edit
     end
@@ -42,6 +42,12 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @note.destroy
     redirect_to notes_path, notice: t('delete_succ')
+  end
+
+  def click_show_note
+    @note = Note.find(params[:id])
+    @note.content = summary_comment_style(@note, 3000)
+    render json: @note.as_json()
   end
 
 end

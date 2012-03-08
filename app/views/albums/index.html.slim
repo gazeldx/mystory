@@ -2,7 +2,7 @@
 - if flash[:notice]
   #notice= flash[:notice]
 - if @user.id == session[:id]
-  div style="font-size:14px"
+  h2
     = link_to t('album.add'), new_album_path
 .wr
   - @albums.each_with_index do |album, i|

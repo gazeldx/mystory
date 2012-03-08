@@ -4,9 +4,9 @@ class Blog < ActiveRecord::Base
   has_many :blogcomments, :dependent => :destroy
   has_many :rblogs, :dependent => :destroy
 
-  validates :title, :length => { :in => 1..40 }
+  validates :title, :length => { :in => 1..50 }
   validates :content, :presence => true
   validates :category_id, :presence => true
   validates :user_id, :presence => true
-  self.per_page = 10
+#  self.per_page = 10
 end

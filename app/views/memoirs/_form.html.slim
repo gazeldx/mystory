@@ -7,11 +7,13 @@
   .row.note-title
     label.field
       = t'_memoir_name'
+    br
     = f.text_field :title, id: 'note_title'
   .row.note-text
-    = render '/shared/insert_photo'
     label.field
       | 自传内容
+      = render '/shared/insert_photo'
     = f.text_area :content, id: "note_text"
   = f.submit class: 'btn'
+br
 = render '/shared/tip_tag_usage'

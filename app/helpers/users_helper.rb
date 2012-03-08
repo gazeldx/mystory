@@ -35,12 +35,17 @@ module UsersHelper
     m.each do |e|
       tmp = tmp.sub(e, "")
     end
-    p = tmp + t('etc') + (link_to t('whole_article') , something)
+    if something.is_a?(Memoir)
+      lint_url = memoirs_path
+    else
+      lint_url = something
+    end
+    p = tmp + t('etc') + (link_to t('whole_article') , lint_url)
     n = m.size
     if n > 1
       raw " (#{n}#{t('pic')})&nbsp;&nbsp;" + p
     else
-      p
+      raw p
     end
   end
 
@@ -158,8 +163,6 @@ module UsersHelper
     if count > 0
       comments = ' ' + t('comments', w: count)
     end
-    puts 'tmp.size=' + tmp.size.to_s
-    puts 'size=' + (size + 30).to_s
     if something.content.size > size
       raw tmp + t('etc') + (link_to t('whole_article') + comments, something)
     else

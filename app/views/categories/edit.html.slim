@@ -1,3 +1,6 @@
+= title t('category.edit')
+= link_to "返回作品分类", categories_path
+= render '/shared/notice_error'
 = form_for @category do |f|
   = error_msg @category
   = f.label t'category.name'

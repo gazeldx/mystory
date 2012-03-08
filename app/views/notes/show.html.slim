@@ -1,4 +1,7 @@
-= title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+- if @note.title.length > 1
+  = title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+- else
+  = title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
 div id='note-#{@note.id}'
   .note-header
     - if @note.title.length > 1
@@ -14,7 +17,10 @@ div id='note-#{@note.id}'
           = @note.created_at.strftime t'time_format'
     - else
       h2
-        = @note.created_at.strftime t'time_format'
+        = @note.created_at.strftime t'date_format'
+        span.pl2
+          | &nbsp;
+          = @note.created_at.strftime t'h_m'
         - if @note.user_id == session[:id]
           | &nbsp;
           = link_to t('edit'), edit_note_path(@note)
