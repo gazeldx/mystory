@@ -4,27 +4,27 @@ br
 #miniblog
   #db-timeline-hd.clearfix
     ul.menu-list
-      - url = link_to t('all'), site(@user)
+      - url = link_to t('all'), now_path
       - if params[:t].nil?
         li.on= url
       - else
         li= url
-      - url = link_to t('_note'), site(@user) + '?t=note'
+      - url = link_to t('_note'), now_path + '?t=note'
       - if params[:t] == 'note'
         li.on= url
       - else
         li= url
-      - url = link_to t('_blog'), site(@user) + '?t=blog'
+      - url = link_to t('_blog'), now_path + '?t=blog'
       - if params[:t] == 'blog'
         li.on= url
       - else
         li= url
-      - url = link_to t('_photo'), site(@user) + '?t=photo'
+      - url = link_to t('_photo'), now_path + '?t=photo'
       - if params[:t] == 'photo'
         li.on= url
       - else
         li= url
-      - url = link_to t('recommend'), site(@user) + '?t=recommend'
+      - url = link_to t('recommend'), now_path + '?t=recommend'
       - if params[:t] == 'recommend'
         li.on= url
       - else
@@ -46,7 +46,7 @@ br
             span.pl
               = item.created_at.strftime t'no_year'
             = recommend_etc item
-      - elsif item.is_a?(Blog)
+      - elsif item.is_a?(Blog)        
         li.mbtr
           = link_to item.user.name, site(item.user), target: '_blank'
           span.pl1
@@ -60,7 +60,7 @@ br
             br
             span.pl
               = item.created_at.strftime t'no_year'
-      - elsif item.is_a?(Photo)
+      - elsif item.is_a?(Photo)        
         li.mbtr
           span.inq
             = link_to item.album.user.name, site(item.album.user), target: '_blank'

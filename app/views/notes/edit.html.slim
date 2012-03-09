@@ -1,21 +1,2 @@
 = title t('edit') + ' - ' + t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
-- content_for :select_photos do
-  = render '/shared/select_photos'
-= form_for @note do |f|
-  = error_msg @note
-  h2
-    - unless @note.created_at.nil?
-      = t('s_note', w: @note.created_at.strftime(t'date_format'))
-  .row.note-title
-    label.field
-      = t'title'
-    br
-    = f.text_field :title
-    | (可不填)
-  .row.note-text
-    label.field
-      | 正文&nbsp;&nbsp;
-      = render '/shared/insert_photo'
-    br
-    = f.text_area :content, :id => "note_text"
-  = f.submit t('_post'), class: 'btn'
+= render 'form'

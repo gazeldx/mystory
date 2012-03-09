@@ -56,6 +56,7 @@ zh:
 #  cancel_recommend_him: "取消推荐"
   _comment: "评论"
   active_state: "%{w}关注的人动态"
+#  i_now: "%{w}的动态"
   
   ren: "人"
   #all: "阅读全文"
@@ -81,6 +82,7 @@ zh:
   edit_profile: "编辑个人资料"
   
   s_home_page: "%{w}主页"
+  ss_home_page: "%{w}的主页"
   s_note: "%{w}日记"
   s_blog: "%{w}作品"
   s_memoir: "%{w}自传"
@@ -115,6 +117,7 @@ zh:
   _vedio: "视频"
   _memoir: "自传"
   _memoir_name: "自传名"
+  write_note: "写日记"
   note:
     add: "写日记"
   blog:

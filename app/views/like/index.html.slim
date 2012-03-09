@@ -24,6 +24,11 @@
         li.on= url
       - else
         li= url
+      - url = link_to t('recommend'), like_path + '?t=recommend'
+      - if params[:t] == 'recommend'
+        li.on= url
+      - else
+        li= url
   ul.mbt
     - @all.each do |item|
       - if item.is_a?(Note)
@@ -32,11 +37,14 @@
             = image_tag(item.user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user), target: '_blank'
-          | : 
+          span.pl1
+            |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
           span.inq
-            = summary_comment(item, 300)
-            br
-            = thumb_here item
+            = summary_comment(item, 140)
+            - thumb = thumb_here item
+            - unless thumb.nil?
+              br
+              = thumb
             br
             span.pl
               = item.created_at.strftime t'no_year'
@@ -47,13 +55,15 @@
             = image_tag(item.user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl
+          span.pl1
             |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
             | --
           span.inq
-            = summary_comment(item, 300)
-            br
-            = thumb_here item
+            = summary_comment(item, 180)
+            - thumb = thumb_here item
+            - unless thumb.nil?
+              br
+              = thumb
             br
             span.pl
               = item.created_at.strftime t'no_year'
@@ -63,7 +73,7 @@
             = image_tag(item.user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl
+          span.pl1
             |  推荐日记
           | :
           = item.body
@@ -72,9 +82,11 @@
             | &nbsp;&nbsp;原文 
             = link_to item.note.user.name, site(item.note.user), target: '_blank'
             | : 
-            = summary_comment(item.note, 300)
-            br
-            = thumb_here item.note
+            = summary_comment(item.note, 140)
+            - thumb = thumb_here item.note
+            - unless thumb.nil?
+              br
+              = thumb
             br
             span.pl
               = item.created_at.strftime t'no_year'
@@ -84,7 +96,7 @@
             = image_tag(item.user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl
+          span.pl1
             |  推荐作品
           | :
           = item.body
@@ -92,12 +104,14 @@
           span.inq
             | &nbsp;&nbsp;原文 
             = link_to item.blog.user.name, site(item.blog.user), target: '_blank'
-            span.pl  发表作品
+            span.pl1  发表作品
             | 《#{link_to item.blog.title, site(item.user) + blog_path(item.blog), target: '_blank'}》
             | --
-            = summary_comment(item.blog, 300)
-            br
-            = thumb_here item.blog
+            = summary_comment(item.blog, 180)
+            - thumb = thumb_here item.blog
+            - unless thumb.nil?
+              br
+              = thumb
             br
             span.pl
               = item.created_at.strftime t'no_year'
@@ -108,10 +122,11 @@
         li.mbtr
           span.inq
             = link_to item.album.user.name, site(item.album.user), target: '_blank'
-            span.pl  上传照片到 
+            span.pl1  上传照片到&nbsp;
             = link_to item.album.name, album_path(item.album), target: '_blank'
-            br
-            = item.description
+            - unless item.description.nil?
+              br
+              = item.description
             br
             a href=album_photo_path(item.album, item)
               = image_tag(item.avatar.thumb.url)

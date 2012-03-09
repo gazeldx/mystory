@@ -19,15 +19,15 @@ module UsersHelper
     raw t('_dot')
   end
 
-#  def summary(something, size)
-#    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
-#    if tmp.size > size + 30
-#      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
-#      raw tmp[0, size] + (link_to t('chinese_etc') + ' >>', something)
-#    else
-#      raw tmp
-#    end
-#  end
+  #  def summary(something, size)
+  #    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
+  #    if tmp.size > size + 30
+  #      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
+  #      raw tmp[0, size] + (link_to t('chinese_etc') + ' >>', something)
+  #    else
+  #      raw tmp
+  #    end
+  #  end
 
   def summary_no_comments(something, size)
     tmp = text_it(something.content[0, size])
@@ -110,27 +110,9 @@ module UsersHelper
   #    end
   #  end
 
-  def photo_url(mystr)
-    m = mystr.match(/\+photo(\d{2,})\+/)
-    unless m.nil?
-      photo = Photo.find_by_id(m[1])
-      unless (photo.nil? or photo.album.user_id!=@user.id)
-        photo.avatar.thumb.url
-      end
-    end
-  end
   
-  def thumb_here(something)
-    p_name = photo_url(something.content)
-    unless p_name.nil?
-      if something.is_a?(Note)
-        href = note_path(something)
-      elsif something.is_a?(Blog)
-        href = blog_path(something)
-      end
-      content_tag(:a, image_tag(p_name), href: href)
-    end
-  end
+  
+ 
 
   def summary_comment(something, size)
     tmp = text_it(something.content[0, size])
@@ -148,8 +130,8 @@ module UsersHelper
 
   def summary_comment_style(something, size)
     _style = style_it(something.content[0, size])
-#    _text = text_it(something.content[0, size])
-#    summary_common(something, size + _style.size - _text.size, _style)
+    #    _text = text_it(something.content[0, size])
+    #    summary_common(something, size + _style.size - _text.size, _style)
     summary_common(something, size, _style)
   end
 
@@ -256,6 +238,31 @@ module UsersHelper
       end
     end
     mystr
+  end
+
+  def photo_url(mystr)
+    thumb = nil
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.each do |e|
+      photo = Photo.find_by_id(e[1])
+      unless (photo.nil? or photo.album.user_id!=@user.id)
+        thumb = photo.avatar.thumb.url
+        break
+      end
+    end
+    thumb
+  end
+
+  def thumb_here(something)
+    p_name = photo_url(something.content)
+    unless p_name.nil?
+      if something.is_a?(Note)
+        href = note_path(something)
+      elsif something.is_a?(Blog)
+        href = blog_path(something)
+      end
+      content_tag(:a, image_tag(p_name), href: href)
+    end
   end
 
 end

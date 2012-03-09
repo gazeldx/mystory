@@ -20,12 +20,12 @@
             </div>
             <div class="clear"></div>
             <br/>
+            <%= yield :select_photos %>
             <%= yield %>
           </div>          
         </div>
       </div>
       <%= render 'shared/footer' %>
     </div>
-    <%= yield :select_photos %>
   </body>
 </html>

@@ -6,6 +6,10 @@ class NotesController < ApplicationController
     @notes = Note.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
   end
 
+  def new
+    @note = Note.new
+  end
+
   def create
     @note = Note.new(params[:note])
     @note.user_id = session[:id]

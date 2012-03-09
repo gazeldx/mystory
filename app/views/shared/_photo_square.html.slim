@@ -1,0 +1,4 @@
+.xx
+  - @photos.each_with_index do |photo, i|
+    a.photolst_photo href=album_photo_path(photo.album, photo)
+      = image_tag(photo.avatar.square.url, title: photo.description)

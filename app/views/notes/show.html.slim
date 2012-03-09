@@ -2,6 +2,7 @@
   = title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
 - else
   = title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
+= render '/shared/notice_error'
 div id='note-#{@note.id}'
   .note-header
     - if @note.title.length > 1

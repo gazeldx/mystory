@@ -1,5 +1,7 @@
 class IdolsController < ApplicationController
 
+  layout 'memoir'
+  
   def index
     @idols = @user.idols
     @idol = Idol.new

@@ -3,11 +3,11 @@ class BlogsController < ApplicationController
   
   def index
     @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
-    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
+    @categories = @user.categories.order('created_at')
   end
 
   def show
-    @categories = Category.where(["user_id = ?", @user.id]).order('created_at')
+    @categories = @user.categories.order('created_at')
     @blog = Blog.find(params[:id])
     @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
     @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first

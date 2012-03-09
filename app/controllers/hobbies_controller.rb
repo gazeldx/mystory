@@ -1,4 +1,7 @@
 class HobbiesController < ApplicationController
+
+  layout 'memoir'
+  
   def index
     @hobbies = @user.hobbies
     @hobby = Hobby.new

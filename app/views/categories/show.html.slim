@@ -1,4 +1,13 @@
 = title t('s_category', w: @user.name, w2: @category.name)
+h2
+  | 作品分类：
+  - @categories.each do |category|
+    | [
+    - if category.id == @category.id
+      = link_to category.name, category, class: "selected"
+    - else
+      = link_to category.name, category
+    | ]&nbsp;&nbsp;
 - @blogs.each do |blog|
   div id='note-#{blog.id}'
     div

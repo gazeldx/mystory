@@ -1085,6 +1085,11 @@ blockquote {
   line-height:150%;
   color:#666
 }
+.pl1 {
+  font:14px Arial,Helvetica,sans-serif;
+  line-height:150%;
+  color:#666
+}
 .l2 {
   font:14px Arial,Helvetica,sans-serif;
   line-height:150%
@@ -1179,7 +1184,8 @@ blockquote {
 .mbt {
   padding:0;
   margin:0;
-  clear:both
+  clear:both;
+  font-size:14px
 }
 .mbt tr {
   vertical-align:top

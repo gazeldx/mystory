@@ -1,0 +1,53 @@
+= render '/shared/photo_square'
+br
+#note
+  h2
+    = t('s_note',w: @user.name)
+    = blank_dot
+    span.pl
+      | &nbsp;(
+      = link_to t('all'), notes_path
+      | )
+  .content
+    - @notes.each do |note|
+      .mbtr2
+        .note-header.pl2
+          - if note.title.length < 1
+            = link_to note.created_at.strftime(t'date_format'), note
+          - else
+            = link_to note.title, note
+          div
+            span.pl
+              - if note.title.length >= 1
+                = note.created_at.strftime(t'date_format')
+        .clear
+        .note id='note_#{note.id}_short'
+          .ll
+            = thumb_here(note)
+          = summary_comment(note, 260)
+      .clear
+    .clear
+#note
+  h2
+    = t('s_blog',w: @user.name)
+    = blank_dot
+    span.pl
+      | &nbsp;(
+      = link_to t('all'), blogs_path
+      | )
+  .content
+    - @blogs.each do |blog|
+      .mbtr2
+        .note-header.pl2
+          = link_to blog.title, blog, class: 'll'
+          br
+          div
+            span.pl
+              = blog.created_at.strftime t'no_year'
+        .clear
+        .note id='blog_#{blog.id}_short'
+          .ll
+            = thumb_here(blog)
+          = summary_comment(blog, 260)
+      .clear
+    .clear

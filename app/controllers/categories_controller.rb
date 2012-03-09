@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-
+  layout 'memoir'
   def index
     @categories = Category.where(["user_id = ?", session[:id]]).order('created_at')
     @category = Category.new
@@ -43,6 +43,7 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
+    @categories = @user.categories.order('created_at')
   end
 
   def up
