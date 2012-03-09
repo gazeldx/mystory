@@ -7,7 +7,7 @@ public/photos
 public/uploads
 config/routes.rb
 config/environment.rb
-#config/initializers/session_store.rb
+config/initializers/session_store.rb
 config/initializers/carrierwave.rb
 Gemfile
 Gemfile.lock
