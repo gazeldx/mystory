@@ -17,6 +17,7 @@
     - else
       b
         = @memoir.title
+      | &nbsp;
       = summary_no_comments @memoir, 200
       - if @user.id == session[:id]
         span

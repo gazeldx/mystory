@@ -1,30 +1,30 @@
-= title t('s_following',w: @user.name)
+= title t('s_followers',w: @user.name)
 h1
-  = t('he_following', w: @user.name, r: @user.follow_count)
+  = t('he_followers', w: @user.name, r: @user.followers_count)
 ul.user-list
-  - @user.all_following.each do |guy|
+  - @user.followers.each do |guy|
     li.clearfix id='u#{guy.id}'
       a href=site(guy) title=guy.name
         = image_tag(guy.avatar.thumb.url, class: 'face')
       .info
         h3
           a href=site(guy) = guy.name
-          |  
+          |
           span.pl
             = guy.city
-            |  
+            |
             = guy.jobs
             | &nbsp;
             = guy.maxim
           .user-group-opt
-            |  
+            |
         span.pl
           = link_to t('following') + guy.follow_count.to_s, site(guy) + following_path
-          |  | 
+          |  |
           = link_to t('followers') + guy.followers_count.to_s, site(guy) + followers_path
-          |  | 
+          |  |
           = link_to t('_note') + Note.where(["user_id = ?", guy.id]).count.to_s, site(guy) + notes_path
-          |  | 
+          |  |
           = link_to t('_blog') + Blog.where(["user_id = ?", guy.id]).count.to_s, site(guy) + blogs_path
         br
         span.pl

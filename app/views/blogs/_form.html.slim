@@ -3,6 +3,11 @@
 = render '/shared/notice_error'
 = form_for @blog do |f|
   = error_msg @blog
+  h2
+    - if @blog.created_at.nil?
+      = t'post_blog'
+    - else
+      | 编辑作品
   .row.note-title
     label.field
       = t'title'

@@ -30,3 +30,11 @@ this.selectPhoto = (photo_id, albums_url) ->
 
   $('#i_s_a', p).attr 'src', albums_url
   $('#dui-dialog0', p).css 'display', 'none'
+
+this.switchPhoto = (id, img_url, img_thumb_url) ->
+  if ($('#'+id).attr 'title')=="点击放大"
+    $('#'+id+' img').attr('src', img_url)
+    $('#'+id).attr 'title', "点击缩小"
+  else
+    $('#'+id+' img').attr('src', img_thumb_url)
+    $('#'+id).attr 'title', "点击放大"

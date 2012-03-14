@@ -85,3 +85,11 @@ this.cancel_recommend_note = (id) ->
       _li.css 'display', 'none'
       p_li.css 'display', 'none'
 
+this.recommend_photo_in = (id) ->
+  $.ajax
+    url: '/recommend_photo'
+    data: "id=" + id
+    type: "POST"
+    success: (data) ->
+      changeInButton()
+      $('#ri_id').val(data['id'])

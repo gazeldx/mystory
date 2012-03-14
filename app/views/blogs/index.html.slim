@@ -21,19 +21,24 @@ h2
       span.wrap
         h3
           = link_to blog.title, blog, class: 'll'
-          .rr
-            a id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title="展开文章"
-              img src="/images/arrow2.gif"
-        span.pl
-          = post_info blog
+          | &nbsp;
+          = post_info2 blog
           - if blog.user_id == session[:id]
             | &nbsp;
             = link_to t('edit'), edit_blog_path(blog)
             | &nbsp;
             = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
+          .rr
+            a id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title="展开文章"
+              img src="/images/arrow2.gif"
     .note id='note_#{blog.id}_short'
+      - n = photos_count blog.content
       .ll
-        = thumb_here blog
-      = summary_comment(blog, 360)
+        - if n==1
+          = thumb_here blog
+      = summary_comment(blog, 340)
+      - if n>1
+        br
+        = thumbs_here(blog, 5)
     .note id='note_#{blog.id}_full' style="display: none;"
 = will_paginate @blogs

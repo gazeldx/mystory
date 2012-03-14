@@ -1,9 +1,9 @@
 module HeadHelper
 
   def banner_text
-    if ['home','like'].include?(controller_path)
-      @user.name
-    elsif controller_path=='notes'
+#    if ['home','like'].include?(controller_path)
+#      @user.name
+    if controller_path=='notes'
       t('s_note', w: @user.name)
     elsif controller_path=='blogs'
       t('s_blog', w: @user.name)
@@ -25,6 +25,8 @@ module HeadHelper
       end
     elsif controller_path=='categories'
       t('s_category', w: @user.name, w2: @category.name)
+    else
+      @user.name
     end
     #TODO add title here show maxim.
   end

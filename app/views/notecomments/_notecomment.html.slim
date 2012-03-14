@@ -11,7 +11,7 @@
         = link_to user.name, site(user)
       p
         - if comment.is_a?(Rnote)
-          | 推荐理由：
+          = t'recommend_reason'
         = comment.body
       - if session[:id] == user.id
         .admin-lnks

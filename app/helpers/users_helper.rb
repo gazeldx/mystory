@@ -1,11 +1,11 @@
 module UsersHelper
-  def site(user)
-    SITE_URL.sub(/\:\/\//, "://" + user.domain + ".")
-  end
-  
-  def my_site
-    SITE_URL.sub(/\:\/\//, "://" + session[:domain] + ".")
-  end
+  #  def site(user)
+  #    SITE_URL.sub(/\:\/\//, "://" + user.domain + ".")
+  #  end
+  #
+  #  def my_site
+  #    SITE_URL.sub(/\:\/\//, "://" + session[:domain] + ".")
+  #  end
 
   def whose_site(domain)
     SITE_URL.sub(/\:\/\//, "://" + domain + ".")
@@ -41,12 +41,12 @@ module UsersHelper
       lint_url = something
     end
     p = tmp + t('etc') + (link_to t('whole_article') , lint_url)
-    n = m.size
-    if n > 1
-      raw " (#{n}#{t('pic')})&nbsp;&nbsp;" + p
-    else
-      raw p
-    end
+    #    n = m.size
+    #    if n > 1
+    #      raw " (#{n}#{t('pic')})&nbsp;&nbsp;" + p
+    #    else
+    raw p
+    #    end
   end
 
   def summary_blank(something, size)
@@ -120,19 +120,13 @@ module UsersHelper
     m.each do |e|
       tmp = tmp.sub(e, "")
     end
-    n = m.size
-    if n > 1
-      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common(something, size, tmp)
-    else
-      summary_common(something, size, tmp)
-    end    
-  end
-
-  def summary_comment_style(something, size)
-    _style = style_it(something.content[0, size])
-    #    _text = text_it(something.content[0, size])
-    #    summary_common(something, size + _style.size - _text.size, _style)
-    summary_common(something, size, _style)
+    #    n = m.size
+    #    if n > 1
+    #      pic_count = "(#{n}#{t('pic')})&nbsp;&nbsp;"
+    #      raw pic_count + summary_common(something, size, tmp)
+    #    else
+    summary_common(something, size, tmp)
+    #    end
   end
 
   def summary_common(something, size, tmp)
@@ -151,10 +145,44 @@ module UsersHelper
       raw tmp + (link_to comments, something)
     end
   end
+
+  def summary_comment_portal(something, size)
+    tmp = text_it(something.content[0, size])
+    m = tmp.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      tmp = tmp.sub(e, "")
+    end
+    n = m.size
+    if n > 1
+      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
+    else
+      summary_common_portal(something, size, tmp)
+    end
+  end
+
+  def summary_common_portal(something, size, tmp)
+    if something.is_a?(Note)
+      path = note_path(something)
+      count = something.notecomments.size
+    elsif something.is_a?(Blog)
+      path = blog_path(something)
+      count = something.blogcomments.size
+    end
+    comments = ""
+    if count > 0
+      comments = ' ' + t('comments', w: count)
+    end
+    if something.content.size > size
+      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path)
+    else
+      raw tmp + (link_to comments, site(something.user) + path)
+    end
+  end
   
   def text_it(something)
     s = auto_draft(something.gsub(/\r\n/,'&nbsp;'))
     s = auto_link(s)
+    s = ignore_img(s)
     m = s.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
     m.each do |e|
       unless e[1].nil?
@@ -164,105 +192,155 @@ module UsersHelper
     raw s
   end
 
+  def summary_comment_style(something, size)
+    _style = style_it(something.content[0, size])
+    summary_common(something, size, _style)
+  end
+
   def style_it(something)
     s = auto_draft(something)
     s = auto_link(s)
+    s = auto_img(s)
     raw auto_style(auto_photo(s))
   end
-  
-  def auto_style(mystr)
-    m = mystr.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
-    m.each do |e|
-      unless e[1].nil?
-        g = "<span style='"
-        e[1].split('').each do |v|
-          case v
-          when 'b'
-            g += "font-weight:bold;"
-          when 'x'
-            g += "font-size:1.5em;"
-          when 's'
-            g += "font-size:0.8em;"
-          when 'r'
-            g += "color:red;"
-          when 'g'
-            g += "color:green;"
-          when 'y'
-            g += "color:#FF8800;"
-          when 'l'
-            g += "color:#0000FF;"
-          when 'h'
-            g += "color:#AAAAAA;"
-          end
-        end
-        g += "'>" + e[2] + "</span>"
-        mystr = mystr.sub(e[0], g)
-      end
-    end
-    mystr
-  end
 
-  def auto_link(mystr)
+  def ignore_img(mystr)
     require 'uri'
-    x = URI.extract(mystr, ['http', 'https', 'ftp'])
+    x = URI.extract(mystr, ['http'])
     x.each do |e|
-      m = mystr.match(/([ \n][^ \n]*)#{e}/)
-      unless m.nil?
-        if m[1] != " "
-          g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
-          mystr = mystr.sub(m[0], g)
-        else
-          g = "<a href='#{e}' target='_blank'>" + e + "</a>"
-          mystr = mystr.sub(e, g)
-        end
+      m = e.match(/.*.(png|jpg|jpeg|gif)/i)
+      if m
+        mystr = mystr.sub(m[0], "")
       end
     end
     mystr
   end
-
-  def auto_draft(mystr)
-    m = mystr.scan(/(##(.*?)##)/m)
-    m.each do |e|
-      mystr = mystr.sub(e[0], t('has_draft'))
-    end
-    mystr
+  
+  def photos_count(mystr)
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.size
   end
 
-  def auto_photo(mystr)
+  def scan_photo(mystr)
+    a_photo = nil
     m = mystr.scan(/(\+photo(\d{2,})\+)/m)
     m.each do |e|
       photo = Photo.find_by_id(e[1])
-      unless (photo.nil? or photo.album.user_id!=@user.id)
-        g = "<div style='text-align:center'><img src='#{photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{photo.description}</span></div>"
-        mystr = mystr.sub(e[0], g)
-      end
-    end
-    mystr
-  end
-
-  def photo_url(mystr)
-    thumb = nil
-    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
-    m.each do |e|
-      photo = Photo.find_by_id(e[1])
-      unless (photo.nil? or photo.album.user_id!=@user.id)
-        thumb = photo.avatar.thumb.url
+      unless photo.nil?
+        a_photo = photo
         break
       end
     end
-    thumb
+    a_photo
+  end
+
+  def scan_photos(mystr, n)
+    photos = []
+    k = 0
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.each do |e|
+      photo = Photo.find_by_id(e[1])
+      unless photo.nil?
+        k = k+1
+        photos << photo
+        if k == n
+          break
+        end
+      end
+    end
+    photos
   end
 
   def thumb_here(something)
-    p_name = photo_url(something.content)
-    unless p_name.nil?
+    photo = scan_photo(something.content)
+    unless photo.nil?
       if something.is_a?(Note)
-        href = note_path(something)
+        #        href = note_path(something)
+        id = "note_photo_#{photo.id}"
       elsif something.is_a?(Blog)
-        href = blog_path(something)
+        #        href = blog_path(something)
+        id = "blog_photo_#{photo.id}"
       end
-      content_tag(:a, image_tag(p_name), href: href)
+      source_from = ""
+      if photo.album.user_id!=@user.id
+        source_from = raw "<span class='pl'><br/>#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]</span>"
+      end
+      content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from
     end
   end
+
+  def thumbs_here(something, n)
+    show = ""
+    flag = false
+    photos = scan_photos(something.content, n)
+    photos.each do |photo|
+      if photo.album.user_id!=@user.id
+        flag = true
+        break
+      end
+    end
+
+    if flag
+      tab = "<table cellpadding='4'><tr style='vertical-align: middle;'>"
+      photos.each do |photo|
+        id = thumb_id(something, photo)
+        source_from = ""
+        if photo.album.user_id!=@user.id
+          source_from = raw "<br/><span class='pl'>#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]</span>"
+        end
+        show += "<td>" + content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from + "</td>"
+      end
+      raw tab + show + "</tr></table>"
+    else
+      photos.each do |photo|
+        #TODO click show from which album!
+        id = thumb_id(something, photo)
+        p_ = content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}")
+        if show == ""
+          show = p_
+        else
+          show += raw("&nbsp;&nbsp;") + p_
+        end
+      end
+      if photos.size > 0
+        raw("<br/>") + show + raw("<br/>")
+      else
+        raw("<br/>")
+      end
+    end
+  end
+
+  private
+  def thumb_id(something, photo)
+    if something.is_a?(Note)
+      id = "note_photo_#{photo.id}"
+    elsif something.is_a?(Blog)
+      id = "blog_photo_#{photo.id}"
+    end
+    id
+  end
+
+  #  def thumbs_here(something, n)
+  #    show = ""
+  #    photos = scan_photos(something.content, n)
+  #    photos.each do |photo|
+  #      if something.is_a?(Note)
+  #        id = "note_photo_#{photo.id}"
+  #      elsif something.is_a?(Blog)
+  #        id = "blog_photo_#{photo.id}"
+  #      end
+  #      source_from = ""
+  #      if photo.album.user_id!=@user.id
+  #        source_from = raw "<span class='pl'>#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]</span>"
+  #      end
+  #      p_ = content_tag(:a, image_tag(photo.avatar.thumb.url, align: 'top'), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from
+  #      if show == ""
+  #        show = p_
+  #      else
+  #        show += raw("&nbsp;&nbsp;") + p_
+  #      end
+  #    end
+  #    show
+  #  end
 
 end

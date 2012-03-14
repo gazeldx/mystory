@@ -1,12 +1,13 @@
 = title t('s_note',w: @user.name)
-- if @user.id == session[:id]
-  = render 'shared/post_note'
+/- if @user.id == session[:id]
+/  = render 'shared/post_note'
+
 - @notes.each do |note|
   div id='note-#{note.id}'
     div
       span.wrap
         h3
-          - if note.title.length < 1
+          - if note.title.to_s == ''
             = link_to note.created_at.strftime(t'date_format'), note, class: 'll'
           - else
             = link_to note.title, note, class: 'll'
@@ -15,16 +16,21 @@
           .rr
             a id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title="展开文章"
               img src="/images/arrow2.gif"
-        span.pl
-          - if note.user_id == session[:id]
-            | &nbsp;
-            = link_to t('edit'), edit_note_path(note)
-            | &nbsp;
-            = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
+          span.pl
+            - if note.user_id == session[:id]
+              | &nbsp;
+              = link_to t('edit'), edit_note_path(note)
+              | &nbsp;
+              = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
     .note id='note_#{note.id}_short'
+      - n = photos_count note.content
       .ll
-        = thumb_here note
+        - if n==1
+          = thumb_here note
       = summary_comment(note, 260)
+      - if n>1
+        br
+        = thumbs_here(note, 5)
     .note id='note_#{note.id}_full' style="display: none;"
     .note id='note_#{note.id}_full2' style="display: none;"
       = recommend_etc note

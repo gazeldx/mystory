@@ -2709,7 +2709,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   line-height:1.62
 }
 .note a img {
-  vertical-align:bottom
+/*  vertical-align:bottom*/
 }
 body .note {
   white-space:pre-wrap
@@ -7629,7 +7629,7 @@ a.a-lnk:hover,a.a-lnk:active {
 }
 .user-list .info {
   float:left;
-  width:515px
+/*  width:515px*/
 }
 .user-list .info h3 {
   margin:0 0 2px;

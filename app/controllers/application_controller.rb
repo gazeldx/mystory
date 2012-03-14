@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  helper_method :my_site, :site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img
   protect_from_forgery
   before_filter :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -17,7 +18,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
   def query_user_by_domain
     if request.domain==DOMAIN_NAME
       @user = User.find_by_domain(request.subdomain)
@@ -28,11 +28,6 @@ class ApplicationController < ActionController::Base
     unless @user.id == session[:id]
       redirect_to site(@user)
     end
-  end
-
-  def summary_comment_style(something, size)
-    _style = style_it(something.content[0, size])
-    summary_common(something, size, _style)
   end
 
   def summary_common(something, size, tmp)
@@ -54,9 +49,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def summary_comment_style(something, size)
+    _style = style_it(something.content[0, size])
+    summary_common(something, size, _style)
+  end
+
   def style_it(something)
     s = auto_draft(something)
     s = auto_link(s)
+    s = auto_img(s)
     auto_style(auto_photo(s))
   end
 
@@ -96,8 +97,10 @@ class ApplicationController < ActionController::Base
     require 'uri'
     x = URI.extract(mystr, ['http', 'https', 'ftp'])
     x.each do |e|
-      m = mystr.match(/([ \n][^ \n]*)#{e}/)
-      unless m.nil?
+      #Because parenthesis will be treated as url ,but no one use it.So it gsub all ().If I do not do it, this method will exception:unmatched close parenthesis
+      m = mystr.match(/([ \n][^ \n]*)#{e.gsub(/[()]/, '')}/)
+      e_pic = e.match(/.*.(png|jpg|jpeg|gif)/i)
+      unless m.nil? or e_pic
         if m[1] != " "
           g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
           mystr = mystr.sub(m[0], g)
@@ -105,6 +108,19 @@ class ApplicationController < ActionController::Base
           g = "<a href='#{e}' target='_blank'>" + e + "</a>"
           mystr = mystr.sub(e, g)
         end
+      end
+    end
+    mystr
+  end
+
+  def auto_img(mystr)
+    require 'uri'
+    x = URI.extract(mystr, ['http'])
+    x.each do |e|
+      m = e.match(/.*.(png|jpg|jpeg|gif)/i)
+      if m
+        g = "<div style='text-align:center'><img src='#{m}'/></div>"
+        mystr = mystr.sub(m[0], g)
       end
     end
     mystr
@@ -122,11 +138,22 @@ class ApplicationController < ActionController::Base
     m = mystr.scan(/(\+photo(\d{2,})\+)/m)
     m.each do |e|
       photo = Photo.find_by_id(e[1])
-      unless (photo.nil? or photo.album.user_id!=@user.id)
-        g = "<div style='text-align:center'><img src='#{photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{photo.description}</span></div>"
+      unless photo.nil?
+        ta = ""
+        unless photo.description.nil?
+          ta = ":"
+        end
+        source_from = " [<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]"
+        if photo.album.user_id!=@user.id
+          source_from = "#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>#{t('his_album')}" + source_from
+        else
+          source_from = "#{t('source_from')}#{t('_album')}" + source_from
+        end
+        g = "<div style='text-align:center'><img src='#{photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{source_from} #{ta} #{photo.description}</span></div>"
         mystr = mystr.sub(e[0], g)
       end
     end
     mystr
   end
+
 end

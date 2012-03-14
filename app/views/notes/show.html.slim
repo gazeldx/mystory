@@ -2,10 +2,9 @@
   = title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
 - else
   = title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
-= render '/shared/notice_error'
 div id='note-#{@note.id}'
   .note-header
-    - if @note.title.length > 1
+    - if @note.title.to_s!=''
       h2
         = @note.title
         - if @note.user_id == session[:id]
@@ -16,12 +15,17 @@ div id='note-#{@note.id}'
       div
         span.pl
           = @note.created_at.strftime t'time_format'
+          = t'write'
+          | &nbsp;
+          = update_info @note
     - else
       h2
         = @note.created_at.strftime t'date_format'
         span.pl2
           | &nbsp;
           = @note.created_at.strftime t'h_m'
+          | &nbsp;
+          = update_info @note
         - if @note.user_id == session[:id]
           | &nbsp;
           = link_to t('edit'), edit_note_path(@note)
@@ -48,13 +52,13 @@ div.note-ft id='note_#{@note.id}_footer'
           span#ri_body= ri.body
           span#edit
             - if ri.body.nil? 
-              = link_to '修改推荐理由', '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify_recommend_reason'), '#edit', onclick: 'showBodyEtc()'
             - else
               = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
-          = link_to '已推荐', '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: '点击可取消推荐'
+          = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none' 
       span
-        | 推荐理由：
+        = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("note")'
 span
@@ -77,6 +81,7 @@ span
       = link_to @note_next.created_at.strftime(t'date_format') + '的日记', @note_next
 #comments
   = render 'notecomments/notecomment'
+= render '/shared/notice_error'
 - if session[:id].nil?
   = t'comment_login_first'
 - else

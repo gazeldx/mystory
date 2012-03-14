@@ -5,6 +5,7 @@ class NotecommentsController < ApplicationController
     @notecomment = @note.notecomments.new(params[:notecomment])
     @notecomment.user_id = session[:id]
     @notecomment.save
+    flash[:notice] = t'comment_succ'
     redirect_to note_path(@note) + "#add_comment"
   end
 

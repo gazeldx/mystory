@@ -19,7 +19,7 @@
                     | 》
                     span.pl
                       = blog.created_at.strftime t'no_year'
-                  = user_summary(blog, 260)
+                  = summary_comment_portal(blog, 180)
       .aside
         #db-music-artists.block4
           h2
@@ -33,7 +33,7 @@
                 .desc
                   = link_to note.user.name, site(note.user)
                   | ：
-                  = user_summary(note, 160)
+                  = summary_comment_portal(note, 140)
                   br
                   span.pl
                     = note.created_at.strftime t'no_year'

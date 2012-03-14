@@ -12,6 +12,7 @@ class PhotosController < ApplicationController
         break
       end
     }
+    @all_comments = (@photo.photocomments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
   end
 
   def new

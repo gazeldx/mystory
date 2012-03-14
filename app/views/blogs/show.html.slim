@@ -1,6 +1,4 @@
 = title @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
-- if flash[:notice]
-  #notice= flash[:notice]
 div id='note-#{@blog.id}'
   .note-header
     h2
@@ -27,26 +25,26 @@ div id='note-#{@blog.id}'
   .sns-bar
     .sns-bar-fav
       - if session[:id].nil?
-        = link_to t('recommend'), SITE_URL, :class=>'fav-add btn-fav', :title=>t('please_login')
+        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
         - if ri.nil?
           = hidden_field_tag :ri_id
           span#ri_body
           span#edit
-          = link_to t('recommend'), '#_', :id=>'recommend', :class=>'fav-add btn-fav'
+          = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
           = hidden_field_tag :ri_id, ri.id
           span#ri_body= ri.body
           span#edit
             - if ri.body.nil?
-              = link_to '修改推荐理由', '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify_recommend_reason'), '#edit', onclick: 'showBodyEtc()'
             - else
               = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
-          = link_to '已推荐', '#_', :id=>'recommend', :class=>'fav-cancel btn-fav', :title=>'点击可取消推荐'
+          = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none' 
       span
-        | 推荐理由：
+        = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("blog")'
 .ll
@@ -73,6 +71,7 @@ div id='note-#{@blog.id}'
     br
 #comments
   = render 'blogcomments/blogcomment'
+= render '/shared/notice_error'
 - if session[:id].nil?
   = t'comment_login_first'
 - else

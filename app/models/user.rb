@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :r_blogs, :through => :rblogs, :source => :blog
   has_many :rnotes, :dependent => :destroy
   has_many :r_notes, :through => :rnotes, :source => :note
+  has_many :rphotos, :dependent => :destroy
+  has_many :r_photos, :through => :rphotos, :source => :photo
   has_many :rhobbies, :dependent => :destroy
   has_many :hobbies, :through => :rhobbies
   has_many :ridols, :dependent => :destroy

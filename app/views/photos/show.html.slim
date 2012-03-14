@@ -25,7 +25,7 @@ div style='text-align:center'
     - if @user.id == session[:id]
       span#edi
         = link_to t('modify'), '#edit', onclick: 'showDescEtc()'
-      span#notice2
+      span#notice2 style="color:green"
       div#editDiv style='display:none'
         = text_area_tag :description, @photo.description
         = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
@@ -38,3 +38,44 @@ div style='color:#999;margin-bottom:5px'
     span.gact
       | &gt;&nbsp;
       = link_to '删除照片', album_photo_path(@album, @photo), confirm: t('confirm.delete'), method: :delete
+.note-ft id='note_#{@photo.id}_footer'
+  .note_upper_footer
+  .sns-bar
+    .sns-bar-fav
+      - if session[:id].nil?
+        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
+      - else
+        - ri = Rphoto.find_by_user_id_and_photo_id(session[:id], @photo.id)
+        - if ri.nil?
+          = hidden_field_tag :ri_id
+          span#ri_body
+          span#edit
+          = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
+        - else
+          = hidden_field_tag :ri_id, ri.id
+          span#ri_body= ri.body
+          span#edit
+            - if ri.body.nil?
+              = link_to t('modify_recommend_reason'), '#edit', onclick: 'showBodyEtc()'
+            - else
+              = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
+          = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
+    #bodydiv style='text-align:right;display:none'
+      span
+        = t'recommend_reason'
+      = text_area_tag :body
+      = button_tag t('submit'), onclick: 'modify_ri("photo")'
+#comments
+  = render 'photocomments/photocomment'
+= render '/shared/notice_error'
+- if session[:id].nil?
+  = t'comment_login_first'
+- else
+  h2
+    | 发表评论 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+  = render 'photocomments/form'
+
+javascript:
+  $('#recommend').live('click', function() {
+    recommend_photo_in(#{@photo.id});
+  });

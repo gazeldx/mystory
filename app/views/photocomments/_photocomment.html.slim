@@ -10,11 +10,11 @@
         |  
         = link_to user.name, site(user)
       p
-        - if comment.is_a?(Rblog)
+        - if comment.is_a?(Rphoto)
           = t'recommend_reason'
         = comment.body
       - if session[:id] == user.id
         .admin-lnks
-          - if comment.is_a?(Blogcomment)
+          - if comment.is_a?(Photocomment)
             | &gt;
-            = link_to t('delete'), [@blog, comment], method: :delete
+            = link_to t('delete'), [@photo, comment], method: :delete

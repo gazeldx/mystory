@@ -24,6 +24,11 @@ br
         li.on= url
       - else
         li= url
+      - url = link_to t('latest_updated'), site(@user) + '?t=updated'
+      - if params[:t] == 'updated'
+        li.on= url
+      - else
+        li= url
       - url = link_to t('recommend'), site(@user) + '?t=recommend'
       - if params[:t] == 'recommend'
         li.on= url
@@ -32,34 +37,35 @@ br
   ul.mbt
     - @all.each do |item|
       - if item.is_a?(Note)
-        li.mbtr
-          = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl1
-            |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
-          span.inq
-            = summary_comment(item, 140)
-            - thumb = thumb_here item
-            - unless thumb.nil?
-              br
-              = thumb
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
-            = recommend_etc item
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          li.mbtr
+            = link_to item.user.name, site(item.user), target: '_blank'
+            span.pl1
+              |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
+            span.inq
+              = summary_comment(item, 140)
+              = thumbs_here(item, 3)
+              span.pl
+                = article_time item
+              = recommend_etc item
+              - if item.user_id == session[:id]
+                = link_to t('edit'), edit_note_path(item)
+                | &nbsp;
+                = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
       - elsif item.is_a?(Blog)
-        li.mbtr
-          = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl1
-            |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
-          span.inq
-            = summary_comment(item, 180)
-            - thumb = thumb_here item
-            - unless thumb.nil?
-              br
-              = thumb
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          li.mbtr
+            = link_to item.user.name, site(item.user), target: '_blank'
+            span.pl1
+              |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), target: '_blank'}》
+            span.inq
+              = summary_comment(item, 180)
+              = thumbs_here(item, 3)
+              span.pl
+                = article_time item
+              - if item.user_id == session[:id]
+                | &nbsp;
+                = link_to t('edit'), edit_blog_path(item)
       - elsif item.is_a?(Photo)
         li.mbtr
           span.inq
@@ -70,7 +76,7 @@ br
               br
               = item.description
             br
-            a href=album_photo_path(item.album, item)
+            a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{item.avatar.url}', '#{item.avatar.thumb.url}')" title='点击放大'
               = image_tag(item.avatar.thumb.url)
             br
             span.pl
@@ -91,11 +97,7 @@ br
             = link_to item.note.user.name, site(item.note.user), target: '_blank'
             | :
             = summary_comment(item.note, 140)
-            - thumb = thumb_here item.note
-            - unless thumb.nil?
-              br
-              = thumb
-            br
+            = thumbs_here(item.note, 3)
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rblog)
@@ -116,10 +118,6 @@ br
             | 《#{link_to item.blog.title, site(item.user) + blog_path(item.blog), target: '_blank'}》
             | --
             = summary_comment(item.blog, 180)
-            - thumb = thumb_here item.blog
-            - unless thumb.nil?
-              br
-              = thumb
-            br
+            = thumbs_here(item.blog, 3)
             span.pl
               = item.created_at.strftime t'no_year'

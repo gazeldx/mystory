@@ -16,16 +16,20 @@ class HomeController < ApplicationController
       @photos = Photo.where(:album_id => @user.albums).order("id DESC").limit(5)
       t = params[:t]
       if t.nil?
-        notes = @user.notes.limit(30)
-        blogs = @user.blogs.limit(15)
+        notes = @user.notes.limit(2)
+        blogs = @user.blogs.limit(2)
         photos = Photo.where(:album_id => @user.albums).includes(:album).limit(20)
         @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!
       elsif t == 'note'
-        @all = @user.notes.order('created_at DESC').limit(50)
+        @all = @user.notes.limit(50)
       elsif t == 'blog'
-        @all = @user.blogs.order('created_at DESC').limit(40)
+        @all = @user.blogs.limit(40)
       elsif t == 'photo'
         @all = Photo.where(:album_id => @user.albums).includes(:album).order('photos.id DESC').limit(50)
+      elsif t == 'updated'
+        notes = @user.notes.where("updated_at > created_at").limit(30)
+        blogs = @user.blogs.where("updated_at > created_at").limit(30)
+        @all = (notes | blogs).sort_by{|x| x.updated_at}.reverse!
       elsif t == 'recommend'
         rnotes = @user.rnotes.limit(30)
         rblogs = @user.rblogs.limit(15)

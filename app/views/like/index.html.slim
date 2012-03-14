@@ -1,7 +1,8 @@
 = title t('active_state', w: @user.name)
 #miniblog
-  - if @user.id == session[:id]
-    = render 'shared/post_note'
+  h2
+    - if @user.id == session[:id]
+      = render '/shared/quick_post_navigation'
   #db-timeline-hd.clearfix
     ul.menu-list
       - url = link_to t('all'), like_path
@@ -24,6 +25,11 @@
         li.on= url
       - else
         li= url
+      - url = link_to t('latest_updated'), like_path + '?t=updated'
+      - if params[:t] == 'updated'
+        li.on= url
+      - else
+        li= url
       - url = link_to t('recommend'), like_path + '?t=recommend'
       - if params[:t] == 'recommend'
         li.on= url
@@ -32,41 +38,41 @@
   ul.mbt
     - @all.each do |item|
       - if item.is_a?(Note)
-        li.mbtl
-          a href=site(item.user) target='_blank'
-            = image_tag(item.user.avatar.thumb.url)
-        li.mbtr
-          = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl1
-            |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
-          span.inq
-            = summary_comment(item, 140)
-            - thumb = thumb_here item
-            - unless thumb.nil?
-              br
-              = thumb
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
-            = recommend_etc item
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          li.mbtl
+            a href=site(item.user) target='_blank'
+              = image_tag(item.user.avatar.thumb.url)
+          li.mbtr
+            = link_to item.user.name, site(item.user), target: '_blank'
+            span.pl1
+              |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
+            span.inq
+              = summary_comment(item, 140)
+              = thumbs_here(item, 5)
+              span.pl
+                = article_time item
+              = recommend_etc item
+              - if item.user_id == session[:id]
+                = link_to t('edit'), edit_note_path(item)
+                | &nbsp;
+                = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
       - elsif item.is_a?(Blog)
-        li.mbtl
-          a href=site(item.user) target='_blank'
-            = image_tag(item.user.avatar.thumb.url)
-        li.mbtr
-          = link_to item.user.name, site(item.user), target: '_blank'
-          span.pl1
-            |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
-            | --
-          span.inq
-            = summary_comment(item, 180)
-            - thumb = thumb_here item
-            - unless thumb.nil?
-              br
-              = thumb
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          li.mbtl
+            a href=site(item.user) target='_blank'
+              = image_tag(item.user.avatar.thumb.url)
+          li.mbtr
+            = link_to item.user.name, site(item.user), target: '_blank'
+            span.pl1
+              |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
+            span.inq
+              = summary_comment(item, 180)
+              = thumbs_here(item, 5)
+              span.pl
+                = article_time item
+              - if item.user_id == session[:id]
+                | &nbsp;
+                = link_to t('edit'), edit_blog_path(item)
       - elsif item.is_a?(Rnote)
         li.mbtl
           a href=site(item.user) target='_blank'
@@ -83,11 +89,7 @@
             = link_to item.note.user.name, site(item.note.user), target: '_blank'
             | : 
             = summary_comment(item.note, 140)
-            - thumb = thumb_here item.note
-            - unless thumb.nil?
-              br
-              = thumb
-            br
+            = thumbs_here(item.note, 5)
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rblog)
@@ -106,13 +108,8 @@
             = link_to item.blog.user.name, site(item.blog.user), target: '_blank'
             span.pl1  发表作品
             | 《#{link_to item.blog.title, site(item.user) + blog_path(item.blog), target: '_blank'}》
-            | --
             = summary_comment(item.blog, 180)
-            - thumb = thumb_here item.blog
-            - unless thumb.nil?
-              br
-              = thumb
-            br
+            = thumbs_here(item.blog, 5)
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Photo)
@@ -128,9 +125,8 @@
               br
               = item.description
             br
-            a href=album_photo_path(item.album, item)
+            a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{item.avatar.url}', '#{item.avatar.thumb.url}')" title='点击放大'
               = image_tag(item.avatar.thumb.url)
             br
             span.pl
               = item.created_at.strftime t'no_year'
-

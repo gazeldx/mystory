@@ -8,8 +8,9 @@
       span#display.pl
         - if !@user.maxim.nil?
           | (#{@user.maxim})
-      span.rr.pl2
-        = link_to t('write_note'), new_note_path
+      - if @user.id == session[:id]
+        span.rr.pl2
+          = render '/shared/quick_post_navigation'
   ul
     li
       - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
@@ -32,14 +33,11 @@
       = link_to t('he_editor'), site(@user) + editor_path, title:t('see_what_he_edit')
   ul
     li
-      | 关注
-      = @user.follow_count
-      |  | 粉丝
-      = @user.followers_count
-      |  | 日记
-      = Note.where(["user_id = ?", @user.id]).count
-      |  | 作品
-      = Blog.where(["user_id = ?", @user.id]).count
+      = link_to t('following') + @user.follow_count.to_s, following_path
+      |  | 
+      = link_to t('followers') + @user.followers_count.to_s, followers_path
+      |  | 
+      = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, blogs_path
   ul
     = @user.city
     | &nbsp;
@@ -62,5 +60,4 @@
       = @user.memo
     br
     .info style="font-size:16px"
-      ul
-        = render 'shared/user_navigation'
+      = render 'shared/user_navigation'

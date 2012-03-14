@@ -1,5 +1,6 @@
 class FollowsController < ApplicationController
-
+  layout 'memoir'
+  
   def follow_me
     if session[:id].nil?
       flash[:notice] = 'Please login!'

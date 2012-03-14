@@ -23,6 +23,12 @@ class LikeController < ApplicationController
     elsif t == 'photo'
       album_ids = Album.where(:user_id => following_ids)
       @all = Photo.where(:album_id => album_ids).includes(:album).order('photos.id DESC').limit(50)
+    elsif t == 'updated'
+#      notes = @user.notes.where("updated_at > created_at").limit(30)
+#      blogs = @user.blogs.where("updated_at > created_at").limit(30)
+      notes = Note.where(:user_id => following_ids).where("updated_at > created_at").limit(30)
+      blogs = Blog.where(:user_id => following_ids).where("updated_at > created_at").limit(30)
+      @all = (notes | blogs).sort_by{|x| x.updated_at}.reverse!      
     elsif t == 'recommend'
       rnotes = Rnote.where(:user_id => following_ids).limit(30)
       rblogs = Rblog.where(:user_id => following_ids).limit(15)

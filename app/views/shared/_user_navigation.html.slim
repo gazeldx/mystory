@@ -1,8 +1,10 @@
-li
-  = navigation_item(t('_note'), notes_path)
-li= navigation_item(t('_blog'), blogs_path)
-li= navigation_item(t('_album'), albums_path)
-li= navigation_item(t('_memoir'), memoirs_path)
+= navigation_item(t('_note'), notes_path)
+| &nbsp;&nbsp;&nbsp;&nbsp;
+= navigation_item(t('_blog'), blogs_path)
+| &nbsp;&nbsp;&nbsp;&nbsp;
+= navigation_item(t('_album'), albums_path)
+| &nbsp;&nbsp;&nbsp;&nbsp;
+= navigation_item(t('_memoir'), memoirs_path)
+| &nbsp;&nbsp;&nbsp;&nbsp;
 - if controller_path != 'home'
-  li
-    = navigation_item(t('s_home_page',w: @user.name), root_path)
+  = navigation_item(t('s_home_page',w: @user.name), root_path)
