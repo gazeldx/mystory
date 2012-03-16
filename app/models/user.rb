@@ -29,10 +29,11 @@ class User < ActiveRecord::Base
   acts_as_follower
 
   validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{5,25}$/,
-    :message => "Only letters and digital _ allowed" }
+    :message => "Only letters,digital and _ is allowed. At least 5 bits." }
   validates :name, :length => { :in => 2..4 }
   validates :email, :uniqueness => true, :length => { :in => 9..36 }, :email => true
-  validates :domain, :uniqueness => true, :length => { :in => 4..26 }
+  validates :domain, :uniqueness => true, :format => { :with => /^[a-z][a-z\d\-]{2,17}[a-z\d]$/,
+    :message => "Only lower-case letter,digital and - is allowed. Starts with letter and at least 4 bits." }
   validates :passwd, :length => { :in => 6..100 }
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }

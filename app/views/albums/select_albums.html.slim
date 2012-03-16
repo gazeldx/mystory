@@ -1,3 +1,6 @@
+- if @albums.blank?
+  | 您还没有创建影集。
+  br
 - @albums.each_with_index do |album, i|
   = link_to album.name, "select_photos/#{album.id}", style: "font-size:14px"
   span.pl2
@@ -5,3 +8,6 @@
     = album.photos.size
     | 张
     br
+| 本地照片需先上传到影集，才可以在这里选择照片并插入到文章中。
+br
+| 外网图片自动识别，在文章中输入图片URL(如：http://abc.com/def.jpg)即可

@@ -47,7 +47,7 @@
             span.pl1
               |  发日记 #{link_to item.title, site(item.user) + note_path(item), :target => '_blank'}&nbsp;
             span.inq
-              = summary_comment(item, 140)
+              = summary_comment_portal(item, 140)
               = thumbs_here(item, 5)
               span.pl
                 = article_time item
@@ -66,7 +66,7 @@
             span.pl1
               |  发表作品《#{link_to item.title, site(item.user) + blog_path(item), :target => '_blank'}》
             span.inq
-              = summary_comment(item, 180)
+              = summary_comment_portal(item, 180)
               = thumbs_here(item, 5)
               span.pl
                 = article_time item
@@ -88,7 +88,7 @@
             | &nbsp;&nbsp;原文 
             = link_to item.note.user.name, site(item.note.user), target: '_blank'
             | : 
-            = summary_comment(item.note, 140)
+            = summary_comment_portal(item.note, 140)
             = thumbs_here(item.note, 5)
             span.pl
               = item.created_at.strftime t'no_year'
@@ -108,7 +108,7 @@
             = link_to item.blog.user.name, site(item.blog.user), target: '_blank'
             span.pl1  发表作品
             | 《#{link_to item.blog.title, site(item.user) + blog_path(item.blog), target: '_blank'}》
-            = summary_comment(item.blog, 180)
+            = summary_comment_portal(item.blog, 180)
             = thumbs_here(item.blog, 5)
             span.pl
               = item.created_at.strftime t'no_year'

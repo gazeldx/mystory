@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
-      flash[:notice]=t'regiter_succ_memo'
+      flash[:notice] = t'regiter_succ_memo'
       session[:id] = @user.id
       session[:name] = @user.name
       session[:domain] = @user.domain

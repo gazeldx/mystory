@@ -111,9 +111,6 @@ module UsersHelper
   #  end
 
   
-  
- 
-
   def summary_comment(something, size)
     tmp = text_it(something.content[0, size])
     m = tmp.scan(/\+photo\d{2,}\+/m)
@@ -127,6 +124,20 @@ module UsersHelper
     #    else
     summary_common(something, size, tmp)
     #    end
+  end
+
+  def summary_comment_portal(something, size)
+    tmp = text_it(something.content[0, size])
+    m = tmp.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      tmp = tmp.sub(e, "")
+    end
+#    n = m.size
+#    if n > 1
+#      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
+#    else
+    summary_common_portal(something, size, tmp)
+#    end
   end
 
   def summary_common(something, size, tmp)
@@ -143,20 +154,6 @@ module UsersHelper
       raw tmp + t('etc') + (link_to t('whole_article') + comments, something)
     else
       raw tmp + (link_to comments, something)
-    end
-  end
-
-  def summary_comment_portal(something, size)
-    tmp = text_it(something.content[0, size])
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
-    n = m.size
-    if n > 1
-      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
-    else
-      summary_common_portal(something, size, tmp)
     end
   end
 

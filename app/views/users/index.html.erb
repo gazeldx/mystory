@@ -1,29 +1,19 @@
 <h1>Listing users</h1>
-
 <table>
   <tr>
     <th>Phote</th>
     <th>Username</th>
     <th>Name</th>
-    <th>Passwd</th>
-    <th>Email</th>
     <th>Domain</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
-
 <% @users.each do |user| %>
   <tr>
     <td><%= image_tag(user.avatar.thumb.url) %></td>
     <td><%= user.username %></td>
     <td><%= user.name %></td>
-    <td><%= user.passwd %></td>
-    <td><%= user.email %></td>
-    <td><%= user.domain %></td>
-    <td><%= link_to 'Show', user %></td>
-    <%#*<td><%= link_to 'Edit', edit_user_path(user) %></td>%>
-    <%#*<td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>%>
+    <td><%= user.domain %>bbb<%=user.email%></td>
+    <td><%= link_to 'Show', site(user) %></td>
   </tr>
 <% end %>
 </table>

@@ -118,29 +118,29 @@
 
 
 
-mystr="sd ddhttp://abc.com/defjpsgf地"
-def auto_link(mystr)
-  require 'uri'
-  x = URI.extract(mystr, ['http', 'https', 'ftp'])
-  x.each do |e|
-    puts e
-#    puts e.gsub(/[()]/, '')
-    
-    m = mystr.match(/([ \n][^ \n]*)#{e.gsub(/[()]/, '')}/)
-    e_pic = e.match(/.*.(png|jpg|jpeg|gif)/i)
-    unless m.nil? or e_pic
-      if m[1] != " "
-        g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
-        mystr = mystr.sub(m[0], g)
-      else
-        g = "<a href='#{e}' target='_blank'>" + e + "</a>"
-        mystr = mystr.sub(e, g)
-      end
-    end
-  end
-  mystr
-end
-puts auto_link mystr
+#mystr="sd ddhttp://abc.com/defjpsgf地"
+#def auto_link(mystr)
+#  require 'uri'
+#  x = URI.extract(mystr, ['http', 'https', 'ftp'])
+#  x.each do |e|
+#    puts e
+##    puts e.gsub(/[()]/, '')
+#
+#    m = mystr.match(/([ \n][^ \n]*)#{e.gsub(/[()]/, '')}/)
+#    e_pic = e.match(/.*.(png|jpg|jpeg|gif)/i)
+#    unless m.nil? or e_pic
+#      if m[1] != " "
+#        g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
+#        mystr = mystr.sub(m[0], g)
+#      else
+#        g = "<a href='#{e}' target='_blank'>" + e + "</a>"
+#        mystr = mystr.sub(e, g)
+#      end
+#    end
+#  end
+#  mystr
+#end
+#puts auto_link mystr
 
 #mystr="dfd\)ffd"
 #def auto_link(mystr)
@@ -148,3 +148,7 @@ puts auto_link mystr
 #    puts m
 #end
 #auto_link mystr
+
+mystr = "abdfd"
+m = mystr =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+puts m

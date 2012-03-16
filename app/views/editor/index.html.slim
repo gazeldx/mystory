@@ -17,17 +17,17 @@
         | :
         span.pl
           |  
-          - if note.title.length > 1
+          - unless note.title.to_s == ''
             = link_to note.title, site(user) + note_path(note), target: '_blank'
             br        
         span.inq
           = summary_comment(note, 260)
           br
           span.pl
-            - if note.title.length > 1
-              = note.created_at.strftime(t'date_format')
-            - else
+            - if note.title.to_s == ''
               = link_to note.created_at.strftime(t'date_format'), note
+            - else
+              = note.created_at.strftime(t'date_format')
           = recommend_etc note
           br
           = thumb_here note

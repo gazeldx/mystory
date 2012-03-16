@@ -5,14 +5,25 @@ class LoginController < ApplicationController
   def member_login
     if params[:loginname] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
       @user = User.find_by_email(params[:loginname])
-      judge_user
+      judge_user("email")
     else
       @user = User.find_by_username(params[:loginname])
-      if @user.nil? || @user.passwd!=params[:passwd]
+      if @user.nil?
         @user = User.find_by_domain(params[:loginname])
-        judge_user
-      else
+        judge_user("domain")
+      elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
         login_now
+      else
+        @user = User.find_by_domain(params[:loginname])
+        if @user.nil?
+          flash[:error] = t'login.username_exist_password_wrong'
+          redirect_to root_path
+        elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
+          login_now
+        else
+          flash[:error] = t'login.user_exist_password_wrong'
+          redirect_to root_path
+        end
       end
     end
   end
@@ -22,7 +33,7 @@ class LoginController < ApplicationController
     if @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
       login_now
     else
-      flash[:error]=t('login.password_wrong')
+      flash[:error] = t'login.password_wrong'
       redirect_to "/login"
     end
   end 
@@ -36,14 +47,22 @@ class LoginController < ApplicationController
     redirect_to my_site + like_path
   end
   
-  def judge_user
+  def judge_user(r)
     if @user.nil?
-      flash[:error]=t('login.user_not_exist')
+      if r == "email"
+        flash[:error] = t'login.email_not_exist'
+      else
+        flash[:error] = t'login.user_not_exist'
+      end
       redirect_to root_path
     elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
       login_now
     else
-      flash[:error]=t('login.user_exist_password_wrong')
+      if r == "email"
+        flash[:error] = t'login.email_exist_password_wrong'
+      else
+        flash[:error] = t'login.domain_exist_password_wrong'
+      end
       redirect_to root_path
     end
   end

@@ -49,7 +49,7 @@ zh:
   modify_recommend_reason: "修改推荐理由"
   recommended: "已推荐"
   click_cancel_recommend: "点击可取消推荐"
-
+  edit_title: "编辑 - %{w}"
   click_enlarge: "点击放大"
 
   pic: "图"
@@ -57,7 +57,7 @@ zh:
   etc: "……"
   whole_article: "全文"
 #  web_desc: "这世界，我来过"
-  he_editor: "他的推荐"
+  he_editor: "他推荐"
   see_what_he_edit: "看他推荐的内容"
   note_post_succ: "日记发布成功！"
   photo_upload_succ: "照片上传成功！"
@@ -182,7 +182,11 @@ zh:
   login:
     password_wrong: "密码错误！"
     user_exist_password_wrong: "用户是存在的，但密码错误！"
-    user_not_exist: "用户不存在！"
+    user_not_exist: "用户不存在！帐号和域名都未注册！"
+    email_not_exist: "该邮箱尚未注册！"
+    email_exist_password_wrong: "邮箱是存在的，但密码错误！"
+    username_exist_password_wrong: "帐号是存在的，但密码错误！"
+    domain_exist_password_wrong: "域名是存在的，但密码错误！"
   hello_login: "你好，%{w}。请输入你的管理密码："
   please_login: "请先登录"
   comment_login_first: "登录后才可以发表评论！"
@@ -229,7 +233,7 @@ zh:
   blog_posted: "作品发表成功！"
   hot_note: "热门日记"
   new_note: "最新日记"
-  view_as_him: "看他所看"
+  view_as_him: "他在看"
   view_as_him_desc: "切换到他的视角，看他每天都看些什么"
 
   unfinished: "正在研发中，敬请期待……"
