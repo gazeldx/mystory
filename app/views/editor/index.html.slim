@@ -21,7 +21,7 @@
             = link_to note.title, site(user) + note_path(note), target: '_blank'
             br        
         span.inq
-          = summary_comment(note, 260)
+          = summary_comment_portal(note, 260)
           br
           span.pl
             - if note.title.to_s == ''
@@ -29,8 +29,7 @@
             - else
               = note.created_at.strftime(t'date_format')
           = recommend_etc note
-          br
-          = thumb_here note
+          = thumbs_here(note, 5)
 #note
   h2
     = t('r_blog',w: @user.name)
@@ -52,10 +51,9 @@
           = link_to blog.title, site(user) + blog_path(blog), target: '_blank'
           | 》
         span.inq
-          = summary_comment(blog, 260)
+          = summary_comment_portal(blog, 260)
           br
           span.pl
             = blog.created_at.strftime t'no_year'
           = recommend_etc blog
-          br
-          = thumb_here blog
+          = thumbs_here(blog, 5)

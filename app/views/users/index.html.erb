@@ -1,6 +1,7 @@
 <h1>Listing users</h1>
 <table>
   <tr>
+    <th>id</th>
     <th>Phote</th>
     <th>Username</th>
     <th>Name</th>
@@ -9,6 +10,7 @@
   </tr>
 <% @users.each do |user| %>
   <tr>
+    <td><%= user.id %></td>
     <td><%= image_tag(user.avatar.thumb.url) %></td>
     <td><%= user.username %></td>
     <td><%= user.name %></td>

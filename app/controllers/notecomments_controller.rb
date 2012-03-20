@@ -6,7 +6,7 @@ class NotecommentsController < ApplicationController
     @notecomment.user_id = session[:id]
     @notecomment.save
     flash[:notice] = t'comment_succ'
-    redirect_to note_path(@note) + "#add_comment"
+    redirect_to note_path(@note) + "#notice"
   end
 
   def destroy

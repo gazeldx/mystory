@@ -11,9 +11,12 @@ div id='note-#{@blog.id}'
     div
       span.pl
         = post_info @blog
-        | &nbsp;&nbsp;其它分类：
+        - other_c = true
         - @categories.each do |category|
           - if category.id != @blog.category.id
+            - if other_c
+              | &nbsp;&nbsp;其它分类：
+              - other_c = false
             | [
             = link_to category.name, category
             | ]&nbsp;&nbsp;
@@ -38,9 +41,9 @@ div id='note-#{@blog.id}'
           span#ri_body= ri.body
           span#edit
             - if ri.body.nil?
-              = link_to t('modify_recommend_reason'), '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
             - else
-              = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none' 
       span
@@ -71,7 +74,7 @@ div id='note-#{@blog.id}'
     br
 #comments
   = render 'blogcomments/blogcomment'
-= render '/shared/notice_error'
+= render 'shared/notice_error'
 - if session[:id].nil?
   = t'comment_login_first'
 - else

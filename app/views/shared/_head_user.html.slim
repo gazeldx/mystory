@@ -10,7 +10,7 @@
           | (#{@user.maxim})
       - if @user.id == session[:id]
         span.rr.pl2
-          = render '/shared/quick_post_navigation'
+          = render 'shared/quick_post_navigation'
   ul
     li
       - if session[:id].nil? || (!myself.following?(@user) && myself != @user)

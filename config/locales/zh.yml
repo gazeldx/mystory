@@ -451,7 +451,7 @@ zh:
     messages: &errors_messages
       inclusion: "不包含于列表中"
       exclusion: "是保留关键字"
-      invalid: "是无效的"
+      invalid: ""
       confirmation: "与确认值不匹配"
       accepted: "必须是可被接受的"
       empty: "不能留空"
@@ -489,6 +489,19 @@ zh:
         <<: *errors_messages
       template:
         <<: *errors_template
+    attributes:
+      user:
+        username: "用户名：应由字母、数字和下划线组成，至少5位"        
+        name: "真实姓名："
+        domain: "个性域名：应由小写字母、数字和“-”组成，以小写字母打头，至少4位"
+        email: "Email"
+      blog:
+        title: "标题"
+        content: "正文"
+      note:
+        title: "标题"
+        content: "正文"
+
 
   helpers:
     select:

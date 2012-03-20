@@ -149,6 +149,6 @@
 #end
 #auto_link mystr
 
-mystr = "abdfd"
-m = mystr =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+mystr = "-fsfsd"
+m = mystr.match(/^[a-z][a-z\d\-]{2,17}[a-z\d]$/)
 puts m

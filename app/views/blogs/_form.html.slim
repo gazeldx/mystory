@@ -1,6 +1,7 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag "create_note", "dialog"
 - content_for :select_photos do
-  = render '/shared/select_photos'
-= render '/shared/notice_error'
+  = render 'shared/select_photos'
 = form_for @blog do |f|
   = error_msg @blog
   h2
@@ -16,7 +17,7 @@
   .row.note-text
     label.field
       | 正文
-      = render '/shared/insert_photo'
+      = render 'shared/insert_photo'
     br
     = f.text_area :content, id: "note_text", tabindex: 2
   .row.note-title
@@ -35,4 +36,4 @@
       = t'blog.memo'
   = f.submit t('_post'), class: 'btn', tabindex: 3
 br
-= render '/shared/tip_tag_usage'
+= render 'shared/tip_tag_usage'

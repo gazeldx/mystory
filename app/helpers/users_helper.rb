@@ -36,17 +36,32 @@ module UsersHelper
       tmp = tmp.sub(e, "")
     end
     if something.is_a?(Memoir)
-      lint_url = memoirs_path
+      link_url = memoirs_path
     else
-      lint_url = something
+      link_url = something
     end
-    p = tmp + t('etc') + (link_to t('whole_article') , lint_url)
+    p = tmp + t('etc') + (link_to t('whole_article') , link_url)
     #    n = m.size
     #    if n > 1
     #      raw " (#{n}#{t('pic')})&nbsp;&nbsp;" + p
     #    else
     raw p
     #    end
+  end
+
+  def summary_no_comments_portal(something, size)
+    tmp = text_it(something.content[0, size])
+    m = tmp.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      tmp = tmp.sub(e, "")
+    end
+    if something.is_a?(Memoir)
+      link_url = site(something.user) + memoirs_path
+    else
+      link_url = site(something.user) + something
+    end
+    p = tmp + t('etc') + (link_to t('whole_article') , link_url)
+    raw p
   end
 
   def summary_blank(something, size)
@@ -313,6 +328,8 @@ module UsersHelper
       id = "note_photo_#{photo.id}"
     elsif something.is_a?(Blog)
       id = "blog_photo_#{photo.id}"
+    elsif something.is_a?(Memoir)
+      id = "memoir_photo_#{photo.id}"
     end
     id
   end

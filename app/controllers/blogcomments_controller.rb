@@ -6,7 +6,7 @@ class BlogcommentsController < ApplicationController
     @blogcomment.user_id = session[:id]
     @blogcomment.save
     flash[:notice] = t'comment_succ'
-    redirect_to blog_path(@blog) + "#add_comment"
+    redirect_to blog_path(@blog) + "#notice"
   end
 
   def destroy

@@ -6,7 +6,7 @@ class PhotocommentsController < ApplicationController
     @photocomment.user_id = session[:id]
     @photocomment.save
     flash[:notice] = t'comment_succ'
-    redirect_to album_photo_path(@photo.album, @photo) + "#add_comment"
+    redirect_to album_photo_path(@photo.album, @photo) + "#notice"
   end
 
   def destroy

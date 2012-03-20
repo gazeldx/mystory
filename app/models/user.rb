@@ -6,6 +6,14 @@ class EmailValidator < ActiveModel::EachValidator
   end
 end
 
+class DomainValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    unless value =~ /^[a-z][a-z\d\-]{2,17}[a-z\d]$/
+      record.errors[attribute] << (options[:message])
+    end
+  end
+end
+
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   has_many :categories, :dependent => :destroy
@@ -23,17 +31,17 @@ class User < ActiveRecord::Base
   has_many :idols, :through => :ridols
   has_many :albums, :dependent => :destroy
   has_many :photos, :through => :albums
+  has_one :memoir
   has_one :customize
 
   acts_as_followable
   acts_as_follower
 
-  validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{5,25}$/,
-    :message => "Only letters,digital and _ is allowed. At least 5 bits." }
-  validates :name, :length => { :in => 2..4 }
+  validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{5,25}$/ }
   validates :email, :uniqueness => true, :length => { :in => 9..36 }, :email => true
-  validates :domain, :uniqueness => true, :format => { :with => /^[a-z][a-z\d\-]{2,17}[a-z\d]$/,
-    :message => "Only lower-case letter,digital and - is allowed. Starts with letter and at least 4 bits." }
+  validates :domain, :uniqueness => true, :domain => true
+  #  , :format => { :with => /^[a-z][a-z\d\-]{1,17}[a-z\d]$/ }
+  validates :name, :length => { :in => 2..4 }
   validates :passwd, :length => { :in => 6..100 }
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }

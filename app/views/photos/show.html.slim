@@ -18,19 +18,22 @@ div style='text-align:center'
   - else
     a.mainphoto href=(album_photo_path(@album, @photo_old)) title=t'click_show_old'
       = image_tag(@photo.avatar.url)
-.photo_descri
-  .j.a_editable.edtext.pl
-    span#photo_desc
-      = @photo.description
-    - if @user.id == session[:id]
-      span#edi
-        = link_to t('modify'), '#edit', onclick: 'showDescEtc()'
-      span#notice2 style="color:green"
-      div#editDiv style='display:none'
-        = text_area_tag :description, @photo.description
-        = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
-        = radio_button_tag :setascover, '1'
-        = label_tag(:setascover_1, '设为封面')
+  br
+  span#photo_desc
+    = @photo.description
+  - if @user.id == session[:id]
+    span#edi
+      - if @photo.description.nil?
+        - m = t'modify_desc'
+      - else
+        - m = t'modify'
+      = link_to m, 'javascript:;', onclick: 'showDescEtc()'
+    span#notice2 style="color:green"
+    div#editDiv style='display:none'
+      = text_area_tag :description, @photo.description
+      = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
+      = radio_button_tag :setascover, '1'
+      = label_tag(:setascover_1, '设为封面')    
 div style='color:#999;margin-bottom:5px' 
   | 上传于 
   = @photo.created_at.strftime t'date_format'
@@ -56,9 +59,9 @@ div style='color:#999;margin-bottom:5px'
           span#ri_body= ri.body
           span#edit
             - if ri.body.nil?
-              = link_to t('modify_recommend_reason'), '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
             - else
-              = link_to t('modify'), '#edit', onclick: 'showBodyEtc()'
+              = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none'
       span
@@ -67,7 +70,7 @@ div style='color:#999;margin-bottom:5px'
       = button_tag t('submit'), onclick: 'modify_ri("photo")'
 #comments
   = render 'photocomments/photocomment'
-= render '/shared/notice_error'
+= render 'shared/notice_error'
 - if session[:id].nil?
   = t'comment_login_first'
 - else

@@ -18,7 +18,7 @@ module BlogsHelper
 
   def article_time(item)
     r = ""
-    if params[:t] == 'updated'
+    if params[:t] == 'updated' or item.is_a?(Memoir)
        r = item.updated_at.strftime t'no_year'
        r += t'update'
     else

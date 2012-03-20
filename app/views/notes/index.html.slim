@@ -1,7 +1,9 @@
 = title t('s_note',w: @user.name)
 /- if @user.id == session[:id]
 /  = render 'shared/post_note'
-
+- if @user.id == session[:id]
+  h2
+    = link_to t('write_note'), new_note_path
 - @notes.each do |note|
   div id='note-#{note.id}'
     div
