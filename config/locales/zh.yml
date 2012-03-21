@@ -198,7 +198,7 @@ zh:
   register_new_user: "注册新用户"
   _register: "注册"
   forgot_password: "忘记密码"
-  regiter_succ_memo: "您的帐号已经创建成功。“我的故事”网站是关于你的一切。请发布原创文章。我们将努力保护您的版权和收益。网站才刚起步，希望你能常来看看。"
+  regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。网站才刚起步，希望你能常来看看。"
   new_user: "最近加入会员"
   user_name: "用户名"
   user_name_desc: "可用于登录，英文字母、数字和_"
@@ -237,6 +237,8 @@ zh:
   view_as_him_desc: "切换到他的视角，看他每天都看些什么"
 
   unfinished: "正在研发中，敬请期待……"
+
+  page_not_found: "页面不存在！返回<a href='http://mystory.cc'>我的故事原创社区</a>"
   
   #sitename: "网站名称"
   #official_website: "官方网站"
@@ -501,6 +503,9 @@ zh:
       note:
         title: "标题"
         content: "正文"
+      album:
+        name: "影集名称"
+        description: "影集描述"
 
 
   helpers:

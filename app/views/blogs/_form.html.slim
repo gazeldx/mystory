@@ -2,10 +2,11 @@
   = stylesheet_link_tag "create_note", "dialog"
 - content_for :select_photos do
   = render 'shared/select_photos'
+= render 'shared/notice_error'
 = form_for @blog do |f|
   = error_msg @blog
   h2
-    - if @blog.created_at.nil?
+    - if @blog.id.nil?
       = t'post_blog'
     - else
       | 编辑作品

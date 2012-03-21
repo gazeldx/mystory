@@ -7,7 +7,11 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
-    @photos = Photo.where(["album_id = ?", params[:id]]).page(params[:page]).order("created_at DESC")
+    if @album.user == @user
+      @photos = Photo.where(["album_id = ?", params[:id]]).page(params[:page]).order("created_at DESC")
+    else
+      render text: t('page_not_found')
+    end
   end
 
   def new

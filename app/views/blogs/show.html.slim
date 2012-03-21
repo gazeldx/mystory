@@ -1,4 +1,6 @@
 = title @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
+- if flash[:notice2]
+  #notice= flash[:notice2]
 div id='note-#{@blog.id}'
   .note-header
     h2

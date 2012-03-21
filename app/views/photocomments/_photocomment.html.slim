@@ -13,8 +13,10 @@
         - if comment.is_a?(Rphoto)
           = t'recommend_reason'
         = comment.body
-      - if session[:id] == user.id
-        .admin-lnks
+      - if [user.id, @user.id].include?(session[:id])
+        - if @all_comments.size > 20 and user.id == session[:id]
+          - _style = "background-color:#FFCCCC"
+        .admin-lnks style="#{_style}"
           - if comment.is_a?(Photocomment)
             | &gt;
             = link_to t('delete'), [@photo, comment], method: :delete

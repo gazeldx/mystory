@@ -4,15 +4,19 @@ class PhotosController < ApplicationController
   def show
     @photo = Photo.find(params[:id])
     @album = @photo.album
-    @photo_new = Photo.where(["album_id = ? AND created_at > ?", @album.id, @photo.created_at]).order('created_at').first
-    @photo_old = Photo.where(["album_id = ? AND created_at < ?", @album.id, @photo.created_at]).order('created_at DESC').first
-    @album.photos.each_with_index { |x, i|
-      if x == @photo
-        @photo_position = i + 1
-        break
-      end
-    }
-    @all_comments = (@photo.photocomments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    if @album.user == @user
+      @photo_new = Photo.where(["album_id = ? AND created_at > ?", @album.id, @photo.created_at]).order('created_at').first
+      @photo_old = Photo.where(["album_id = ? AND created_at < ?", @album.id, @photo.created_at]).order('created_at DESC').first
+      @album.photos.each_with_index { |x, i|
+        if x == @photo
+          @photo_position = i + 1
+          break
+        end
+      }
+      @all_comments = (@photo.photocomments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    else
+      render text: t('page_not_found')
+    end
   end
 
   def new

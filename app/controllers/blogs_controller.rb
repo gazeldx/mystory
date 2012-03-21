@@ -7,11 +7,15 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @categories = @user.categories.order('created_at')
     @blog = Blog.find(params[:id])
-    @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
-    @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
-    @all_comments = (@blog.blogcomments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    if @blog.user == @user
+      @categories = @user.categories.order('created_at')
+      @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
+      @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
+      @all_comments = (@blog.blogcomments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    else
+      render text: t('page_not_found')
+    end
   end
 
   def new
@@ -57,7 +61,8 @@ class BlogsController < ApplicationController
   def update
     @blog = Blog.find(params[:id])
     if @blog.update_attributes(params[:blog])
-      redirect_to blog_path, notice: t('update_succ')
+      flash[:notice2] = t'update_succ'
+      redirect_to blog_path
     else
       render :edit
     end
@@ -73,5 +78,11 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @blog.content = summary_comment_style(@blog, 4000)
     render json: @blog.as_json()
+  end
+
+  def lovezhangtingting
+    params[:id] = 2
+    show
+    render :show
   end
 end

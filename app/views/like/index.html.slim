@@ -77,9 +77,10 @@
                 = link_to t('edit'), edit_blog_path(item)
       - elsif item.is_a?(Rnote)
         - note = item.note
+        - user = note.user
         li.mbtl
-          a href=site(item.user)
-            = image_tag(item.user.avatar.thumb.url)
+          a href=site(user)
+            = image_tag(user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user)
           span.pl1
@@ -89,17 +90,18 @@
           br
           span.inq
             | &nbsp;&nbsp;原文 
-            = link_to note.user.name, site(note.user)
-            | : #{link_to note.title, site(note.user) + note_path(note)}&nbsp;
+            = link_to user.name, site(user)
+            | : #{link_to note.title, site(user) + note_path(note)}&nbsp;
             = summary_comment_portal(note, 140)
             = thumbs_here(note, 5)
             span.pl
               = item.created_at.strftime t'no_year'
       - elsif item.is_a?(Rblog)
         - blog = item.blog
+        - user = blog.user
         li.mbtl
-          a href=site(item.user)
-            = image_tag(item.user.avatar.thumb.url)
+          a href=site(user)
+            = image_tag(user.avatar.thumb.url)
         li.mbtr
           = link_to item.user.name, site(item.user)
           span.pl1
@@ -109,9 +111,9 @@
           br
           span.inq
             | &nbsp;&nbsp;原文 
-            = link_to blog.user.name, site(blog.user)
+            = link_to user.name, site(user)
             span.pl1  发表作品
-            | 《#{link_to blog.title, site(blog.user) + blog_path(blog)}》
+            | 《#{link_to blog.title, site(user) + blog_path(blog)}》
             = summary_comment_portal(blog, 180)
             = thumbs_here(blog, 5)
             span.pl

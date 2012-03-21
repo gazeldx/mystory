@@ -1,4 +1,5 @@
 = title t('edit_profile') + ' - ' + session[:name]
+= render 'shared/notice_error'
 = form_for @_user do |f|
   = error_msg @_user
   table align='center' width='100%' cellpadding='5' style='clear:both'

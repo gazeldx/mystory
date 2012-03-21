@@ -22,10 +22,14 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.find(params[:id])
-    #TODO change to max or min?
-    @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
-    @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
-    @all_comments = (@note.notecomments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    if @note.user == @user
+      #TODO change to max or min?
+      @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
+      @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
+      @all_comments = (@note.notecomments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    else
+      render text: t('page_not_found')
+    end
   end
 
   def edit
@@ -36,7 +40,8 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
     if @note.update_attributes(params[:note])
-      redirect_to note_path, notice: t('update_succ')
+      flash[:notice2] = t'update_succ'
+      redirect_to note_path
     else
       render :edit
     end
