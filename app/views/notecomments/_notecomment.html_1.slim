@@ -1,0 +1,61 @@
+- @all_comments.each_with_index do |comment, ci|
+  - user = comment.user
+  /- if @user.id == session[:id]
+    /- onmouseover = "$(this).find('.admin-lnks').css('display', '')"
+    /- onmouseout = "$(this).find('.admin-lnks').css('display', 'none')"
+  /.comment-item onmouseover="#{onmouseover}" onmouseout="#{onmouseout}"
+  .comment-item
+    .pic
+      a href=site(user)
+        = image_tag(user.avatar.thumb.url, alt: user.name)
+    .content
+      .author
+        = comment.created_at.strftime t'time_format'
+        |  
+        = link_to user.name, site(user)
+      p
+        - if comment.is_a?(Rnote)
+          = t'recommend_reason'
+        = comment_info(comment.body, user)
+        - m = comment.body.split(/repLyFromM/m)
+        = comment_info
+        - m.each_with_index do |e, i|
+          - if i==0
+            - u_c = e.split(/ReplyFRomU/m)
+            - u_c.each_with_index do |reply, j|
+              - if j==0
+                = reply
+              - else
+                | #{t('_add_comment', r:reply_info(reply))}
+              - if j < u_c.size-1
+                br
+          - else
+            - u_c = e.split(/ReplyFRomU/m)
+            - if u_c.size > 1
+              - u_c.each_with_index do |reply, j|
+                br
+                - if j==0
+                  span.writer_reply
+                    | #{raw(t('who_reply', w:user.name, r:reply_info(reply)))}
+                - else
+                  | #{raw(t('_add_comment', r:reply_info(reply)))}
+            - else
+              br
+              span.writer_reply
+                | #{user.name}回复：#{reply_info(e)}
+      - if [user.id, @user.id].include?(session[:id])
+        - if user.id == session[:id] and @all_comments.size > 10 and ci != @all_comments.size-1
+          - _style = "background-color:#FFCCCC"
+        /- if @user.id == session[:id]
+          /- _style = "display:none"
+        .admin-lnks style="#{_style}"
+          /TODO Writer of admin show delete and reply in the author place
+          - if comment.is_a?(Notecomment)
+            | &gt;
+            - if @user.id == session[:id]
+              = link_to t('reply'), 'javascript:;', onclick: "$('#notecomment_body').focus();$('#who').html('#{t('reply_who', w:user.name)}');$('#reply_user_id').val('#{user.id}')"
+            - else
+              /Can get other users comment in title but not show it.
+              = link_to t('add_comment'), 'javascript:;', onclick: "$('#notecomment_body').focus()"
+            | &nbsp;&nbsp;&gt;
+            = link_to t('delete'), [@note, comment], method: :delete
