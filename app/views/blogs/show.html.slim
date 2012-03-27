@@ -23,7 +23,7 @@ div id='note-#{@blog.id}'
             = link_to category.name, category
             | ]&nbsp;&nbsp;
   div id='note_#{@blog.id}_full'
-    pre.note
+    pre.note_full
       = style_it @blog.content
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer
@@ -74,16 +74,8 @@ div id='note-#{@blog.id}'
   - @user.r_blogs.where(id: ids).limit(5).each do |blog|
     = link_to blog.title, blog
     br
-#comments
-  = render 'blogcomments/blogcomment'
-= render 'shared/notice_error'
-- if session[:id].nil?
-  = t'comment_login_first'
-- else
-  h2
-    | 发表评论 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-  = render 'blogcomments/form'
-
+- @clazz = 'blog'
+= comments
 javascript:
   $('#recommend').live('click', function() {
     recommend_blog();

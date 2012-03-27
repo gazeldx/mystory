@@ -1,22 +1,15 @@
-- @all_comments.each do |comment|
+- @all_comments.each_with_index do |comment, ci|
   - user = comment.user
   .comment-item
-    .pic
-      a href=site(user)
-        = image_tag(user.avatar.thumb.url, alt: user.name)
+    = c_pic user
     .content
-      .author
-        = comment.created_at.strftime t'time_format'
-        |  
-        = link_to user.name, site(user)
+      = c_author(user, comment)
       p
         - if comment.is_a?(Rphoto)
           = t'recommend_reason'
-        = comment.body
+        = comment_info(comment.body, user)
       - if [user.id, @user.id].include?(session[:id])
-        - if @all_comments.size > 20 and user.id == session[:id]
-          - _style = "background-color:#FFCCCC"
-        .admin-lnks style="#{_style}"
+        .admin-lnks style="#{line_style(user, ci)}"
           - if comment.is_a?(Photocomment)
-            | &gt;
+            = reply_add user
             = link_to t('delete'), [@photo, comment], method: :delete

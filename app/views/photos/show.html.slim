@@ -68,16 +68,8 @@ div style='color:#999;margin-bottom:5px'
         = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("photo")'
-#comments
-  = render 'photocomments/photocomment'
-= render 'shared/notice_error'
-- if session[:id].nil?
-  = t'comment_login_first'
-- else
-  h2
-    | 发表评论 &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-  = render 'photocomments/form'
-
+- @clazz = 'photo'
+= comments
 javascript:
   $('#recommend').live('click', function() {
     recommend_photo_in(#{@photo.id});

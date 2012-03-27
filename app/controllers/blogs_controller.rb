@@ -12,7 +12,9 @@ class BlogsController < ApplicationController
       @categories = @user.categories.order('created_at')
       @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
       @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
-      @all_comments = (@blog.blogcomments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      comments = @blog.blogcomments
+      @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      @comments_uids = comments.collect{|c| c.user_id}
     else
       render text: t('page_not_found')
     end
@@ -52,7 +54,8 @@ class BlogsController < ApplicationController
 
   def create_proc
     if @blog.save
-      redirect_to blogs_path, notice: t('blog_posted')
+      flash[:notice2] = t'blog_posted'
+      redirect_to blog_path(@blog)
     else
       render :new
     end

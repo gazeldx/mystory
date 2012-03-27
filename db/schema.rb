@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310092012) do
+ActiveRecord::Schema.define(:version => 20120322015343) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -88,6 +88,17 @@ ActiveRecord::Schema.define(:version => 20120310092012) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "memoircomments", :force => true do |t|
+    t.text     "body"
+    t.integer  "memoir_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memoircomments", ["memoir_id"], :name => "index_memoircomments_on_memoir_id"
+  add_index "memoircomments", ["user_id"], :name => "index_memoircomments_on_user_id"
 
   create_table "memoirs", :force => true do |t|
     t.string   "title"
@@ -179,6 +190,17 @@ ActiveRecord::Schema.define(:version => 20120310092012) do
 
   add_index "ridols", ["idol_id"], :name => "index_ridols_on_idol_id"
   add_index "ridols", ["user_id"], :name => "index_ridols_on_user_id"
+
+  create_table "rmemoirs", :force => true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "memoir_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rmemoirs", ["memoir_id"], :name => "index_rmemoirs_on_memoir_id"
+  add_index "rmemoirs", ["user_id"], :name => "index_rmemoirs_on_user_id"
 
   create_table "rnotes", :force => true do |t|
     t.string   "body"

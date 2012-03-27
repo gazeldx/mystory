@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render layout: 'application'
+    render layout: 'memoir'
   end
 
   def edit

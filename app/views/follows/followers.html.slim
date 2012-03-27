@@ -24,7 +24,7 @@ ul.user-list
           = link_to t('followers') + guy.followers_count.to_s, site(guy) + followers_path
           |  |
           = link_to t('_note') + Note.where(["user_id = ?", guy.id]).count.to_s, site(guy) + notes_path
-          |  |
+          |  | 
           = link_to t('_blog') + Blog.where(["user_id = ?", guy.id]).count.to_s, site(guy) + blogs_path
         br
         span.pl

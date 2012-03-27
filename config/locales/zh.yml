@@ -38,13 +38,22 @@ zh:
   category:
     name: "分类名"
     edit: "编辑作品分类"
-    name_must_notnull: "作品分类必须填写!"
+    name_must_notnull: "作品分类必须填写！"
     has_blogs_when_delete: "该作品分类下有作品，删除了所有作品后才可以删除。"
   category_addtip: "添加作品分类，请输入分类名："
   no_category: "未分类"
   comments: "(评论%{w})"
   comments_: "评论%{w}"
   comment: "评论"
+  reply: "回复"
+  add_comment: "追加评论"
+  _add_comment: "追加评论：%{r}"
+  add_comment_succ: "追加评论成功！"
+  post_comment: "发表评论"
+  reply_who: "回复%{w}"
+  reply_succ: "回复评论成功！"
+  who_reply: "%{w}回复：%{r}"
+
 
   modify_recommend_reason: "修改推荐理由"
   recommended: "已推荐"
@@ -54,6 +63,7 @@ zh:
 
   pic: "图"
   _dot: "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"
+  _comment_dot: "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"
   etc: "……"
   whole_article: "全文"
 #  web_desc: "这世界，我来过"
@@ -146,9 +156,10 @@ zh:
     memo: "（作品按此排序）"
   _profile: "查看详细资料"
 
-
+  
   time_format: "%Y年%m月%d日 %H:%M"
   date_format: "%Y年%m月%d日"
+  date_format_: "%Y-%m-%d"
   no_year: "%m月%d日 %H:%M"
   h_m: "%H:%M"
   posted_in: "发表在"

@@ -17,7 +17,6 @@ this.showBodyEtc = ->
   $('#body').val($('#ri_body').html())
   $('#ri_body').html('')
   $('#body').focus()
-  #TODO why focus not work in firefox?
 
 this.modify_ri = (t) ->
   $.ajax
@@ -32,7 +31,7 @@ modify_ri_succ = ->
   $('#bodydiv').css 'display', 'none'
   $('#ri_body').html($('#body').val())
   $('#edit').css 'display', ''
-  $('#edit').html('<a onclick="showBodyEtc()" href="#edit">修改</a>')
+  $('#edit').html('<a onclick="showBodyEtc()" href="javascript:;">修改</a>')
 
 this.recommend_blog = ->
   $.ajax
@@ -88,6 +87,15 @@ this.cancel_recommend_note = (id) ->
 this.recommend_photo_in = (id) ->
   $.ajax
     url: '/recommend_photo'
+    data: "id=" + id
+    type: "POST"
+    success: (data) ->
+      changeInButton()
+      $('#ri_id').val(data['id'])
+
+this.recommend_memoir_in = (id) ->
+  $.ajax
+    url: '/recommend_memoir'
     data: "id=" + id
     type: "POST"
     success: (data) ->

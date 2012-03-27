@@ -3,6 +3,9 @@ class MemoirsController < ApplicationController
   
   def index
     @memoir =Memoir.find_by_user_id(@user.id)
+    comments = @memoir.memoircomments
+    @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+    @comments_uids = comments.collect{|c| c.user_id}
   end
   
   def create
@@ -23,7 +26,8 @@ class MemoirsController < ApplicationController
   def update
     @memoir = Memoir.find_by_user_id(session[:id])
     if @memoir.update_attributes(params[:memoir])
-      redirect_to edit_memoirs_path, notice: t('update_succ')
+      flash[:notice2] = t'update_succ'
+      redirect_to memoirs_path
     else
       render :edit
     end

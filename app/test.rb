@@ -149,6 +149,132 @@
 #end
 #auto_link mystr
 
-mystr = "-fsfsd"
-m = mystr.match(/^[a-z][a-z\d\-]{2,17}[a-z\d]$/)
-puts m
+
+#mystr = "i ask you?repLyFromMMaster answer 1repLyFromM answer2 ReplyFRomUask2ReplyFRomUask3repLyFromMfaint"
+##mystr = "在ReplyFRomU地地ReplyFRomU寺"
+#m = mystr.split(/repLyFromM/m)
+#m.each_with_index do |e, i|
+#  if i==0
+#    u_c = e.split(/ReplyFRomU/m)
+#    u_c.each do |reply|
+#      puts "user ask:" + reply
+#    end
+#  else
+#    u_c = e.split(/ReplyFRomU/m)
+#    if u_c.size > 1
+#      u_c.each_with_index do |reply, j|
+#        if j==0
+#          puts "master reply:" + reply
+#        else
+#          puts "user ask:" + reply
+#        end
+#      end
+#    else
+#      puts "master reply:" + e
+#    end
+#  end
+#end
+
+#m.each_with_index do |e, i|
+#  if i==0
+#    puts "user ask:" + e
+#  else
+#    u_c = e.split(/ReplyFRomU/m)
+#    if u_c.size > 1
+#      u_c.each_with_index do |reply, j|
+#        if j==0
+#          puts "master reply:" + reply
+#        else
+#          puts "user ask:" + reply
+#        end
+#      end
+#    else
+#      puts "master reply:" + e
+#    end
+#  end
+#end
+
+  
+#  unless e[1].nil?
+#    g = "<span style='"
+#    e[1].split('').each do |v|
+#      case v
+#      when 'b'
+#        g += "font-weight:bold;"
+#      when 'x'
+#        g += "font-size:1.5em;"
+#      when 's'
+#        g += "font-size:0.8em;"
+#      when 'r'
+#        g += "color:red;"
+#      when 'g'
+#        g += "color:green;"
+#      when 'y'
+#        g += "color:#FF8800;"
+#      when 'l'
+#        g += "color:#0000FF;"
+#      when 'h'
+#        g += "color:#AAAAAA;"
+#      end
+#    end
+#    g += "'>" + e[2] + "</span>"
+#    mystr = mystr.sub(e[0], g)
+#  end
+#end
+#m = mystr.match(/(.+)replyFromMfdsfreplyFromM(.+)/)
+#puts m[1]
+#puts m[2]
+#puts m
+
+#t = Time.now
+#i = t.to_i
+#puts i
+#t = Time.at(i)
+#puts t
+
+#mystr = "1332743558 下属们，全都屏住呼吸，担心的看着第一天上班的副"
+#m = mystr.match(/^(\d{10} )(.*)/)
+#puts m[0]
+#puts m[1]
+#puts m[2]
+#unless m.nil?
+#  mystr = mystr.sub(m[1], '')
+#  mystr = mystr + ' <span class=\'pl\'>' + Time.at(m[1].to_i).strftime("%Y-%m-%d") + '</span>'
+#end
+#puts mystr
+
+def comment_info(body, user)
+  c_info = ""
+  m = body.split(/repLyFromM/m)
+  m.each_with_index do |e, i|
+    if i==0
+      u_c = e.split(/ReplyFRomU/m)
+      u_c.each_with_index do |reply, j|
+        if j==0
+          c_info += reply
+        else
+          c_info += t('_add_comment', r:reply_info(reply))
+        end
+        if j < u_c.size-1
+          c_info += "<br/>"
+        end
+      end
+    else
+      u_c = e.split(/ReplyFRomU/m)
+      if u_c.size > 1
+        u_c.each_with_index do |reply, j|
+          c_info += "<br/>"
+          if j==0
+            c_info += content_tag(:span, t('who_reply', w:user.name, r:reply_info(reply)), class: "writer_reply")
+            else
+              c_info += t('_add_comment', r:reply_info(reply))
+            end
+          end
+        else
+          c_info += "<br/>"
+          c_info += content_tag(:span, t('who_reply', w:user.name, r:reply_info(reply)), class: "writer_reply")
+          end
+        end
+      end
+      raw c_info
+    end

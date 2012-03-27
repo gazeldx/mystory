@@ -1,8 +1,4 @@
 #add_comment.comment-form.txd
   = form_for([@note, @note.notecomments.build]) do |f|
-    .item
-      = f.text_area :body, size: "64x4"
-      br
-    .item
-      span.bn-flat-hot
-        = f.submit t('submit')
+    = comment_form f
+= validate_comment_form

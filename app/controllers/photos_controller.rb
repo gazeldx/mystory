@@ -13,7 +13,9 @@ class PhotosController < ApplicationController
           break
         end
       }
-      @all_comments = (@photo.photocomments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      comments = @photo.photocomments
+      @all_comments = (comments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      @comments_uids = comments.collect{|c| c.user_id}
     else
       render text: t('page_not_found')
     end

@@ -43,3 +43,52 @@ div id='note-#{note.id}_full'
 
 
         #,type: "GET"
+
+- if @user.id == session[:id]
+  - onmouseover = "$(this).find('.admin-lnks').css('display', '')"
+  - onmouseout = "$(this).find('.admin-lnks').css('display', 'none')"
+.comment-item onmouseover="#{onmouseover}" onmouseout="#{onmouseout}"
+
+= hidden_field_tag :reply_user_id
+.item
+  = f.text_area :body, size: "64x4", class: 'comment'
+  br
+.item
+  span.bn-flat-hot
+    = f.submit t('submit')
+
+
+#comments
+  = render cc
+= render 'shared/notice_error'
+- if session[:id].nil?
+  = t'comment_login_first'
+- else
+  h2
+    span#who
+      - if @comments_uids.include?(session[:id])
+        = t'add_comment'
+      - else
+        = t'post_comment'
+    |  &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+  = render '#{@clazz}comments/form'
+
+javascript:
+  $('#recommend').live('click', function() {
+    recommend_note_in(#{@note.id});
+  });
+
+#comments
+  = render "#{@clazz}comments/#{@clazz}comment"
+= render 'shared/notice_error'
+- if session[:id].nil?
+  = t'comment_login_first'
+- else
+  h2
+    span#who
+      - if @comments_uids.include?(session[:id])
+        = t'add_comment'
+      - else
+        = t'post_comment'
+    |  &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+  = render "#{@clazz}comments/form"

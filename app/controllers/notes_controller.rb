@@ -14,7 +14,8 @@ class NotesController < ApplicationController
     @note = Note.new(params[:note])
     @note.user_id = session[:id]
     if @note.save
-      redirect_to :back, notice: t('note_post_succ')
+      flash[:notice2] = t'note_post_succ'
+      redirect_to note_path(@note)
     else
       render :new
     end
@@ -26,7 +27,9 @@ class NotesController < ApplicationController
       #TODO change to max or min?
       @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
       @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
-      @all_comments = (@note.notecomments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      comments = @note.notecomments
+      @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      @comments_uids = comments.collect{|c| c.user_id}
     else
       render text: t('page_not_found')
     end

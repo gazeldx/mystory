@@ -1,3 +1,9 @@
+$s: 13px;
+$m: 14px;
+$c: 15px;
+$b: 16px;
+$x: 18px;
+$main_color: #060;
 html {
   color:#111;
   background:#fff;
@@ -84,7 +90,7 @@ input[type=text]:focus,input[type=password]:focus,textarea:focus {
   outline:0
 }
 body {
-  font:13px Tahoma,Geneva,sans-serif;
+  font:$s Tahoma,Geneva,sans-serif;
   margin:15px 0
 }
 #wrapper {
@@ -245,7 +251,7 @@ fieldset.site legend {
 }
 fieldset.site label {
   width:120px;
-  font-size:14px;
+  font-size:$m;
   float:left;
   overflow:hidden
 }
@@ -267,7 +273,7 @@ textarea {
   overflow:auto
 }
 input {
-  font-size:13px
+  font-size:$s
 }
 a {
   cursor:pointer
@@ -295,7 +301,7 @@ a img {
   vertical-align:middle
 }
 body,td,th {
-  font:13px Arial,Helvetica,sans-serif;
+  font:$s Arial,Helvetica,sans-serif;
   line-height:162%
 }
 table {
@@ -344,8 +350,8 @@ h4 {
   background:url(/images/topicbar.gif) no-repeat right top
 }
 h2 {
-  font:16px Arial,Helvetica,sans-serif;
-  color:#060;
+  font:$b Arial,Helvetica,sans-serif;
+  color:$main_color;
   margin:0 0 12px 0;
   line-height:150%
 }
@@ -373,7 +379,7 @@ h2 {
 #page_focus {
   border:1px solid #ccc;
   margin:0 10px 0 0;
-  height:16px;
+  height:$b;
   width:171px;
   padding:2px 0 0 2px
 }
@@ -388,17 +394,17 @@ h2 {
   display:block;
   text-decoration:none;
   color:#368332;
-  font-size:14px;
+  font-size:$m;
   margin:2px 5px 0 5px;
   padding:8px 4px 7px 4px;
-  line-height:14px
+  line-height:$m
 }
 #nav a:hover {
   background-color:transparent;
   text-decoration:underline
 }
 #nav a.now {
-  font-size:14px;
+  font-size:$m;
   margin:2px 5px 0 5px;
   float:left;
   display:block;
@@ -648,7 +654,7 @@ a.colbutt:visited {
 textarea {
   border:1px solid #ccc;
   padding:3px;
-  font-size:14px
+  font-size:$m
 }
 .area_miniblog {
   width:304px;
@@ -677,7 +683,7 @@ textarea {
 .input_basic2 {
   border:1px solid #ccc;
   padding:3px;
-  font-size:14px
+  font-size:$m
 }
 #vote_btn input.vote_btn {
   background:url(/images/icon/vote_48_18px.gif) no-repeat right top;
@@ -765,7 +771,7 @@ textarea {
   text-decoration:none;
   margin:5px 5px 1px 5px;
   padding:3px 5px 2px 5px;
-  line-height:14px
+  line-height:$m
 }
 .xbar a:hover {
   color:white
@@ -798,7 +804,7 @@ textarea {
   text-decoration:none;
   margin:5px 5px 1px 5px;
   padding:3px 5px 2px 5px;
-  line-height:14px
+  line-height:$m
 }
 .zbar a:hover {
   color:white
@@ -922,17 +928,17 @@ textarea {
 }
 .collect h3 {
   padding-top:3px;
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:120%;
   background:url(/images/topicbar.gif) no-repeat right top;
   margin:0 0 0 4px
 }
 .collect h3 a {
-  color:#060
+  color:$main_color
 }
 .collect h3 a:hover {
   color:#fff;
-  background:#060
+  background:$main_color
 }
 .reading-notes .bd h2 {
   margin:0
@@ -957,7 +963,7 @@ textarea {
   overflow:hidden
 }
 .reading-notes ul li .con h6 a {
-  font-size:14px
+  font-size:$m
 }
 .reading-notes ul li .con .no-comments {
   display:none
@@ -977,7 +983,7 @@ textarea {
   padding:0 10px 10px 0
 }
 .code-holder {
-  color:#060
+  color:$main_color
 }
 .rnotes pre {
   font:12px/162% Arial,Helvetica,sans-serif;
@@ -1024,7 +1030,7 @@ blockquote {
 .broadimg {
   border:1px solid #ddd;
   float:right;
-  margin-left:14px
+  margin-left:$m
 }
 .blst {
   padding:0;
@@ -1048,22 +1054,22 @@ blockquote {
   margin-right:10px
 }
 .m {
-  font-size:14px;
+  font-size:$m;
   line-height:120%;
-  color:#060
+  color:$main_color
 }
 .m a,.m a:visited,a.m,a.m:visited {
-  font-size:14px;
+  font-size:$m;
   line-height:120%;
-  color:#060;
+  color:$main_color;
   text-decoration:none
 }
 .m a:hover,a.m:hover {
-  font-size:14px;
+  font-size:$m;
   line-height:120%;
   color:#fff;
   text-decoration:none;
-  background:#060
+  background:$main_color
 }
 .m a:active,a.m:active {
   color:#fff;
@@ -1076,22 +1082,22 @@ blockquote {
   margin:0
 }
 .pl {
-  font:13px Arial,Helvetica,sans-serif;
+  font:$s Arial,Helvetica,sans-serif;
   line-height:150%;
   color:#666
 }
 .pl2 {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:150%;
   color:#666
 }
 .pl1 {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:150%;
   color:#666
 }
 .l2 {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:150%
 }
 .hiddenerr {
@@ -1185,7 +1191,7 @@ blockquote {
   padding:0;
   margin:0;
   clear:both;
-  font-size:14px
+  font-size:$m
 }
 .mbt tr {
   vertical-align:top
@@ -1419,7 +1425,7 @@ ul .mbtr2 {
   margin:0
 }
 .obs dt {
-  height:114px;
+  height:1$m;
   width:103px;
   overflow:hidden
 }
@@ -1449,7 +1455,7 @@ ul .mbtr2 {
   height:50px;
   overflow:hidden;
   text-align:center;
-  line-height:16px
+  line-height:$b
 }
 .obu dd {
   margin:0;
@@ -1483,7 +1489,7 @@ ul .mbtr2 {
   line-height:24px
 }
 .cloud2 a {
-  font:14px bold Arial,Helvetica,sans-serif;
+  font:$m bold Arial,Helvetica,sans-serif;
   line-height:24px
 }
 .cloud3 a {
@@ -1516,7 +1522,7 @@ input.readonly,textarea.readonly {
   margin:0 25px 30px 0
 }
 .gract {
-  color:#060;
+  color:$main_color;
   text-decoration:none;
   font-size:12px;
   text-align:center;
@@ -1539,7 +1545,7 @@ input.readonly,textarea.readonly {
 }
 .gract a:link {
   text-decoration:none;
-  color:#060;
+  color:$main_color;
   font-size:12px;
   text-align:center;
   padding:3px 3px 2px 3px;
@@ -1547,14 +1553,14 @@ input.readonly,textarea.readonly {
 }
 .gract a:visited {
   text-decoration:none;
-  color:#060;
+  color:$main_color;
   font-size:12px;
   text-align:center;
   padding:3px 3px 2px 3px;
   margin-top:2px
 }
 .gract a:hover {
-  color:#060;
+  color:$main_color;
   font-size:12px;
   border-left:1px solid #9f9;
   border-top:1px solid #9f9;
@@ -1590,7 +1596,7 @@ input.readonly,textarea.readonly {
   display:block
 }
 .paginator {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   color:#aaa;
   margin:20px 0;
   line-height:150%;
@@ -1612,7 +1618,7 @@ input.readonly,textarea.readonly {
 }
 .paginator .count {
   margin-left:20px;
-  font-size:14px
+  font-size:$m
 }
 .paginator .thispage {
   color:#fff;
@@ -1698,9 +1704,9 @@ input.readonly,textarea.readonly {
   text-align:right
 }
 .mn {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:150%;
-  color:#060
+  color:$main_color
 }
 .wrc {
   word-wrap:break-word;
@@ -1734,7 +1740,7 @@ wbr:after {
   margin-bottom:10px
 }
 .dirsp span {
-  font-size:14px
+  font-size:$m
 }
 .imgg {
   float:left;
@@ -1801,7 +1807,7 @@ wbr:after {
   background:url(/images/all_star.gif);
   display:block;
   width:50px;
-  height:14px;
+  height:$m;
   margin:1px 0 0 7px
 }
 .sub_ins .starstop {
@@ -1815,7 +1821,7 @@ wbr:after {
   display:inline-block;
   background:url(/images/stars.gif);
   width:50px;
-  height:14px;
+  height:$m;
   margin:1px 0 0 7px
 }
 .stars4 {
@@ -1831,7 +1837,7 @@ wbr:after {
   background-position:left 15px
 }
 .power {
-  height:14px;
+  height:$m;
   background:#ddd;
   float:left;
   margin:0 3px
@@ -1881,7 +1887,7 @@ wbr:after {
   left:50%;
   width:588px;
   margin-top:-148px;
-  margin-left:-13px;
+  margin-left:-$s;
   background-color:#333;
   padding-top:20px\9;
   -moz-border-radius:6px;
@@ -1946,7 +1952,7 @@ wbr:after {
   margin:0
 }
 .pl_l {
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   line-height:150%;
   width:80px;
   vertical-align:top;
@@ -1963,7 +1969,7 @@ wbr:after {
 }
 .location {
   line-height:180%;
-  font-size:14px;
+  font-size:$m;
   margin-left:15px
 }
 .evtlstimg {
@@ -2039,8 +2045,8 @@ wbr:after {
   width:100%
 }
 .citytitle {
-  font-size:14px;
-  color:#060;
+  font-size:$m;
+  color:$main_color;
   border-bottom:1px solid #ccc;
   margin:0 0 15px 0
 }
@@ -2058,7 +2064,7 @@ wbr:after {
   font-size:12px
 }
 .citysmr li .title a {
-  font-size:14px
+  font-size:$m
 }
 .actimgs {
   float:left;
@@ -2109,7 +2115,7 @@ wbr:after {
   margin-bottom:10px
 }
 .recevent .text {
-  padding-left:116px;
+  padding-left:1$b;
   color:#999
 }
 .fstars {
@@ -2132,7 +2138,7 @@ wbr:after {
   background:0
 }
 .recevent .text {
-  padding-left:116px;
+  padding-left:1$b;
   color:#999
 }
 .rectitle {
@@ -2151,7 +2157,7 @@ wbr:after {
 }
 #dialog .rectitle .m i {
   font-style:normal;
-  color:#060;
+  color:$main_color;
   margin-left:.5ex
 }
 .recsmr {
@@ -2163,7 +2169,7 @@ wbr:after {
   color:#666
 }
 #dialog .rectitle .gact a:link,#dialog .rectitle .gact a:visited,#dialog .rectitle .gact a:hover,#dialog .rectitle .gact a:active {
-  font-size:14px;
+  font-size:$m;
   padding:0 4px
 }
 .reccomment {
@@ -2199,7 +2205,7 @@ wbr:after {
   width:100%;
   height:26px;
   margin-left:4px;
-  font:14px Arial,Helvetica,sans-serif;
+  font:$m Arial,Helvetica,sans-serif;
   color:#666;
   margin-bottom:1px;
   line-height:150%;
@@ -2442,7 +2448,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   display:inline;
   width:164px;
   overflow:hidden;
-  margin:10px 13px 25px
+  margin:10px $s 25px
 }
 .photo_wrap .pl {
   margin:6px 0 3px 0
@@ -2532,7 +2538,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   color:#777
 }
 .photo_descri {
-  padding:0 0 0 14px;
+  padding:0 0 0 $m;
   word-wrap:break-word;
   overflow:hidden
 }
@@ -2567,7 +2573,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   background:url(/images/discover.jpg) no-repeat;
   width:400px;
   height:185px;
-  font-size:14px;
+  font-size:$m;
   color:#aaa;
   padding:7px 0 0 115px;
   line-height:1.5em;
@@ -2617,7 +2623,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   top:1px;
   width:153px;
   margin:0 5px 0 0;
-  height:16px;
+  height:$b;
   border:1px solid #ddd;
   position:absolute
 }
@@ -2638,7 +2644,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
 }
 .feed {
   background:url('/images/feed1.png') no-repeat;
-  font-size:14px;
+  font-size:$m;
   padding:0 0 30px 20px
 }
 .miniform {
@@ -2678,7 +2684,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   background-color:#733
 }
 .note-header h3 {
-  color:#060;
+  color:$main_color;
   background:0;
   margin-left:0;
   margin-bottom:0;
@@ -2686,7 +2692,7 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   line-height:1.4
 }
 .note {
-  font-size:14px;
+  font-size:$m;
   line-height:1.62;
   font-family:Arial,Helvetica,sans-serif;
   word-wrap:break-word;
@@ -2696,11 +2702,15 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   margin-top:10px
 }
 #note .note {
-  font-size:13px;
+  font-size:$m;
   line-height:1.62
 }
+.note_full{
+  @extend .note;
+  font-size:$c;
+}
 #form_note textarea {
-  font-size:13px;
+  font-size:$s;
   line-height:1.62
 }
 .note a img {
@@ -2716,7 +2726,7 @@ body .note {
   text-align:center
 }
 .note .ll {
-  padding:0 16px 16px 0
+  padding:0 $b $b 0
 }
 .note .ll table {
   width:1px
@@ -2729,7 +2739,7 @@ body .note {
   margin:0 auto
 }
 .note .rr {
-  padding:0 0 16px 16px
+  padding:0 0 $b $b
 }
 .note-ft .rec-sec {
   clear:both
@@ -3048,7 +3058,7 @@ body .note {
   margin:3px 0;
   float:left;
   width:100%;
-  color:#060;
+  color:$main_color;
   clear:both;
   font-size:12px
 }
@@ -3158,7 +3168,7 @@ body .note {
   color:#fff
 }
 #songlist .a_rec_btn {
-  width:14px;
+  width:$m;
   height:12px;
   padding:0;
   margin-bottom:4px;
@@ -3216,7 +3226,7 @@ a.pop_win_close:hover {
 }
 .pop_win {
   background:#fff;
-  padding:17px 14px 16px 12px;
+  padding:17px $m $b 12px;
   _padding-right:0;
   visibility:hidden;
   position:fixed;
@@ -3296,7 +3306,7 @@ a.pop_win_close:hover {
   line-height:100%
 }
 .block1 .content dl .dgt .pl2 {
-  line-height:16px
+  line-height:$b
 }
 .block1 .content dl span.reason {
   color:#999
@@ -3314,7 +3324,7 @@ a.pop_win_close:hover {
 }
 .block1 .content ul li .title {
   display:block;
-  font-size:14px
+  font-size:$m
 }
 .block1 .content ul li .actimgs {
   border:1px solid #ddd;
@@ -3444,7 +3454,7 @@ a.pop_win_close:hover {
   _line-height:23px
 }
 .onlines .item h5 {
-  font-size:14px;
+  font-size:$m;
   margin-right:80px
 }
 .onlines .item .info {
@@ -3518,7 +3528,7 @@ a.pop_win_close:hover {
 }
 .online_event_pic div {
   width:100px;
-  margin:0 16px 30px 0;
+  margin:0 $b 30px 0;
   float:left;
   text-align:left
 }
@@ -3555,7 +3565,7 @@ a.pop_win_close:hover {
   margin:0 0 0 95px
 }
 .da1 dl dd a {
-  font-size:14px
+  font-size:$m
 }
 .da1 dl dd .ps {
   color:#999;
@@ -3575,7 +3585,7 @@ a.pop_win_close:hover {
   padding:0
 }
 .da3 dl dt {
-  font-size:14px
+  font-size:$m
 }
 .da3 dl dd a {
   color:#999
@@ -3626,7 +3636,7 @@ a.pop_win_close:hover {
   margin:5px 0 0 70px
 }
 .citysmr2 a.title {
-  font-size:14px
+  font-size:$m
 }
 .citysmr2 span.pl {
   padding-top:3px;
@@ -3645,7 +3655,7 @@ a.pop_win_close:hover {
   background:url(/images/discover.gif) no-repeat;
   width:400px;
   height:185px;
-  font-size:14px;
+  font-size:$m;
   color:#aaa;
   padding:0 0 0 110px;
   line-height:1.5em;
@@ -3654,7 +3664,7 @@ a.pop_win_close:hover {
 #discover p {
   line-height:100%;
   padding:0;
-  margin:0 0 16px 0
+  margin:0 0 $b 0
 }
 #discover p.p1 {
   margin:0 0 7px 0;
@@ -3682,7 +3692,7 @@ a.pop_win_close:hover {
   padding:3px;
   margin:8px;
   border:1px solid #ccc;
-  font-size:14px
+  font-size:$m
 }
 .mbt .mbtr .mbtr_m_img {
   float:left;
@@ -3785,7 +3795,7 @@ fieldset.setquestion .fsctm {
   color:#333
 }
 fieldset.setquestion .fsctm span {
-  font-size:14px
+  font-size:$m
 }
 table.settable {
   margin:0 0 20px 0;
@@ -3858,7 +3868,7 @@ fieldset.floatdiv {
   float:left;
   display:inline;
   width:180px;
-  margin-bottom:16px;
+  margin-bottom:$b;
   margin-right:40px
 }
 .block4 .content ul li.line {
@@ -3887,7 +3897,7 @@ fieldset.floatdiv {
   width:100%
 }
 .leftobs .obs {
-  width:114px
+  width:1$m
 }
 #tableh {
   float:left;
@@ -3964,7 +3974,7 @@ fieldset.floatdiv {
   width:280px
 }
 .block6 .content ul li .topinfo .title {
-  font-size:14px
+  font-size:$m
 }
 .block6 .content ul li .topinfo .title span {
   font-size:12px
@@ -4131,7 +4141,7 @@ fieldset.floatdiv {
 .block_menu h2 {
   margin-top:0;
   margin-bottom:3px;
-  font-size:14px;
+  font-size:$m;
   background:#f6f5ee
 }
 .block_menu ul {
@@ -4327,7 +4337,7 @@ fieldset.floatdiv {
   width:122px;
   display:block;
   text-align:center;
-  color:#060;
+  color:$main_color;
   border-bottom:1px solid #e4e4e4
 }
 .block_event_tab ul.title li a:hover,.block_event_tab ul.title li a.on {
@@ -4466,7 +4476,7 @@ h2.green_tab a.on span,.sort_tabs a.on span {
 }
 .block_search1 .ct input.input_basic {
   width:350px;
-  font-size:14px
+  font-size:$m
 }
 .block_search1 .ct button {
   height:20px
@@ -4485,7 +4495,7 @@ table.olt thead th {
   text-align:left
 }
 .search_no_result {
-  font-size:14px;
+  font-size:$m;
   text-align:left;
   padding-top:20px
 }
@@ -4532,7 +4542,7 @@ table.olt thead th {
 }
 .movie_search button {
   margin-left:5px;
-  line-height:14px;
+  line-height:$m;
   padding:0 8px
 }
 .movie_headerline {
@@ -4590,7 +4600,7 @@ table.olt thead th {
 }
 .movie_headerline .content .title a {
   float:left;
-  font-size:14px;
+  font-size:$m;
   margin-right:10px
 }
 .movie_headerline .content .title span {
@@ -4632,7 +4642,7 @@ table.olt thead th {
   left:-11px;
   top:20px;
   width:10px;
-  height:13px;
+  height:$s;
   overflow:hidden
 }
 .movie_headerline ul.menu li .img {
@@ -4719,14 +4729,14 @@ table.olt thead th {
   background:0;
   margin:0;
   padding:0;
-  font-size:14px;
-  line-height:16px;
+  font-size:$m;
+  line-height:$b;
   height:auto
 }
 .movie_new ul.content li .intro h3 span {
   color:black;
-  font-size:14px;
-  line-height:16px;
+  font-size:$m;
+  line-height:$b;
   margin-right:5px
 }
 .movie_new ul.content li .intro .star {
@@ -4783,14 +4793,14 @@ table.olt thead th {
   background:0;
   margin:0;
   padding:0;
-  font-size:14px;
-  line-height:16px;
+  font-size:$m;
+  line-height:$b;
   height:auto
 }
 .music_new ul.content li .intro h3 span {
   color:black;
-  font-size:14px;
-  line-height:16px;
+  font-size:$m;
+  line-height:$b;
   margin-right:5px
 }
 .music_new ul.content li .intro .star {
@@ -4837,7 +4847,7 @@ table.olt thead th {
   border-bottom:1px dashed #ddd;
   padding:0 0 7px 0;
   margin-bottom:7px;
-  line-height:14px
+  line-height:$m
 }
 .movie_top ul li div.no {
   float:left;
@@ -4882,11 +4892,11 @@ table.olt thead th {
 }
 .bigstar50,.bigstar45,.bigstar40,.bigstar35,.bigstar30,.bigstar25,.bigstar20,.bigstar15,.bigstar10,.bigstar05,.bigstar00 {
   background:url(/images/all_bigstars.gif) no-repeat;
-  height:14px;
+  height:$m;
   display:block;
   color:#999;
   overflow:hidden;
-  font-size:14px;
+  font-size:$m;
   line-height:100%;
   width:75px
 }
@@ -5046,7 +5056,7 @@ table.olt thead th {
 .ul_subject_menu li {
   float:left;
   display:inline;
-  line-height:14px;
+  line-height:$m;
   margin-left:15px
 }
 .ul_subject_menu .rr {
@@ -5080,7 +5090,7 @@ table.olt thead th {
   margin:0
 }
 .dlist li {
-  margin-bottom:13px;
+  margin-bottom:$s;
   border-bottom:1px dashed #ddd
 }
 .dlist li p {
@@ -5119,7 +5129,7 @@ table.olt thead th {
   color:#666
 }
 .color-green {
-  color:#060
+  color:$main_color
 }
 .color-orange {
   color:#e77200
@@ -5141,7 +5151,7 @@ p.gact {
 }
 .rating_num {
   color:red;
-  font-size:14px;
+  font-size:$m;
   line-height:18px;
   padding:0 0 0 8px
 }
@@ -5515,14 +5525,14 @@ body {
   float:right
 }
 .interest-form-ft .bn-flat input {
-  font-size:14px
+  font-size:$m
 }
 #advtags {
   display:inline-block;
   width:100%
 }
 .dialog-shuo .rectitle .m {
-  color:#060!important
+  color:$main_color!important
 }
 .w210 {
   width:210px;
@@ -5591,7 +5601,7 @@ h2.green_tab .pl a {
 }
 .title_line {
   padding-bottom:4px;
-  margin-top:14px;
+  margin-top:$m;
   border-bottom:1px solid #ddd
 }
 .simple_list {
@@ -5628,7 +5638,7 @@ h2.green_tab .pl a {
 }
 .map-confirm p.evt-address {
   margin:0;
-  width:214px;
+  width:2$m;
   word-wrap:break-word
 }
 .map-confirm textarea {
@@ -5669,8 +5679,8 @@ ol.policy li {
 .review-panel li {
   float:left;
   display:inline;
-  height:16px;
-  line-height:16px
+  height:$b;
+  line-height:$b
 }
 .review-panel li.rec {
   float:right
@@ -5680,10 +5690,10 @@ ol.policy li {
 }
 a.btn-red,a.btn-green,a.btn-brown {
   display:block;
-  height:16px;
+  height:$b;
   width:30px;
   padding-right:5px;
-  line-height:16px;
+  line-height:$b;
   *line-height:17px;
   background:url(/images/btn-red.gif) no-repeat right top
 }
@@ -5810,7 +5820,7 @@ a.btn-unuseful:hover,a.btn-unuseful:active {
 }
 .timeline-album-rec {
   float:left;
-  margin:8px 14px 0 0
+  margin:8px $m 0 0
 }
 .bkses {
   padding:15px 0;
@@ -5859,7 +5869,7 @@ a.btn-unuseful:hover,a.btn-unuseful:active {
   border:0
 }
 ul.group-request-list {
-  margin:16px 0;
+  margin:$b 0;
   padding-top:7px;
   border-top:1px dashed #ccc
 }
@@ -5963,7 +5973,7 @@ a.admin-link:hover {
 }
 .hot-tags li {
   padding-bottom:11px;
-  margin-bottom:13px;
+  margin-bottom:$s;
   border-bottom:1px dashed #ccc
 }
 .hot-tags li ul li {
@@ -6033,11 +6043,11 @@ a.admin-link:hover {
   background:#999
 }
 .tag-items {
-  font-size:14px
+  font-size:$m
 }
 .tag-items a {
   float:left;
-  margin:0 13px 3px 0;
+  margin:0 $s 3px 0;
   white-space:nowrap
 }
 .tag-items a.last {
@@ -6121,7 +6131,7 @@ ul.switch-dot li {
   margin-bottom:0
 }
 .entry-star-small .font-small,.entry-star-small .ml8 {
-  line-height:13px
+  line-height:$s
 }
 .entry-list-col1 {
   padding-bottom:20px
@@ -6153,7 +6163,7 @@ ul.switch-dot li {
 }
 .entry-list-col1 li .userface {
   float:left;
-  margin-right:14px
+  margin-right:$m
 }
 .entry-list-col1 li p {
   margin:0;
@@ -6177,7 +6187,7 @@ ul.switch-dot li {
 }
 .entry-list-col2s li .userface {
   float:left;
-  margin-right:14px
+  margin-right:$m
 }
 .entry-list-col2s li .comment {
   float:left;
@@ -6248,7 +6258,7 @@ ul.switch-dot li {
   width:300px;
   background:#fff;
   border:1px solid #ddd;
-  padding:13px 13px 10px;
+  padding:$s $s 10px;
   word-wrap:break-word
 }
 .detail-tip h2 {
@@ -6320,7 +6330,7 @@ ul.switch-dot li {
   width:445px
 }
 .chart-dashed-list li .font-small,.chart-dashed-list li .ml8 {
-  line-height:13px
+  line-height:$s
 }
 .chart-dashed-list li .star-img {
   margin-bottom:0
@@ -6413,8 +6423,8 @@ ul.switch-dot li {
 }
 .doulist-form .doulist-form-item {
   float:left;
-  font-size:14px;
-  color:#060;
+  font-size:$m;
+  color:$main_color;
   text-align:right;
   margin-right:20px;
   width:80px
@@ -6446,7 +6456,7 @@ ul.switch-dot li {
 .cart_pop {
   padding:8px 12px;
   width:188px;
-  font-size:14px;
+  font-size:$m;
   position:relative
 }
 .gray_bg {
@@ -6581,7 +6591,7 @@ a.bn-playradio {
   border-bottom:1px dashed #ddd
 }
 #music-events .title {
-  font-size:14px
+  font-size:$m
 }
 .col2-list {
   width:590px;
@@ -6605,7 +6615,7 @@ a.bn-playradio {
   background:#f0f8e8
 }
 .vs-mod h3 {
-  font-size:13px;
+  font-size:$s;
   padding:0;
   margin:0 0 3px;
   background:0;
@@ -6740,7 +6750,7 @@ a.bn-create,a.bn-post {
   margin-right:15px
 }
 .tag-fav-cloud .all {
-  font-size:14px
+  font-size:$m
 }
 .tag-fav-cloud .current {
   color:#fff;
@@ -6751,13 +6761,13 @@ a.bn-create,a.bn-post {
   border-radius:4px
 }
 .c1 {
-  font-size:14px
+  font-size:$m
 }
 .c2 {
   font-size:15px
 }
 .c3 {
-  font-size:16px
+  font-size:$b
 }
 .c4 {
   font-size:17px
@@ -6793,7 +6803,7 @@ a.bn-create,a.bn-post {
   margin-right:10px
 }
 .list-col5 del {
-  font-size:13px;
+  font-size:$s;
   margin-left:5px;
   color:#999;
   cursor:pointer
@@ -6865,23 +6875,23 @@ a.bn-create,a.bn-post {
   display:block;
   float:right;
   margin:5px 10px 0 0;
-  height:14px;
-  width:14px
+  height:$m;
+  width:$m
 }
 .loading {
   display:block;
   float:right;
   margin:5px 10px 0 0;
-  height:14px;
-  width:14px;
+  height:$m;
+  width:$m;
   background:url(/images/spinner.gif) no-repeat
 }
 .loading-err {
   display:block;
   float:right;
   margin:5px 10px 0 0;
-  height:14px;
-  width:14px;
+  height:$m;
+  width:$m;
   color:#fee;
   -moz-border-radius:4px 4px 4px 4px;
   background:none repeat scroll 0 0 #f66;
@@ -6935,7 +6945,7 @@ a.bn-create,a.bn-post {
 }
 .filter-list {
   background:#f4f4ec;
-  padding:13px
+  padding:$s
 }
 .filter-list li {
   margin:0 0 8px
@@ -6946,7 +6956,7 @@ a.bn-create,a.bn-post {
 .filter-list a {
   float:left;
   padding:0 2px;
-  line-height:16px
+  line-height:$b
 }
 .filter-list .current a {
   color:#fff;
@@ -7122,11 +7132,11 @@ a.bn-create,a.bn-post {
   float:left;
   width:75px;
   text-align:right;
-  margin:0 13px 0 0
+  margin:0 $s 0 0
 }
 .form-star {
   color:red;
-  font-size:13px;
+  font-size:$s;
   font-weight:bold
 }
 .kind-still,.kind-wall {
@@ -7135,8 +7145,8 @@ a.bn-create,a.bn-post {
 .poster-loader {
   display:inline-block;
   margin:0 0 0 20px;
-  width:14px;
-  height:14px;
+  width:$m;
+  height:$m;
   background:url(/images/spinner.gif) no-repeat
 }
 .l260 {
@@ -7161,7 +7171,7 @@ a.bn-create,a.bn-post {
 }
 .title-bar {
   border-bottom:1px solid #ddd;
-  margin:0 0 16px;
+  margin:0 0 $b;
   padding:0 0 5px
 }
 .users-list li {
@@ -7489,7 +7499,7 @@ a.a-lnk:hover,a.a-lnk:active {
 .set-group-list .tips {
   display:block;
   color:#fab0b6;
-  margin:0 0 0 16px
+  margin:0 0 0 $b
 }
 .set-group-list .tlimit {
   color:#fab0b6;
@@ -7498,8 +7508,8 @@ a.a-lnk:hover,a.a-lnk:active {
 .set-group-list .create-new {
   display:block;
   color:#333;
-  padding:0 0 0 13px;
-  _height:14px;
+  padding:0 0 0 $s;
+  _height:$m;
   background:url(/images/icon-add.png) no-repeat 0 center
 }
 .input-create {
@@ -7620,7 +7630,7 @@ a.a-lnk:hover,a.a-lnk:active {
   float:left;
   width:48px;
   height:48px;
-  margin:0 13px 0 10px
+  margin:0 $s 0 10px
 }
 .user-list .info {
   float:left;
@@ -7629,7 +7639,7 @@ a.a-lnk:hover,a.a-lnk:active {
 .user-list .info h3 {
   margin:0 0 2px;
   height:auto;
-  font:14px;
+  font:$m;
   background:0
 }
 .user-list .info p {
@@ -7653,7 +7663,7 @@ a.a-lnk:hover,a.a-lnk:active {
 }
 .info-box .input_search {
   width:242px;
-  font-size:14px
+  font-size:$m
 }
 .user-list .user-cs {
   float:right;
@@ -7688,7 +7698,7 @@ a.a-lnk:hover,a.a-lnk:active {
 .custom-popwin h1 {
   _position:relative;
   font-weight:normal;
-  font-size:14px;
+  font-size:$m;
   color:#038013;
   width:346px;
   background:#ebf5eb url(/images/icon-ok-b.png) no-repeat 15px center;
@@ -7768,7 +7778,7 @@ a.a-lnk:hover,a.a-lnk:active {
   line-height:18px;
   border:1px solid #cbd8d2;
   padding:7px;
-  margin:0 0 16px;
+  margin:0 0 $b;
   width:325px;
   height:45px
 }
@@ -7794,7 +7804,7 @@ a.a-lnk:hover,a.a-lnk:active {
 .lnk-flat,.lnk-confirm,.bn-flat input {
   border:0;
   height:25px;
-  padding:0 14px;
+  padding:0 $m;
   color:#333;
   background:transparent url(/images/site/sp_all_2.png) repeat-x 0 -700px\9;
   font-size:12px;
@@ -7879,7 +7889,7 @@ a.bn-small:link,a.bn-small:visited,a.bn-small:hover,a.bn-small:active {
   font-size:12px;
   *line-height:1.3;
   zoom:1;
-  *height:13px;
+  *height:$s;
   *overflow:hidden
 }
 .input-btn {
@@ -7905,7 +7915,7 @@ a.bn-small:link,a.bn-small:visited,a.bn-small:hover,a.bn-small:active {
   text-align:right
 }
 #db-talk-hd h2.green_tab .sep-wide a {
-  margin:0 13px 0 0
+  margin:0 $s 0 0
 }
 #db-talk-hd h2.green_tab .sep-wide a.last {
   margin-right:0
@@ -7934,8 +7944,8 @@ a.bn-small:link,a.bn-small:visited,a.bn-small:hover,a.bn-small:active {
   padding:0 2px;
   white-space:nowrap;
   _overflow:hidden;
-  height:16px;
-  line-height:16px
+  height:$b;
+  line-height:$b
 }
 #db-timeline-hd .menu-list .on a {
   color:#fff;
@@ -7988,7 +7998,7 @@ a.bn-small:link,a.bn-small:visited,a.bn-small:hover,a.bn-small:active {
   display:none;
   position:absolute;
   z-index:99;
-  _top:16px;
+  _top:$b;
   _left:0;
   padding:5px 0;
   width:80px;
@@ -8194,8 +8204,8 @@ a.bn-hot:hover span,a.bn-hot:active span {
   padding:6px 10px 4px
 }
 .notification-items li.date {
-  font-size:14px;
-  color:#060;
+  font-size:$m;
+  color:$main_color;
   padding-left:0
 }
 .notification-items ul.new li {
@@ -8541,7 +8551,7 @@ a.create-new-album:hover {
 }
 .admin-delete-note td label {
   border-bottom:1px solid #f9f9f9;
-  font-size:14px
+  font-size:$m
 }
 .sina_logo,.msn_logo {
   display:inline-block;
@@ -8552,7 +8562,7 @@ a.create-new-album:hover {
 }
 .sina_logo {
   width:17px;
-  height:16px;
+  height:$b;
   background:url(/images/sina_fav1.png) no-repeat 0 0
 }
 #book-user {
@@ -8603,7 +8613,7 @@ a.create-new-album:hover {
   background:#efefef
 }
 .tribe-info-mod .tribe-name,.tribe-info-mod .tribe-name:link,.tribe-info-mod .tribe-name:visited,.tribe-info-mod .tribe-name:hover {
-  font-size:16px;
+  font-size:$b;
   margin:0 5px
 }
 a.ln-report {
@@ -8650,7 +8660,7 @@ a.ln-report {
   margin-bottom:1em
 }
 .comment-item .title {
-  font-size:14px
+  font-size:$m
 }
 .a_unfolder .bn-arrow {
   background:url(/images/arrow2.gif) no-repeat 0 0
@@ -8665,8 +8675,8 @@ a.a_folder:hover .bn-arrow {
   background: url(/images/arrow1.gif) no-repeat 0 0
 }
 
-#notice {color: green;font-size:14px}
-#error {color: red;font-size:14px}
+#notice {color: green;font-size:$m}
+#error {color: red;font-size:$m}
 
 .field_with_errors {
   padding: 2px;
@@ -8685,14 +8695,26 @@ a.a_folder:hover .bn-arrow {
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
-    font-size: 14px;
+    font-size: $m;
     margin: -7px;
     margin-bottom: 0px;
     background-color: #c00;
     color: #fff;
   }
   ul li {
-    font-size: 13px;
+    font-size: $s;
 /*    list-style: square; */
   }
+}
+
+#photo_desc{
+  font-size:$m;
+}
+
+.writer_reply{
+  color:$main_color;
+}
+
+.color{
+  color:$main_color;
 }

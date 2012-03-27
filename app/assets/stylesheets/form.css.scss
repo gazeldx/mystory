@@ -1,3 +1,53 @@
+#db-music-artists .headline {
+  width:100%;
+  margin-bottom:30px
+}
+#db-music-artists .item:after,#db-music-artists .headline:after {
+  content:'\0020';
+  clear:both;
+  display:block
+}
+#db-music-artists .headline h3 {
+  height:auto;
+  background:transparent;
+  margin:0
+}
+#db-music-artists {
+  color:#535353
+}
+#db-music-artists .headline .pic {
+  float:left;
+  margin-right:20px
+}
+#db-music-artists .headline .pic img {
+  margin-bottom:-6px
+}
+#db-music-artists .headline p {
+  margin:5px 0
+}
+#db-music-artists .item {
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+  width:46%;
+  *width:46.5%;
+  margin:0 20px 20px 0;
+  vertical-align:top
+}
+#db-music-artists .item .pic {
+  width:60px
+}
+#db-music-artists .item .pic,#db-music-artists .item .info {
+  display:table-cell;
+  *float:left;
+  vertical-align:top
+}
+
+.block4 {
+  clear:both;
+  margin-bottom:30px
+}
+
 input[type=password]:focus,input[type=text]:focus {
   outline:0
 }
@@ -918,54 +968,8 @@ a.bn-radio:hover {
 #db-nav-book .site-nav-logo em {
   background-position:-300px -100px
 }
-.block4 {
-  clear:both;
-  margin-bottom:30px
-}
-#db-music-artists .headline {
-  width:100%;
-  margin-bottom:30px
-}
-#db-music-artists .item:after,#db-music-artists .headline:after {
-  content:'\0020';
-  clear:both;
-  display:block
-}
-#db-music-artists .headline h3 {
-  height:auto;
-  background:transparent;
-  margin:0
-}
-#db-music-artists {
-  color:#535353
-}
-#db-music-artists .headline .pic {
-  float:left;
-  margin-right:20px
-}
-#db-music-artists .headline .pic img {
-  margin-bottom:-6px
-}
-#db-music-artists .headline p {
-  margin:5px 0
-}
-#db-music-artists .item {
-  display:inline-block;
-  *display:inline;
-  *zoom:1;
-  width:46%;
-  *width:46.5%;
-  margin:0 20px 20px 0;
-  vertical-align:top
-}
-#db-music-artists .item .pic {
-  width:60px
-}
-#db-music-artists .item .pic,#db-music-artists .item .info {
-  display:table-cell;
-  *float:left;
-  vertical-align:top
-}
+
+
 #db-event-hosts .group {
   clear:both;
   zoom:1;
