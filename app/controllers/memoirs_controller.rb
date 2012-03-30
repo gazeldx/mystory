@@ -3,9 +3,11 @@ class MemoirsController < ApplicationController
   
   def index
     @memoir =Memoir.find_by_user_id(@user.id)
-    comments = @memoir.memoircomments
-    @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-    @comments_uids = comments.collect{|c| c.user_id}
+    unless @memoir.nil?
+      comments = @memoir.memoircomments
+      @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+      @comments_uids = comments.collect{|c| c.user_id}
+    end
   end
   
   def create

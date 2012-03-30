@@ -42,8 +42,12 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
-    @categories = @user.categories.order('created_at')
+    if @category.user == @user
+      @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
+      @categories = @user.categories.order('created_at')
+    else
+      render text: t('page_not_found')
+    end
   end
 
   def up

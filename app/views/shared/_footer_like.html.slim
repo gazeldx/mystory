@@ -2,7 +2,8 @@
   span#icp.fleft.gray-link
     | © #{@user.name} - #{DOMAIN_NAME}
   span.fright
-    = link_to t('contact_us'), whose_site('zhangjian')
+    | &nbsp;
+    = link_to t('contact_us'), whose_site('zhangjian') + '/categories/1'
     |  · 
     = link_to t('user_help'), help_path
   span style="display:none"

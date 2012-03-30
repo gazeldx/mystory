@@ -310,6 +310,16 @@ table {
   padding:0;
   margin:0
 }
+
+
+.table {
+  @extend table;
+  font-size:$m;
+  td,th {
+    font-size:$m;
+  }
+}
+
 h1 {
   word-wrap:break-word;
   display:block;

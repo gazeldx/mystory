@@ -22,7 +22,7 @@ div id='note-#{@note.id}'
           = update_info @note
     - else
       h2
-        = @note.created_at.strftime t'date_format'
+        = t('s_note', w: @note.created_at.strftime(t'date_format'))
         span.pl2
           | &nbsp;
           = @note.created_at.strftime t'h_m'
@@ -69,7 +69,7 @@ span
     | 无
   - else
     - if @note_pre.title.to_s==''
-      = link_to @note_pre.created_at.strftime(t'date_format') + '的日记', @note_pre
+      = link_to t('s_note', w: @note_pre.created_at.strftime(t'date_format')), @note_pre
     - else
       = link_to @note_pre.title, @note_pre
   br
@@ -78,7 +78,7 @@ span
     | 无
   - else
     - if @note_next.title.to_s==''
-      = link_to @note_next.created_at.strftime(t'date_format') + '的日记', @note_next
+      = link_to t('s_note', w: @note_next.created_at.strftime(t'date_format')), @note_next
     - else
       = link_to @note_next.title, @note_next
 - @clazz = 'note'

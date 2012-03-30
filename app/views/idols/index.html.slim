@@ -1,13 +1,17 @@
 = title t('s_idol',w: @user.name)
 - if flash[:notice]
   #notice= flash[:notice]
-- @idols.each do |idol|
-  = idol.name
-  = link_to '×', idol, method: :delete, title: t('delete')
-  | &nbsp;&nbsp;&nbsp;
-= form_for @idol do |f|
-  | 偶像姓名:
-  = f.text_field :name, size: 12
-  = f.submit t'new'
+.table
+  - @idols.each do |idol|
+    = idol.name
+    = link_to '×', idol, method: :delete, title: t('delete')
+    | &nbsp;&nbsp;&nbsp;
+  = form_for @idol do |f|
+    | 偶像姓名:
+    = f.text_field :name, size: 12, class: 'required'
+    = f.submit t'new'
+.pl
+  | 艺术家、作家，音乐人，影视、体育明星，哲学家，科学家，政治家，企业家，财经、IT人士等等
 javascript:
   $('#idol_name').focus()
+= validate_form 'new_idol'

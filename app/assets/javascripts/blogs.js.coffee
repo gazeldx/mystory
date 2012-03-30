@@ -39,3 +39,11 @@ this.showNote = (id) ->
     $('#note_'+id+'_short').css 'display', ''
     $('#note_'+id+'_full').css 'display', 'none'
     $('#note_'+id+'_full2').css 'display', 'none'
+
+this.switchView = ->
+  if $('#view').val() != '0'
+    $('.note').css 'display', 'none'
+    $('#view').val '0'
+  else
+    $('.note').css 'display', ''
+    $('#view').val '1'

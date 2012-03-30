@@ -1,6 +1,5 @@
 = title t('s_note',w: @user.name)
-/- if @user.id == session[:id]
-/  = render 'shared/post_note'
+= hidden_field_tag :view, params[:view]
 - if @user.id == session[:id]
   h2
     = link_to t('write_note'), new_note_path
@@ -15,9 +14,8 @@
             = link_to note.title, note, class: 'll'
             | &nbsp;
             = note.created_at.strftime(t'date_format')
-          .rr
-            a id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title="展开文章"
-              img src="/images/arrow2.gif"
+          a.rr id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title=t('open_article')
+            img src="/images/arrow2.gif"
           span.pl
             - if note.user_id == session[:id]
               | &nbsp;

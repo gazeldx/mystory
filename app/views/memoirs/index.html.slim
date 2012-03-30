@@ -18,36 +18,36 @@
   div id='note_#{@memoir.id}_full'
     pre.note_full
       = style_it @memoir.content
-div.note-ft id='note_#{@memoir.id}_footer'
-  .note_upper_footer
-  .sns-bar
-    .sns-bar-fav
-      - if session[:id].nil?
-        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
-      - else
-        - ri = Rmemoir.find_by_user_id_and_memoir_id(session[:id], @memoir.id)
-        - if ri.nil?
-          = hidden_field_tag :ri_id
-          span#ri_body
-          span#edit
-          = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
+  div.note-ft id='note_#{@memoir.id}_footer'
+    .note_upper_footer
+    .sns-bar
+      .sns-bar-fav
+        - if session[:id].nil?
+          = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
         - else
-          = hidden_field_tag :ri_id, ri.id
-          span#ri_body= ri.body
-          span#edit
-            - if ri.body.nil?
-              = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
-            - else
-              = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
-          = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
-    #bodydiv style='text-align:right;display:none'
-      span
-        = t'recommend_reason'
-      = text_area_tag :body
-      = button_tag t('submit'), onclick: 'modify_ri("memoir")'
-- @clazz = 'memoir'
-= comments
-javascript:
-  $('#recommend').live('click', function() {
-    recommend_memoir_in(#{@memoir.id});
-  });
+          - ri = Rmemoir.find_by_user_id_and_memoir_id(session[:id], @memoir.id)
+          - if ri.nil?
+            = hidden_field_tag :ri_id
+            span#ri_body
+            span#edit
+            = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
+          - else
+            = hidden_field_tag :ri_id, ri.id
+            span#ri_body= ri.body
+            span#edit
+              - if ri.body.nil?
+                = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
+              - else
+                = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
+            = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
+      #bodydiv style='text-align:right;display:none'
+        span
+          = t'recommend_reason'
+        = text_area_tag :body
+        = button_tag t('submit'), onclick: 'modify_ri("memoir")'
+  - @clazz = 'memoir'
+  = comments
+  javascript:
+    $('#recommend').live('click', function() {
+      recommend_memoir_in(#{@memoir.id});
+    });

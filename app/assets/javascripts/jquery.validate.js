@@ -266,7 +266,7 @@ $.extend($.validator, {
 
 	messages: {
                 comment: "<br/><span style='color:red'>我的故事期待您别太吝啬笔墨，不发“顶、我喜欢、好”之类没价值的话。</span>",
-		required: "这是必填项!",
+		required: "<span style='color:red'>这是必填项!</span>",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
 		url: "Please enter a valid URL.",

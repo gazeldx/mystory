@@ -15,6 +15,8 @@ class BlogsController < ApplicationController
       comments = @blog.blogcomments
       @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
+      ids = @user.blogs.select('id')
+      @rblogs = @user.r_blogs.where(id: ids).limit(5)
     else
       render text: t('page_not_found')
     end

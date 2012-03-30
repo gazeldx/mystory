@@ -1,4 +1,5 @@
 = title t('s_blog',w: @user.name)
+= hidden_field_tag :view, params[:view]
 - if flash[:notice]
   #notice= flash[:notice]
 - if @user.id == session[:id]
@@ -28,9 +29,8 @@ h2
             = link_to t('edit'), edit_blog_path(blog)
             | &nbsp;
             = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
-          .rr
-            a id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title="展开文章"
-              img src="/images/arrow2.gif"
+          a.rr id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title=t('open_article')
+            img src="/images/arrow2.gif"
     .note id='note_#{blog.id}_short'
       - n = photos_count blog.content
       .ll

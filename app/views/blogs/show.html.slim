@@ -66,14 +66,14 @@ div id='note-#{@blog.id}'
     | 无
   - else
     = link_to @blog_next.title, @blog_next
-.rr
-  span.pl
-    = t'_recommend'
-  br
-  - ids = @user.blogs.select('id')
-  - @user.r_blogs.where(id: ids).limit(5).each do |blog|
-    = link_to blog.title, blog
+- unless @rblogs.blank?
+  .rr
+    span.pl
+      = t'_recommend'
     br
+    - @rblogs.each do |blog|
+      = link_to blog.title, blog
+      br
 - @clazz = 'blog'
 = comments
 javascript:

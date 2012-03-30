@@ -1,7 +1,7 @@
 module HeadHelper
 
   def banner_text
-#    if ['home','like'].include?(controller_path)
+#    if ['home','like'].include?controller_path
 #      @user.name
     if controller_path=='notes'
       t('s_note', w: @user.name)
@@ -17,7 +17,7 @@ module HeadHelper
       t('s_idol', w: @user.name)
     elsif controller_path=='hobbies'
       t('s_hobby', w: @user.name)
-    elsif ['albums','photos'].include?(controller_path)
+    elsif ['albums','photos'].include?controller_path
       if @album.nil? or @album.name.nil?
         t('s_album', w: @user.name)
       else

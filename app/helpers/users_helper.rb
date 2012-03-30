@@ -124,14 +124,9 @@ module UsersHelper
   #      content_tag(:a, image_tag("/uploads/thumb/" + p_name), href: href)
   #    end
   #  end
-
   
   def summary_comment(something, size)
-    tmp = text_it(something.content[0, size])
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
+    tmp = summary_comment_c(something, size)
     #    n = m.size
     #    if n > 1
     #      pic_count = "(#{n}#{t('pic')})&nbsp;&nbsp;"
@@ -142,17 +137,23 @@ module UsersHelper
   end
 
   def summary_comment_portal(something, size)
-    tmp = text_it(something.content[0, size])
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
+    tmp = summary_comment_c(something, size)
 #    n = m.size
 #    if n > 1
 #      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
 #    else
     summary_common_portal(something, size, tmp)
 #    end
+  end
+
+  def summary_comment_c(something, size)
+    tmp = text_it(something.content[0, size])
+    tmp = text_it(something.content)[0, size] if tmp.match(/##/m)
+    m = tmp.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      tmp = tmp.sub(e, "")
+    end
+    tmp
   end
 
   def summary_common(something, size, tmp)
