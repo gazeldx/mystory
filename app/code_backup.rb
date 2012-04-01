@@ -92,3 +92,4 @@ javascript:
         = t'post_comment'
     |  &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
   = render "#{@clazz}comments/form"
+'notes' == controller_path

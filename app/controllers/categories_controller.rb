@@ -13,9 +13,9 @@ class CategoriesController < ApplicationController
     @category = Category.new(params[:category])
     @category.user_id=session[:id]
     if @category.save
-      flash[:notice]=t('create_succ',w: t('_category'))
+      flash[:notice] = t('create_succ',w: t('_category'))
     else
-      flash[:error]=t('taken',w: @category.name)
+      flash[:error] = t'taken',w: @category.name
     end
     redirect_to categories_path
   end
@@ -32,10 +32,10 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find(params[:id])
     if @category.blogs.exists?
-      flash[:error] = t('category.has_blogs_when_delete')
+      flash[:error] = t'category.has_blogs_when_delete'
     else
       @category.destroy
-      flash[:notice] = t('delete_succ')
+      flash[:notice] = t'delete_succ'
     end
     redirect_to categories_path
   end
@@ -46,13 +46,13 @@ class CategoriesController < ApplicationController
       @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
       @categories = @user.categories.order('created_at')
     else
-      render text: t('page_not_found')
+      render text: t('page_not_found'), status: 404
     end
   end
 
   def up
     @category = Category.find(params[:id])
-    @category_t=Category.where(["user_id = ? AND created_at < ?", session[:id],@category.created_at]).order('created_at DESC').first
+    @category_t = Category.where(["user_id = ? AND created_at < ?", session[:id],@category.created_at]).order('created_at DESC').first
     exchange_create_at
   end
 
@@ -64,7 +64,7 @@ class CategoriesController < ApplicationController
 
   private
   def exchange_create_at
-    m_c_at=@category.created_at
+    m_c_at = @category.created_at
     @category.update_attribute('created_at', @category_t.created_at)
     @category_t.update_attribute('created_at', m_c_at)
     redirect_to categories_path

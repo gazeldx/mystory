@@ -6,7 +6,7 @@
   h2
     = link_to t('post_blog'), new_blog_path
 h2
-  | 作品分类：
+  = t'_category_'
   - @categories.each do |category|
     | [
     = link_to category.name, category
@@ -16,29 +16,4 @@ h2
       | (
       = link_to t('edit'), categories_path
       | )
-- @blogs.each do |blog|
-  div id='note-#{blog.id}'
-    div
-      span.wrap
-        h3
-          = link_to blog.title, blog, class: 'll'
-          | &nbsp;
-          = post_info2 blog
-          - if blog.user_id == session[:id]
-            | &nbsp;
-            = link_to t('edit'), edit_blog_path(blog)
-            | &nbsp;
-            = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
-          a.rr id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title=t('open_article')
-            img src="/images/arrow2.gif"
-    .note id='note_#{blog.id}_short'
-      - n = photos_count blog.content
-      .ll
-        - if n==1
-          = thumb_here blog
-      = summary_comment(blog, 340)
-      - if n>1
-        br
-        = thumbs_here(blog, 5)
-    .note_full id='note_#{blog.id}_full' style="display: none;"
-= will_paginate @blogs
+= render 'shared/blog/list'

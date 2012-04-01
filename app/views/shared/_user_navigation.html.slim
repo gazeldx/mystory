@@ -8,7 +8,8 @@
 | &nbsp;&nbsp;&nbsp;&nbsp;
 - if controller_path != 'home'
   = navigation_item(t('s_home_page',w: @user.name), root_path)
-- if (['notes','blogs'].include?controller_path and controller.action_name == 'index') or (controller_path == 'categories' and controller.action_name == 'show')
-  | &nbsp;&nbsp;&nbsp;&nbsp;
-  a href='javascript:;' onclick="javascript:switchView()"
-    | 视图
+- if (['notes','blogs'].include?controller_path and controller.action_name=='index') or (controller_path=='categories' and controller.action_name=='show')
+  - if !@blogs.blank? or !@notes.blank?
+    | &nbsp;&nbsp;&nbsp;&nbsp;
+    a href='javascript:;' onclick="javascript:switchView()"
+      | 视图

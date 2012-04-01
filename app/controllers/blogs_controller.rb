@@ -2,7 +2,7 @@ class BlogsController < ApplicationController
   layout 'memoir'
   
   def index
-    @blogs = Blog.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
+    @blogs = @user.blogs.page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
   end
 
@@ -18,7 +18,7 @@ class BlogsController < ApplicationController
       ids = @user.blogs.select('id')
       @rblogs = @user.r_blogs.where(id: ids).limit(5)
     else
-      render text: t('page_not_found')
+      render text: t('page_not_found'), status: 404
     end
   end
 
@@ -28,16 +28,17 @@ class BlogsController < ApplicationController
 
   def edit
     @blog = Blog.find(params[:id])
+    @tags = @blog.tags.map { |t| t.name }.join(" ")
     authorize @blog
   end
 
   def create
-    @blog = Blog.new(params[:blog])
+    @blog = Blog.create(params[:blog])
     @blog.user_id = session[:id]
     if params[:category_name].nil?
       create_proc
     else
-      @category = Category.new()
+      @category = Category.new
       @category.name = params[:category_name]
       @category.user_id = session[:id]
       if @category.save
@@ -55,6 +56,7 @@ class BlogsController < ApplicationController
   end
 
   def create_proc
+    build_tags @blog
     if @blog.save
       flash[:notice2] = t'blog_posted'
       redirect_to blog_path(@blog)
@@ -66,10 +68,23 @@ class BlogsController < ApplicationController
   def update
     @blog = Blog.find(params[:id])
     if @blog.update_attributes(params[:blog])
+      @blog.tags.destroy_all
+      build_tags @blog
+      @blog.update_attributes(params[:blog])
       flash[:notice2] = t'update_succ'
       redirect_to blog_path
     else
       render :edit
+    end
+  end
+
+  def build_tags(item)
+    unless params[:tags].to_s == ''
+      tags_a = params[:tags].split ' '
+      tags_a.uniq.reverse.each do |tag|
+        _tag = item.tags.build
+        _tag.name = tag
+      end
     end
   end
 

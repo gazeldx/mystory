@@ -24,7 +24,21 @@ module HeadHelper
         t('s_album_in', w: @user.name, w2: @album.name)
       end
     elsif controller_path=='categories'
-      t('s_category', w: @user.name, w2: @category.name)
+      if controller.action_name=='index'
+        t('s_categories', w: @user.name)
+      elsif controller.action_name=='edit'
+        t'category.edit'
+      else
+        t('s_category', w: @user.name, w2: @category.name)
+      end
+    elsif controller_path=='notecates'
+      if controller.action_name=='index'
+        t('s_notecates', w: @user.name)
+      elsif controller.action_name=='edit'
+        t'notecate.edit'
+      else
+        t('s_category', w: @user.name, w2: @category.name)
+      end
     else
       @user.name
     end

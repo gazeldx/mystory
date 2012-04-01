@@ -1,8 +1,21 @@
 = title t('s_note',w: @user.name)
 = hidden_field_tag :view, params[:view]
+- if flash[:notice]
+  #notice= flash[:notice]
 - if @user.id == session[:id]
   h2
-    = link_to t('write_note'), new_note_path
+    = link_to t('write_note'), new_note_path    
+h2
+  = t'_notecate_'
+  - @notecates.each do |category|
+    | [
+    = link_to category.name, category
+    | ]&nbsp;&nbsp;
+  - if session[:id]==@user.id
+    span
+      | (
+      = link_to t('edit'), notecates_path
+      | )
 - @notes.each do |note|
   div id='note-#{note.id}'
     div

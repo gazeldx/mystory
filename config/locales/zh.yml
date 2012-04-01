@@ -27,6 +27,12 @@ zh:
   write: "撰写"
   open_article: "展开文章"
   close_article: "收起文章"
+  a_new: "新一篇 "
+  an_old: "新一篇 "
+  none: "无"
+
+
+
 #  delete_failed: "删除失败！%{w}"
   used: "该数据已经被其他数据使用，不允许删除！"
   article_in: "下的文章"
@@ -37,12 +43,24 @@ zh:
   content: "内容"
   insert_photo: "插照片"
   _category: "作品分类"
+  _category_: "作品分类："
+  _notecate_: "日记分类："
+  _notecate: "日记分类"
+  default_notecate_name: "我的日记"
+  default_category_name: "我的作品"
+  tip_auto_create_cate: "填写后将自动创建分类"
   category:
     name: "分类名"
     edit: "编辑作品分类"
     name_must_notnull: "作品分类必须填写！"
-    has_blogs_when_delete: "该作品分类下有作品，删除了所有作品后才可以删除。"
+    has_blogs_when_delete: "该作品分类下有作品，不可以删除。你可以将该分类下的所有作品转移到其它分类后再进行删除。"
   category_addtip: "添加作品分类，请输入分类名："
+  notecate_addtip: "添加日记分类，请输入分类名："
+  notecate:
+    edit: "编辑日记分类"
+    name_must_notnull: "日记分类必须填写！"
+    has_notes_when_delete: "该日记分类下有日记，不可以删除。你可以将该分类下的所有日记转移到其它分类后再进行删除。"
+  #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
   comments: "(评论%{w})"
   comments_: "评论%{w}"
@@ -55,6 +73,10 @@ zh:
   reply_who: "回复%{w}"
   reply_succ: "回复评论成功！"
   who_reply: "%{w}回复：%{r}"
+  _tag: "标签"
+  _tag_: "标签："
+  split_with_blank: "以空格分隔"
+  m_split_with_blank: "多个标签以空格分隔"
 
 
   modify_recommend_reason: "修改推荐理由"
@@ -120,7 +142,8 @@ zh:
   following: "关注"
   followers: "粉丝"
   
-  s_categories: "%{w}作品"
+  s_categories: "%{w}作品分类"
+  s_notecates: "%{w}日记分类"
   s_recommend: "%{w}推荐阅读"
   s_idol: "%{w}的偶像"
   s_hobby: "%{w}的爱好"
@@ -132,6 +155,7 @@ zh:
   #s_note_date3: "%{w}日记"
   s_category: "%{w2} - %{w}作品"
   s_album_in: "%{w2} - %{w}影集"
+  s_categories: "%{w}作品分类"
   _recommend: "推荐阅读："
 
   r_note: "%{w}推荐的日记"
@@ -517,6 +541,7 @@ zh:
       note:
         title: "标题"
         content: "正文"
+        notecate_id: "日记分类"
       album:
         name: "影集名称"
         description: "影集描述"

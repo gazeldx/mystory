@@ -3,7 +3,12 @@ class NotesController < ApplicationController
   
   def index
     @note = Note.new
-    @notes = Note.where(["user_id = ?", @user.id]).page(params[:page]).order("created_at DESC")
+    @notes = @user.notes.page(params[:page]).order("created_at DESC")
+    @notecates = @user.notecates.order('created_at')
+#    default_category = Notecate.new
+#    default_category.id = 0
+#    default_category.name = t'default_notecate_name'
+#    @notecates.unshift(default_category)
   end
 
   def new
@@ -13,6 +18,28 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(params[:note])
     @note.user_id = session[:id]
+    if params[:category_name].nil?
+      create_proc
+    else
+      @category = Notecate.new
+      @category.name = params[:category_name]
+      @category.user_id = session[:id]
+      if @category.save
+        @note.notecate_id = @category.id
+        create_proc
+      else
+        if @category.name == ""
+          flash[:error] = t'notecate.name_must_notnull'
+        else
+          flash[:error] = t('taken',w: @category.name)
+        end
+        render :new
+      end
+    end
+  end
+
+  def create_proc
+    build_tags @note
     if @note.save
       flash[:notice2] = t'note_post_succ'
       redirect_to note_path(@note)
@@ -21,34 +48,49 @@ class NotesController < ApplicationController
     end
   end
 
+  def build_tags(item)
+    unless params[:tags].to_s == ''
+      tags_a = params[:tags].split ' '
+      tags_a.uniq.reverse.each do |tag|
+        _tag = item.notetags.build
+        _tag.name = tag
+      end
+    end
+  end
+
   def show
     @note = Note.find(params[:id])
     if @note.user == @user
       #TODO change to max or min?
+      @notecates = @user.notecates.order('created_at')
       @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
       @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
       comments = @note.notecomments
       @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
     else
-      render text: t('page_not_found')
+      render text: t('page_not_found'), status: 404
     end
   end
 
   def edit
     @note = Note.find(params[:id])
+    @tags = @note.notetags.map { |t| t.name }.join(" ")
     authorize @note
   end
 
   def update
     @note = Note.find(params[:id])
     if @note.update_attributes(params[:note])
+      @note.notetags.destroy_all
+      build_tags @note
+      @note.update_attributes(params[:note])
       flash[:notice2] = t'update_succ'
       redirect_to note_path
     else
       render :edit
     end
-  end
+  end  
 
   def destroy
     @note = Note.find(params[:id])

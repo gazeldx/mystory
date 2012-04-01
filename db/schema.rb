@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322015343) do
+ActiveRecord::Schema.define(:version => 20120401045910) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(:version => 20120322015343) do
 
   add_index "memoirs", ["user_id"], :name => "index_memoirs_on_user_id"
 
+  create_table "notecates", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notecates", ["user_id"], :name => "index_notecates_on_user_id"
+
   create_table "notecomments", :force => true do |t|
     t.text     "body"
     t.integer  "note_id"
@@ -127,9 +136,19 @@ ActiveRecord::Schema.define(:version => 20120322015343) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "notecate_id"
   end
 
+  add_index "notes", ["notecate_id"], :name => "index_notes_on_notecate_id"
   add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
+
+  create_table "notetags", :force => true do |t|
+    t.string  "name"
+    t.integer "note_id"
+  end
+
+  add_index "notetags", ["name"], :name => "index_notetags_on_name"
+  add_index "notetags", ["note_id"], :name => "index_notetags_on_note_id"
 
   create_table "photocomments", :force => true do |t|
     t.text     "body"
@@ -223,6 +242,14 @@ ActiveRecord::Schema.define(:version => 20120322015343) do
 
   add_index "rphotos", ["photo_id"], :name => "index_rphotos_on_photo_id"
   add_index "rphotos", ["user_id"], :name => "index_rphotos_on_user_id"
+
+  create_table "tags", :force => true do |t|
+    t.string  "name"
+    t.integer "blog_id"
+  end
+
+  add_index "tags", ["blog_id"], :name => "index_tags_on_blog_id"
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "username"

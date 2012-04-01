@@ -12,16 +12,7 @@ div id='note-#{@blog.id}'
         = link_to t('delete'), @blog, confirm: t('confirm.delete'), method: :delete
     div
       span.pl
-        = post_info @blog
-        - other_c = true
-        - @categories.each do |category|
-          - if category.id != @blog.category.id
-            - if other_c
-              | &nbsp;&nbsp;其它分类：
-              - other_c = false
-            | [
-            = link_to category.name, category
-            | ]&nbsp;&nbsp;
+        = post_info @blog        
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content
@@ -54,16 +45,26 @@ div id='note-#{@blog.id}'
       = button_tag t('submit'), onclick: 'modify_ri("blog")'
 .ll
   span.pl
-    | 新一篇 
+    = join_tags(@blog)
+  br
+  span.pl
+    = t'_category_'
+  - @categories.each do |category|    
+    | [
+    = link_to category.name, category
+    | ]&nbsp;&nbsp;
+  br
+  span.pl
+    = t'a_new'
   - if @blog_pre.nil?
-    | 无
+    = t'none'
   - else
     = link_to @blog_pre.title, @blog_pre
   br
   span.pl
-    | 旧一篇 
+    = t'an_old'
   - if @blog_next.nil?
-    | 无
+    = t'none'
   - else
     = link_to @blog_next.title, @blog_next
 - unless @rblogs.blank?
