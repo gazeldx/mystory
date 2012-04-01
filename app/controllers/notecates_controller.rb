@@ -43,7 +43,7 @@ class NotecatesController < ApplicationController
   def show
     @notecate = Notecate.find(params[:id])
     if @notecate.user == @user
-      @blogs = @notecate.blogs.page(params[:page]).order("created_at DESC")
+      @notes = @notecate.notes.page(params[:page]).order("created_at DESC")
       @notecates = @user.notecates.order('created_at')
     else
       render text: t('page_not_found'), status: 404

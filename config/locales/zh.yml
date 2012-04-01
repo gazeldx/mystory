@@ -154,6 +154,7 @@ zh:
   s_note_date2: "%{w} - %{w3}%{w2}日记"
   #s_note_date3: "%{w}日记"
   s_category: "%{w2} - %{w}作品"
+  s_notecate: "%{w2} - %{w}日记"
   s_album_in: "%{w2} - %{w}影集"
   s_categories: "%{w}作品分类"
   _recommend: "推荐阅读："

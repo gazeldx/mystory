@@ -1,12 +1,12 @@
-= title t('s_category', w: @user.name, w2: @category.name)
+= title t('s_category', w: @user.name, w2: @notecate.name)
 = hidden_field_tag :view, params[:view]
 h2
-  | 作品分类：
-  - @categories.each do |category|
+  = t'_notecate_'
+  - @notecates.each do |category|
     | [
-    - if category.id == @category.id
+    - if category.id == @notecate.id
       = link_to category.name, category, class: "selected"
     - else
       = link_to category.name, category
     | ]&nbsp;&nbsp;
-= render 'shared/blog/list'
+= render 'shared/note/list'

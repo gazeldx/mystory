@@ -37,7 +37,7 @@ module HeadHelper
       elsif controller.action_name=='edit'
         t'notecate.edit'
       else
-        t('s_category', w: @user.name, w2: @category.name)
+        t('s_notecate', w: @user.name, w2: @notecate.name)
       end
     else
       @user.name
