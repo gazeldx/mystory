@@ -20,6 +20,8 @@ div id='note-#{@note.id}'
           = t'write'
           | &nbsp;
           = update_info @note
+          | &nbsp;分类：
+          = link_to @note.notecate.name, @note.notecate
     - else
       h2
         = t('s_note', w: @note.created_at.strftime(t'date_format'))
@@ -63,7 +65,7 @@ div.note-ft id='note_#{@note.id}_footer'
         = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("note")'
-span
+.ll
   span.pl
     = join_notetags(@note)
   br
@@ -93,6 +95,17 @@ span
       = link_to t('s_note', w: @note_next.created_at.strftime(t'date_format')), @note_next
     - else
       = link_to @note_next.title, @note_next
+- unless @rnotes.blank?
+  .rr
+    span.pl
+      = t'_recommend'
+    br
+    - @rnotes.each do |note|
+      - if note.title.to_s==''
+        = link_to t('s_note', w: note.created_at.strftime(t'date_format')), note
+      - else
+        = link_to note.title, note
+      br
 - @clazz = 'note'
 = comments
 javascript:

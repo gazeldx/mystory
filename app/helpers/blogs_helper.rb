@@ -38,13 +38,20 @@ module BlogsHelper
   def join_tags(item)
     unless item.tags.blank?
 #      raw '<br/>' + t('_tag_') + item.tags.map { |t| t.name }.join(", ")
-      t('_tag_') + item.tags.map { |t| t.name }.join(", ")
+      _tags = item.tags.map { |t|
+#        link_to t.name, SITE_URL + "/tags/" + t.name
+        link_to t.name, "/tags/" + t.name
+      }.join(", ")
+      raw (t('_tag_') + _tags)
     end
   end
 
   def join_notetags(item)
     unless item.notetags.blank?
-      t('_tag_') + item.notetags.map { |t| t.name }.join(", ")
+      _tags = item.notetags.map { |t|
+        link_to t.name, "/tags/" + t.name
+      }.join(", ")
+      raw (t('_tag_') + _tags)
     end
   end
 end

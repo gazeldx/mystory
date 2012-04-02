@@ -158,9 +158,9 @@ module UsersHelper
 
   def summary_common(something, size, tmp)
     if something.is_a?(Note)
-      count = something.notecomments.size
+      count = something.notecomments.count
     elsif something.is_a?(Blog)
-      count = something.blogcomments.size
+      count = something.blogcomments.count
     end
     comments = ""
     if count > 0
@@ -176,10 +176,10 @@ module UsersHelper
   def summary_common_portal(something, size, tmp)
     if something.is_a?(Note)
       path = note_path(something)
-      count = something.notecomments.size
+      count = something.notecomments.count
     elsif something.is_a?(Blog)
       path = blog_path(something)
-      count = something.blogcomments.size
+      count = something.blogcomments.count
     end
     comments = ""
     if count > 0

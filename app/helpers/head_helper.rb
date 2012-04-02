@@ -39,6 +39,8 @@ module HeadHelper
       else
         t('s_notecate', w: @user.name, w2: @notecate.name)
       end
+    elsif controller_path=='tags'
+      t('tag_who', w: params[:name], n: @user.name)
     else
       @user.name
     end

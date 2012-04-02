@@ -34,7 +34,7 @@ div style='text-align:center'
       = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
       = radio_button_tag :setascover, '1'
       = label_tag(:setascover_1, '设为封面')    
-div style='color:#999;margin-bottom:5px' 
+div style='color:#999;margin-bottom:5px;'
   | 上传于 
   = @photo.created_at.strftime t'date_format'
   - if @user.id == session[:id]

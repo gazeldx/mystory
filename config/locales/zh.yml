@@ -77,6 +77,8 @@ zh:
   _tag_: "标签："
   split_with_blank: "以空格分隔"
   m_split_with_blank: "多个标签以空格分隔"
+  tag_of: "%{n}%{c}……标签=%{w}"
+  tag_who: "%{w} - %{n}"
 
 
   modify_recommend_reason: "修改推荐理由"

@@ -15,7 +15,7 @@
       li.mbtr title=title
         = link_to user.name, site(user)
         | :
-        span.pl
+        span.pl1
           | 《
           = link_to blog.title, site(user) + blog_path(blog)
           | 》
@@ -42,7 +42,7 @@
       li.mbtr title=title
         = link_to user.name, site(user)
         | :
-        span.pl
+        span.pl1
           |  
           - unless note.title.to_s == ''
             = link_to note.title, site(user) + note_path(note)

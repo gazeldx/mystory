@@ -68,6 +68,8 @@ class NotesController < ApplicationController
       comments = @note.notecomments
       @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
+      ids = @user.notes.select('id')
+      @rnotes = @user.r_notes.where(id: ids).limit(5)
     else
       render text: t('page_not_found'), status: 404
     end

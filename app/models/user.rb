@@ -19,7 +19,9 @@ class User < ActiveRecord::Base
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
   has_many :blogs, :dependent => :destroy
+  has_many :tags, :through => :blogs, :source => :tags
   has_many :notes, :dependent => :destroy
+  has_many :notetags, :through => :notes, :source => :notetags
   has_many :rblogs, :dependent => :destroy
   has_many :r_blogs, :through => :rblogs, :source => :blog
   has_many :rnotes, :dependent => :destroy

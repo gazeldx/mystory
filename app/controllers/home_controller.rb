@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     if @user.nil?
       @notes_new = Note.order("created_at DESC").limit(13)
@@ -8,6 +9,7 @@ class HomeController < ApplicationController
       render layout: 'portal'
     else
       @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
+
       t = params[:t]
       if t.nil?
         notes = @user.notes.limit(30)
@@ -39,6 +41,10 @@ class HomeController < ApplicationController
         rphotos = @user.rphotos.limit(10)
         @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
       end
+
+      ids = @user.blogs.select('id')
+      @rblogs = @user.r_blogs.where(id: ids).limit(5)
+
       render :user
     end
   end
