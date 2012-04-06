@@ -33,6 +33,7 @@ zh:
 
 
 
+
 #  delete_failed: "删除失败！%{w}"
   used: "该数据已经被其他数据使用，不允许删除！"
   article_in: "下的文章"
@@ -117,6 +118,8 @@ zh:
   avatar: "头像"
 
   _photo: "照片"
+  photo:
+    recent: "最近照片"
   has_draft: "（这儿有一段草稿）"
 
   my_home_page: "我的主页"
@@ -137,6 +140,7 @@ zh:
   s_blog: "%{w}作品"
   s_memoir: "%{w}自传"
   s_following: "%{w}关注的人"
+  s_recent_photos: "%{w}最近照片"
   he_following: "%{w}关注了%{r}人"
   s_followers: "%{w}的粉丝"
   he_followers: "%{w}的粉丝%{r}人"

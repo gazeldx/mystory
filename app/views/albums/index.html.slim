@@ -1,9 +1,12 @@
 = title t('s_album',w: @user.name)
+br
 - if flash[:notice]
   #notice= flash[:notice]
 - if @user.id == session[:id]
   h2
     = link_to t('album.add'), new_album_path
+    /| &nbsp;
+/= render 'recent_photos'
 .wr
   - @albums.each_with_index do |album, i|
     .albumlst

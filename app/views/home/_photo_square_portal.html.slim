@@ -1,0 +1,12 @@
+.photolst.clearfix
+  - @photos.each_with_index do |photo, i|
+    - album = photo.album
+    - user = album.user
+    .photo_portal
+      a.photolst_photo href=(site(user) + album_photo_path(photo.album, photo))
+        = image_tag(photo.avatar.square.url, title: photo.description)
+      br
+      .pl
+        = link_to user.name, site(user)
+        | :
+        = link_to album.name, site(user) + album_path(album)

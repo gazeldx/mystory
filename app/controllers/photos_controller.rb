@@ -1,6 +1,10 @@
 class PhotosController < ApplicationController
   layout 'album'
 
+  def index
+    @photos = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
+  end
+
   def show
     @photo = Photo.find(params[:id])
     @album = @photo.album

@@ -1,0 +1,27 @@
+.photolst.clearfix
+  - @photos.each_with_index do |photo, i|
+    - album = photo.album
+    .photo_user
+      a.photolst_photo href=album_photo_path(photo.album, photo)
+        = image_tag(photo.avatar.square.url, title: photo.description)
+      br
+    - if i==7
+      - break
+#miniblog
+  ul.mbt
+    - @photos.each_with_index do |photo, i|
+      - album = photo.album
+      - user = album.user
+      - avatar = photo.avatar
+      li.mbtr
+        span.inq
+          a id='photo_#{photo.id}' href='javascript:;' onclick="switchPhoto('photo_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
+            = image_tag(avatar.thumb.url)
+          br
+          span.pl
+            = photo.created_at.strftime t'no_year'
+          | &nbsp;
+          = link_to album.name, album_path(album)
+          | &nbsp;
+          - unless photo.description.nil?
+            = photo.description

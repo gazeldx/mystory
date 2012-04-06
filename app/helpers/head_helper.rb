@@ -17,9 +17,15 @@ module HeadHelper
       t('s_idol', w: @user.name)
     elsif controller_path=='hobbies'
       t('s_hobby', w: @user.name)
-    elsif ['albums','photos'].include?controller_path
+    elsif controller_path=='albums'
       if @album.nil? or @album.name.nil?
         t('s_album', w: @user.name)
+      else
+        t('s_album_in', w: @user.name, w2: @album.name)
+      end
+    elsif controller_path=='photos'
+      if controller.action_name=='index'
+        t('s_recent_photos',w: @user.name)
       else
         t('s_album_in', w: @user.name, w2: @album.name)
       end

@@ -6,9 +6,10 @@ class AlbumsController < ApplicationController
   end
 
   def show
+    #TODO SHOW PAGE?
     @album = Album.find(params[:id])
     if @album.user == @user
-      @photos = Photo.where(["album_id = ?", params[:id]]).page(params[:page]).order("created_at DESC")
+      @photos = Photo.where(["album_id = ?", params[:id]]).order("created_at DESC")
     else
       render text: t('page_not_found'), status: 404
     end

@@ -8,8 +8,12 @@
 | &nbsp;&nbsp;&nbsp;&nbsp;
 - if controller_path != 'home'
   = navigation_item(t('s_home_page',w: @user.name), root_path)
-- if (['notes','blogs'].include?controller_path and controller.action_name=='index') or (controller_path=='categories' and controller.action_name=='show') or (controller_path=='notecates' and controller.action_name=='show')
+- if (['notes', 'blogs'].include?controller_path and controller.action_name=='index') or (controller_path=='categories' and controller.action_name=='show') or (controller_path=='notecates' and controller.action_name=='show')
   - if !@blogs.blank? or !@notes.blank?
     | &nbsp;&nbsp;&nbsp;&nbsp;
     a href='javascript:;' onclick="javascript:switchView()"
       | 视图
+- if ['albums', 'photos'].include?controller_path
+  | &nbsp;&nbsp;&nbsp;&nbsp;
+  a href=photos_path
+    = t'photo.recent'

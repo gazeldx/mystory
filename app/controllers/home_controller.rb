@@ -2,8 +2,9 @@ class HomeController < ApplicationController
 
   def index
     if @user.nil?
-      @notes_new = Note.order("created_at DESC").limit(13)
-      @blogs_new = Blog.order("created_at DESC").limit(16)
+      @notes_new = Note.includes(:user).order("created_at DESC").limit(13)
+      @blogs_new = Blog.includes(:user).order("created_at DESC").limit(16)
+      @photos = Photo.includes(:album => :user).limit(8).order('id desc')
       #TODO hotest blog and note
 #      @users = User.order("created_at DESC").limit(20)
       render layout: 'portal'
@@ -36,9 +37,9 @@ class HomeController < ApplicationController
         all_ << memoir unless memoir.nil?
         @all = all_.sort_by{|x| x.updated_at}.reverse!
       elsif t == 'recommend'
-        rnotes = @user.rnotes.limit(30)
-        rblogs = @user.rblogs.limit(15)
-        rphotos = @user.rphotos.limit(10)
+        rnotes = @user.rnotes.includes(:note => :user).limit(30)
+        rblogs = @user.rblogs.includes(:blog => :user).limit(15)
+        rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(10)
         @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
       end
 

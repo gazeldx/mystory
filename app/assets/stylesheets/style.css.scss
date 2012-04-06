@@ -2463,6 +2463,18 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
 .photo_wrap .pl {
   margin:6px 0 3px 0
 }
+.photo_portal {
+  float:left;
+  display:inline;
+  overflow:hidden;
+  margin:10px 1px 25px
+}
+.photo_user {
+  float:left;
+  display:inline;
+  overflow:hidden;
+  margin:10px 1px 0px
+}
 .photolst_photo {
   width:180px;
   height:180px;
@@ -7938,7 +7950,7 @@ a.bn-small:link,a.bn-small:visited,a.bn-small:hover,a.bn-small:active {
 #db-timeline-hd .menu-list {
   float:left;
   width:515px;
-  padding-top:3px
+  padding-top:14px
 }
 #db-timeline-hd .menu-list li {
   float:left;
