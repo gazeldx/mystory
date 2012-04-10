@@ -65,7 +65,7 @@
   h2
     = t('s_idol',w: @user.name)
   - @user.idols.each do |idol|
-    = idol.name
+    = link_to idol.name, "/idols/#{idol.name}"
     |  
   - if @user.id == session[:id]
     span

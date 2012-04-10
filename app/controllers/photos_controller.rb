@@ -2,7 +2,12 @@ class PhotosController < ApplicationController
   layout 'album'
 
   def index
-    @photos = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
+    if @user.nil?
+      @photos = Photo.includes(:album => :user).limit(50).order('id desc').uniq {|s| s.album_id}
+      render 'portal' , layout: 'help'
+    else
+      @photos = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
+    end
   end
 
   def show

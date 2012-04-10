@@ -4,9 +4,7 @@ class HomeController < ApplicationController
     if @user.nil?
       @notes_new = Note.includes(:user).order("created_at DESC").limit(13)
       @blogs_new = Blog.includes(:user).order("created_at DESC").limit(16)
-      @photos = Photo.includes(:album => :user).limit(8).order('id desc')
-      #TODO hotest blog and note
-#      @users = User.order("created_at DESC").limit(20)
+      @photos = Photo.includes(:album => :user).limit(16).order('id desc').uniq {|s| s.album_id}
       render layout: 'portal'
     else
       @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
@@ -47,6 +45,17 @@ class HomeController < ApplicationController
       @rblogs = @user.r_blogs.where(id: ids).limit(5)
 
       render :user
+    end
+  end
+end
+
+class Array
+  def uniq_by(&blk)
+    transforms = []
+    self.select do |el|
+      should_keep = !transforms.include?(t=blk[el])
+      transforms << t
+      should_keep
     end
   end
 end

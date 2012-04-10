@@ -1,0 +1,19 @@
+.photolst.clearfix
+  - @photos.each_with_index do |photo, i|
+    - album = photo.album
+    - user = album.user
+    .photo_wrap
+      a.photolst_photo href=site(user)+album_photo_path(album, photo)
+        = image_tag(photo.avatar.thumb.url)
+      br
+      = link_to user.name, site(user)
+      | :
+      = link_to album.name, site(user)+album_path(album)
+      - unless photo.description.nil?
+        | &nbsp;
+        = photo.description[0..36]
+      | &nbsp;
+      span.pl
+        = photo.created_at.strftime t'date_without_year'
+    - if i%5 == 4
+      .clear

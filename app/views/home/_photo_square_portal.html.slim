@@ -1,5 +1,6 @@
 .photolst.clearfix
   - @photos.each_with_index do |photo, i|
+    - break if i==8
     - album = photo.album
     - user = album.user
     .photo_portal

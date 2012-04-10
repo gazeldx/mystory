@@ -30,6 +30,8 @@ zh:
   a_new: "新一篇 "
   an_old: "旧一篇 "
   none: "无"
+  same_idol: "喜爱“%{w}”的人"
+  same_hobby: "同道中人"
 
 
 
@@ -79,7 +81,9 @@ zh:
   split_with_blank: "以空格分隔"
   m_split_with_blank: "多个标签以空格分隔"
   tag_of: "%{n}%{c}……标签=%{w}"
+  _tag_of: "%{c}……标签=%{w}"
   tag_who: "%{w} - %{n}"
+  idol_who: "%{w} - 同道中人"
 
 
   modify_recommend_reason: "修改推荐理由"
@@ -93,6 +97,9 @@ zh:
   _comment_dot: "&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·"
   etc: "……"
   whole_article: "全文"
+  more_photos: "更多照片"
+  recent_photos: "最近诞生的照片"
+
 #  web_desc: "这世界，我来过"
   he_editor: "他推荐"
   see_what_he_edit: "看他推荐的内容"
@@ -193,6 +200,7 @@ zh:
   
   time_format: "%Y年%m月%d日 %H:%M"
   date_format: "%Y年%m月%d日"
+  date_without_year: "%m月%d日"
   date_format_: "%Y-%m-%d"
   no_year: "%m月%d日 %H:%M"
   h_m: "%H:%M"

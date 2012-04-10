@@ -26,7 +26,7 @@ br
           br
         - if @user.id == session[:id]
           | &gt;
-          = link_to t('album.modify'), edit_album_path(album)
+          = link_to t('modify'), edit_album_path(album)
           |  &nbsp;&gt;
           = link_to t('add_photos'), new_album_photo_path(album)
       br

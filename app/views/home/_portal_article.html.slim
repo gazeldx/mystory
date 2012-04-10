@@ -5,6 +5,10 @@
         h2
           | 最近诞生的照片
           | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+          span
+            | &nbsp;(
+            = link_to t('more_photos'), photos_path
+            | )
         = render 'photo_square_portal'
     .grid-16-8.clearfix
       .article
