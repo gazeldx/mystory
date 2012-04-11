@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   layout 'portal_others'
   
   def index
-    @users = User.order("created_at")
+    @users = User.order("created_at DESC")
   end
 
   def show

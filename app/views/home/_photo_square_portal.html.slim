@@ -1,13 +1,9 @@
 .photolst.clearfix
-  - @photos.each_with_index do |photo, i|
+  - @all_photos.each_with_index do |item, i|
     - break if i==8
-    - album = photo.album
-    - user = album.user
-    .photo_portal
-      a.photolst_photo href=(site(user) + album_photo_path(photo.album, photo))
-        = image_tag(photo.avatar.square.url, title: photo.description)
-      br
-      .pl
-        = link_to user.name, site(user)
-        | :
-        = link_to album.name, site(user) + album_path(album)
+    - if item.is_a?(Photo)
+      - @photo = item
+      = render 'photo_content'
+    - elsif item.is_a?(Rphoto)
+      - @photo = item.photo
+      = render 'photo_content'

@@ -36,6 +36,11 @@
       - else
         li= url
   ul.mbt
+    - if @all.blank?
+      - if session[:id]==@user.id
+        | 你还没有关注任何人呢。点击页面左上角的“我的故事”，可以进入网站首页，看看有什么新鲜事，并关注一些人吧！
+      - else
+        | 他还没有关注任何人，也没有冒过泡，所以没有可显示的内容。
     - @all.each do |item|
       - if item.is_a?(Note)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day

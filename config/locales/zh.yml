@@ -83,6 +83,7 @@ zh:
   tag_of: "%{n}%{c}……标签=%{w}"
   _tag_of: "%{c}……标签=%{w}"
   tag_who: "%{w} - %{n}"
+  tags_who: "标签 - %{w}"
   idol_who: "%{w} - 同道中人"
 
 

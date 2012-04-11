@@ -4,7 +4,13 @@ class HomeController < ApplicationController
     if @user.nil?
       @notes_new = Note.includes(:user).order("created_at DESC").limit(13)
       @blogs_new = Blog.includes(:user).order("created_at DESC").limit(16)
-      @photos = Photo.includes(:album => :user).limit(16).order('id desc').uniq {|s| s.album_id}
+
+      rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
+      new_photo_count = 8 - rphotos.size
+      new_photo_count = 2 if new_photo_count < 2
+      photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
+      @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
+
       render layout: 'portal'
     else
       @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
