@@ -36,8 +36,15 @@ zh:
   board_name: "讨论版名称："
   create_board: "创建讨论版"
   s_board: "%{w} - BBS"
+  board:
+    member: "成员"
+    _member: " - 成员"
+    member_of: "成员 - %{w}"
+    #_member_of: "%{w}成员"
   post:
     new: "发表新帖"
+    new_of_board: "发表新帖 - %{w}"
+    _new_of_board: " - 发表新帖"
   post_reply: "发表回复"
   sub_site: "%{w} - 我的故事原创社区"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"

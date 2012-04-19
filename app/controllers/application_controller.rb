@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
           ta = ":"
         end
         source_from = " [<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]"
-        if photo.album.user_id!=@user.id
+        if @user.nil? or photo.album.user_id!=@user.id
           source_from = "#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>#{t('his_album')}" + source_from
         else
           source_from = "#{t('source_from')}#{t('_album')}" + source_from

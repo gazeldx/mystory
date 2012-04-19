@@ -3,7 +3,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+#    puts request.env["HTTP_REFERER"]
+#    puts request.env["HTTP_REFERER"].match(/.*\/(\d{1,})$/)
+#    puts request.env["HTTP_REFERER"].match(/.*\/(\d{1,})$/)[1]
     @post.board_id = request.env["HTTP_REFERER"].match(/.*\/(\d{1,})$/)[1]
+    @board = Board.find(@post.board_id)
   end
 
   def create

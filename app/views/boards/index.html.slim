@@ -12,7 +12,7 @@
     | 我的讨论版
     | ：
     - if @my_fboards.blank?
-      | 还没有关注任何讨论版
+      | 还没关注任何讨论版
     - @my_fboards.each do |fboard|
       = link_to fboard.board.name, fboard.board
       | &nbsp;&nbsp;

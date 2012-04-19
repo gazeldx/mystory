@@ -1,0 +1,15 @@
+= title t('board.member_of', w: @board.name)
+h1
+  = link_to @board.name, "/#{@board.id.to_s}"
+  = t'board._member'
+  | 共#{@fboards.size}人
+  /= t('board._member_of', w: @board.name)
+.obss
+  - @fboards.each do |fboard|
+    - user = fboard.user
+    dl.obu
+      dt
+        a.nbg href=site(user)
+          = image_tag(user.avatar.thumb.url, class: 'm_sub_img')
+      dd
+        = link_to user.name, site(user)

@@ -3,12 +3,12 @@
 - content_for :select_photos do
   = render 'shared/select_photos'
 = render 'shared/notice_error'
-/- @post.tags.build
 = form_for @post do |f|
   = f.hidden_field :board_id
   = error_msg @post
   h2
-    = t'post.new'
+    = link_to @board.name, sub_site("bbs") + "/#{@board.id.to_s}"
+    = t'post._new_of_board'
   .row.note-title
     label.field
       = t'title'

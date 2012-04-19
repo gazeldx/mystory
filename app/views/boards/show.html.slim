@@ -13,6 +13,8 @@ h1
         | (
         = link_to t('unfollow'), follow_board_path
         | )
+      | &nbsp;
+      = link_to t('board.member'), "#{@board.id}/members"
     .rr.b
       = link_to t('post.new'), my_site + new_post_path
 table.b.olt

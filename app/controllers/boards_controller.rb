@@ -11,6 +11,15 @@ class BoardsController < ApplicationController
     end
   end
 
+  def members
+    @board = Board.find(params[:id])
+    if @board.nil?
+      render text: t('page_not_found'), status: 404
+    else
+      @fboards = Fboard.where("board_id = ?", params[:id]).includes(:user).order('created_at DESC')
+    end
+  end
+
   def follow
     _r = Fboard.find_by_user_id_and_board_id(session[:id], params[:id])
     if _r.nil?
@@ -29,6 +38,11 @@ class BoardsController < ApplicationController
     @board = Board.new(params[:board])
     if @board.save
       flash[:notice] = t'create_succ'
+      
+      fboard = Fboard.new
+      fboard.user_id = session[:id]
+      fboard.board_id = @board.id
+      fboard.save
     else
       flash[:error] = t'taken', w: @board.name
     end
