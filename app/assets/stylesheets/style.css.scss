@@ -108,6 +108,16 @@ body {
   zoom:1;
   border-top:1px dashed #ddd
 }
+.grid-20-4 .article {
+  float:left;
+  width:730px;
+  padding-right:40px
+}
+.grid-20-4 .aside {
+  float:right;
+  width:170px
+}
+
 .grid-16-8 .article {
   float:left;
   width:590px;
@@ -304,6 +314,7 @@ body,td,th {
   font:$s Arial,Helvetica,sans-serif;
   line-height:162%
 }
+
 table {
   border-collapse:collapse;
   border:0;
@@ -5789,7 +5800,7 @@ a.btn-unuseful:hover,a.btn-unuseful:active {
 }
 .topic-content .topic-doc {
   float:right;
-  width:520px;
+  width:660px;
   margin-bottom:30px
 }
 .topic-content .topic-doc h3 {
@@ -5802,7 +5813,8 @@ a.btn-unuseful:hover,a.btn-unuseful:active {
   margin:0;
   padding:0;
   word-wrap:break-word;
-  overflow:hidden
+  overflow:hidden;
+  font-size:$c
 }
 .topic-content .topic-opt {
   padding:15px 0 0
@@ -8739,4 +8751,29 @@ a.a_folder:hover .bn-arrow {
 
 .color{
   color:$main_color;
+}
+
+@mixin table-base($param) {
+  td,th {
+    font-size:$param;
+  }
+}
+
+.mi{
+  font-size:$m;
+  @include table-base($m);
+}
+
+.c{
+  font-size:$c;
+  @include table-base($c);
+}
+
+.b{
+  font-size:$b;
+  @include table-base($b);
+}
+
+.red{
+  color: red;
 }

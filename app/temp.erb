@@ -1,28 +1,73 @@
+<div class="topic-content clearfix">
+  <div class="user-face">
+    <a href="http://www.douban.com/people/59115544/">
+      <img alt="pretty  boy" src="http://img3.douban.com/icon/u59115544-4.jpg" class="pil">
+    </a>
+  </div>
+  <div class="topic-doc">
+    <h3>
+      <span class="color-green">2012-03-26 20:54:55</span>
+      <span class="pl20">来自: <a href="http://www.douban.com/people/59115544/">pretty  boy</a>(一起走谁的年华)</span>
+    </h3>
+    <div class="topic-content">
+      <p>喜欢河海女生 第一眼就让你迷恋 跟她们在一起  那种沁人心脾的感觉 仿佛自己也高尚了……暗恋一个河海的女生 让这份爱埋藏心底</p>
+    </div>
+    <div class="topic-opt clearfix">
+      &nbsp; &nbsp;
+    </div>
+
+    <div class="topic-report">
+      <a href="http://www.douban.com/misc/report?type=T&amp;uid=28458892" class="gact" style="display: none;">举报</a>
+    </div>
 
 
-                  - m = comment.body.split(/repLyFromM/m)
-                  - m.each_with_index do |e, i|
-                    - if i==0
-                      - u_c = e.split(/ReplyFRomU/m)
-                      - u_c.each_with_index do |reply, j|
-                        - if j==0
-                          = reply
-                        - else
-                          | #{t('_add_comment', r:reply_info(reply))}
-                      - if j < u_c.size-1
-                        br
-                    - else
-                      - u_c = e.split(/ReplyFRomU/m)
-                      - if u_c.size > 1
-                        - u_c.each_with_index do |reply, j|
-                          br
-                          - if j==0
-                            span.writer_reply
-                            | #{raw(t('who_reply', w:user.name, r:reply_info(reply)))}
-                            - else
-                            | #{raw(t('_add_comment', r:reply_info(reply)))}
-                            - else
-                            br
-                            span.writer_reply
-                            | #{user.name}回复：#{reply_info(e)}
-                          end
+    <div class="sns-bar">
+      <div class="sns-bar-rec">
+
+
+
+        <span id="Topic-28458892" class="rec">
+          <a class="bn-sharing " data-pic="" data-title="【河海女生真让人喜欢】喜欢河海女生 第一眼就让你迷恋 跟她们在一起  那种沁人心脾的感觉 仿佛自己也高尚了……暗恋一个河海的女生 让这份爱埋藏心底" data-desc="" data-url="http://www.douban.com/group/topic/28458892/" href="#">分享到</a> &nbsp;&nbsp;
+        </span>
+
+
+
+
+
+
+
+
+
+
+        <script>
+          var rec_url = 'http://shuo.douban.com/!service/widgets/share?',
+          num_url = 'http://api.douban.com/shuo/urls/info?', //TODO
+          comments_url = 'http://shuo.douban.com/!service/widgets/urlinfo?';
+        </script>
+        <script src="http://img3.douban.com/js/packed_dshare3660476302.js" type="text/javascript"></script>
+
+        <div class="rec-sec">
+
+          <span class="rec">
+
+            <a class="lnk-sharing lnk-douban-sharing" data-action_props="{&quot;topic_title&quot;:&quot;河海女生真让人喜欢&quot;,&quot;topic_url&quot;:&quot;http:\/\/www.douban.com\/group\/topic\/28458892\/&quot;}" data-target_action="0" data-target_type="rec" data-object_id="28458892" data-object_kind="1013" data-count="10" data-curl="" data-apikey="" data-text="" data-redir="http://www.douban.com/group/topic/28458892/vote?ck=ZjeV" data-properties="{&quot;href&quot;:&quot;http:\/\/www.douban.com\/group\/hohai\/&quot;,&quot;name&quot;:&quot;河海大学&quot;,&quot;uid&quot;:&quot;hohai&quot;}" data-image="" data-href="http://www.douban.com/group/topic/28458892/" data-desc="喜欢河海女生 第一眼就让你迷恋 跟她们在一起  那种沁人心脾的感觉 仿佛自..." data-type="com.douban.group" data-name="河海女生真让人喜欢" data-mode="plain" share-id="28458892" href="http://shuo.douban.com/!service/share?apikey=&amp;name=%E6%B2%B3%E6%B5%B7%E5%A5%B3%E7%94%9F%E7%9C%9F%E8%AE%A9%E4%BA%BA%E5%96%9C%E6%AC%A2&amp;image=&amp;redir=http%3A%2F%2Fwww.douban.com%2Fgroup%2Ftopic%2F28458892%2F&amp;href=http%3A%2F%2Fwww.douban.com%2Fgroup%2Ftopic%2F28458892%2F&amp;curl=&amp;type=com.douban.group&amp;properties=%7B%22href%22%3A%22http%3A%5C%2F%5C%2Fwww.douban.com%5C%2Fgroup%5C%2Fhohai%5C%2F%22%2C%22name%22%3A%22%E6%B2%B3%E6%B5%B7%E5%A4%A7%E5%AD%A6%22%2C%22uid%22%3A%22hohai%22%7D&amp;desc=%E5%96%9C%E6%AC%A2%E6%B2%B3%E6%B5%B7%E5%A5%B3%E7%94%9F+%E7%AC%AC%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%AE%A9%E4%BD%A0%E8%BF%B7%E6%81%8B+%E8%B7%9F%E5%A5%B9%E4%BB%AC%E5%9C%A8%E4%B8%80%E8%B5%B7++%E9%82%A3%E7%A7%8D%E6%B2%81...">推荐</a>
+          </span>
+        </div>
+
+      </div>
+      <div class="sns-bar-fav">
+
+
+
+
+
+        <a data-tkind="1013" data-tid="28458892" href="#" title="标为喜欢？" class="fav-add btn-fav">喜欢</a>
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

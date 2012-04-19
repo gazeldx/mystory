@@ -19,7 +19,7 @@ module BlogsHelper
   end
 
   def post_info2(blog)
-    info = blog.created_at.strftime t('date_format')  + ' in '
+    info = blog.created_at.strftime t('date_without_year') + ' '
     info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
     raw info
   end

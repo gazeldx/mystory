@@ -1,0 +1,26 @@
+= title t('sub_site', w: 'BBS')
+= render 'shared/notice_error'
+.b
+  - unless session[:id].nil?
+    = form_for @board do |f|
+      = f.label t'board_name'
+      = f.text_field :name, size: 10, class: 'required', title: '输入名称后，点“创建讨论版”即可'
+      = f.submit t('create_board')
+    a href='my'
+      = t'my_posts'
+    br
+    | 我的讨论版
+    | ：
+    - if @my_fboards.blank?
+      | 还没有关注任何讨论版
+    - @my_fboards.each do |fboard|
+      = link_to fboard.board.name, fboard.board
+      | &nbsp;&nbsp;
+    br
+    br
+  | 所有讨论版
+  br
+  - @boards.each do |board|
+    = link_to "#{board.name}", "#{board.id}"
+    | (#{board.posts.count})&nbsp;&nbsp;
+= validate_form 'new_board'

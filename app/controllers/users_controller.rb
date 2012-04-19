@@ -11,10 +11,12 @@ class UsersController < ApplicationController
 
   def edit
     @_user = User.find(session[:id])
+    render layout: 'like'
   end
 
   def edit_password
     @_user = User.find(session[:id])
+    render layout: 'like'
   end
 
   def update
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
       @_user.reload
       session[:name] = @_user.name
       session[:domain] = @_user.domain
-      redirect_to profile_path, notice: t('update_succ')
+      redirect_to my_site + profile_path, notice: t('update_succ')
     else
       render :edit
     end

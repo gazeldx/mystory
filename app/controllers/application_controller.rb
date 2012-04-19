@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :my_site, :site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img
+  helper_method :my_site, :site, :sub_site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img
   protect_from_forgery
   before_filter :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     SITE_URL.sub(/\:\/\//, "://" + user.domain + ".")
   end
 
+  def sub_site(str)
+    SITE_URL.sub(/\:\/\//, "://" + str + ".")
+  end
+
   def authorize(item)
     unless item.user_id == session[:id]
       redirect_to site(@user)
@@ -20,7 +24,11 @@ class ApplicationController < ActionController::Base
 
   def query_user_by_domain
     if request.domain==DOMAIN_NAME
-      @user = User.find_by_domain(request.subdomain)
+      if request.subdomain == 'bbs'
+        @bbs_flag = true
+      else
+        @user = User.find_by_domain(request.subdomain)
+      end
     end
   end
 

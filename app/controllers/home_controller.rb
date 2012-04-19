@@ -1,7 +1,14 @@
 class HomeController < ApplicationController
 
   def index
-    if @user.nil?
+    if @bbs_flag
+      @boards = Board.order("created_at DESC")
+      @board = Board.new
+      unless session[:id].nil?
+        @my_fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
+      end
+      render 'boards/index', layout: 'help'
+    elsif @user.nil?
       @notes_new = Note.includes(:user).order("created_at DESC").limit(13)
       @blogs_new = Blog.includes(:user).order("created_at DESC").limit(16)
 

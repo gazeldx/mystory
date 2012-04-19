@@ -7,7 +7,7 @@
       p
         - if comment.is_a?(Rphoto)
           = t'recommend_reason'
-        = comment_info(comment.body, user)
+        = comment_info comment.body
       - if [user.id, @user.id].include?(session[:id])
         .admin-lnks style="#{line_style(user, ci)}"
           - if comment.is_a?(Photocomment)

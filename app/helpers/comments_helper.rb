@@ -29,7 +29,7 @@ module CommentsHelper
     raw reply
   end
   
-  def comment_info(body, user)
+  def comment_info(body)
     c_info = ""
     m = body.split(/repLyFromM/m)
     m.each_with_index do |e, i|

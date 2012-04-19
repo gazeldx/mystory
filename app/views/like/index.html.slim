@@ -1,7 +1,7 @@
 = title t('active_state', w: @user.name)
 #miniblog
-  h2
-    - if @user.id == session[:id]
+  - if @user.id == session[:id]
+    h2
       = render 'shared/quick_post_navigation'
   #db-timeline-hd.clearfix
     ul.menu-list

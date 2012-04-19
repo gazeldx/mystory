@@ -3,30 +3,40 @@ h1 欢迎加入我的故事
   = error_msg @user
   .item.extra-tips
     label
+      span.red
+        | *
       = t'user_name'
     = f.text_field :username, class: "basic-input"
     span.tips
       = t'user_name_desc'
   .item.extra-tips
     label
+      span.red
+        | *
       | Email
     = f.text_field :email, class: "basic-input"
     span.tips
       = t'can_login'
   .item.extra-tips
     label
+      span.red
+        | *
       = t'domain'
     = f.text_field :domain, class: "basic-input"
     span.tips
       = t'domain_desc'
   .item.extra-tips
     label
+      span.red
+        | *
       = t'real_name'
     = f.text_field :name, class: "basic-input"
     span.tips
       = t'name_desc'
   .item.extra-tips
     label
+      span.red
+        | *
       = t'password'
     = f.password_field :passwd, class: "basic-input"
   .item-submit

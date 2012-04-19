@@ -5,6 +5,12 @@ module ApplicationHelper
     end
   end
 
+  def h(_title)
+    content_for :h do
+      _title
+    end
+  end
+
   def validate_form(form_id)
     raw "<script type=\"text/javascript\">$(document).ready(function(){$('##{form_id}').validate();});</script>"
   end

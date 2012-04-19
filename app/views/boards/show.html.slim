@@ -1,0 +1,41 @@
+= title t('s_board', w: @board.name)
+= render 'shared/notice_error'
+h1
+  = @board.name
+  - unless session[:id].nil?
+    - fb = Fboard.find_by_user_id_and_board_id(session[:id], @board.id)
+    span.mi
+      - if fb.nil?
+        | (
+        = link_to t('follow_him'), follow_board_path
+        | )
+      - else
+        | (
+        = link_to t('unfollow'), follow_board_path
+        | )
+    .rr.b
+      = link_to t('post.new'), my_site + new_post_path
+table.b.olt
+  tbody
+    tr
+      td
+        = t'topic'
+      td
+        | 作者
+      td
+        = t'reply'
+      td
+        = t'latest_reply'
+    - @posts.each do |post|
+      tr
+        td
+          - if post.content.size>100
+            - etc = t('all_characters', w: post.content.size)
+          = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s
+        td
+          = link_to post.user.name, site(post.user)
+        td
+          = post.postcomments.size
+        td.pl
+          = post.replied_at.strftime t'no_year_simple'
+= will_paginate @posts

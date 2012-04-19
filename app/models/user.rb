@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :idols, :through => :ridols
   has_many :albums, :dependent => :destroy
   has_many :photos, :through => :albums
+#  has_many :fboards, :dependent => :destroy
+#  has_many :f_boards, :through => :fboards, :source => :board
   has_one :memoir
   has_one :customize
 

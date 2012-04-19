@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120401045910) do
+ActiveRecord::Schema.define(:version => 20120419043304) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(:version => 20120401045910) do
   add_index "blogs", ["category_id"], :name => "index_blogs_on_category_id"
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
 
+  create_table "boards", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
@@ -62,6 +68,16 @@ ActiveRecord::Schema.define(:version => 20120401045910) do
   end
 
   add_index "customizes", ["user_id"], :name => "index_customizes_on_user_id"
+
+  create_table "fboards", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fboards", ["board_id"], :name => "index_fboards_on_board_id"
+  add_index "fboards", ["user_id"], :name => "index_fboards_on_user_id"
 
   create_table "follows", :force => true do |t|
     t.integer  "followable_id",                      :null => false
@@ -171,10 +187,25 @@ ActiveRecord::Schema.define(:version => 20120401045910) do
 
   add_index "photos", ["album_id"], :name => "index_photos_on_album_id"
 
+  create_table "postcomments", :force => true do |t|
+    t.text     "body"
+    t.integer  "likecount",  :default => 0
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "likeusers"
+  end
+
+  add_index "postcomments", ["post_id"], :name => "index_postcomments_on_post_id"
+  add_index "postcomments", ["user_id"], :name => "index_postcomments_on_user_id"
+
   create_table "posts", :force => true do |t|
-    t.string   "name"
     t.string   "title"
     t.text     "content"
+    t.integer  "board_id"
+    t.integer  "user_id"
+    t.datetime "replied_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
