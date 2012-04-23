@@ -9,12 +9,10 @@
     a href='my'
       = t'my_posts'
     br
-    | 我的讨论版
-    | ：
-    - if @my_fboards.blank?
-      | 还没关注任何讨论版
-    - @my_fboards.each do |fboard|
-      = link_to fboard.board.name, fboard.board
+    | 我的讨论版：
+    = t'none_board' if @fboards.blank?
+    - @fboards.each do |fboard|
+      = link_to fboard.board.name, fboard.board.id.to_s
       | &nbsp;&nbsp;
     br
     br

@@ -70,6 +70,7 @@ class NotesController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.notes.select('id')
       @rnotes = @user.r_notes.where(id: ids).limit(5)
+      render layout: 'memoir_share'
     else
       render text: t('page_not_found'), status: 404
     end

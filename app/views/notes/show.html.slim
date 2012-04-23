@@ -1,7 +1,9 @@
 - if @note.title.to_s == ''
-  = title t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
+  - _title = t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
 - else
-  = title t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+  - _title = t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+= title _title
+= summary @note.content[0..127-_title.size]
 - if flash[:notice2]
   #notice= flash[:notice2]
 div id='note-#{@note.id}'
@@ -41,6 +43,7 @@ div id='note-#{@note.id}'
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer
   .sns-bar
+    = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
         = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')

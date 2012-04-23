@@ -8,6 +8,7 @@ class MemoirsController < ApplicationController
       @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
     end
+    render layout: 'memoir_share'
   end
   
   def create

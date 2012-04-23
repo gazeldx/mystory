@@ -1,4 +1,6 @@
-= title t('s_memoir', w: @user.name)
+- _title = t('s_memoir', w: @user.name, c: @memoir.title)
+= title _title
+= summary @memoir.content[0..127-_title.size]
 - if @memoir.nil?
   .table
     | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
@@ -22,6 +24,7 @@
   div.note-ft id='note_#{@memoir.id}_footer'
     .note_upper_footer
     .sns-bar
+      = render 'shared/share'
       .sns-bar-fav
         - if session[:id].nil?
           = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')

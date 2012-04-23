@@ -1,4 +1,6 @@
-= title @album.name + ' - ' + t('s_album',w: @user.name)
+- _title = @album.name + ' - ' + t('s_album',w: @user.name)
+= title _title
+= summary @photo.description.to_s[0..127-_title.size]
 br
 .pl style='padding:3px;border-bottom:1px solid #ddd;margin:0 0 10px 0;text-align:center' 
   span.rr
@@ -45,6 +47,7 @@ div style='color:#999;margin-bottom:5px;'
 .note-ft id='note_#{@photo.id}_footer'
   .note_upper_footer
   .sns-bar
+    = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
         = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')

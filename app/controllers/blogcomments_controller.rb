@@ -1,5 +1,5 @@
 class BlogcommentsController < ApplicationController
-  
+
   def create
     @blog = Blog.find(params[:blog_id])
     comments = @blog.blogcomments

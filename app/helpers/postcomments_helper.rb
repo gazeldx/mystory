@@ -5,6 +5,10 @@ module PostcommentsHelper
     raw ('&gt;' + link + '&nbsp;&nbsp;')
   end
 
+  def comment_no_html(str)
+    str.gsub(/<br\/>/, " >>").gsub(/<span.*?>/, " ").gsub(/<\/span>/, " ")
+  end
+
   def p_comment_info(body)
     s = body.scan(/repU(\d{1,}) /)
     s.each do |n|
@@ -14,7 +18,7 @@ module PostcommentsHelper
         etc = "..."
       end
       rbody = raw t('reply_what', u: user.name, w: _replied_body[0..20] + etc.to_s)
-      _replied_body_no_html = _replied_body.gsub(/<br\/>/, " >>").gsub(/<span.*?>/, " ").gsub(/<\/span>/, " ")
+      _replied_body_no_html = comment_no_html(_replied_body)
       t_rbody = content_tag(:span, rbody, title: _replied_body_no_html[0..400])
       body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', w: (user.name + t_rbody))}")
     end

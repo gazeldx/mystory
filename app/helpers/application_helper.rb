@@ -5,6 +5,12 @@ module ApplicationHelper
     end
   end
 
+  def summary(_summary)
+    content_for :summary do
+      _summary.gsub(/\r\n/,' ')
+    end
+  end
+
   def h(_title)
     content_for :h do
       _title

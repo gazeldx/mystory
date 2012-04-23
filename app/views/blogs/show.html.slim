@@ -1,4 +1,6 @@
-= title @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
+- _title = @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
+= title _title
+= summary @blog.content[0..127-_title.size]
 - if flash[:notice2]
   #notice= flash[:notice2]
 div id='note-#{@blog.id}'
@@ -19,6 +21,7 @@ div id='note-#{@blog.id}'
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer
   .sns-bar
+    = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
         = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')

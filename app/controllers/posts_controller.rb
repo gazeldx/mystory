@@ -24,17 +24,34 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @all_comments = @post.postcomments.order('likecount DESC, created_at')
-    @comments_uids = @all_comments.collect{|c| c.user_id}
-    render layout: 'post'
+    if request.subdomain == 'bbs' or @post.user == @user
+      @all_comments = @post.postcomments.order('likecount DESC, created_at')
+      @comments_uids = @all_comments.collect{|c| c.user_id}
+      render layout: 'post_share'
+    else
+      render text: t('page_not_found'), status: 404
+    end
   end
 
   def my
-    @posts = Post.where("user_id = ?", session[:id]).includes([:postcomments, :board]).page(params[:page])
-    #.order('replied_at DESC')
+    @posts = Post.where("user_id = ?", session[:id]).includes([:postcomments, :board]).page(params[:page]).order('id DESC')
   end
 
-  
+  def my_reply
+    @postcomments = Postcomment.where("user_id = ?", session[:id]).includes(:post => [:user, :board, :postcomments]).page(params[:page]).order('id DESC')
+  end
+
+  def bbs
+    @fboards = @user.fboards.includes(:board).order('created_at')
+    @posts = @user.posts.includes([:postcomments, :board]).page(params[:page]).order('id DESC')
+    render layout: 'memoir'
+  end
+
+  def reply
+    @fboards = @user.fboards.includes(:board).order('created_at')
+    @postcomments = @user.postcomments.includes(:post => [:user, :board, :postcomments]).page(params[:page]).order('id DESC')
+    render layout: 'memoir'
+  end
   
   # GET /posts
   # GET /posts.json

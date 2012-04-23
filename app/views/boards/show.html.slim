@@ -2,9 +2,9 @@
 = render 'shared/notice_error'
 h1
   = @board.name
-  - unless session[:id].nil?
-    - fb = Fboard.find_by_user_id_and_board_id(session[:id], @board.id)
-    span.mi
+  span.mi
+    - unless session[:id].nil?
+      - fb = Fboard.find_by_user_id_and_board_id(session[:id], @board.id)
       - if fb.nil?
         | (
         = link_to t('follow_him'), follow_board_path
@@ -13,8 +13,8 @@ h1
         | (
         = link_to t('unfollow'), follow_board_path
         | )
-      | &nbsp;
-      = link_to t('board.member'), "#{@board.id}/members"
+    | &nbsp;
+    = link_to t('board.member'), "#{@board.id}/members"
     .rr.b
       = link_to t('post.new'), my_site + new_post_path
 table.b.olt
@@ -23,7 +23,7 @@ table.b.olt
       td
         = t'topic'
       td
-        | 作者
+        = t'writer'
       td
         = t'reply'
       td

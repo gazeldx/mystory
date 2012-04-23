@@ -1,9 +1,8 @@
 class BoardsController < ApplicationController
   layout 'help'
-
   def show
     @board = Board.find(params[:id])
-    if @board.nil?
+    if @board.nil? or request.subdomain != 'bbs'
       render text: t('page_not_found'), status: 404
     else
       #TODO How to eager loading count?
@@ -13,7 +12,7 @@ class BoardsController < ApplicationController
 
   def members
     @board = Board.find(params[:id])
-    if @board.nil?
+    if @board.nil? or request.subdomain != 'bbs'
       render text: t('page_not_found'), status: 404
     else
       @fboards = Fboard.where("board_id = ?", params[:id]).includes(:user).order('created_at DESC')

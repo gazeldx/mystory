@@ -25,10 +25,10 @@
         | (
         = link_to t('edit'), edit_profile_path
         | )
-      /|  
-      /= link_to "个人动态", site(@user) + now_path
       |  
       = link_to t('_tag'), tags_path
+      |  
+      = link_to "BBS", bbs_path
       |  
       = link_to t('view_as_him'), site(@user) + like_path, title:t('view_as_him_desc')
       |  

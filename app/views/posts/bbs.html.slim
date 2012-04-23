@@ -1,11 +1,15 @@
-= title t'my_posts'
+= title t('whose_topic', w: @user.name)
+.b
+  = render 'boards'
 table.b.olt
   tbody
     tr
       td
-        = t('whose_topic', w: t('me'))
+        = t('whose_topic', w: @user.name)
         | &nbsp;|&nbsp;
-        = link_to t('whose_reply_topic', w: t('me')), my_reply_path
+        = link_to t('whose_reply_topic', w: @user.name), bbs_reply_path
+      td
+        = t'writer'
       td
         = t'_board'
       td
@@ -19,7 +23,9 @@ table.b.olt
             - etc = t('all_characters', w: post.content.size)
           = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s
         td
-          = link_to post.board.name, post.board.id.to_s
+          = link_to post.user.name, site(post.user)
+        td
+          = link_to post.board.name, sub_site('bbs') + "/#{post.board.id.to_s}"
         td
           = post.postcomments.size
         td.pl

@@ -1,6 +1,5 @@
 class BlogsController < ApplicationController
   layout 'memoir'
-  
   def index
     @blogs = @user.blogs.page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
@@ -17,6 +16,7 @@ class BlogsController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.blogs.select('id')
       @rblogs = @user.r_blogs.where(id: ids).limit(5)
+      render layout: 'memoir_share'
     else
       render text: t('page_not_found'), status: 404
     end

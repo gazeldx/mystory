@@ -5,7 +5,7 @@ class HomeController < ApplicationController
       @boards = Board.order("created_at DESC")
       @board = Board.new
       unless session[:id].nil?
-        @my_fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
+        @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
       end
       render 'boards/index', layout: 'help'
     elsif @user.nil?

@@ -8,7 +8,7 @@ module HeadHelper
     elsif controller_path=='blogs'
       t('s_blog', w: @user.name)
     elsif controller_path=='memoirs'
-      t('s_memoir', w: @user.name)
+      t('s_memoir', w: @user.name, c: @memoir.title)
     elsif controller_path=='editor'
       t('s_editor', w: @user.name)
     elsif controller_path=='users'

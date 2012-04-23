@@ -19,16 +19,6 @@ module UsersHelper
     raw t('_dot')
   end
 
-  #  def summary(something, size)
-  #    tmp = something.content[0, size+150].gsub(/\r\n/,'&nbsp;').gsub(/<\/?.*?>/, "").gsub(/</, "")
-  #    if tmp.size > size + 30
-  #      #TODO gsub may REPLACE <img> as <im and gsub twice is not effient.Use one time is the best.
-  #      raw tmp[0, size] + (link_to t('chinese_etc') + ' >>', something)
-  #    else
-  #      raw tmp
-  #    end
-  #  end
-
   def summary_no_comments(something, size)
     tmp = text_it(something.content[0, size])
     m = tmp.scan(/\+photo\d{2,}\+/m)
