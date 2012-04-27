@@ -14,7 +14,9 @@
   ul
     li
       - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
-        = link_to t('follow_him'), follow_me_path
+        a href=follow_me_path
+          = image_tag('/images/follow.png')
+        /= link_to t('follow_him'), follow_me_path
         |  
       - elsif myself.following?(@user)
         = link_to t('unfollow'), unfollow_path
@@ -33,6 +35,12 @@
       = link_to t('view_as_him'), site(@user) + like_path, title:t('view_as_him_desc')
       |  
       = link_to t('he_editor'), site(@user) + editor_path, title:t('see_what_he_edit')
+      - unless session[:id].nil?
+        |  
+        - if session[:id]==@user.id
+          = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters')
+        - else
+          = link_to t('_letter'), my_site + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to')
   ul
     li
       = link_to t('following') + @user.follow_count.to_s, following_path

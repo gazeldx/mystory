@@ -14,9 +14,8 @@
       span.pl20
         | 来自:
         = link_to user.name, site(user)
-    .topic-content
-      p
-        = style_it @post.content
+    pre.post_full
+      = style_it @post.content
 div.note-ft
   .sns-bar
     = render 'shared/share'

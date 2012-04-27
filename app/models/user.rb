@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
   has_one :memoir
   has_one :customize
 
+  has_many :letters, :dependent => :destroy#sent letters
+  has_many :received_letters, :class_name => 'Letter', :foreign_key => 'recipient_id', :dependent => :destroy
+
   acts_as_followable
   acts_as_follower
 

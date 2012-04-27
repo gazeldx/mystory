@@ -2742,6 +2742,10 @@ a.lnk-sharing:hover,a.lnk-sharing:active {
   @extend .note;
   font-size:$c;
 }
+.post_full{
+  @extend .note_full;
+  margin-top: 0px
+}
 #form_note textarea {
   font-size:$s;
   line-height:1.62
@@ -8694,7 +8698,8 @@ a.ln-report {
   margin-bottom:1ex
 }
 .comment-item p,.comment-item .author {
-  margin-bottom:1em
+  margin-bottom:1em;
+  font-size:$m
 }
 .comment-item .title {
   font-size:$m
@@ -8762,6 +8767,11 @@ a.a_folder:hover .bn-arrow {
   }
 }
 
+.s{
+  font-size:$s;
+  @include table-base($m);
+}
+
 .mi{
   font-size:$m;
   @include table-base($m);
@@ -8779,4 +8789,14 @@ a.a_folder:hover .bn-arrow {
 
 .red{
   color: red;
+}
+
+.W_btn_b, .W_btn_b span, .W_btn_b_disable, .W_btn_b_disable span {
+    background: url("../../../images/common/btn.png?id=1329484998540") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    height: 24px;
+    line-height: 23px;
+    padding: 0 0 0 2px;
 }

@@ -5,10 +5,14 @@ ul.user-list
   - @user.all_following.each do |guy|
     li.clearfix id='u#{guy.id}'
       a href=site(guy) title=guy.name
-        = image_tag(guy.avatar.thumb.url, class: 'face')
+        = image_tag(guy.avatar.thumb.url, class: 'face')        
       .info
         h3
           a href=site(guy) = guy.name
+          / place to under photo is best
+          |  
+          - unless session[:id].nil? or session[:id]==guy.id
+            = link_to t('_letter'), my_site + "/send_a_letter_to_#{guy.domain}", title:t('send_letter_to'), class: "s"
           |  
           span.pl
             = guy.city

@@ -14,7 +14,7 @@ div id='note-#{@blog.id}'
         = link_to t('delete'), @blog, confirm: t('confirm.delete'), method: :delete
     div
       span.pl
-        = post_info @blog        
+        = post_info @blog
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content

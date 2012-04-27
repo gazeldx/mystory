@@ -39,6 +39,16 @@ zh:
   whose_board: "%{w}的讨论版："
   none_board: "还没关注任何讨论版"
   s_board: "%{w} - BBS"
+  _letter: "私信"
+  #my_letters: "我的私信"
+  all_my_letters: "我的所有私信"
+  received_box: "收件箱"
+  letters_sent: "已发送的私信"
+  send_letter_to: "给他发私信"
+  view_my_letters: "查看我的私信"
+  send_letters_to: "给%{w}发私信"
+  send_again: "再发一封"
+
   writer: "作者"
   board:
     member: "成员"
@@ -61,6 +71,8 @@ zh:
   hello: "你好"
   title: "标题"
   content: "内容"
+  sender: "发信人"
+  recipient: "收信人"
   insert_photo: "插照片"
   _category: "作品分类"
   _category_: "作品分类："
@@ -233,7 +245,7 @@ zh:
     memo: "（作品按此排序）"
   _profile: "查看详细资料"
 
-  
+  _time: "时间"
   time_format: "%Y年%m月%d日 %H:%M"
   date_format: "%Y年%m月%d日"
   date_without_year: "%m月%d日"
@@ -251,6 +263,7 @@ zh:
     memo_memo: "介绍下你的性格、经历、信念、梦想等"
   account_settings: "帐号设置"
   _post: "发布"
+  send: "发送"
 
   album:
     add: "创建新影集"
@@ -321,6 +334,7 @@ zh:
   p_blog: "发作品"
   upload_photo: "传照片"
   blog_posted: "作品发表成功！"
+  letter_sent: "私信已发送！"
   hot_note: "热门日记"
   new_note: "最新日记"
   view_as_him: "他在看"
