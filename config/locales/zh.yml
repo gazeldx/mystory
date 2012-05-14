@@ -97,6 +97,17 @@ zh:
   comments: "(评论%{w})"
   comments_: "评论%{w}"
   comment: "评论"
+  commented_by_friend: "网友评论"
+  s_commented_by_friend: "网友评论 - %{w}"
+  commented_by_self: "%{w}发表的评论"
+  who_comment: "%{w}点评"
+  comment_user: "评论者"
+  commented_object: "被评论对象"
+  comment_time: "评论时间"
+
+
+  _forum: "论坛"
+
   all_characters: "……(共%{w}字)"
   me: "我"
   topic: "话题"

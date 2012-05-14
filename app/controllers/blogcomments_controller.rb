@@ -7,6 +7,8 @@ class BlogcommentsController < ApplicationController
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
       comment.update_attribute('body', body)
+      #TODO CAN'T KEEP updated_at.keep it will make comment show well
+      #comment.update_attributes(:body => body, :updated_at => comment.updated_at)
       flash[:notice] = t'reply_succ'
     elsif comments.collect{|c| c.user_id}.include?(session[:id])
       comment = comments.find_by_user_id(session[:id])

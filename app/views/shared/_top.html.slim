@@ -1,3 +1,4 @@
+= render 'shared/download_browser'
 .top-nav
   .bd
     .top-nav-info
@@ -16,4 +17,4 @@
         li.on
           = link_to t('my_story'), SITE_URL, title: t('return_root')
         li.on
-          = link_to 'BBS', sub_site('bbs')
+          = link_to t('_forum'), sub_site('bbs')

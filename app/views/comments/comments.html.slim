@@ -1,0 +1,44 @@
+= title t('commented_by_self', w: @user.name)
+span.b
+  = link_to t('commented_by_friend'), commented_path
+  | &nbsp;|&nbsp;
+  = t('commented_by_self', w: @user.name)
+table.b.olt
+  tbody
+    tr
+      td
+        = t'commented_object'
+      td
+        = t('who_comment', w: @user.name)
+      td
+        = t'comment_time'
+    - @comments.each do |comment|
+      tr
+        td.pl width='32%'
+          - if comment.is_a?Blogcomment
+            - item = comment.blog
+            = link_to item.user.name, site(item.user)
+            | #{t'_blog'}&nbsp;
+            = link_to item.title, site(item.user)+blog_path(item)
+          - elsif comment.is_a?Notecomment
+            - item = comment.note
+            = link_to item.user.name, site(item.user)
+            | #{t'_note'}&nbsp;
+            = link_to_user_note item
+          - elsif comment.is_a?Memoircomment
+            - item = comment.memoir
+            = link_to item.user.name, site(item.user)
+            | #{t'_memoir'}&nbsp;
+            = link_to item.title, site(item.user)+memoirs_path
+          - elsif comment.is_a?Photocomment
+            - photo = comment.photo
+            - user = photo.album.user
+            = link_to user.name, site(user)
+            | #{t'_photo'}&nbsp;
+            - if photo.description.to_s==''
+              - photo.description = '未命名的照片'
+            = link_to photo.description, site(user)+album_photo_path(photo.album, photo)
+        td width='48%'
+          = comment_info comment.body
+        td.pl title=comment.created_at.strftime(t'time_format')
+          = comment.created_at.strftime(t'no_year')

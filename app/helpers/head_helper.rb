@@ -1,8 +1,7 @@
 module HeadHelper
 
   def banner_text
-#    if ['home','like'].include?controller_path
-#      @user.name
+    #puts controller_path
     if controller_path=='notes'
       t('s_note', w: @user.name)
     elsif controller_path=='blogs'
@@ -51,6 +50,20 @@ module HeadHelper
       else
         t('tag_who', w: params[:name], n: @user.name)
       end
+    elsif controller_path=='posts'
+      if controller.action_name=='bbs'
+        t('whose_topic', w: @user.name)      
+      else
+        t('whose_reply_topic', w: @user.name)
+      end
+    elsif controller_path=='comments'
+      if controller.action_name=='commented'
+        t('s_commented_by_friend', w: @user.name)
+      else
+        t('commented_by_self', w: @user.name)
+      end
+    elsif controller_path=='like'
+      t('active_state', w: @user.name)
     else
       @user.name
     end

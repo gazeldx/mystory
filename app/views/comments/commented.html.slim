@@ -1,0 +1,41 @@
+= title t'commented_by_friend'
+span.b
+  = t'commented_by_friend'
+  | &nbsp;|&nbsp;
+  = link_to t('commented_by_self', w: @user.name), comments_path
+table.b.olt
+  tbody
+    tr
+      td
+        = t'commented_object'
+      td
+        | 评论内容
+      td
+        = t'comment_user'
+      td
+        = t'comment_time'
+    - @comments.each do |comment|
+      tr
+        td.pl width='30%'
+          - if comment.is_a?Blogcomment
+            | #{t'_blog'}&nbsp;
+            = link_to comment.blog.title, comment.blog
+          - elsif comment.is_a?Notecomment
+            | #{t'_note'}&nbsp;
+            = link_to_note comment.note
+          - elsif comment.is_a?Memoircomment
+            | #{t'_memoir'}&nbsp;
+            = link_to comment.memoir.title, memoirs_path
+          - elsif comment.is_a?Photocomment
+            - photo = comment.photo
+            - user = photo.album.user
+            | #{t'_photo'}&nbsp;
+            - if photo.description.to_s==''
+              - photo.description = '未命名的照片'
+            = link_to photo.description, album_photo_path(photo.album, photo)
+        td width='50%'
+          = comment_info comment.body
+        td
+          = link_to comment.user.name, site(comment.user)
+        td.pl title=comment.created_at.strftime(t'time_format')
+          = comment.created_at.strftime(t'no_year')

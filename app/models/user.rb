@@ -19,8 +19,10 @@ class User < ActiveRecord::Base
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
   has_many :blogs, :dependent => :destroy
+  has_many :blogcomments, :dependent => :destroy
   has_many :tags, :through => :blogs, :source => :tags
   has_many :notes, :dependent => :destroy
+  has_many :notecomments, :dependent => :destroy
   has_many :notetags, :through => :notes, :source => :notetags
   has_many :rblogs, :dependent => :destroy
   has_many :r_blogs, :through => :rblogs, :source => :blog
@@ -34,6 +36,7 @@ class User < ActiveRecord::Base
   has_many :idols, :through => :ridols
   has_many :albums, :dependent => :destroy
   has_many :photos, :through => :albums
+  has_many :photocomments, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_many :postcomments, :dependent => :destroy
   has_many :fboards, :dependent => :destroy

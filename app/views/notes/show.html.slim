@@ -84,30 +84,21 @@ div.note-ft id='note_#{@note.id}_footer'
   - if @note_pre.nil?
     = t'none'
   - else
-    - if @note_pre.title.to_s==''
-      = link_to t('s_note', w: @note_pre.created_at.strftime(t'date_format')), @note_pre
-    - else
-      = link_to @note_pre.title, @note_pre
+    = link_to_note @note_pre
   br
   span.pl
     = t'an_old'
   - if @note_next.nil?
     = t'none'
   - else
-    - if @note_next.title.to_s==''
-      = link_to t('s_note', w: @note_next.created_at.strftime(t'date_format')), @note_next
-    - else
-      = link_to @note_next.title, @note_next
+    = link_to_note @note_next    
 - unless @rnotes.blank?
   .rr
     span.pl
       = t'_recommend'
     br
     - @rnotes.each do |note|
-      - if note.title.to_s==''
-        = link_to t('s_note', w: note.created_at.strftime(t'date_format')), note
-      - else
-        = link_to note.title, note
+      = link_to_note note
       br
 - @clazz = 'note'
 = comments
@@ -115,4 +106,3 @@ javascript:
   $('#recommend').live('click', function() {
     recommend_note_in(#{@note.id});
   });
-
