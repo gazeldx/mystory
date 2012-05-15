@@ -21,4 +21,8 @@ module ApplicationHelper
     raw "<script type=\"text/javascript\">$(document).ready(function(){$('##{form_id}').validate();});</script>"
   end
 
+  #month as 201204
+  def chinese_month(month)
+    month[0..3] + t('year') + month[4..5] + t('month')
+  end
 end

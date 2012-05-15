@@ -4,8 +4,10 @@
   #notice= flash[:notice]
 - if @user.id == session[:id]
   h2
-    = link_to t('write_note'), new_note_path    
+    = link_to t('write_note'), new_note_path
 h2
+  = link_to t('_archive'), notes_archives_path
+  | &nbsp;&nbsp;&nbsp;
   = t'_notecate_'
   - @notecates.each do |category|
     | [

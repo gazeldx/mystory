@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   layout 'memoir'
+  
   def index
     @blogs = @user.blogs.page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
@@ -98,6 +99,16 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @blog.content = summary_comment_style(@blog, 4000)
     render json: @blog.as_json()
+  end  
+
+  def archives
+    #ISSUE to_char maybe only work in postgresql
+    @items = @user.blogs.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+  end
+
+  def month
+    @blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).page(params[:page])
+    archives
   end
 
   def lovezhangtingting

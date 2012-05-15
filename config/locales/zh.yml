@@ -48,6 +48,12 @@ zh:
   view_my_letters: "查看我的私信"
   send_letters_to: "给%{w}发私信"
   send_again: "再发一封"
+  _archive: "归档"
+
+  year: "年"
+  month: "月"
+
+  photo_no_name: "未命名的照片"
 
   writer: "作者"
   board:
@@ -104,6 +110,8 @@ zh:
   comment_user: "评论者"
   commented_object: "被评论对象"
   comment_time: "评论时间"
+
+  fans_each_other: "互相关注"
 
 
   _forum: "论坛"
@@ -199,7 +207,11 @@ zh:
   s_home_page: "%{w}主页"
   ss_home_page: "%{w}的主页"
   s_note: "%{w}日记"
+  s_note_archive: "%{w}日记归档"
+  s_note_archive_month: "%{m} - %{w}日记归档"
   s_blog: "%{w}作品"
+  s_blog_archive: "%{w}作品归档"
+  s_blog_archive_month: "%{m} - %{w}作品归档"
   s_memoir: "%{w}自传 %{c}"
   s_following: "%{w}关注的人"
   s_recent_photos: "%{w}最近照片"

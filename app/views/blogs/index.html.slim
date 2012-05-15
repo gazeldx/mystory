@@ -6,6 +6,8 @@
   h2
     = link_to t('post_blog'), new_blog_path
 h2
+  = link_to t('_archive'), blogs_archives_path
+  | &nbsp;&nbsp;&nbsp;
   = t'_category_'
   - @categories.each do |category|
     | [

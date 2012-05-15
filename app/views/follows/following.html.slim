@@ -15,7 +15,8 @@ ul.user-list
               a href=site(guy)+follow_me_path
                 = image_tag('/images/follow.png')
             - else
-              | 互相关注&nbsp;
+              - if guy.following?(myself)
+                | #{t'fans_each_other'}&nbsp;
               = link_to t('unfollow'), site(guy)+unfollow_path
             - unless session[:id].nil? or session[:id]==guy.id
               | &nbsp;

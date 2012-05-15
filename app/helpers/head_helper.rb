@@ -2,12 +2,25 @@ module HeadHelper
 
   def banner_text
     #puts controller_path
+    #puts controller.action_name
     if controller_path=='notes'
-      t('s_note', w: @user.name)
+      if controller.action_name=='archives'
+        t('s_note_archive', w: @user.name)
+      elsif controller.action_name=='month'
+        t('s_note_archive_month', w: @user.name, m: chinese_month(params[:month]))
+      else
+        t('s_note', w: @user.name)
+      end
     elsif controller_path=='blogs'
-      t('s_blog', w: @user.name)
+      if controller.action_name=='archives'
+        t('s_blog_archive', w: @user.name)
+      elsif controller.action_name=='month'
+        t('s_blog_archive_month', w: @user.name, m: chinese_month(params[:month]))
+      else
+        t('s_blog', w: @user.name)
+      end
     elsif controller_path=='memoirs'
-      t('s_memoir', w: @user.name, c: @memoir.title)
+      t('s_memoir', w: @user.name, c: @memoir.nil? ? "" : @memoir.title)
     elsif controller_path=='editor'
       t('s_editor', w: @user.name)
     elsif controller_path=='users'

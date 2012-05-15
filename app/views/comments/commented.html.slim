@@ -31,7 +31,7 @@ table.b.olt
             - user = photo.album.user
             | #{t'_photo'}&nbsp;
             - if photo.description.to_s==''
-              - photo.description = '未命名的照片'
+              - photo.description = t'photo_no_name'
             = link_to photo.description, album_photo_path(photo.album, photo)
         td width='50%'
           = comment_info comment.body

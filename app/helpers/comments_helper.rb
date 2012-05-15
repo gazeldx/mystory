@@ -51,14 +51,51 @@ module CommentsHelper
           u_c.each_with_index do |reply, j|
             c_info += "<br/>"
             if j==0
-              c_info += content_tag(:span, raw(t('who_reply', w:@user.name, r: reply_info(reply))), class: "writer_reply")
+              c_info += content_tag(:span, raw(t('who_reply', w: @user.name, r: reply_info(reply))), class: "writer_reply")
             else
               c_info += t('_add_comment', r: reply_info(reply))
             end
           end
         else
           c_info += "<br/>"
-          c_info += content_tag(:span, raw(t('who_reply', w:@user.name, r: reply_info(e))), class: "writer_reply")
+          c_info += content_tag(:span, raw(t('who_reply', w: @user.name, r: reply_info(e))), class: "writer_reply")
+        end
+      end
+    end
+    raw c_info
+  end
+
+  #Difference with comment_info is user and @user
+  def comment_info_user(body, user)
+    c_info = ""
+    m = body.split(/repLyFromM/m)
+    m.each_with_index do |e, i|
+      if i==0
+        u_c = e.split(/ReplyFRomU/m)
+        u_c.each_with_index do |reply, j|
+          if j==0
+            c_info += reply
+          else
+            c_info += t('_add_comment', r: reply_info(reply))
+          end
+          if j < u_c.size-1
+            c_info += "<br/>"
+          end
+        end
+      else
+        u_c = e.split(/ReplyFRomU/m)
+        if u_c.size > 1
+          u_c.each_with_index do |reply, j|
+            c_info += "<br/>"
+            if j==0
+              c_info += content_tag(:span, raw(t('who_reply', w: user.name, r: reply_info(reply))), class: "writer_reply")
+            else
+              c_info += t('_add_comment', r: reply_info(reply))
+            end
+          end
+        else
+          c_info += "<br/>"
+          c_info += content_tag(:span, raw(t('who_reply', w: user.name, r: reply_info(e))), class: "writer_reply")
         end
       end
     end

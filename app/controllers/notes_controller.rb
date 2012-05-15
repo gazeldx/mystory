@@ -2,7 +2,6 @@ class NotesController < ApplicationController
   layout 'memoir'
   
   def index
-    @note = Note.new
     @notes = @user.notes.page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
 #    default_category = Notecate.new
@@ -105,6 +104,16 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @note.content = summary_comment_style(@note, 3000)
     render json: @note.as_json()
+  end
+
+  def archives
+    #ISSUE to_char maybe only work in postgresql
+    @items = @user.notes.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+  end
+
+  def month
+    @notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).page(params[:page])
+    archives
   end
 
 end
