@@ -17,22 +17,23 @@
         a href=follow_me_path
           = image_tag('/images/follow.png')
         /= link_to t('follow_him'), follow_me_path
-        |  
+        | &nbsp;
       - elsif myself.following?(@user)
         = link_to t('unfollow'), unfollow_path
-        |  
+        | &nbsp;
       = link_to t('my_info'), '/profile'
       - if @user.id == session[:id]
         span
         | (
         = link_to t('edit'), edit_profile_path
         | )
-      |  
-      = link_to t('_tag'), tags_path
-      |  
+      | &nbsp;
+      /= link_to t('_tag'), tags_path
+      = link_to t('_archive'), archives_path
+      | &nbsp;
       = link_to t('_forum'), bbs_path
       - unless session[:id].nil?
-        |  
+        | &nbsp;
         - if session[:id]==@user.id
           = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters')
         - else

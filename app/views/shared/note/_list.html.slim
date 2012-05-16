@@ -8,7 +8,7 @@
           - else
             = link_to note.title, note, class: 'll'
             | &nbsp;
-            = note.created_at.strftime(t'date_format')
+            = note.created_at.strftime(t'date_without_year')
           a.rr id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title=t('open_article')
             img src="/images/arrow2.gif"
           span.pl

@@ -1,0 +1,11 @@
+.b
+  - _year = ""
+  - @items.each_with_index do |(k ,v), i|
+    - if k[0..3] != _year
+      - if i!=0
+        br
+      = k[0..3] + t('year')
+      | &nbsp;&nbsp;&nbsp;
+    = link_to k[4..5] + t('month'), "/archives/#{k}"
+    | (#{v})&nbsp;&nbsp;
+    - _year = k[0..3]

@@ -77,6 +77,12 @@ module HeadHelper
       end
     elsif controller_path=='like'
       t('active_state', w: @user.name)
+    elsif controller_path=='archives'
+      if controller.action_name=='index'
+        t('s_archive', w: @user.name)
+      else
+        t('s_archive_month', w: @user.name, m: chinese_month(params[:month]))
+      end
     else
       @user.name
     end

@@ -1,4 +1,5 @@
-= title t('s_blog_archive_month', w: @user.name, m: chinese_month(params[:month]))
+= title t('s_note_archive_month', w: @user.name, m: chinese_month(params[:month]))
 = hidden_field_tag :view, params[:view]
-= render 'month_list'
+- @clazz = 'notes'
+= render 'archives/month_list'
 = render 'shared/note/list'

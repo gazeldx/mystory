@@ -1,0 +1,171 @@
+- if controller_path=='archives'
+  - url_pre = site(@user) + archives_path + "/#{params[:month]}"
+- else
+  - url_pre = site(@user)
+#miniblog
+  #db-timeline-hd.clearfix
+    ul.menu-list
+      - url = link_to t('all'), url_pre
+      - if params[:t].nil?
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_note'), url_pre + '?t=note'
+      - if params[:t] == 'note'
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_blog'), url_pre + '?t=blog'
+      - if params[:t] == 'blog'
+        li.on= url
+      - else
+        li= url
+      - url = link_to t('_photo'), url_pre + '?t=photo'
+      - if params[:t] == 'photo'
+        li.on= url
+      - else
+        li= url
+      - unless controller_path=='archives'
+        - url = link_to t('latest_updated'), url_pre + '?t=updated'
+        - if params[:t] == 'updated'
+          li.on= url
+        - else
+          li= url
+      - url = link_to t('recommend'), url_pre + '?t=recommend'
+      - if params[:t] == 'recommend'
+        li.on= url
+      - else
+        li= url
+  ul.mbt
+    - @all.each do |item|
+      - if item.is_a?(Note)
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          - user = item.user
+          li.mbtr
+            = link_to user.name, site(user)
+            span.pl1
+              |  发日记 #{link_to item.title, note_path(item)}&nbsp;
+            span.inq
+              = summary_comment(item, 140)
+              = thumbs_here(item, 3)
+              span.pl
+                = article_time item
+              = recommend_etc item
+              - if item.user_id == session[:id]
+                = link_to t('edit'), edit_note_path(item)
+                | &nbsp;
+                = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
+      - elsif item.is_a?(Blog)
+        - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
+          - user = item.user
+          li.mbtr
+            = link_to user.name, site(user)
+            span.pl1
+              |  发表作品《#{link_to item.title, blog_path(item)}》
+            span.inq
+              = summary_comment(item, 180)
+              = thumbs_here(item, 3)
+              span.pl
+                = article_time item
+              - if item.user_id == session[:id]
+                | &nbsp;
+                = link_to t('edit'), edit_blog_path(item)
+      - elsif item.is_a?(Photo)
+        - album = item.album
+        - user = album.user
+        - avatar = item.avatar
+        li.mbtr
+          span.inq
+            = link_to user.name, site(user)
+            span.pl1  上传照片到&nbsp;
+            = link_to album.name, album_path(album)
+            - unless item.description.nil?
+              br
+              = item.description
+            br
+            a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
+              = image_tag(avatar.thumb.url)
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Rnote)
+        - note = item.note
+        li.mbtl
+          a href=site(note.user)
+            = image_tag(note.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user)
+          span.pl1
+            |  推荐日记
+          | :
+          = item.body
+          br
+          span.inq
+            | &nbsp;&nbsp;原文
+            = link_to note.user.name, site(note.user)
+            | :#{link_to note.title, site(note.user) + note_path(note)}&nbsp;
+            = summary_comment_portal(note, 140)
+            = thumbs_here(note, 3)
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Rblog)
+        - blog = item.blog
+        li.mbtl
+          a href=site(blog.user)
+            = image_tag(blog.user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user)
+          span.pl1
+            |  推荐作品
+          | :
+          = item.body
+          br
+          span.inq
+            | &nbsp;&nbsp;原文
+            = link_to blog.user.name, site(blog.user)
+            span.pl1  发表作品
+            | 《#{link_to blog.title, site(blog.user) + blog_path(blog)}》
+            = summary_comment_portal(blog, 180)
+            = thumbs_here(blog, 3)
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Rphoto)
+        - photo = item.photo
+        - album = photo.album
+        - user = album.user
+        - avatar = photo.avatar
+        li.mbtl
+          a href=site(user)
+            = image_tag(user.avatar.thumb.url)
+        li.mbtr
+          = link_to item.user.name, site(item.user)
+          span.pl1
+            |  推荐照片
+          | :
+          = item.body
+          br
+          span.inq
+            = link_to user.name, site(user)
+            span.pl1  上传照片到&nbsp;
+            = link_to album.name, site(user) + album_path(album)
+            - unless photo.description.nil?
+              br
+              = photo.description
+            br
+            a id='rphoto_#{photo.id}' href='javascript:;' onclick="switchPhoto('rphoto_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
+              = image_tag(avatar.thumb.url)
+            br
+            span.pl
+              = item.created_at.strftime t'no_year'
+      - elsif item.is_a?(Memoir)
+        li.mbtr
+          = link_to item.user.name, site(item.user)
+          span.pl1
+            |  更新自传 #{link_to item.title, memoirs_path}&nbsp;
+          span.inq
+            = summary_no_comments(item, 200)
+            = thumbs_here(item, 3)
+            span.pl
+              = article_time item
+            - if item.user_id == session[:id]
+              = link_to t('edit'), edit_memoirs_path

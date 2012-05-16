@@ -26,7 +26,7 @@ class HomeController < ApplicationController
       if t.nil?
         notes = @user.notes.limit(30)
         blogs = @user.blogs.limit(10)
-        photos = Photo.where(album_id: @user.albums).includes(:album).limit(15).order('id desc')
+        photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
         all_ = notes | blogs | photos
         memoir = @user.memoir
         unless memoir.nil?
@@ -35,9 +35,9 @@ class HomeController < ApplicationController
         end
         @all = all_.sort_by{|x| x.created_at}.reverse!
       elsif t == 'note'
-        @all = @user.notes.limit(50)
+        @all = @user.notes.limit(50).order('created_at desc')
       elsif t == 'blog'
-        @all = @user.blogs.limit(40)
+        @all = @user.blogs.limit(40).order('created_at desc')
       elsif t == 'photo'
         @all = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
       elsif t == 'updated'

@@ -206,6 +206,15 @@ zh:
   
   s_home_page: "%{w}主页"
   ss_home_page: "%{w}的主页"
+  ss_home_page_note: "最新日记 - %{w}"
+  ss_home_page_blog: "最新作品 - %{w}"
+  ss_home_page_photo: "最近照片 - %{w}"
+  ss_home_page_updated: "最近更新 - %{w}"
+  ss_home_page_recommend: "最近推荐 - %{w}"
+
+
+  s_archive: "归档 - %{w}"
+  s_archive_month: "%{m}归档 - %{w}"
   s_note: "%{w}日记"
   s_note_archive: "%{w}日记归档"
   s_note_archive_month: "%{m} - %{w}日记归档"

@@ -1,10 +1,13 @@
 = title t('tag_who', w: params[:name], n: @user.name)
+.table.b
+  = render 'tags/list'
+br
 #note
-  - unless @tags.blank?
+  - unless @blogtags.blank?
     h2
       = t('tag_of', w: params[:name], c: t('_blog'), n: @user.name)
   ul.mbt
-    - @tags.each do |item|
+    - @blogtags.each do |item|
       - blog = item.blog
       - user = blog.user
       li.mbtr

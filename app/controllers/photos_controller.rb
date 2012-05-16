@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
 
   def index
     if @user.nil?
-      photos = Photo.includes(:album => :user).limit(10).order('id desc')
+      photos = Photo.includes(:album => :user).limit(30).order('id desc')
       rphotos = Rphoto.includes(:photo => [:album => :user]).limit(50).order('id desc').uniq {|s| s.photo_id}
       all = photos | rphotos
       @all = all.sort_by{|x| x.created_at}.reverse!

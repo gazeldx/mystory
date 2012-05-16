@@ -164,4 +164,16 @@ class ApplicationController < ActionController::Base
     mystr
   end
 
+  module Tags
+    def tagsIndex
+      tags = @user.tags.map {|x| x.name}
+      notetags = @user.notetags.map {|x| x.name}
+      a = tags + notetags
+      @tags = Hash.new(0)
+      a.each do |v|
+        @tags[v] += 1
+      end
+      @tags = @tags.sort_by{|k, v| v}.reverse!
+    end
+  end
 end
