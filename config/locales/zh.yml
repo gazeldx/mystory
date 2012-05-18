@@ -53,6 +53,22 @@ zh:
   year: "年"
   month: "月"
 
+  birthdate_year: "出生年份"
+  location: "现居地"
+  job: "职业"
+  company: "公司"
+  college: "就读院校"
+  sns_links: "SNS主页"
+  sns_links_tip: "如微博、Qzone地址，以“http://”开头。多个以空格分隔"
+
+  e_book: "喜欢阅读"
+  e_book_tip: "填写作家、书名或类型。多个以空格分隔，下同"
+  e_music: "喜欢的音乐"
+  e_music_tip: "填写歌者、曲风"
+  e_movie: "喜欢的影视"
+  e_movie_tip: "填写导演、主演、主持人、电影、电视剧、综艺节目或题材"
+  
+
   photo_no_name: "未命名的照片"
 
   writer: "作者"
@@ -203,6 +219,7 @@ zh:
   #my_idol: "我的偶像"
   my_info: "个人资料"
   edit_profile: "编辑个人资料"
+  split_with_blank_time: "多个以空格分隔，距今近的写在前面"
   
   s_home_page: "%{w}主页"
   ss_home_page: "%{w}的主页"

@@ -1,90 +1,136 @@
+- content_for :stylesheet do
+  = stylesheet_link_tag "create_note", "dialog"
 = title t('edit_profile') + ' - ' + session[:name]
 = render 'shared/notice_error'
+/h2
+/  = t'edit_profile'
 = form_for @_user do |f|
   = error_msg @_user
-  table align='center' width='100%' cellpadding='5' style='clear:both'
+  table align='center' cellpadding='5'
     tbody
       tr
-        td align='right' valign='top' class='m' width='20%'
+        td class='mr' width='20%'
           = t'avatar'
-        td valign='top'
+        td
           = image_tag(@_user.avatar.thumb.url)
           = f.file_field :avatar
           /= f.hidden_field :avatar_cache
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           = t'user_name'
-        td valign='top'
+        td
           = @_user.username
-          = t'can_login'
+          | &nbsp;
+          span.pl
+            = t'can_login'
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           | Email
-        td valign='top'
+        td
           = @_user.email
-          = t'can_login'
+          | &nbsp;
+          span.pl
+            = t'can_login'
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           = t'domain'
-        td valign='top'
+        td
           = f.text_field :domain, size: 10
-          | 可用于登录，建议用姓名拼音，支持http://
-          span.m yourname
-          | .mystory.cc访问
+          span.pl
+            | 可用于登录，建议用姓名拼音，支持http://
+            span.m yourname
+            | .mystory.cc访问
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           | 登录密码
-        td valign='top'
+        td
           = link_to t('modify'), edit_password_path
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           = t'real_name'
-        td valign='top'
+        td
           = f.text_field :name, size: 10
-          = t'name_desc'
+          span.pl
+            = t'name_desc'
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
+          = t'location'
+        td
+          = f.text_field :city, size: 6
+          span.pl
+            | 当前城市名，如：南京
+      tr
+        td class='mr'
+          = t'job'
+        td
+          = f.text_field :jobs
+      tr
+        td class='mr'
           = t'maxim'
-        td valign='top'
+        td
           = f.text_field :maxim
       tr
-        td align='right' valign='top' class='m'
+        td class='mr'
           = t'profile.memo'
-        td valign='top'
+        td
           = f.text_area :memo, size: "40x3"
           br
-          = t'profile.memo_memo'
+          span.pl
+            = t'profile.memo_memo'
       tr
-        td align='right' valign='top' class='m'
-          | 出生年份
-        td valign='top'
+        td
+        td
+          | ------------说明：上面的内容会直接显示在首页，下面的内容只显示在个人资料中------------
+      tr
+        td class='mr'
+          = t'birthdate_year'
+        td
           - if @user.birthday.nil?
             - @user.birthday = 1990
           = select_year(@user.birthday, start_year: 1920, end_year: Time.now.year-5)
       tr
-        td align='right' valign='top' class='m'
-          | 所在地
-        td valign='top'
-          = f.text_field :city, size: 6
-          | 当前城市名，如：南京
-      tr
-        td align='right' valign='top' class='m'
-          | 职业
-        td valign='top'
-          = f.text_field :jobs
-      tr
-        td align='right' valign='top' class='m'
-          | 公司
-        td valign='top'
+        td class='mr'
+          = t'company'
+        td
           = f.text_field :company
+          span.pl
+            = t'split_with_blank_time'
       tr
-        td align='right' valign='top' class='m'
-          | 毕业学校
-        td valign='top'
+        td class='mr'
+          = t'college'
+        td
           = f.text_field :school
+          span.pl
+            = t'split_with_blank_time'
+      tr
+        td class='mr'
+          = t'sns_links'
+        td
+          = f.text_field :snslinks, size: 40
+          span.pl
+            = t'sns_links_tip'
+      tr
+        td class='mr'
+          = t'e_book'
+        td
+          = text_field_tag :enjoy_books, @enjoy_books, size: 40
+          span.pl
+            = t'e_book_tip'
+      tr
+        td class='mr'
+          = t'e_music'
+        td
+          = text_field_tag :enjoy_musics, @enjoy_musics, size: 40
+          span.pl
+            = t'e_music_tip'
+      tr
+        td class='mr'
+          = t'e_movie'
+        td
+          = text_field_tag :enjoy_movies, @enjoy_movies, size: 40
+          span.pl
+            = t'e_movie_tip'
       tr
         td
         td
-          = f.submit class: "btn-submit disabled enabled"
-
-          
+          = f.submit class: 'btn'

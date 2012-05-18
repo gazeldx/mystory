@@ -7,6 +7,7 @@
     <%#*<link href="/assets/stylesheets/create_note.css" rel="stylesheet" type="text/css">%>
     <%#*<link href="/assets/stylesheets/dialog.css" rel="stylesheet" type="text/css"/>%>
     <%= stylesheet_link_tag "style", "form" %>
+    <%= yield :stylesheet %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <style>

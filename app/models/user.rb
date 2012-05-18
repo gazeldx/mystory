@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   has_many :hobbies, :through => :rhobbies
   has_many :ridols, :dependent => :destroy
   has_many :idols, :through => :ridols
+  has_many :renjoys, :dependent => :destroy
+  has_many :enjoys, :through => :renjoys
   has_many :albums, :dependent => :destroy
   has_many :photos, :through => :albums
   has_many :photocomments, :dependent => :destroy

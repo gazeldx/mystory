@@ -5,26 +5,61 @@
   .xbar
     div
       = link_to t('edit_profile'), edit_profile_path
-table align='center' width='100%' cellpadding='5' style='clear:both' 
+table.b align='center' width='100%' cellpadding='5'
   tbody
-    tr
-      td align='right' valign='top' class='m' width='20%' 
-        | 出生年份:
-      td valign='top' 
-        = @user.birthday
-    tr
-      td align='right' valign='top' class='m' 
-        | 职业:
-      td valign='top' 
-        = @user.jobs
-    tr
-      td align='right' valign='top' class='m' 
-        | 公司:
-      td valign='top' 
-        = @user.company
-    tr
-      td align='right' valign='top' class='m' 
-        | 毕业学校:
-      td valign='top' 
-        = @user.school
-        
+    - unless @user.snslinks.to_s==''
+      tr
+        td class='mrw' width='20%'
+          | #{t'sns_links'}:
+        td
+          = @user.snslinks
+    - unless @user.birthday.to_s==''
+      tr
+        td class='mrw'
+          | #{t'birthdate_year'}:
+        td
+          = @user.birthday
+    - unless @user.company.to_s==''
+      tr
+        td class='mrw'
+          | #{t'company'}:
+        td
+          = @user.company
+    - unless @user.school.to_s==''
+      tr
+        td class='mrw'
+          | #{t'college'}:
+        td
+          = @user.school
+    - unless @enjoys.blank?
+      tr
+        td class='mrw'
+          | #{t'e_book'}:
+        td
+          - @enjoys.each do |enjoy|
+            = enjoy.name
+            | &nbsp;&nbsp;&nbsp;
+    - unless @enjoy_books.blank?
+      tr
+        td class='mrw'
+          | #{t'e_book'}:
+        td
+          - @enjoy_books.each do |enjoy|
+            = enjoy.name
+            | &nbsp;&nbsp;&nbsp;
+    - unless @enjoy_musics.blank?
+      tr
+        td class='mrw'
+          | #{t'e_music'}:
+        td
+          - @enjoy_musics.each do |enjoy|
+            = enjoy.name
+            | &nbsp;&nbsp;&nbsp;
+    - unless @enjoy_movies.blank?
+      tr
+        td class='mrw'
+          | #{t'e_movie'}:
+        td
+          - @enjoy_movies.each do |enjoy|
+            = enjoy.name
+            | &nbsp;&nbsp;&nbsp;

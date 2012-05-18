@@ -1074,6 +1074,7 @@ blockquote {
   width:130px;
   margin-right:10px
 }
+
 .m {
   font-size:$m;
   line-height:120%;
@@ -1096,6 +1097,14 @@ blockquote {
   color:#fff;
   text-decoration:none;
   background:#faf
+}
+.mr {
+  @extend .m;
+  text-align:right
+}
+.mrw {
+  @extend .mr;
+  width:20%
 }
 .pt {
   width:100%;

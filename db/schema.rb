@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425072600) do
+ActiveRecord::Schema.define(:version => 20120517071846) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20120425072600) do
   end
 
   add_index "customizes", ["user_id"], :name => "index_customizes_on_user_id"
+
+  create_table "enjoys", :force => true do |t|
+    t.string   "name"
+    t.integer  "stype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "fboards", :force => true do |t|
     t.integer  "user_id"
@@ -232,6 +239,16 @@ ActiveRecord::Schema.define(:version => 20120425072600) do
   add_index "rblogs", ["blog_id"], :name => "index_rblogs_on_blog_id"
   add_index "rblogs", ["user_id"], :name => "index_rblogs_on_user_id"
 
+  create_table "renjoys", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "enjoy_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "renjoys", ["enjoy_id"], :name => "index_renjoys_on_enjoy_id"
+  add_index "renjoys", ["user_id"], :name => "index_renjoys_on_user_id"
+
   create_table "rhobbies", :force => true do |t|
     t.integer  "user_id"
     t.integer  "hobby_id"
@@ -309,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20120425072600) do
     t.string   "school"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "snslinks"
   end
 
 end
