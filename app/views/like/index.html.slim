@@ -36,11 +36,7 @@
       - else
         li= url
   ul.mbt
-    - if @all.blank?
-      - if session[:id]==@user.id
-        | 你还没有关注任何人呢。点击页面左上角的“我的故事”，可以进入网站首页，看看有什么新鲜事，并关注一些人吧！
-      - else
-        | 他还没有关注任何人，也没有冒过泡，所以没有可显示的内容。
+    = render 'see_nothing'
     - @all.each do |item|
       - if item.is_a?(Note)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
@@ -51,7 +47,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  发日记 #{link_to item.title, site(user) + note_path(item)}&nbsp;
+              |  #{t'post_note'} #{link_to item.title, site(user) + note_path(item)}&nbsp;
             span.inq
               = summary_comment_portal(item, 140)
               = thumbs_here(item, 5)
@@ -71,7 +67,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  发表作品《#{link_to item.title, site(user) + blog_path(item)}》
+              |  #{t'blog.add'}《#{link_to item.title, site(user) + blog_path(item)}》
             span.inq
               = summary_comment_portal(item, 180)
               = thumbs_here(item, 5)
@@ -89,12 +85,12 @@
         li.mbtr
           = link_to item.user.name, site(item.user)
           span.pl1
-            |  推荐日记
+            |  #{t'recommend_note'}
           | :
           = item.body
           br
           span.inq
-            | &nbsp;&nbsp;原文 
+            | &nbsp;&nbsp;#{t'article_source'} 
             = link_to user.name, site(user)
             | : #{link_to note.title, site(user) + note_path(note)}&nbsp;
             = summary_comment_portal(note, 140)
@@ -110,14 +106,15 @@
         li.mbtr
           = link_to item.user.name, site(item.user)
           span.pl1
-            |  推荐作品
+            |  #{t'recommend_blog'}
           | :
           = item.body
           br
           span.inq
-            | &nbsp;&nbsp;原文 
+            | &nbsp;&nbsp;#{t'article_source'} 
             = link_to user.name, site(user)
-            span.pl1  发表作品
+            span.pl1
+              |  #{t'blog.add'}
             | 《#{link_to blog.title, site(user) + blog_path(blog)}》
             = summary_comment_portal(blog, 180)
             = thumbs_here(blog, 5)
@@ -134,13 +131,14 @@
         li.mbtr
           = link_to item.user.name, site(item.user)
           span.pl1
-            |  推荐照片
+            |  #{t'recommend_photo'}
           | :
           = item.body
           br
           span.inq
             = link_to user.name, site(user)
-            span.pl1  上传照片到&nbsp;
+            span.pl1
+              |  #{t'upload_photo_to'}&nbsp;
             = link_to album.name, site(user) + album_path(album)
             - unless photo.description.nil?
               br
@@ -161,7 +159,8 @@
         li.mbtr
           span.inq
             = link_to user.name, site(user)
-            span.pl1  上传照片到&nbsp;
+            span.pl1
+              |  #{t'upload_photo_to'}&nbsp;
             = link_to album.name, site(user) + album_path(album)
             - unless item.description.nil?
               br
@@ -181,7 +180,7 @@
         li.mbtr
           = link_to user.name, site(user)
           span.pl1
-            |  更新自传 #{link_to item.title, site(user) + memoirs_path}&nbsp;
+            |  #{t'update_memoir'} #{link_to item.title, site(user) + memoirs_path}&nbsp;
           span.inq
             = summary_no_comments_portal(item, 200)
             = thumbs_here(item, 5)
@@ -189,3 +188,5 @@
               = article_time item
             - if item.user_id == session[:id]
               = link_to t('edit'), edit_memoirs_path
+.b
+  = will_paginate @all

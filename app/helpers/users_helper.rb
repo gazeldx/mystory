@@ -313,6 +313,45 @@ module UsersHelper
     end
   end
 
+  def m_thumbs_here(something, n)
+    show = ""
+    flag = false
+    photos = scan_photos(something.content, n)
+    photos.each do |photo|
+      if @user.nil? or photo.album.user_id!=@user.id
+        flag = true
+        break
+      end
+    end
+
+    if flag
+      tab = "<table cellpadding='4'><tr style='vertical-align: middle;'>"
+      photos.each do |photo|
+        id = thumb_id(something, photo)
+        source_from = ""
+        if @user.nil? or photo.album.user_id!=@user.id
+          source_from = raw "<br/><span class='pl'>#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]</span>"
+        end
+        show += "<td>" + content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from + "</td>"
+      end
+      raw tab + show + "</tr></table>"
+    else
+      photos.each do |photo|
+        #TODO click show from which album!
+        id = thumb_id(something, photo)
+        p_ = content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}")
+        if show == ""
+          show = p_
+        else
+          show += raw("&nbsp;&nbsp;") + p_
+        end
+      end
+      if photos.size > 0
+        raw("<br/>") + show        
+      end
+    end
+  end
+
   private
   def thumb_id(something, photo)
     if something.is_a?(Note)

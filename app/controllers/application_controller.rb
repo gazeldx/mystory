@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :my_site, :site, :sub_site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img
+  helper_method :my_site, :site, :sub_site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :m
   protect_from_forgery
   before_filter :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -23,8 +23,16 @@ class ApplicationController < ActionController::Base
   end
 
   def query_user_by_domain
+    #puts request.domain
     if request.domain==DOMAIN_NAME
-      if request.subdomain == 'bbs'
+      #puts request.subdomain
+      if request.subdomain.match(/.+\.m/)
+        @user = User.find_by_domain(request.subdomain.sub(/\.m/, ""))
+        #puts @user.inspect
+        @m = true
+      elsif request.subdomain == 'm'
+        @m = true
+      elsif request.subdomain == 'bbs'
         @bbs_flag = true
       else
         @user = User.find_by_domain(request.subdomain)
@@ -174,6 +182,27 @@ class ApplicationController < ActionController::Base
         @tags[v] += 1
       end
       @tags = @tags.sort_by{|k, v| v}.reverse!
+    end
+  end
+
+  def mr
+    "m/#{controller_path}/#{params[:action]}"
+  end
+
+  def mn(name)
+    "m/#{controller_path}/#{name}"
+  end
+
+  def m(url)
+    url.sub(/#{DOMAIN_NAME}/, "m.#{DOMAIN_NAME}")
+  end
+
+  def m_or(url)
+    if @m
+      puts url
+      m(url)
+    else
+      url
     end
   end
 end

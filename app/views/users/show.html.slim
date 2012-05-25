@@ -12,7 +12,7 @@ table.b align='center' width='100%' cellpadding='5'
         td class='mrw' width='20%'
           | #{t'sns_links'}:
         td
-          = @user.snslinks
+          == auto_link " "+@user.snslinks
     - unless @user.birthday.to_s==''
       tr
         td class='mrw'

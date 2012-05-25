@@ -7,7 +7,7 @@
         = link_to t('_login'), SITE_URL
         = link_to t('_register'), SITE_URL + register_path
       - else
-        = link_to '动态', my_site + like_path
+        = link_to t('_active'), my_site + like_path
         /!= link_to t('plaza'), SITE_URL
         = link_to session[:name], my_site
         /!= link_to t('manage'), my_site + admin_path, title: t('_admin_title')

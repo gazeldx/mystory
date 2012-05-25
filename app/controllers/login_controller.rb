@@ -1,6 +1,12 @@
 class LoginController < ApplicationController
   layout 'portal_others'
 
+  def to_login
+    if @m
+      render mr, layout: 'm/portal'
+    end
+  end
+
   #login in home page
   def member_login
     if params[:loginname] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -17,12 +23,12 @@ class LoginController < ApplicationController
         @user = User.find_by_domain(params[:loginname])
         if @user.nil?
           flash[:error] = t'login.username_exist_password_wrong'
-          redirect_to root_path
+          go_redirect
         elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
           login_now
         else
           flash[:error] = t'login.user_exist_password_wrong'
-          redirect_to root_path
+          go_redirect
         end
       end
     end
@@ -36,7 +42,7 @@ class LoginController < ApplicationController
       flash[:error] = t'login.password_wrong'
       redirect_to "/login"
     end
-  end 
+  end
 
   private
 
@@ -44,7 +50,7 @@ class LoginController < ApplicationController
     session[:id] = @user.id
     session[:name] = @user.name
     session[:domain] = @user.domain
-    redirect_to my_site + like_path
+    redirect_to m_or(my_site + like_path)
   end
   
   def judge_user(r)
@@ -54,7 +60,7 @@ class LoginController < ApplicationController
       else
         flash[:error] = t'login.user_not_exist'
       end
-      redirect_to root_path
+      go_redirect
     elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
       login_now
     else
@@ -63,6 +69,14 @@ class LoginController < ApplicationController
       else
         flash[:error] = t'login.domain_exist_password_wrong'
       end
+      go_redirect
+    end
+  end
+
+  def go_redirect
+    if @m
+      redirect_to login_path
+    else
       redirect_to root_path
     end
   end

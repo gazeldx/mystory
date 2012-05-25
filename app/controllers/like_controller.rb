@@ -5,7 +5,6 @@ class LikeController < ApplicationController
     following = Follow.where(["follower_id = ?", @user.id])
     following_ids = following.collect{|f| f.followable_id}
     following_ids << @user.id
-#    @note = Note.new
     t = params[:t]
     if t.nil?
       notes = Note.where(user_id: following_ids).limit(30).order('id desc')
@@ -23,14 +22,14 @@ class LikeController < ApplicationController
         end
         all_ = all_ | memoirs
       end
-      @all = all_.sort_by{|x| x.created_at}.reverse!
+      @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
     elsif t == 'note'
-      @all = Note.where(user_id: following_ids).limit(50).order('id desc')
+      @all = Note.where(user_id: following_ids).limit(50).page(params[:page]).order('id desc')
     elsif t == 'blog'
-      @all = Blog.where(user_id: following_ids).limit(40).order('created_at desc')
+      @all = Blog.where(user_id: following_ids).limit(40).page(params[:page]).order('created_at desc')
     elsif t == 'photo'
       album_ids = Album.where(user_id: following_ids)
-      @all = Photo.where(album_id: album_ids).includes(:album).limit(50).order('photos.id desc')
+      @all = Photo.where(album_id: album_ids).includes(:album).limit(50).page(params[:page]).order('photos.id desc')
     elsif t == 'updated'
       notes = Note.where(user_id: following_ids).where("updated_at > created_at").limit(30).order('updated_at desc')
       blogs = Blog.where(user_id: following_ids).where("updated_at > created_at").limit(30).order('updated_at desc')
@@ -39,12 +38,16 @@ class LikeController < ApplicationController
       unless memoirs.blank?
         all_ = all_ | memoirs
       end
-      @all = all_.sort_by{|x| x.updated_at}.reverse!
+      #TODO paginate BUG? NOT SHOW 30 per page
+      @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 30)
     elsif t == 'recommend'
       rnotes = Rnote.where(user_id: following_ids).limit(30).order('id desc')
       rblogs = Rblog.where(user_id: following_ids).limit(20).order('id desc')
       rphotos = Rphoto.where(user_id: following_ids).limit(8).order('id desc')
-      @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
+      @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
+    end
+    if @m
+      render mr, layout: 'm/portal'
     end
   end
 end

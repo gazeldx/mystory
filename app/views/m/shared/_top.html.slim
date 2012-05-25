@@ -1,0 +1,19 @@
+.ctor-info
+  = link_to t('my_story'), m(SITE_URL)
+  | &nbsp;
+  = link_to t('_forum'), m(sub_site('bbs'))
+  | &nbsp;
+  - if session[:id].nil?
+    = link_to t('_login'), m(SITE_URL + login_path)
+    | &nbsp;
+    = link_to t('_register'), m(SITE_URL + register_path)
+  - else    
+    = link_to t('_active'), m(my_site + like_path)
+    | &nbsp;
+    = link_to session[:name], m(my_site)
+    | &nbsp;&nbsp;
+    = link_to t('write_note'), m(new_note_path)
+    | &nbsp;
+    = link_to t('p_blog'), m(new_blog_path)
+    | &nbsp;
+    = link_to t('upload_photo'), m(albums_path)

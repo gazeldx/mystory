@@ -49,6 +49,19 @@ zh:
   send_letters_to: "给%{w}发私信"
   send_again: "再发一封"
   _archive: "归档"
+  recommend_note: "推荐日记"
+  recommend_blog: "推荐作品"
+  recommend_photo: "推荐照片"
+
+
+  
+  #latest_blogs: "最近作品"
+  #latest_notes: "最近日记"
+  upload_photo_to: "上传照片到"
+  update_memoir: "更新自传"
+
+
+
 
   year: "年"
   month: "月"
@@ -192,6 +205,7 @@ zh:
 #  recommend_him: "推荐他"
 #  cancel_recommend_him: "取消推荐"
   _comment: "评论"
+  _active: "动态"
   active_state: "%{w}关注的人动态"
 #  i_now: "%{w}的动态"
   
@@ -287,12 +301,16 @@ zh:
   _memoir: "自传"
   _memoir_name: "自传名"
   write_note: "写日记"
+  post_note: "发日记"
+
   note:
     add: "写日记"
   blog:
     add: "发表作品"
     memo: "（作品按此排序）"
   _profile: "查看详细资料"
+  article_source: "原文"
+
 
   _time: "时间"
   time_format: "%Y年%m月%d日 %H:%M"
@@ -329,6 +347,8 @@ zh:
   manage: "管理"
   _admin_title: "管理我的帐号"
   _login: "登录"
+  login_items: "邮箱/帐号/域名"
+  _login2: "登  录"
   old_password_wrong: "原密码错误！"
   password_confirm_wrong: "两次输入的新密码不一致！"
   login:
@@ -345,7 +365,6 @@ zh:
   logout: "退出"
   password: "密码"
   edit_password: "修改密码"
-
   #member_login: "会员登录"
   register_new_user: "注册新用户"
   _register: "注册"
