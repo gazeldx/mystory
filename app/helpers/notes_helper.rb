@@ -23,4 +23,20 @@ module NotesHelper
     end
   end
 
+  def m_link_to_user_note(note)
+    if note.title.to_s==''
+      link_to t('s_note', w: note.created_at.strftime(t'date_format')), m(site(note.user) + note_path(note))
+    else
+      link_to note.title, m(site(note.user) + note_path(note))
+    end
+  end
+
+  def m_link_to_user_note_slim(note)
+    if note.title.to_s==''
+      link_to note.created_at.strftime(t'date_without_year'), m(site(note.user) + note_path(note))
+    else
+      link_to note.title, m(site(note.user) + note_path(note))
+    end
+  end
+  
 end

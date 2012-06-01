@@ -11,7 +11,7 @@
         /!= link_to t('plaza'), SITE_URL
         = link_to session[:name], my_site
         /!= link_to t('manage'), my_site + admin_path, title: t('_admin_title')
-        = link_to t('logout'), admin_logout_path
+        = link_to t('logout'), logout_path
     .top-nav-items
       ul
         li.on

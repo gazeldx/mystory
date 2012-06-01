@@ -15,21 +15,21 @@
       = t'title'
     br
     = f.text_field :title
-    | (可不填)
+    = t'can_empty'
   .row.note-text
     label.field
-      | 正文&nbsp;&nbsp;
+      | #{t'body'}&nbsp;&nbsp;
       = render 'shared/insert_photo'
     br
     = f.text_area :content, id: "note_text", style: "height: 200px;"
   .row.note-title
     label.field
       = t'_notecate'
-      - query_notecates
-      - if @_notecates.blank?
+      - @notecates = @user.notecates.order('created_at')
+      - if @notecates.blank?
         = text_field_tag :category_name, t('default_notecate_name'), size: 10, title: t('tip_auto_create_cate')
       - else
-        = collection_select :note, :notecate_id, @_notecates, :id, :name
+        = collection_select :note, :notecate_id, @notecates, :id, :name
     label.field
       | &nbsp;&nbsp;#{t'_tag'}
       = text_field_tag :tags, @tags, title: t('m_split_with_blank')

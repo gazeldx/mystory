@@ -29,7 +29,7 @@ class PostsController < ApplicationController
       @comments_uids = @all_comments.collect{|c| c.user_id}
       render layout: 'post_share'
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 

@@ -3,14 +3,13 @@
 - content_for :select_photos do
   = render 'shared/select_photos'
 = render 'shared/notice_error'
-/- @blog.tags.build
 = form_for @blog do |f|
   = error_msg @blog
   h2
     - if @blog.id.nil?
       = t'post_blog'
     - else
-      | 编辑作品
+      = t'edit_blog'
   .row.note-title
     label.field
       = t'title'
@@ -18,7 +17,7 @@
     = f.text_field :title, id: "note_title"
   .row.note-text
     label.field
-      | 正文
+      = t'body'
       = render 'shared/insert_photo'
     br
     = f.text_area :content, id: "note_text"

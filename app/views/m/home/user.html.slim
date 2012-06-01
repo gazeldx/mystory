@@ -1,0 +1,111 @@
+= render 'home/user_title'
+- url_pre = "/"
+- if params[:t].nil?
+  span.font-g id="t"
+    = t'all'
+- else
+  = link_to t('all'), url_pre
+| &#160;|&#160;
+- if params[:t] == 'note'
+  span.font-g id="t"
+    = t'_note'
+- else
+  = link_to t('_note'), url_pre + '?t=note'
+| &#160;|&#160;
+- if params[:t] == 'blog'
+  span.font-g id="t"
+    = t'_blog'
+- else
+  = link_to t('_blog'), url_pre + '?t=blog'
+| &#160;|&#160;
+- if params[:t] == 'photo'
+  span.font-g id="t"
+    = t'_photo'
+- else
+  = link_to t('_photo'), url_pre + '?t=photo'
+| &#160;|&#160;
+- if params[:t] == 'updated'
+  span.font-g id="t"
+    = t'latest_updated'
+- else
+  = link_to t('latest_updated'), url_pre + '?t=updated'
+| &#160;|&#160;
+- if params[:t] == 'recommend'
+  span.font-g id="t"
+    = t'recommend'
+- else
+  = link_to t('recommend'), url_pre + '?t=recommend'
+- @all.each do |item|
+  .cont-list
+    - user = @user
+    - if item.is_a?(Note)
+      = link_to user.name, m(site(user))
+      | :#{m_link_to_user_note_slim item}&nbsp;
+      | #{m_summary_comment_portal(item, 140)}&#160;
+      = m_thumbs_here(item, 1)
+    - elsif item.is_a?(Blog)
+      = link_to user.name, m(site(user))
+      | :《#{link_to item.title, m(site(user) + blog_path(item))}》 #{m_summary_comment_portal(item, 160)}&#160;
+      = m_thumbs_here(item, 1)
+    - elsif item.is_a?(Photo)
+      - album = item.album
+      - avatar = item.avatar
+      = link_to user.name, m(site(user))
+      | :#{t'upload_photo_to'}&nbsp;
+      = link_to album.name, m(site(user)+album_path(album))
+      - unless item.description.nil?
+        | &nbsp;
+        = item.description
+      br
+      a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')"
+        = image_tag(avatar.thumb.url)
+    - elsif item.is_a?(Rnote)
+      - note = item.note
+      - user = note.user
+      = link_to item.user.name, m(site(item.user))
+      | :#{t'recommend_note'}&nbsp;
+      = item.body
+      br
+      | &nbsp;【#{t'article_source'}
+      = link_to user.name, m(site(user))
+      | :#{m_link_to_user_note note}&nbsp;
+      | #{m_summary_comment_portal(note, 140)}&#160;#{m_thumbs_here(note, 1)}】
+    - elsif item.is_a?(Rblog)
+      - blog = item.blog
+      - user = blog.user
+      = link_to item.user.name, m(site(item.user))
+      | :#{t'recommend_blog'}&nbsp;
+      = item.body
+      br
+      | &nbsp;【#{t'article_source'}
+      = link_to user.name, m(site(user))
+      | :《#{link_to blog.title, m(site(user) + blog_path(blog))}》
+      | #{m_summary_comment_portal(blog, 140)}&#160;#{m_thumbs_here(blog, 1)}】
+    - elsif item.is_a?(Rphoto)
+      - photo = item.photo
+      - album = photo.album
+      - user = album.user
+      - avatar = photo.avatar
+      = link_to item.user.name, m(site(item.user))
+      | :#{t'recommend_photo'}&nbsp;
+      = item.body
+      br
+      | &nbsp;【#{t'article_source'}
+      = link_to user.name, m(site(user))
+      | :#{t'upload_photo_to'}&nbsp;
+      = link_to album.name, m(site(user)+album_path(album))
+      - unless photo.description.nil?
+        | &nbsp;
+        = photo.description
+      br
+      a id='photo_#{photo.id}' href='javascript:;' onclick="switchPhoto('photo_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')"
+        = image_tag(avatar.thumb.url)
+      | 】
+    - elsif item.is_a?(Memoir)
+      = link_to user.name, m(site(user))
+      | :#{t'update_memoir'} #{link_to item.title, m(site(user) + memoirs_path)}&nbsp;
+      = m_summary_no_comments_portal(item, 200)
+      = m_thumbs_here(item, 1)
+    em.font-g
+      | &#160;(#{item.created_at.strftime t'no_year'})
+= will_paginate @all

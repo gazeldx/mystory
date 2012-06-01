@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   def query_user_by_domain
     #puts request.domain
     if request.domain==DOMAIN_NAME
-      #puts request.subdomain
       if request.subdomain.match(/.+\.m/)
         @user = User.find_by_domain(request.subdomain.sub(/\.m/, ""))
         #puts @user.inspect
@@ -148,7 +147,7 @@ class ApplicationController < ActionController::Base
       mystr = mystr.sub(e[0], t('has_draft'))
     end
     mystr
-  end
+  end  
 
   def auto_photo(mystr)
     m = mystr.scan(/(\+photo(\d{2,})\+)/m)
@@ -170,6 +169,18 @@ class ApplicationController < ActionController::Base
       end
     end
     mystr
+  end
+
+  def r404
+    render text: t('page_not_found'), status: 404
+  end
+
+  def _render(str)
+    if @m
+      render mn(str), layout: 'm/portal'
+    else
+      render mn(str)
+    end
   end
 
   module Tags
@@ -199,7 +210,6 @@ class ApplicationController < ActionController::Base
 
   def m_or(url)
     if @m
-      puts url
       m(url)
     else
       url

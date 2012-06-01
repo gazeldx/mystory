@@ -6,6 +6,7 @@ class LikeController < ApplicationController
     following_ids = following.collect{|f| f.followable_id}
     following_ids << @user.id
     t = params[:t]
+    require 'will_paginate/array'
     if t.nil?
       notes = Note.where(user_id: following_ids).limit(30).order('id desc')
       blogs = Blog.where(user_id: following_ids).limit(15).order('created_at desc')

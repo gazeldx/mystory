@@ -3,7 +3,7 @@
 - else
   - _title = t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
 = title _title
-= summary @note.content[0..127-_title.size]
+= summary text_it_pure(@note.content)[0..S_SIZE-_title.size]
 - if flash[:notice2]
   #notice= flash[:notice2]
 div id='note-#{@note.id}'
@@ -32,6 +32,8 @@ div id='note-#{@note.id}'
           = @note.created_at.strftime t'h_m'
           | &nbsp;
           = update_info @note
+          | &nbsp;#{t'_cate'}
+          = link_to @note.notecate.name, @note.notecate
         - if @note.user_id == session[:id]
           | &nbsp;
           = link_to t('edit'), edit_note_path(@note)

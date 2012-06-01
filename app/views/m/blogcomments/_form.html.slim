@@ -1,0 +1,3 @@
+= form_for([@blog, @blog.blogcomments.build]) do |f|
+  = comment_form f
+= render 'm/shared/validate_comment'

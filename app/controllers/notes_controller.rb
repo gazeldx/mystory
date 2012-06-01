@@ -11,10 +11,15 @@ class NotesController < ApplicationController
   end
 
   def new
-    @note = Note.new
+    if session[:id] == @user.id
+      @note = Note.new
+      render mr, layout: 'm/portal' if @m
+    else
+      r404
+    end
   end
 
-  def create
+  def create    
     @note = Note.new(params[:note])
     @note.user_id = session[:id]
     if params[:category_name].nil?
@@ -30,9 +35,9 @@ class NotesController < ApplicationController
         if @category.name == ""
           flash[:error] = t'notecate.name_must_notnull'
         else
-          flash[:error] = t('taken',w: @category.name)
+          flash[:error] = t('taken', w: @category.name)
         end
-        render :new
+        _render :new
       end
     end
   end
@@ -43,7 +48,7 @@ class NotesController < ApplicationController
       flash[:notice2] = t'note_post_succ'
       redirect_to note_path(@note)
     else
-      render :new
+      _render :new
     end
   end
 
@@ -69,9 +74,13 @@ class NotesController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.notes.select('id')
       @rnotes = @user.r_notes.where(id: ids).limit(5)
-      render layout: 'memoir_share'
+      if @m
+        render mr, layout: 'm/portal'
+      else
+        render layout: 'memoir_share'
+      end
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 
@@ -79,6 +88,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @tags = @note.notetags.map { |t| t.name }.join(" ")
     authorize @note
+    render mr, layout: 'm/portal' if @m
   end
 
   def update
@@ -90,7 +100,7 @@ class NotesController < ApplicationController
       flash[:notice2] = t'update_succ'
       redirect_to note_path
     else
-      render :edit
+      _render :edit
     end
   end  
 

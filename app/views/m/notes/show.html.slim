@@ -1,0 +1,57 @@
+- if @note.title.to_s == ''
+  - _title = t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
+- else
+  - _title = t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+= title _title
+- if flash[:notice2]
+  #notice= flash[:notice2]
+span.txt-bold
+  - if @note.title.to_s!=''
+    = @note.title
+  - else
+    = t('s_note', w: @note.created_at.strftime(t'date_format'))
+- if @note.user_id == session[:id]
+  | &nbsp;
+  = link_to t('edit'), edit_note_path(@note)
+  | &nbsp;
+  = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
+br
+span
+  | #{link_to @user.name, m(site(@user))}&nbsp;
+  = @note.created_at.strftime t'time_format'
+  = t'write'
+  | &nbsp;
+  = update_info @note
+  | &nbsp;#{t'_cate'}
+  = link_to @note.notecate.name, @note.notecate
+br
+= style_it @note.content
+br
+= join_notetags(@note)
+br
+= t'_notecate_'
+- @notecates.each do |category|
+  | [
+  = m_link_to category.name, category
+  | ]&nbsp;&nbsp;
+br
+= t'a_new'
+- if @note_pre.nil?
+  = t'none'
+- else
+  = m_link_to_user_note @note_pre
+br
+= t'an_old'
+- if @note_next.nil?
+  = t'none'
+- else
+  = m_link_to_user_note @note_next
+br
+- unless @rnotes.blank?
+  = t'_recommend'
+  br
+  - @rnotes.each do |note|
+    = m_link_to_user_note note
+    br
+- @clazz = 'note'
+= render 'm/shared/comments'

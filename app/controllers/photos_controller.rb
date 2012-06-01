@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       render layout: 'album_share'
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 

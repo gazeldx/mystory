@@ -8,3 +8,5 @@ Cms::Application.initialize!
 #SITE_URL = "http://" + DOMAIN_NAME
 DOMAIN_NAME = "mystory2.cc"
 SITE_URL = "http://" + DOMAIN_NAME + ":8080"
+
+S_SIZE=115

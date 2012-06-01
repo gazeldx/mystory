@@ -1,3 +1,5 @@
+$s: 13px;
+$m: 14px;
 /* Reset */
 body,div,p,a,table,textarea,form,input,img,ul,li{ margin:0; padding:0;}
 body{vertical-align:middle;color:#303030;line-height:150%;margin:0;padding:0; background:#ffffff;-webkit-text-size-adjust: none;}
@@ -68,7 +70,7 @@ textarea{width:98%;margin:4px 0;border: 1px solid #acd456;}
 /*æ–‡å­—***************************************************************************************/
 a,a:link,.font-blue{color:#0051a4;text-decoration:none}
 .font-b {color:#000000;}
-.font-g{color:#9b9b9b}
+.pl,.font-g{color:#9b9b9b}
 .font-green{color:#348713}
 .font-red{color:#df550c}
 .a_title{color:#303030; text-decoration:none;}
@@ -149,3 +151,35 @@ a.clientcomputer {background-position:0 -65px}
 	.navtop3 a{ color:#fff;margin:0 10px 0 0;}
 .navtop4{ background:#7bd3ed url(http://3gimg.qq.com:8080/info/wap2.0/chl_common/main_nav_r4.png) no-repeat; line-height:18px; color:#fff; padding:3px 0 3px 12px;}
 	.navtop4 a{ color:#fff;margin:0 10px 0 0;}
+
+#notice {color: green;font-size:$m}
+#error {color: red;font-size:$m}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: $m;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: $s;
+/*    list-style: square; */
+  }
+}

@@ -25,15 +25,6 @@
       <%= render 'shared/footer' %>
     </div>
     <%= yield :select_photos %>
-    <script type="text/javascript" >
-      var jiathis_config={
-        siteNum:6,
-        sm:"tsina,tqq,qzone,renren,tsohu,douban",
-        url:"<%= request.url %>",
-        summary:"<%= yield :summary %>",
-        title:"<%= yield :title %>"
-      }
-    </script>
-    <script type="text/javascript" src="http://v2.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+    <%= render 'shared/share_js' %>
   </body>
 </html>

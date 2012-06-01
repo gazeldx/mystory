@@ -17,20 +17,30 @@ class BlogsController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.blogs.select('id')
       @rblogs = @user.r_blogs.where(id: ids).limit(5)
-      render layout: 'memoir_share'
+      if @m
+        render mr, layout: 'm/portal'
+      else
+        render layout: 'memoir_share'
+      end
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 
   def new
-    @blog = Blog.new
+    if session[:id] == @user.id
+      @blog = Blog.new
+      render mr, layout: 'm/portal' if @m
+    else
+      r404
+    end
   end
 
   def edit
     @blog = Blog.find(params[:id])
     @tags = @blog.tags.map { |t| t.name }.join(" ")
     authorize @blog
+    render mr, layout: 'm/portal' if @m
   end
 
   def create
@@ -51,7 +61,7 @@ class BlogsController < ApplicationController
         else
           flash[:error] = t('taken',w: @category.name)
         end
-        render :new
+        _render :new
       end
     end
   end
@@ -62,7 +72,7 @@ class BlogsController < ApplicationController
       flash[:notice2] = t'blog_posted'
       redirect_to blog_path(@blog)
     else
-      render :new
+      _render :new
     end
   end
 
@@ -75,7 +85,7 @@ class BlogsController < ApplicationController
       flash[:notice2] = t'update_succ'
       redirect_to blog_path
     else
-      render :edit
+      _render :edit
     end
   end
 

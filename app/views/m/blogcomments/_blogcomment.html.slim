@@ -1,0 +1,9 @@
+- @all_comments.each_with_index do |comment, ci|
+  - user = comment.user
+  = link_to user.name, m(site(user))
+  span.pl
+    = comment.created_at.strftime(t'time_format')
+  p
+    - if comment.is_a?(Rblog)
+      = t'recommend_reason'
+    = comment_info comment.body

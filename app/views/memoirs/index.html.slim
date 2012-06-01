@@ -1,6 +1,6 @@
 - _title = t('s_memoir', w: @user.name, c: @memoir.nil? ? "" : @memoir.title)
 = title _title
-= summary @memoir.content[0..127-_title.size] unless @memoir.nil?
+= summary text_it_pure(@memoir.content)[0..S_SIZE-_title.size] unless @memoir.nil?
 - if @memoir.nil?
   .table
     | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。

@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 
   def index
     if @m
+      require 'will_paginate/array'
       if @user.nil?
         t = params[:t]
         if t.nil?
@@ -22,35 +23,35 @@ class HomeController < ApplicationController
         if t.nil?
           notes = @user.notes.limit(30)
           blogs = @user.blogs.limit(10)
-          photos = Photo.where(album_id: @user.albums).includes(:album).limit(5)
+          photos = Photo.where(album_id: @user.albums).includes(:album).limit(6)
           all_ = notes | blogs | photos
           memoir = @user.memoir
           unless memoir.nil?
             memoir.created_at = memoir.updated_at
             all_ << memoir
           end
-          @all = all_.sort_by{|x| x.created_at}.reverse!
+          @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'note'
-          @all = @user.notes.limit(50).order('created_at desc')
+          @all = @user.notes.limit(50).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'blog'
-          @all = @user.blogs.limit(40).order('created_at desc')
+          @all = @user.blogs.limit(40).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'photo'
-          @all = Photo.where(album_id: @user.albums).includes(:album).limit(20).order('id desc')
+          @all = Photo.where(album_id: @user.albums).includes(:album).limit(20).order('id desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'updated'
           notes = @user.notes.where("updated_at > created_at").limit(30)
           blogs = @user.blogs.where("updated_at > created_at").limit(30)
           all_ = notes | blogs
           memoir = @user.memoir
           all_ << memoir unless memoir.nil?
-          @all = all_.sort_by{|x| x.updated_at}.reverse!
+          @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'recommend'
           rnotes = @user.rnotes.includes(:note => :user).limit(30)
           rblogs = @user.rblogs.includes(:blog => :user).limit(15)
           rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(5)
-          @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
+          @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         end
-        render mn(:user), layout: 'm/user'
-      end      
+        render mn(:user), layout: 'm/portal'
+      end
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
@@ -112,6 +113,18 @@ class HomeController < ApplicationController
       end
     end
   end
+
+  def logout
+    session[:id] = nil
+    session[:name] = nil
+    session[:domain] = nil
+    if @m      
+      redirect_to m(SITE_URL + login_path)
+    else
+      redirect_to root_path
+    end
+  end
+  
 end
 
 class Array

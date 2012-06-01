@@ -12,8 +12,8 @@
     | &nbsp;
     = link_to session[:name], m(my_site)
     | &nbsp;&nbsp;
-    = link_to t('write_note'), m(new_note_path)
+    = link_to t('write_note'), m(sub_site(session[:domain])+new_note_path)
     | &nbsp;
-    = link_to t('p_blog'), m(new_blog_path)
+    = link_to t('p_blog'), m(sub_site(session[:domain])+new_blog_path)
     | &nbsp;
     = link_to t('upload_photo'), m(albums_path)

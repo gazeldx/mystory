@@ -18,7 +18,7 @@ module CommentsHelper
       _form = _h2 + _form_
     end
     _comments + _notice + _form
-  end
+  end  
 
   def reply_info(reply)
     r = reply.match(/^(\d{10} )(.*)/)

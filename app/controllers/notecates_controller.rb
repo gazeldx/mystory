@@ -46,7 +46,7 @@ class NotecatesController < ApplicationController
       @notes = @notecate.notes.page(params[:page]).order("created_at DESC")
       @notecates = @user.notecates.order('created_at')
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 

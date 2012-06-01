@@ -59,7 +59,7 @@ class LettersController < ApplicationController
       @rletters = @user.r_letters.where(id: ids).limit(5)
       render layout: 'memoir_share'
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 

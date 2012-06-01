@@ -1,7 +1,7 @@
 - _title = t('post_title', p: @post.title, b: @post.board.name)
 = title _title
 = h @post.title
-= summary @post.content[0..127-_title.size]
+= summary text_it_pure(@post.content)[0..S_SIZE-_title.size]
 - user = @post.user
 .topic-content.clearfix
   .user-face

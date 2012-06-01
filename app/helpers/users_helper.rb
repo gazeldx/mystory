@@ -21,10 +21,6 @@ module UsersHelper
 
   def summary_no_comments(something, size)
     tmp = text_it(something.content[0, size])
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
     if something.is_a?(Memoir)
       link_url = memoirs_path
     else
@@ -39,16 +35,31 @@ module UsersHelper
     #    end
   end
 
+  def ignore_image_tag(str)
+    m = str.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      str = str.sub(e, "")
+    end
+    str
+  end
+
   def summary_no_comments_portal(something, size)
     tmp = text_it(something.content[0, size])
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
     if something.is_a?(Memoir)
       link_url = site(something.user) + memoirs_path
     else
       link_url = site(something.user) + something
+    end
+    p = tmp + t('etc') + (link_to t('whole_article') , link_url)
+    raw p
+  end
+
+  def m_summary_no_comments_portal(something, size)
+    tmp = text_it(something.content[0, size])
+    if something.is_a?(Memoir)
+      link_url = m(site(something.user) + memoirs_path)
+    else
+      link_url = m(site(something.user) + something)
     end
     p = tmp + t('etc') + (link_to t('whole_article') , link_url)
     raw p
@@ -136,13 +147,19 @@ module UsersHelper
 #    end
   end
 
+  def m_summary_comment_portal(something, size)
+    tmp = summary_comment_c(something, size)
+#    n = m.size
+#    if n > 1
+#      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
+#    else
+    m_summary_common_portal(something, size, tmp)
+#    end
+  end
+
   def summary_comment_c(something, size)
     tmp = text_it(something.content[0, size])
     tmp = text_it(something.content)[0, size] if tmp.match(/##/m)
-    m = tmp.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      tmp = tmp.sub(e, "")
-    end
     tmp
   end
 
@@ -181,20 +198,59 @@ module UsersHelper
       raw tmp + (link_to comments, site(something.user) + path)
     end
   end
+
+  def m_summary_common_portal(something, size, tmp)
+    if something.is_a?(Note)
+      path = note_path(something)
+      count = something.notecomments.count
+    elsif something.is_a?(Blog)
+      path = blog_path(something)
+      count = something.blogcomments.count
+    end
+    comments = ""
+    if count > 0
+      comments = ' ' + t('comments', w: count)
+    end
+    if something.content.size > size
+      raw tmp + t('etc') + (link_to t('whole_article') + comments, m(site(something.user) + path))
+    else
+      raw tmp + (link_to comments, m(site(something.user) + path))
+    end
+  end
+
+  def text_it_pure(something)
+    s = ignore_draft(something.gsub(/\r\n/,' '))
+    s = ignore_img(s)
+    s = ignore_image_tag(s)
+    raw ignore_style_tag(s)
+  end
   
   def text_it(something)
     s = auto_draft(something.gsub(/\r\n/,'&nbsp;'))
     s = auto_link(s)
     s = ignore_img(s)
+    s = ignore_image_tag(s)
+    raw ignore_style_tag(s)
+  end
+
+  def ignore_style_tag(s)
     m = s.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
     m.each do |e|
       unless e[1].nil?
         s = s.sub(e[0], e[2])
       end
     end
-    raw s
+    s
   end
 
+  def ignore_draft(mystr)
+    m = mystr.scan(/(##(.*?)##)/m)
+    m.each do |e|
+      mystr = mystr.sub(e[0], " ")
+    end
+    mystr
+  end
+  
   def summary_comment_style(something, size)
     _style = style_it(something.content[0, size])
     summary_common(something, size, _style)

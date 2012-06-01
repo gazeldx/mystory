@@ -46,7 +46,7 @@ class CategoriesController < ApplicationController
       @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
       @categories = @user.categories.order('created_at')
     else
-      render text: t('page_not_found'), status: 404
+      r404
     end
   end
 
