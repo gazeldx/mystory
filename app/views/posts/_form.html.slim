@@ -16,7 +16,7 @@
     = f.text_field :title, id: "note_title"
   .row.note-text
     label.field
-      | 正文
+      = t'body'
       = render 'shared/insert_photo'
     br
     = f.text_area :content, id: "note_text"

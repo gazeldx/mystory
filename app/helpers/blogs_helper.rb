@@ -1,4 +1,5 @@
 module BlogsHelper
+  
   def post_info(blog)
     info = blog.created_at.strftime t('time_format')
     info += ' ' + t('posted_in') + ' ['

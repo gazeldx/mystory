@@ -52,6 +52,10 @@ zh:
   recommend_note: "推荐日记"
   recommend_blog: "推荐作品"
   recommend_photo: "推荐照片"
+  left_book: "《"
+  right_book: "》"
+  left_square: "【"
+  right_square: "】"
 
   can_empty: "(可不填)"
   body: "正文"
@@ -63,7 +67,7 @@ zh:
   update_memoir: "更新自传"
 
 
-
+  big_pic: "大图"
 
   year: "年"
   month: "月"
@@ -118,7 +122,11 @@ zh:
   _cate: "分类："
   default_notecate_name: "我的日记"
   default_category_name: "我的作品"
+  default_album_name: "生活照"
   tip_auto_create_cate: "填写后将自动创建分类"
+  continue_upload_photo: "继续上传照片"
+
+
   category:
     name: "分类名"
     edit: "编辑作品分类"
@@ -200,6 +208,7 @@ zh:
   see_what_he_edit: "看他推荐的内容"
   note_post_succ: "日记发布成功！"
   photo_upload_succ: "照片上传成功！"
+  photo_updated_succ: "照片描述修改成功！您可以继续上传照片。"
   
   all: "全部"
   recommend: "推荐"
@@ -215,7 +224,8 @@ zh:
   ren: "人"
   #all: "阅读全文"
   site:
-    desc: "分享“我的故事”，让生活更美"
+    desc: "我的故事"
+    seotitle: "我的故事 facebook"
 #    desc: "人，诗意处栖居！"
   more: "更多"
   avatar: "头像"
@@ -282,14 +292,20 @@ zh:
   s_category: "%{w2} - %{w}作品"
   s_notecate: "%{w2} - %{w}日记"
   s_album_in: "%{w2} - %{w}影集"
+  s_album_add: "添加照片 - %{w}影集"
+  s_album_title: "%{w2} - %{w}影集"
   s_categories: "%{w}作品分类"
   _recommend: "推荐阅读："
+  _my_boards: "我的讨论版："
+  all_boards: "所有讨论版"
+
 
   r_note: "%{w}推荐的日记"
   r_blog: "%{w}推荐的作品"
 
   edit_hobby: "编辑爱好"
   upload_now: "开始上传"
+  _hobby_: "爱好:"
 
   i_follow: "我关注的人"
   follow_him: "加关注"
@@ -301,6 +317,7 @@ zh:
   _album: "影集"
     
   add_photos: "添加照片"
+  choose_photo: "选择照片"
   _vedio: "视频"
   _memoir: "自传"
   _memoir_name: "自传名"
@@ -405,6 +422,7 @@ zh:
   post_blog: "发表作品"
   p_blog: "发作品"
   upload_photo: "传照片"
+  photo_uploaded: "照片上传成功"
   blog_posted: "作品发表成功！"
   letter_sent: "私信已发送！"
   hot_note: "热门日记"
@@ -683,7 +701,10 @@ zh:
       album:
         name: "影集名称"
         description: "影集描述"
-
+      photo:
+        avatar: "照片"
+      post:
+        title: "标题"
 
   helpers:
     select:

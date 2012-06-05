@@ -3,13 +3,15 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.where(["user_id = ?", @user.id]).order("created_at")
+    render mr, layout: 'm/portal' if @m
   end
 
   def show
     #TODO SHOW PAGE?
     @album = Album.find(params[:id])
     if @album.user == @user
-      @photos = Photo.where(["album_id = ?", params[:id]]).order("created_at DESC")
+      @photos = Photo.where(["album_id = ?", params[:id]]).order("created_at DESC").page(params[:page])
+      render mr, layout: 'm/portal' if @m
     else
       r404
     end

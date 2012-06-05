@@ -26,29 +26,11 @@
 - @all.each do |item|
   .cont-list
     - if item.is_a?(Note)
-      - user = item.user
-      = link_to user.name, m(site(user))
-      | :#{m_link_to_user_note_slim item}&nbsp;
-      | #{m_summary_comment_portal(item, 140)}&#160;
-      = m_thumbs_here(item, 1)
+      = m_note_i item
     - elsif item.is_a?(Blog)
-      - user = item.user      
-      = link_to user.name, m(site(user))
-      | :《#{link_to item.title, m(site(user) + blog_path(item))}》 #{m_summary_comment_portal(item, 160)}&#160;
-      = m_thumbs_here(item, 1)
+      = m_blog_i item
     - elsif item.is_a?(Photo)
-      - album = item.album
-      - user = album.user
-      - avatar = item.avatar      
-      = link_to user.name, m(site(user))
-      | :#{t'upload_photo_to'}&nbsp;
-      = link_to album.name, m(site(user)+album_path(album))
-      - unless item.description.nil?
-        | &nbsp;
-        = item.description
-      br
-      a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')"
-        = image_tag(avatar.thumb.url)
+      = m_photo_i item
     em.font-g
       | &#160;(#{item.created_at.strftime t'no_year'})
 = will_paginate @all

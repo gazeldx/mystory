@@ -6,11 +6,11 @@
 - else
   span.txt-bold
     - if @comments_uids.include?(session[:id])
-      = t'add_comment'
+      = t'add_reply'
     - else
-      = t'post_comment'
-    = render "m/#{@clazz}comments/form"
+      = t'post_reply'
+    = render "m/postcomments/form"
 - unless @all_comments.blank?
-  | 共#{@all_comments.size}条评论
+  | 共#{@all_comments.size}条回复
 br
-= render "m/#{@clazz}comments/#{@clazz}comment"
+= render "m/postcomments/postcomments"

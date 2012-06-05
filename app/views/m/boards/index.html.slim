@@ -1,0 +1,16 @@
+= title t('sub_site', w: t('_forum'))
+- unless session[:id].nil?  
+  a href='my'
+    = t'my_posts'
+  br
+  = t'_my_boards'
+  = t'none_board' if @fboards.blank?
+  - @fboards.each do |fboard|
+    = link_to fboard.board.name, fboard.board.id.to_s
+    | &nbsp;&nbsp;
+  br
+= t'all_boards'
+br
+- @boards.each do |board|
+  = link_to "#{board.name}", "#{board.id}"
+  | (#{board.posts.count})&nbsp;&nbsp;

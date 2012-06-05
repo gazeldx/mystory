@@ -1,0 +1,4 @@
+= form_for([@post, @post.postcomments.build]) do |f|
+  = comment_form f
+- @clazz = "post"
+= render 'm/shared/validate_comment'

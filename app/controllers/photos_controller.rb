@@ -43,9 +43,7 @@ class PhotosController < ApplicationController
     @album = Album.find(params[:album_id])
     @photo = @album.photos.build(params[:photo])
     if @photo.save
-      if @album.photos.size == 1
-        @album.update_attribute(:photo_id, @photo.id)
-      end
+      @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
       redirect_to album_path(@album), notice: t('photo_upload_succ')
     else
       render :new
@@ -70,4 +68,38 @@ class PhotosController < ApplicationController
     @photo.destroy
     redirect_to album_path(@photo.album), notice: t('delete_succ')
   end
+
+  def m_new
+    if session[:id] == @user.id
+      @photo = Photo.new
+      render mr, layout: 'm/portal'
+    else
+      r404
+    end
+  end
+
+  def m_upload_photo
+    if params[:photo][:album_id].nil?
+      @album = Album.new
+      @album.name = t'default_album_name'
+      @album.user_id = session[:id]
+      @album.save
+    else
+      @album = Album.find(params[:photo][:album_id])
+    end
+    @photo = @album.photos.build(params[:photo])
+    if @photo.save
+      @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
+      render mn('photo_uploaded'), layout: 'm/portal'
+    else
+      render mn('m_new'), layout: 'm/portal'
+    end
+  end
+
+  def m_update_photo
+    @photo = Photo.find(params[:photo][:id])
+    @photo.update_attribute('description', params[:photo][:description])    
+    redirect_to upload_photo_path, notice: t('photo_updated_succ')
+  end
+
 end

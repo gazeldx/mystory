@@ -388,14 +388,14 @@ module UsersHelper
         if @user.nil? or photo.album.user_id!=@user.id
           source_from = raw "<br/><span class='pl'>#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]</span>"
         end
-        show += "<td>" + content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from + "</td>"
+        show += "<td>" + content_tag(:a, image_tag(photo.avatar.mthumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.mthumb.url}')", title: "#{t('click_enlarge')}") + source_from + "</td>"
       end
       raw tab + show + "</tr></table>"
     else
       photos.each do |photo|
         #TODO click show from which album!
         id = thumb_id(something, photo)
-        p_ = content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}")
+        p_ = content_tag(:a, image_tag(photo.avatar.mthumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.mthumb.url}')", title: "#{t('click_enlarge')}")
         if show == ""
           show = p_
         else

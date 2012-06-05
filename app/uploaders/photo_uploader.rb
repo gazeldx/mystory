@@ -18,6 +18,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [170, nil]
   end
 
+  version :mthumb do
+    process :resize_to_limit => [120, 120]
+  end
+
   #TODO Donot generate this ever pic.Just when use it.
   version :cover do
     process :resize_to_fill => [170, 170]

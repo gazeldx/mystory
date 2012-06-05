@@ -4,16 +4,16 @@
   = link_to t('_forum'), m(sub_site('bbs'))
   | &nbsp;
   - if session[:id].nil?
-    = link_to t('_login'), m(SITE_URL + login_path)
+    = link_to t('_login'), m(SITE_URL+login_path)
     | &nbsp;
-    = link_to t('_register'), m(SITE_URL + register_path)
+    = link_to t('_register'), m(SITE_URL+register_path)
   - else    
-    = link_to t('_active'), m(my_site + like_path)
+    = link_to t('_active'), m(my_site+like_path)
     | &nbsp;
     = link_to session[:name], m(my_site)
-    | &nbsp;&nbsp;
-    = link_to t('write_note'), m(sub_site(session[:domain])+new_note_path)
+    br
+    = link_to t('write_note'), m(my_site+new_note_path)
     | &nbsp;
-    = link_to t('p_blog'), m(sub_site(session[:domain])+new_blog_path)
+    = link_to t('p_blog'), m(my_site+new_blog_path)
     | &nbsp;
-    = link_to t('upload_photo'), m(albums_path)
+    = link_to t('upload_photo'), m(my_site+upload_photo_path)

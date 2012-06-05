@@ -3,7 +3,14 @@ class HomeController < ApplicationController
   def index
     if @m
       require 'will_paginate/array'
-      if @user.nil?
+      if @bbs_flag
+        @boards = Board.order("created_at DESC")
+        unless session[:id].nil?
+          #@board = Board.new
+          @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
+        end
+        render 'm/boards/index', layout: 'm/portal'
+      elsif @user.nil?
         t = params[:t]
         if t.nil?
           blogs = Blog.includes(:user).order("id desc").limit(30)
@@ -23,7 +30,7 @@ class HomeController < ApplicationController
         if t.nil?
           notes = @user.notes.limit(30)
           blogs = @user.blogs.limit(10)
-          photos = Photo.where(album_id: @user.albums).includes(:album).limit(6)
+          photos = Photo.where(album_id: @user.albums).includes(:album).limit(6).order('id desc')
           all_ = notes | blogs | photos
           memoir = @user.memoir
           unless memoir.nil?
@@ -55,8 +62,8 @@ class HomeController < ApplicationController
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
-        @board = Board.new
         unless session[:id].nil?
+          @board = Board.new
           @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
         end
         render 'boards/index', layout: 'help'
@@ -123,6 +130,10 @@ class HomeController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def notice
+    render layout: 'm/portal'
   end
   
 end

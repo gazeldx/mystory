@@ -3,9 +3,6 @@
   .cont-list class=first_style
     - user = comment.user
     = link_to user.name, m(site(user))
-    span.pl
-      = comment.created_at.strftime(t'no_year')
-    p
-      - if comment.is_a?(Rnote)
-        = t'recommend_reason'
-      = comment_info comment.body
+    | :#{p_comment_info comment.body}
+    em.font-g
+      | &nbsp;(#{comment.created_at.strftime(t'no_year')})

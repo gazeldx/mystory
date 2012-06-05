@@ -26,9 +26,14 @@ class ApplicationController < ActionController::Base
     #puts request.domain
     if request.domain==DOMAIN_NAME
       if request.subdomain.match(/.+\.m/)
-        @user = User.find_by_domain(request.subdomain.sub(/\.m/, ""))
-        #puts @user.inspect
         @m = true
+        three_domain = request.subdomain.sub(/\.m/, "")
+        if three_domain == 'bbs'
+          @bbs_flag = true
+        else
+          @user = User.find_by_domain(three_domain)
+        end
+        #puts @user.inspect        
       elsif request.subdomain == 'm'
         @m = true
       elsif request.subdomain == 'bbs'
@@ -158,13 +163,15 @@ class ApplicationController < ActionController::Base
         unless photo.description.nil?
           ta = ":"
         end
-        source_from = " [<a href='#{site(photo.album.user)+ album_path(photo.album)}'>#{photo.album.name}</a>]"
-        if @user.nil? or photo.album.user_id!=@user.id
-          source_from = "#{t('source_from')}<a href='#{site(photo.album.user)}'>#{photo.album.user.name}</a>#{t('his_album')}" + source_from
+        album = photo.album
+        user = album.user
+        source_from = " [<a href='#{m_or(site(user) + album_path(album))}'>#{album.name}</a>]"
+        if @user.nil? or user.id!=@user.id
+          source_from = "#{t('source_from')}<a href='#{m_or(site(user))}'>#{user.name}</a>#{t('his_album')}" + source_from
         else
           source_from = "#{t('source_from')}#{t('_album')}" + source_from
         end
-        g = "<div style='text-align:center'><img src='#{photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{source_from} #{ta} #{photo.description}</span></div>"
+        g = "<div style='text-align:center'><img src='#{@m ? photo.avatar.thumb.url : photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{source_from} #{ta} #{photo.description}</span></div>"
         mystr = mystr.sub(e[0], g)
       end
     end
@@ -215,4 +222,6 @@ class ApplicationController < ActionController::Base
       url
     end
   end
+
+  
 end

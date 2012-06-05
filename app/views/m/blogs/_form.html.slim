@@ -17,7 +17,7 @@
   = t'_category'
   - query_categories
   - if @_categories.blank?
-    = text_field_tag :category_name, t('default_category_name'), size: 10, title: t('tip_auto_create_cate')
+    = text_field_tag :category_name, t('default_category_name'), size: 10
   - else
     = collection_select :blog, :category_id, @_categories, :id, :name
   | &nbsp;&nbsp;#{t'_tag'}

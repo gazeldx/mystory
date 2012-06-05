@@ -1,4 +1,33 @@
 = render 'home/user_title'
+table width="100%"
+  tr
+    td width="40" valign="top"
+      a href=m(site(@user))
+        = image_tag(@user.avatar.thumb.url)
+    td valign="top" class="td-left"
+      strong
+        = @user.name
+      | &nbsp;
+      = @user.city
+      | &nbsp;
+      = @user.jobs
+      br
+      = link_to '查看资料', profile_path
+      - unless @user.maxim.nil?
+        | (#{@user.maxim})
+p
+  = @user.memo
+.ctor-info.guset-br
+  = link_to t('following') + @user.follow_count.to_s, following_path
+  |  |&nbsp;
+  = link_to t('followers') + @user.followers_count.to_s, followers_path
+  |  |&nbsp;
+  = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, blogs_path
+  p
+    - @user.hobbies.each_with_index do |hobby, i|
+      - if i==0
+        = t'_hobby_'
+      | #{hobby.name}&nbsp;
 - url_pre = "/"
 - if params[:t].nil?
   span.font-g id="t"
@@ -39,73 +68,19 @@
   .cont-list
     - user = @user
     - if item.is_a?(Note)
-      = link_to user.name, m(site(user))
-      | :#{m_link_to_user_note_slim item}&nbsp;
-      | #{m_summary_comment_portal(item, 140)}&#160;
-      = m_thumbs_here(item, 1)
+      = m_note_i item
     - elsif item.is_a?(Blog)
-      = link_to user.name, m(site(user))
-      | :《#{link_to item.title, m(site(user) + blog_path(item))}》 #{m_summary_comment_portal(item, 160)}&#160;
-      = m_thumbs_here(item, 1)
+      = m_blog_i item
     - elsif item.is_a?(Photo)
-      - album = item.album
-      - avatar = item.avatar
-      = link_to user.name, m(site(user))
-      | :#{t'upload_photo_to'}&nbsp;
-      = link_to album.name, m(site(user)+album_path(album))
-      - unless item.description.nil?
-        | &nbsp;
-        = item.description
-      br
-      a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')"
-        = image_tag(avatar.thumb.url)
+      = m_photo_i item
     - elsif item.is_a?(Rnote)
-      - note = item.note
-      - user = note.user
-      = link_to item.user.name, m(site(item.user))
-      | :#{t'recommend_note'}&nbsp;
-      = item.body
-      br
-      | &nbsp;【#{t'article_source'}
-      = link_to user.name, m(site(user))
-      | :#{m_link_to_user_note note}&nbsp;
-      | #{m_summary_comment_portal(note, 140)}&#160;#{m_thumbs_here(note, 1)}】
+      = m_rnote_i item
     - elsif item.is_a?(Rblog)
-      - blog = item.blog
-      - user = blog.user
-      = link_to item.user.name, m(site(item.user))
-      | :#{t'recommend_blog'}&nbsp;
-      = item.body
-      br
-      | &nbsp;【#{t'article_source'}
-      = link_to user.name, m(site(user))
-      | :《#{link_to blog.title, m(site(user) + blog_path(blog))}》
-      | #{m_summary_comment_portal(blog, 140)}&#160;#{m_thumbs_here(blog, 1)}】
+      = m_rblog_i item
     - elsif item.is_a?(Rphoto)
-      - photo = item.photo
-      - album = photo.album
-      - user = album.user
-      - avatar = photo.avatar
-      = link_to item.user.name, m(site(item.user))
-      | :#{t'recommend_photo'}&nbsp;
-      = item.body
-      br
-      | &nbsp;【#{t'article_source'}
-      = link_to user.name, m(site(user))
-      | :#{t'upload_photo_to'}&nbsp;
-      = link_to album.name, m(site(user)+album_path(album))
-      - unless photo.description.nil?
-        | &nbsp;
-        = photo.description
-      br
-      a id='photo_#{photo.id}' href='javascript:;' onclick="switchPhoto('photo_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')"
-        = image_tag(avatar.thumb.url)
-      | 】
+      = m_rphoto_i item
     - elsif item.is_a?(Memoir)
-      = link_to user.name, m(site(user))
-      | :#{t'update_memoir'} #{link_to item.title, m(site(user) + memoirs_path)}&nbsp;
-      = m_summary_no_comments_portal(item, 200)
-      = m_thumbs_here(item, 1)
+      = m_memoir_i item
     em.font-g
       | &#160;(#{item.created_at.strftime t'no_year'})
 = will_paginate @all

@@ -1,21 +1,25 @@
 class BoardsController < ApplicationController
   layout 'help'
+
   def show
+    puts "into controller"
     @board = Board.find(params[:id])
-    if @board.nil? or request.subdomain != 'bbs'
+    if not_bbs
       r404
     else
       #TODO How to eager loading count?
       @posts = @board.posts.includes([:user, :postcomments]).page(params[:page]).order('replied_at DESC')
+      render mr, layout: 'm/portal' if @m
     end
   end
 
   def members
     @board = Board.find(params[:id])
-    if @board.nil? or request.subdomain != 'bbs'
+    if not_bbs
       r404
     else
       @fboards = Fboard.where("board_id = ?", params[:id]).includes(:user).order('created_at DESC')
+      render mr, layout: 'm/portal' if @m
     end
   end
 
@@ -48,4 +52,8 @@ class BoardsController < ApplicationController
     redirect_to root_path
   end
 
+  private
+  def not_bbs
+    @board.nil? or (request.subdomain != 'bbs' and request.subdomain != 'bbs.m' )
+  end
 end

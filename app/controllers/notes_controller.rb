@@ -107,7 +107,12 @@ class NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note.destroy
-    redirect_to notes_path, notice: t('delete_succ')
+    flash[:notice] = t'delete_succ'
+    if @m
+      redirect_to notice_path
+    else
+      redirect_to notes_path
+    end
   end
 
   def click_show_note

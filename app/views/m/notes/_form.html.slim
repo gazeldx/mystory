@@ -17,7 +17,7 @@
   = t'_notecate'
   - @notecates = @user.notecates.order('created_at')
   - if @notecates.blank?
-    = text_field_tag :category_name, t('default_notecate_name'), size: 10, title: t('tip_auto_create_cate')
+    = text_field_tag :category_name, t('default_notecate_name'), size: 10
   - else
     = collection_select :note, :notecate_id, @notecates, :id, :name
   | &nbsp;&nbsp;#{t'_tag'}
