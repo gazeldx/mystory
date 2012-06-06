@@ -9,7 +9,12 @@ class UsersController < ApplicationController
     @enjoy_books = @user.enjoys.where("stype = 1")
     @enjoy_musics = @user.enjoys.where("stype = 2")
     @enjoy_movies = @user.enjoys.where("stype = 3")
-    render layout: 'memoir'
+    if @m
+      
+      render mr, layout: 'm/portal'
+    else
+      render layout: 'memoir'
+    end
   end
 
   def edit

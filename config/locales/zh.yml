@@ -47,6 +47,9 @@ zh:
   send_letter_to: "给他发私信"
   view_my_letters: "查看我的私信"
   send_letters_to: "给%{w}发私信"
+  send_letter: "发私信"
+  letters_box: "私信箱"
+
   send_again: "再发一封"
   _archive: "归档"
   recommend_note: "推荐日记"
@@ -60,6 +63,7 @@ zh:
   can_empty: "(可不填)"
   body: "正文"
   edit_blog: "编辑作品"
+  
   
   #latest_blogs: "最近作品"
   #latest_notes: "最近日记"
@@ -276,6 +280,8 @@ zh:
 
   following: "关注"
   followers: "粉丝"
+
+  _idol_: "偶像:"
   
   s_categories: "%{w}作品分类"
   s_notecates: "%{w}日记分类"
@@ -705,6 +711,8 @@ zh:
         avatar: "照片"
       post:
         title: "标题"
+      letter:
+        body: "私信内容"
 
   helpers:
     select:

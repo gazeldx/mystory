@@ -6,11 +6,16 @@ class LettersController < ApplicationController
 
   def new
     @letter = Letter.new
-    @letter.user_id = session[:id]
     @recipient = User.find_by_domain(params[:domain])
     @letter.recipient_id = @recipient.id
-    @letters = Letter.where("(user_id = ? and recipient_id = ?) or (recipient_id = ? and user_id = ?)", session[:id], @recipient.id, session[:id], @recipient.id).order("created_at DESC")
-    puts @letters.size
+    couple_letters
+    render mr, layout: 'm/portal' if @m
+  end
+
+  def new_simple
+    @letter = Letter.new
+    @letter.user_id = session[:id]
+    render mr, layout: 'm/portal'
   end
 
   def create
@@ -20,7 +25,22 @@ class LettersController < ApplicationController
       flash[:notice] = t'letter_sent'
       redirect_to letters_path
     else
-      render :new
+      @recipient = User.find(params[:letter][:recipient_id])
+      couple_letters
+      _render :new
+    end
+  end
+
+  def create_letter
+    @letter = Letter.create(params[:letter])
+    @letter.user_id = session[:id]
+    @recipient = User.find_by_domain(params[:domain])
+    @letter.recipient_id = @recipient.id
+    if @letter.save
+      flash[:notice] = t'letter_sent'
+      redirect_to letters_path
+    else
+      _render :new_simple
     end
   end
 
@@ -35,6 +55,7 @@ class LettersController < ApplicationController
     sent = user.letters.order("created_at DESC").includes(:recipient).limit(50)
     received = Letter.where("recipient_id = ?", session[:id]).includes(:user).order("created_at DESC").limit(50)
     @letters = (sent | received).sort_by{|x| x.created_at}.reverse!
+    render mr, layout: 'm/portal' if @m
   end
 
   def sent
@@ -110,9 +131,8 @@ class LettersController < ApplicationController
     render json: @letter.as_json()
   end
 
-  def lovezhangtingting
-    params[:id] = 2
-    show
-    render :show
+  private
+  def couple_letters
+    @letters = Letter.where("(user_id = ? and recipient_id = ?) or (recipient_id = ? and user_id = ?)", session[:id], @recipient.id, session[:id], @recipient.id).order("created_at DESC")
   end
 end

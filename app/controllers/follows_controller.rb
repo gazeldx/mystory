@@ -23,5 +23,13 @@ class FollowsController < ApplicationController
     end
   end
 
+  def followers
+    render mr, layout: 'm/portal' if @m
+  end
+
+  def following
+    render mr, layout: 'm/portal' if @m
+  end
+
   
 end

@@ -16,11 +16,9 @@
       - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
         a href=follow_me_path
           = image_tag('/images/follow.png')
-        /= link_to t('follow_him'), follow_me_path
-        | &nbsp;
       - elsif myself.following?(@user)
         = link_to t('unfollow'), unfollow_path
-        | &nbsp;
+      | &nbsp;
       = link_to t('my_info'), profile_path
       - if @user.id == session[:id]
         span
@@ -28,7 +26,6 @@
         = link_to t('edit'), edit_profile_path
         | )
       | &nbsp;
-      /= link_to t('_tag'), tags_path
       = link_to t('_archive'), archives_path
       | &nbsp;
       = link_to t('_forum'), bbs_path

@@ -12,7 +12,21 @@ table width="100%"
       | &nbsp;
       = @user.jobs
       br
+      - unless session[:id].nil?
+        - if myself.following?(@user)
+          = link_to t('unfollow'), unfollow_path
+        - else
+          - unless myself==@user
+            a href=follow_me_path
+              input type="button" name="fm" value=t('follow_him') class="sub-bg-ss"
+        | &nbsp;
       = link_to '查看资料', profile_path
+      - unless session[:id].nil?
+        | &nbsp;
+        - if session[:id]==@user.id
+          = link_to t('_letter'), m(my_site + letters_path)
+        - else
+          = link_to t('_letter'), m(my_site + "/send_a_letter_to_#{@user.domain}")
       - unless @user.maxim.nil?
         | (#{@user.maxim})
 p
@@ -22,7 +36,7 @@ p
   |  |&nbsp;
   = link_to t('followers') + @user.followers_count.to_s, followers_path
   |  |&nbsp;
-  = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, blogs_path
+  = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, "?t=blog"
   p
     - @user.hobbies.each_with_index do |hobby, i|
       - if i==0
