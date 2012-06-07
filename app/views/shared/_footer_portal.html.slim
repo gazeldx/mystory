@@ -1,9 +1,17 @@
 #footer
+  span
+    | 友情链接：
+    = link_to "搜狗网址导航", "http://123.sogou.com", target: "_blank"
+    | &nbsp;
+    a href="http://www.hao123.com/" target="_blank"
+      | hao123
+    | &nbsp;
+  br
   span#icp.fleft.gray-link
     | © 我的故事原创社区 苏ICP备08018929号-7
   span.fright
     | &nbsp;
     = link_to t('contact_us'), whose_site('zhangjian') + '/categories/1'
     |  · 
-    = link_to t('user_help'), SITE_URL + help_path
+    = link_to t('user_help'), SITE_URL + help_path  
   = render 'shared/stat'
