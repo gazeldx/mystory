@@ -72,28 +72,26 @@ div.note-ft id='note_#{@note.id}_footer'
       = button_tag t('submit'), onclick: 'modify_ri("note")'
 .ll
   span.pl
-    = join_notetags(@note)
-  br
-  span.pl
+    - unless @note.notetags.blank?
+      = join_notetags(@note)
+      br
     = t'_notecate_'
-  - @notecates.each do |category|
-    | [
-    = link_to category.name, category
-    | ]&nbsp;&nbsp;
-  br
-  span.pl
+    - @notecates.each do |category|
+      | [
+      = link_to category.name, category
+      | ]&nbsp;&nbsp;
+    br
     = t'a_new'
-  - if @note_pre.nil?
-    = t'none'
-  - else
-    = link_to_note @note_pre
-  br
-  span.pl
+    - if @note_pre.nil?
+      = t'none'
+    - else
+      = link_to_note @note_pre
+    br
     = t'an_old'
-  - if @note_next.nil?
-    = t'none'
-  - else
-    = link_to_note @note_next
+    - if @note_next.nil?
+      = t'none'
+    - else
+      = link_to_note @note_next
 - unless @rnotes.blank?
   .rr
     span.pl

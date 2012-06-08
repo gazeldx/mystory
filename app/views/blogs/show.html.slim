@@ -48,28 +48,26 @@ div id='note-#{@blog.id}'
       = button_tag t('submit'), onclick: 'modify_ri("blog")'
 .ll
   span.pl
-    = join_tags(@blog)
-  br
-  span.pl
+    - unless @blog.tags.blank?
+      = join_tags(@blog)
+      br
     = t'_category_'
-  - @categories.each do |category|    
-    | [
-    = link_to category.name, category
-    | ]&nbsp;&nbsp;
-  br
-  span.pl
+    - @categories.each do |category|
+      | [
+      = link_to category.name, category
+      | ]&nbsp;&nbsp;
+    br
     = t'a_new'
-  - if @blog_pre.nil?
-    = t'none'
-  - else
-    = link_to @blog_pre.title, @blog_pre
-  br
-  span.pl
+    - if @blog_pre.nil?
+      = t'none'
+    - else
+      = link_to @blog_pre.title, @blog_pre
+    br
     = t'an_old'
-  - if @blog_next.nil?
-    = t'none'
-  - else
-    = link_to @blog_next.title, @blog_next
+    - if @blog_next.nil?
+      = t'none'
+    - else
+      = link_to @blog_next.title, @blog_next
 - unless @rblogs.blank?
   .rr
     span.pl

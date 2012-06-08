@@ -6,11 +6,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    #UserMailer.welcome_email(@user).deliver
     @enjoy_books = @user.enjoys.where("stype = 1")
     @enjoy_musics = @user.enjoys.where("stype = 2")
     @enjoy_movies = @user.enjoys.where("stype = 3")
-    if @m
-      
+    if @m      
       render mr, layout: 'm/portal'
     else
       render layout: 'memoir'
@@ -76,10 +76,11 @@ class UsersController < ApplicationController
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
-      flash[:notice] = t'regiter_succ_memo'
       session[:id] = @user.id
       session[:name] = @user.name
       session[:domain] = @user.domain
+      #UserMailer.welcome_email(@user).deliver
+      flash[:notice] = t'regiter_succ_memo'
       redirect_to my_site + edit_profile_path
     else
       render :action=> "new"

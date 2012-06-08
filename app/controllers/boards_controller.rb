@@ -2,7 +2,6 @@ class BoardsController < ApplicationController
   layout 'help'
 
   def show
-    puts "into controller"
     @board = Board.find(params[:id])
     if not_bbs
       r404
