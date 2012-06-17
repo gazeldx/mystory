@@ -1,4 +1,5 @@
-= title t('s_category', w: @user.name, w2: @notecate.name)
+= title t('s_notecate_title', c: @notecate.name, w: @user.name)
+= metadesc meta_desc_notecate_show
 = hidden_field_tag :view, params[:view]
 h2
   = link_to t('_archive'), notes_archives_path

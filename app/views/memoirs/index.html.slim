@@ -1,6 +1,9 @@
-- _title = t('s_memoir', w: @user.name, c: @memoir.nil? ? "" : @memoir.title)
+- _title = t('s_memoir_title', t: @memoir.nil? ? "" : @memoir.title+"_", w: @user.name)
 = title _title
-= summary text_it_pure(@memoir.content)[0..S_SIZE-_title.size] unless @memoir.nil?
+- unless @memoir.nil?
+  - tip = text_it_pure(@memoir.content)
+  = metadesc tip[0..D_SIZE]
+  = summary tip[0..S_SIZE-_title.size]
 - if @memoir.nil?
   .table
     | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。

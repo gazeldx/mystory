@@ -10,7 +10,9 @@
             = link_to t('more_photos'), photos_path
             | )
           span.rr
-            = link_to t('mobile_version'), m(SITE_URL)
+            = render 'shared/share'
+            | &nbsp;&nbsp;
+            = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/"
             | &nbsp;&nbsp;
             = link_to '论坛', sub_site('bbs')
         = render 'photo_square_portal'

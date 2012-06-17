@@ -1,4 +1,5 @@
-= title t('s_album_title', w: @user.name, w2: @album.name)
+= title t('s_album_title', a: @album.name, w: @user.name)
+= metadesc meta_desc_album_show
 br
 - if flash[:notice]
   #notice= flash[:notice]

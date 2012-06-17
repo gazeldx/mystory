@@ -45,6 +45,7 @@ class NotecatesController < ApplicationController
     if @notecate.user == @user
       @notes = @notecate.notes.page(params[:page]).order("created_at DESC")
       @notecates = @user.notecates.order('created_at')
+      render mr, layout: 'm/portal' if @m
     else
       r404
     end

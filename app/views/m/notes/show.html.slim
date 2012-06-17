@@ -1,11 +1,12 @@
-- if @note.title.to_s == ''
-  - _title = t('s_note_date', w: @user.name, w2: @note.created_at.strftime(t'date_format'))
-- else
-  - _title = t('s_note_date2', w: @note.title, w3: @user.name, w2: @note.created_at.strftime(t'date_format'))
+- _title = t('s_note_date_title', t: @note.title.to_s=='' ? @note.created_at.strftime(t'date_format') : @note.title, c: @note.notecate.name, w: @user.name)
 = title _title
+- if flash[:notice]
+  #notice= flash[:notice]
 - if flash[:notice2]
   #notice= flash[:notice2]
 span.txt-bold
+  | #{link_to @user.name, m(site(@user))} > #{t('s_note', w: @user.name)} > #{link_to @note.notecate.name, @note.notecate} >
+  br
   - if @note.title.to_s!=''
     = @note.title
   - else

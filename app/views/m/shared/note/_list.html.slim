@@ -1,0 +1,10 @@
+br
+- @notes.each do |note|
+  = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : note.title, note
+  | &nbsp;
+  - if note.user_id==session[:id]
+    | &nbsp;
+    = link_to t('edit'), edit_note_path(note)
+  = m_thumbs_here(note, 1)
+  br
+= will_paginate @notes

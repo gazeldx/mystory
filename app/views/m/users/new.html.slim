@@ -1,0 +1,35 @@
+= title t'reg_title'
+strong
+  = t'welcome_reg'
+br
+| 以下内容全是必填项。
+= form_for @user do |f|
+  = error_msg @user
+  | *
+  = t'user_name'
+  = f.text_field :username
+  span.pl
+    = t'user_name_desc'
+  br
+  | *Email
+  = f.text_field :email
+  span.pl
+    = t'can_login'
+  br
+  | *
+  = t'domain'
+  = f.text_field :domain
+  span.pl
+    = t'domain_desc'
+  br
+  | *
+  = t'real_name'
+  = f.text_field :name
+  span.pl
+    = t'name_desc'
+  br
+  | *
+  = t'password'
+  = f.password_field :passwd
+  br
+  = f.submit "注 册"

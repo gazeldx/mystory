@@ -1,6 +1,12 @@
-- _title = @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
+- _title = t('s_blog_title', t:@blog.title, c:@blog.category.name, w: @user.name)
 = title _title
+- if flash[:notice]
+  #notice= flash[:notice]
+- if flash[:notice2]
+  #notice= flash[:notice2]
 span.txt-bold
+  | #{link_to @user.name, m(site(@user))} > #{t('s_blog', w: @user.name)} > #{link_to @blog.category.name, @blog.category} >
+  br
   = @blog.title
 - if @blog.user_id == session[:id]
   | &nbsp;
@@ -11,7 +17,8 @@ br
 | #{link_to @user.name, m(site(@user))}&nbsp;
 = post_info @blog
 br
-= style_it @blog.content
+pre.note
+  = style_it @blog.content
 br
 = join_tags(@blog)
 br

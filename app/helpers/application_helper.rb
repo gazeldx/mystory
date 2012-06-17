@@ -6,6 +6,12 @@ module ApplicationHelper
     end
   end
 
+  def metadesc(_metadesc)
+    content_for :metadesc do
+      _metadesc
+    end
+  end
+
   def summary(_summary)
     content_for :summary do
       _summary.gsub(/\r\n/,' ')

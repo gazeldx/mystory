@@ -1159,3 +1159,36 @@ a.btn-fav:hover,a.btn-fav:active {
 .fright {
   float:right
 }
+.user-list li {
+  position:relative;
+  #position:static;
+  #z-index:10;
+  padding:10px 0;
+  *margin-bottom:-3px;
+  border-bottom:1px solid #eee
+}
+.user-list>li:hover .ban {
+  display:inline
+}
+.user-list .face {
+  float:left;
+  width:48px;
+  height:48px;
+  margin:0 $s 0 10px
+}
+.user-list .info {
+  float:left;
+/*  width:515px*/
+}
+.user-list .info h3 {
+  margin:0 0 2px;
+  height:auto;
+  font:$m;
+  background:0
+}
+.user-group-opt {
+  float:right;
+  font-size:12px;
+  margin:-2px 0 0;
+  #margin:-23px 0 0
+}

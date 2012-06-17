@@ -1,6 +1,8 @@
-- _title = @blog.title + ' - ' + @blog.category.name + ' - ' + t('s_blog', w: @user.name)
+- _title = t('s_blog_title', t:@blog.title, c:@blog.category.name, w: @user.name)
 = title _title
-= summary text_it_pure(@blog.content)[0..S_SIZE-_title.size]
+- tip = text_it_pure(@blog.content)
+= metadesc tip[0..D_SIZE]
+= summary tip[0..S_SIZE-_title.size]
 - if flash[:notice2]
   #notice= flash[:notice2]
 div id='note-#{@blog.id}'

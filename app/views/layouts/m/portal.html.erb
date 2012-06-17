@@ -3,9 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title><%= yield :title %></title>
+    <%= yield :metadesc %>
     <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0" />
-    <%= stylesheet_link_tag "m_head", "m_body", "m_foot", "m_additional", "m_m" %>
+    <%= stylesheet_link_tag "m_body" %>
     <%= javascript_include_tag "customized" %>
     <%= yield :javascript %>
     <%= csrf_meta_tags %>

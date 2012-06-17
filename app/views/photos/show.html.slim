@@ -1,4 +1,5 @@
-- _title = @album.name + ' - ' + t('s_album',w: @user.name)
+- _title = t('photo_title', p: @photo.description.to_s=='' ? t('_photo_title') : @photo.description, a: @album.name, w: @user.name)
+= metadesc meta_desc_photo
 = title _title
 = summary @photo.description.to_s[0..S_SIZE-_title.size]
 br
@@ -38,8 +39,7 @@ div style='text-align:center'
       = radio_button_tag :setascover, '1'
       = label_tag(:setascover_1, '设为封面')    
 div style='color:#999;margin-bottom:5px;'
-  | 上传于 
-  = @photo.created_at.strftime t'date_format'
+  = t('_upload_at', w: @photo.created_at.strftime(t'date_format'))
   - if @user.id == session[:id]
     span.gact
       | &gt;&nbsp;

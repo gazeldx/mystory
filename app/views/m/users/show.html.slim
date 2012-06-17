@@ -1,6 +1,10 @@
 = title t('s_my_info', w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
 .num.guset-br
-  | #{link_to @user.name, m(site(@user))} - #{t'my_info'}
+  | #{link_to @user.name, m(site(@user))} > #{t'my_info'}
+  - if @user.id==session[:id]
+    | (#{link_to t('edit'), edit_profile_path})
 .cont-lists.guset-br.photo
   = image_tag(@user.avatar.bigpic.url)
 .postmb

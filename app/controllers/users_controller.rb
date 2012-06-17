@@ -22,7 +22,11 @@ class UsersController < ApplicationController
     @enjoy_books = @_user.enjoys.where("stype = 1").map { |t| t.name }.join(" ")
     @enjoy_musics = @_user.enjoys.where("stype = 2").map { |t| t.name }.join(" ")
     @enjoy_movies = @_user.enjoys.where("stype = 3").map { |t| t.name }.join(" ")
-    render layout: 'like'
+    if @m
+      render mr, layout: 'm/portal'
+    else
+      render layout: 'like'
+    end
   end
 
   def edit_password
@@ -43,10 +47,9 @@ class UsersController < ApplicationController
       @_user.renjoys.destroy_all
       build_enjoys @_user
       @_user.update_attributes(params[:user])
-
-      redirect_to my_site + profile_path, notice: t('update_succ')
+      redirect_to m_or(my_site + profile_path), notice: t('update_succ')
     else
-      render :edit
+      _render :edit
     end
   end
 
@@ -66,6 +69,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render mr, layout: 'm/portal' if @m
   end
 
   def create
@@ -81,9 +85,9 @@ class UsersController < ApplicationController
       session[:domain] = @user.domain
       #UserMailer.welcome_email(@user).deliver
       flash[:notice] = t'regiter_succ_memo'
-      redirect_to my_site + edit_profile_path
+      redirect_to m_or(my_site + edit_profile_path)
     else
-      render :action=> "new"
+      _render :new
     end
   end
 

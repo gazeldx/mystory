@@ -1,0 +1,8 @@
+= t'_notecate_'
+- @notecates.each do |category|
+  | [
+  - if category.id == @notecate.id
+    = link_to category.name, category, class: "selected"
+  - else
+    = link_to category.name, category
+  | ]&nbsp;&nbsp;

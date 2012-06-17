@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
     if @m
       render mn(str), layout: 'm/portal'
     else
-      render mn(str)
+      render str
     end
   end
 

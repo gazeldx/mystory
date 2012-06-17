@@ -1,0 +1,12 @@
+br
+- @blogs.each do |blog|
+  = link_to blog.title, blog
+  | &nbsp;
+  span.pl
+    = blog.created_at.strftime t('date_without_year')
+  - if blog.user_id==session[:id]
+    | &nbsp;
+    = link_to t('edit'), edit_blog_path(blog)
+  = m_thumbs_here(blog, 1)
+  br
+= will_paginate @blogs

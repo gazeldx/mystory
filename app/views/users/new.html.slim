@@ -1,6 +1,7 @@
-= title "注册 - 我的故事"
-h1 欢迎加入我的故事
-= form_for @user, :html => {:multipart => true} do |f|
+= title t'reg_title'
+h1
+  = t'welcome_reg'
+= form_for @user do |f|
   = error_msg @user
   .item.extra-tips
     label

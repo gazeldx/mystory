@@ -1,0 +1,8 @@
+= title t('s_category_title', c: @category.name, w: @user.name)
+| #{link_to @user.name, m(site(@user))} > #{t('s_blog', w: @user.name)} > #{link_to @category.name, @category} >
+br
+strong
+  /= link_to t('_archive'), blogs_archives_path
+  /| &nbsp;&nbsp;&nbsp;
+  = render 'shared/category_list'
+= render 'm/shared/blog/list'

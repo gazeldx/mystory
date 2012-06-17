@@ -1,4 +1,5 @@
 = title t('s_blog',w: @user.name)
+= metadesc meta_desc_blog_list
 = hidden_field_tag :view, params[:view]
 - if flash[:notice]
   #notice= flash[:notice]
