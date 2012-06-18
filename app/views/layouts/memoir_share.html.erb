@@ -2,7 +2,7 @@
 <html class="ua-ff4" lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
-    <%= yield :metadesc %>
+    <meta name="description" content="<%= yield :metadesc %>" />
     <%= stylesheet_link_tag "style", "form" %>
     <%= yield :stylesheet %>
     <%= javascript_include_tag "application" %>

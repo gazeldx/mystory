@@ -1,6 +1,6 @@
 .pic
   a href="/"
-    = image_tag(@user.avatar.bigpic.url)
+    = image_tag(@user.avatar.bigpic.url, width: USER_BIGPIC_SIZE, height: USER_BIGPIC_SIZE)
 .desc
   h1
     = banner_text

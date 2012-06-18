@@ -1,8 +1,8 @@
 = title t('s_board', w: @board.name)
 - if flash[:notice]
   #notice= flash[:notice]
-span.txt-bold
-  = @board.name
+strong
+  | #{link_to t('_forum'), m(sub_site('bbs'))} #{link_to @board.name, m(sub_site('bbs'))}
 - unless session[:id].nil?
   - fb = Fboard.find_by_user_id_and_board_id(session[:id], @board.id)
   - if fb.nil?
@@ -18,7 +18,7 @@ span.txt-bold
 | &nbsp;
 - unless session[:id].nil?
   = link_to t('post.new'), m(my_site + new_post_path)
-  br
+br
 - @posts.each do |post|
   - comments_count = post.postcomments.size
   - cc = ""

@@ -19,17 +19,17 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   version :mthumb do
-    process :resize_to_limit => [120, 120]
+    process :resize_to_limit => [PHOTO_MTHUMB_SIZE, PHOTO_MTHUMB_SIZE]
   end
 
   #TODO Donot generate this ever pic.Just when use it.
   version :cover do
-    process :resize_to_fill => [170, 170]
+    process :resize_to_fill => [PHOTO_COVER_SIZE, PHOTO_COVER_SIZE]
   end
 
   #Show in home_page index
   version :square do
-    process :resize_to_fill => [115, 115]
+    process :resize_to_fill => [PHOTO_SQUARE_SIZE, PHOTO_SQUARE_SIZE]
   end
 
   def extension_white_list

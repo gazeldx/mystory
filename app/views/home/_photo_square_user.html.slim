@@ -1,6 +1,6 @@
 - @photos.each_with_index do |photo, i|
   .photo_user
     a.photolst_photo href=album_photo_path(photo.album, photo)
-      = image_tag(photo.avatar.square.url, title: photo.description)
+      = image_tag(photo.avatar.square.url, title: photo.description.to_s[0..43], width: PHOTO_SQUARE_SIZE, height: PHOTO_SQUARE_SIZE)
 - unless @photos.blank?
   .clear

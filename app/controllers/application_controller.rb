@@ -27,15 +27,19 @@ class ApplicationController < ActionController::Base
   end
 
   def query_user_by_domain
+    
     #puts request.domain
     if request.domain==DOMAIN_NAME
       if request.subdomain.match(/.+\.m/)
         @m = true
+#        puts "yyxxxx  "
         three_domain = request.subdomain.sub(/\.m/, "")
         if three_domain == 'bbs'
           @bbs_flag = true
         else
+#          puts "xx"
           @user = User.find_by_domain(three_domain)
+#          r301 if @user.nil?
         end
         #puts @user.inspect        
       elsif request.subdomain == 'm'
@@ -44,6 +48,7 @@ class ApplicationController < ActionController::Base
         @bbs_flag = true
       else
         @user = User.find_by_domain(request.subdomain)
+#        r301 if @user.nil?
       end
     end
   end
@@ -185,6 +190,11 @@ class ApplicationController < ActionController::Base
   def r404
     render text: t('page_not_found'), status: 404
   end
+
+#  def r301
+#    puts root_url
+#    redirect_to root_url
+#  end
 
   def _render(str)
     if @m

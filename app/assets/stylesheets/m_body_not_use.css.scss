@@ -1,18 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title><%= yield :title %></title>
-    <meta name="description" content="<%= yield :metadesc %>" />
-    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0" />
-    <%#= stylesheet_link_tag "m_body" %>
-    <%= javascript_include_tag "customized" %>
-    <%= yield :javascript %>
-    <%= csrf_meta_tags %>
-    <style type="text/css">
+$s: 14px;
+$m: 16px;
 body,div,p,a,table,textarea,form,input,img,ul,li{ margin:0; padding:0;}
-body{font-size:16px;vertical-align:middle;margin:0;padding:0; background:#ffffff;-webkit-text-size-adjust: none;}
+body{font-size:$m;vertical-align:middle;margin:0;padding:0; background:#ffffff;-webkit-text-size-adjust: none;}
 form,table,td,h1,ul,ol,li,p{margin:0;padding:0; list-style:none;}
 .num{padding:4px 0 4px 4px}
 .ctor-info{padding:0 0 8px 4px}
@@ -37,8 +26,8 @@ a,a:link,.font-blue{color:#0051a4;text-decoration:none}
 .txt-fade{  color:#8a8a8a;}
 .txt-gray{ color:#8a8a8a;}
 .txt-red{ color:#eb4800;}
-#notice {color: green;font-size:16px}
-#error {color: red;font-size:16px}
+#notice {color: green;font-size:$m}
+#error {color: red;font-size:$m}
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -55,24 +44,14 @@ a,a:link,.font-blue{color:#0051a4;text-decoration:none}
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
-    font-size: 16px;
+    font-size: $m;
     margin: -7px;
     margin-bottom: 0px;
     background-color: #c00;
     color: #fff;
   }
   ul li {
-    font-size: 14px;
+    font-size: $s;
   }
 }
 .bom-nav{border-bottom:1px solid #acd456;padding:8px 0 8px 4px;color:#0051a4;}
-    </style>
-  </head>
-  <body>
-    <%= render 'm/shared/top' %>
-    <%= yield %>
-    <% unless session[:id].nil? %>
-      <%= render 'm/shared/footer_portal' %>
-    <% end %>
-  </body>
-</html>
