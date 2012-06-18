@@ -1,0 +1,8 @@
+span.fright
+  | &nbsp;
+  = link_to t('become_writer'), SITE_URL + as_a_writer_path
+  |  ·&nbsp;
+  = link_to t('contact_us'), whose_site('zhangjian') + '/categories/1'
+  |  ·&nbsp;
+  = link_to t('user_help'), SITE_URL + help_path
+= render 'shared/stat'

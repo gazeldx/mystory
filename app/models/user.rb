@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   validates :email, :uniqueness => true, :length => { :in => 9..36 }, :email => true
   validates :domain, :uniqueness => true, :domain => true
   #  , :format => { :with => /^[a-z][a-z\d\-]{1,17}[a-z\d]$/ }
-  validates :name, :length => { :in => 2..4 }
+  validates :name, :length => { :in => 2..15 }
   validates :passwd, :length => { :in => 6..100 }
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }

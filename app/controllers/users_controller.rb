@@ -101,6 +101,10 @@ class UsersController < ApplicationController
     render layout: 'help'
   end
 
+  def as_a_writer
+    render layout: 'help'
+  end
+
   private
   def build_enjoys(item)
     build_item(item, 'enjoy_books', 1)

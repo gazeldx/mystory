@@ -64,7 +64,8 @@ zh:
   can_empty: "(可不填)"
   body: "正文"
   edit_blog: "编辑作品"
-  
+  become_writer: "成为作者"
+  _ad_plan: "我的故事广告共享计划"
   
   #latest_blogs: "最近作品"
   _latest_blogs: "最近作品："

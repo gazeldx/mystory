@@ -1,9 +1,4 @@
 #footer
   span#icp.fleft.gray-link
     | © 本页内容是#{@user.name}原创，未经许可不得转载
-  span.fright
-    | &nbsp;
-    = link_to t('contact_us'), whose_site('zhangjian') + '/categories/1'
-    |  · 
-    = link_to t('user_help'), SITE_URL + help_path
-  = render 'shared/stat'
+  = render 'shared/footer_c'

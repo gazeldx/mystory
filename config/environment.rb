@@ -11,6 +11,7 @@ SITE_URL = "http://" + DOMAIN_NAME + ":8080"
 
 S_SIZE=139
 D_SIZE=200
+#in app/uploaders I can't use these constants.I don't know why.
 USER_THUMB_SIZE=48
 USER_BIGPIC_SIZE=180
 PHOTO_MTHUMB_SIZE=120
