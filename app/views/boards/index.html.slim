@@ -21,4 +21,15 @@
   - @boards.each do |board|
     = link_to "#{board.name}", "#{board.id}"
     | (#{board.posts.count})&nbsp;&nbsp;
+  br
+  br
+  | 论坛新贴
+  br
+  - @posts.each do |post|
+    - etc = t('all_characters', w: post.content.size) if post.content.size>100
+    - cs = "(#{post.postcomments.size})" if post.postcomments.size>0
+    = link_to "#{post.title[0..40]}#{cs.to_s}", sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s
+    | &nbsp;&nbsp;[#{link_to post.board.name, "#{post.board.id}"}]&nbsp;&nbsp;/
+    = link_to post.user.name, site(post.user)
+    br
 = validate_form 'new_board'

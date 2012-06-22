@@ -2,9 +2,5 @@
   = error_msg @photo
   = t'choose_photo'
   = f.file_field :avatar
-  br
-  - unless @user.albums.blank?
-    | #{t'_album'}:
-    = collection_select :photo, :album_id, @user.albums, :id, :name
-    br
+  br  
   = f.submit t'upload_now'

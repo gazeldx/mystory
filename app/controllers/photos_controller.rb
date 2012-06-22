@@ -79,14 +79,26 @@ class PhotosController < ApplicationController
   end
 
   def m_upload_photo
-    if params[:photo][:album_id].nil?
+#    if params[:photo][:album_id].nil?
+#      puts "it is nil"
+#      @album = Album.new
+#      @album.name = t'default_album_name'
+#      @album.user_id = session[:id]
+#      @album.save
+#    else
+#      puts params[:photo][:album_id]
+#      @album = Album.find(params[:photo][:album_id])
+#    end
+    @album = @user.albums.first(:order => "id")
+    puts @album.inspect
+    if @album.nil?
+      puts "it is nil"
       @album = Album.new
       @album.name = t'default_album_name'
       @album.user_id = session[:id]
       @album.save
-    else
-      @album = Album.find(params[:photo][:album_id])
     end
+    puts @album.name
     @photo = @album.photos.build(params[:photo])
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
@@ -98,7 +110,7 @@ class PhotosController < ApplicationController
 
   def m_update_photo
     @photo = Photo.find(params[:photo][:id])
-    @photo.update_attribute('description', params[:photo][:description])    
+    @photo.update_attributes(params[:photo])
     redirect_to upload_photo_path, notice: t('photo_updated_succ')
   end
 

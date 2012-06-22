@@ -62,15 +62,16 @@ class HomeController < ApplicationController
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
+        @posts = Post.includes([:board, :user, :postcomments]).order("id desc").limit(40)
         unless session[:id].nil?
           @board = Board.new
           @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
         end
         render 'boards/index', layout: 'help'
       elsif @user.nil?
-        @notes_new = Note.includes(:user).order("id desc").limit(13)
+        @notes_new = Note.includes(:user).order("id desc").limit(10)
         @blogs_new = Blog.includes(:user).order("id desc").limit(16)
-
+        @posts = Post.includes(:user).order("id desc").limit(8)
         rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
         new_photo_count = 8 - rphotos.size
         new_photo_count = 2 if new_photo_count < 2

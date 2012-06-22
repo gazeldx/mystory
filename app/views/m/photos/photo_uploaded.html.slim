@@ -6,7 +6,10 @@
   = f.hidden_field :id
   | 照片描述：
   = f.text_field :description, size: 15
-  | &nbsp;
+  br
+  | #{t'_album'}:
+  = collection_select :photo, :album_id, @user.albums, :id, :name
+  br
   = f.submit t'submit'
   br
   = link_to t('continue_upload_photo'), upload_photo_path

@@ -32,8 +32,7 @@ table.b.olt
     - @posts.each do |post|
       tr
         td
-          - if post.content.size>100
-            - etc = t('all_characters', w: post.content.size)
+          - etc = t('all_characters', w: post.content.size) if post.content.size>100
           = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s
         td
           = link_to post.user.name, site(post.user)

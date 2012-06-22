@@ -40,6 +40,17 @@
       .aside
         #db-music-artists.block4
           h2
+            | 论坛新贴
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
+          .bd
+            - @posts.each do |post|
+              - etc = t('all_characters', w: post.content.size) if post.content.size>100
+              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s
+              | &nbsp;&nbsp;/
+              = link_to post.user.name, site(post.user)
+              br
+          br
+          h2
             | 最新日记
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           .bd

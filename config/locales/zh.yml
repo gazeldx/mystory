@@ -435,13 +435,13 @@ zh:
   regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。网站才刚起步，希望你能常来看看。"
   new_user: "最近加入会员"
   user_name: "用户名"
-  user_name_desc: "可用于登录，英文字母、数字和_"
+  user_name_desc: "仅用于登录，不显示。英文字母、数字和_"
   can_login: "可用于登录"
   domain: "个性域名"
   domain_desc: "可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc访问"
   #domain_desc: "可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc和http://mystory.cc/yourname访问"
   real_name: "真实姓名"
-  name_desc: "“我的故事”是真实社交网络，请务必填写真实姓名！"
+  name_desc: "“我的故事”是真实社交网络，建议填写真实姓名！会显示在主页。"
 
   num_error: "个原因"
   op_error: "使得操作未成功"
@@ -712,6 +712,8 @@ zh:
       wrong_size: "is the wrong size (should be %{file_size})"
       size_too_small: "is too small (should be at least %{file_size})"
       size_too_big: "文件太大了。最大允许上传 %{file_size} 哦。"
+
+      extension_white_list_error: "格式不对"
       
     template: &errors_template
       header:
