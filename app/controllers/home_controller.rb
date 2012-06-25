@@ -69,8 +69,8 @@ class HomeController < ApplicationController
         end
         render 'boards/index', layout: 'help'
       elsif @user.nil?
-        @notes_new = Note.includes(:user).order("id desc").limit(10)
-        @blogs_new = Blog.includes(:user).order("id desc").limit(16)
+        @notes_new = Note.includes(:notecate, :user, :notecomments).order("id desc").limit(29)
+        @blogs_new = Blog.includes(:category, :user, :blogcomments).order("id desc").limit(50)
         @posts = Post.includes(:user).order("id desc").limit(8)
         if DOMAIN_NAME=="mystory.cc"
           @users = User.find([2, 11, 26, 70, 18, 48, 22, 39, 28, 44, 75, 110, 101])

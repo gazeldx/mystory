@@ -23,56 +23,65 @@
           h2
             | 最近诞生的作品
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .bd
+          .b
             - @blogs_new.each do |blog|
-              .headline
-                a.pic href=site(blog.user)
-                  = image_tag(blog.user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-                .desc
-                  h3
-                    = link_to blog.user.name, site(blog.user)
-                    | ：《
-                    = link_to blog.title, site(blog.user) + blog_path(blog)
-                    | 》
-                    span.pl
-                      = blog.created_at.strftime t'no_year'
-                  = summary_comment_portal(blog, 75)
+              /.headline
+                /a.pic href=site(blog.user)
+                /  = image_tag(blog.user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
+                /.desc
+                  /h3
+              = link_to blog.user.name, site(blog.user), target: '_blank'
+              | ：
+              = link_to blog.title, site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
+              | &nbsp;[
+              = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
+              | ]&nbsp;
+              - cc = blog.blogcomments.count
+              = cc if cc>0
+              /span.rr
+              /
+              /span.pl
+              /  = blog.created_at.strftime t'date_without_year'
+              br
+                  /= summary_comment_portal(blog, 75)
       .nav
         #db-music-artists
           h2
             | 论坛新贴
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-          .bd
+          .b
             - @posts.each do |post|
+              = link_to post.user.name, site(post.user), target: '_blank'
+              | ：
               - etc = t('all_characters', w: post.content.size) if post.content.size>100
-              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s
-              | &nbsp;&nbsp;/
-              = link_to post.user.name, site(post.user)
+              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+              | &nbsp;
+              - cc = post.postcomments.count
+              = cc if cc>0
               br
           br
           h2
             | 最新日记
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .bd
+          .b
             - @notes_new.each do |note|
-              .headline
-                a.pic href=site(note.user)
-                  = image_tag(note.user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-                .desc
-                  = link_to note.user.name, site(note.user)
-                  | ：
-                  = summary_comment_portal(note, 60)
-                  br
-                  span.pl
-                    = note.created_at.strftime t'no_year'
+              = link_to note.user.name, site(note.user), target: '_blank'
+              | ：
+              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : note.title, site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
+              | &nbsp;[
+              = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
+              | ]&nbsp;
+              - cc = note.notecomments.count
+              = cc if cc>0
+              br
       .aside
         h2
           | 人气会员
         - @users.each do |user|
-          dl.obu_p
+          dl.obu
             dt
-              a.nbg href=site(user)
+              a.nbg href=site(user) target='_blank'
                 = image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-            dd
-              = link_to user.name, site(user)
+            dd style="height:20px;"
+              = link_to user.name, site(user), target: '_blank'
   = render 'shared/footer_portal'
