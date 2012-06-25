@@ -17,9 +17,9 @@
           span.rr
             = render 'shared/share'
         = render 'photo_square_portal'
-    .grid-16-8.clearfix
+    .grid-14-2-8.clearfix
       .article
-        #db-music-artists.block4
+        #db-music-artists
           h2
             | 最近诞生的作品
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
@@ -36,9 +36,9 @@
                     | 》
                     span.pl
                       = blog.created_at.strftime t'no_year'
-                  = summary_comment_portal(blog, 180)
-      .aside
-        #db-music-artists.block4
+                  = summary_comment_portal(blog, 75)
+      .nav
+        #db-music-artists
           h2
             | 论坛新贴
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
@@ -61,8 +61,18 @@
                 .desc
                   = link_to note.user.name, site(note.user)
                   | ：
-                  = summary_comment_portal(note, 140)
+                  = summary_comment_portal(note, 60)
                   br
                   span.pl
                     = note.created_at.strftime t'no_year'
+      .aside
+        h2
+          | 人气会员
+        - @users.each do |user|
+          dl.obu_p
+            dt
+              a.nbg href=site(user)
+                = image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
+            dd
+              = link_to user.name, site(user)
   = render 'shared/footer_portal'

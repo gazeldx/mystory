@@ -1,4 +1,4 @@
-- _title = t('s_blog_title', t:@blog.title, c:@blog.category.name, w: @user.name)
+- _title = t('s_blog_title', t:@blog.title, c: @blog.category.name, w: @user.name)
 = title _title
 - tip = text_it_pure(@blog.content)
 = metadesc tip[0..D_SIZE]
@@ -16,7 +16,7 @@ div id='note-#{@blog.id}'
         = link_to t('delete'), @blog, confirm: t('confirm.delete'), method: :delete
     div
       span.pl
-        = post_info @blog
+        = blog_info @blog
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content

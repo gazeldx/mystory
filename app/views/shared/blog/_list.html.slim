@@ -5,7 +5,7 @@
         h3
           = link_to blog.title, blog
           | &nbsp;
-          = post_info2 blog
+          = blog_info2 blog
           - if blog.user_id == session[:id]
             | &nbsp;
             = link_to t('edit'), edit_blog_path(blog)

@@ -1,6 +1,6 @@
 module BlogsHelper
   
-  def post_info(blog)
+  def blog_info(blog)
     info = blog.created_at.strftime t('time_format')
     info += ' ' + t('posted_in') + ' ['
     info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
@@ -19,7 +19,7 @@ module BlogsHelper
     info + ' ' + join_tags(blog)
   end
 
-  def post_info2(blog)
+  def blog_info2(blog)
     info = blog.created_at.strftime t('date_without_year') + ' '
     info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
     raw info

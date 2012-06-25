@@ -9,7 +9,7 @@ br
     | &nbsp;&gt;&nbsp;
     = link_to t('add_photos'), new_album_photo_path(@album)
   | &nbsp;&gt;&nbsp;
-  = link_to t('album.return_home'), albums_path
+  = link_to t('album.return'), albums_path
 .photolst.clearfix
   - @photos.each_with_index do |photo, i|
     .photo_wrap

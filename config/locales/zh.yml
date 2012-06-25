@@ -245,7 +245,7 @@ zh:
   site:
     desc: "我的故事"
     seotitle: "我的故事 - facebook"
-    metadesc: "MyStory是一个原创的社交网络。在这里，您可以写日记、发作品、传照片、写自传等。分享一切您生命中最重要的事情。您还可以关注并结交有创造力的人们——分享“我的故事”，让生活更美。"
+    metadesc: "MyStory是原创社交网络。写日记、发作品、传照片、写自传，分享一切您生命中最重要的事情，关注有创造力的人。"
 #    desc: "人，诗意处栖居！"
   more: "更多"
   avatar: "头像"
@@ -401,7 +401,7 @@ zh:
     description: "影集描述"
     modify: "修改影集属性"
     return_home: "返回影集首页"
-    return: "返回影集"
+    return: "返回上级"
   a_new_photo: "新一张"
   a_old_photo: "旧一张"
   click_show_old: "点击查看旧一张"

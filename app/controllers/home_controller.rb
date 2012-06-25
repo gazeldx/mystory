@@ -72,6 +72,11 @@ class HomeController < ApplicationController
         @notes_new = Note.includes(:user).order("id desc").limit(10)
         @blogs_new = Blog.includes(:user).order("id desc").limit(16)
         @posts = Post.includes(:user).order("id desc").limit(8)
+        if DOMAIN_NAME=="mystory.cc"
+          @users = User.find([2, 11, 26, 70, 18, 48, 22, 39, 28, 44, 75, 110, 101])
+        else
+          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
+        end
         rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
         new_photo_count = 8 - rphotos.size
         new_photo_count = 2 if new_photo_count < 2

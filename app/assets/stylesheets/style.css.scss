@@ -4,6 +4,8 @@ $c: 15px;
 $b: 16px;
 $x: 18px;
 $main_color: #060;
+$gray: #666;
+
 html {
   color:#111;
   background:#fff;
@@ -120,25 +122,23 @@ body {
   width:590px;
   padding-right:40px
 }
-.grid-16-8 .article .switch-to-shuo {
-  float:right;
-  margin-top:-45px
-}
-.grid-16-8 .article .switch-to-shuo a {
-  display:block;
-  width:134px;
-  height:38px;
-  background:url('/images/switch_to_shuo.png') no-repeat left top
-}
-.grid-16-8 .article .switch-to-shuo a:hover {
-  background-position:left -38px
-}
-.grid-16-8 .article .switch-to-shuo a:active {
-  background-position:left -76px
-}
 .grid-16-8 .aside {
   float:right;
   width:310px
+}
+.grid-14-2-8 .nav {
+  float:left;
+  width:310px;
+  margin-right:10px
+}
+.grid-14-2-8 .article {
+  float:left;
+  width:540px;
+  padding-right:10px
+}
+.grid-14-2-8 .aside {
+  float:right;
+  width:70px
 }
 .grid-4-14-6 .nav {
   float:left;
@@ -1024,18 +1024,20 @@ body {
   float:left;
   display:inline
 }
-.obu dt {
-  margin:0;
-  height:50px;
-  overflow:hidden;
-  text-align:center;
-  line-height:$b
-}
-.obu dd {
-  margin:0;
-  height:55px;
-  text-align:center;
-  overflow:hidden
+.obu{
+  dt {
+    margin:0;
+    height:50px;
+    overflow:hidden;
+    text-align:center;
+    line-height:$b;
+  }
+  dd {
+    margin:0;
+    height:55px;
+    text-align:center;
+    overflow:hidden
+  }
 }
 .photitle {
   border-bottom:1px solid #ddd;
@@ -1195,4 +1197,7 @@ a.btn-fav:hover,a.btn-fav:active {
   font-size:12px;
   margin:-2px 0 0;
   #margin:-23px 0 0
+}
+.gray{
+  color:#666
 }

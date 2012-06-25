@@ -15,7 +15,7 @@ span.txt-bold
   = link_to t('delete'), @blog, confirm: t('confirm.delete'), method: :delete
 br
 | #{link_to @user.name, m(site(@user))}&nbsp;
-= post_info @blog
+= blog_info @blog
 br
 pre.note
   = style_it @blog.content

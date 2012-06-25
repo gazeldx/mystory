@@ -8,6 +8,8 @@ module HeadHelper
         t('s_note_archive', w: @user.name)
       elsif controller.action_name=='month'
         t('s_note_archive_month', w: @user.name, m: chinese_month(params[:month]))
+      elsif controller.action_name=='show'
+        raw "#{@note.title.to_s=='' ? @note.created_at.strftime(t'date_format') : @note.title} - #{link_to @note.notecate.name, @note.notecate} - #{link_to t('s_note', w: @user.name), notes_path}"
       else
         t('s_note', w: @user.name)
       end
@@ -16,6 +18,8 @@ module HeadHelper
         t('s_blog_archive', w: @user.name)
       elsif controller.action_name=='month'
         t('s_blog_archive_month', w: @user.name, m: chinese_month(params[:month]))
+      elsif controller.action_name=='show'
+        raw "#{@blog.title} - #{link_to @blog.category.name, @blog.category} - #{link_to t('s_blog', w: @user.name), blogs_path}"
       else
         t('s_blog', w: @user.name)
       end
@@ -33,13 +37,13 @@ module HeadHelper
       if @album.nil? or @album.name.nil?
         t('s_album', w: @user.name)
       else
-        t('s_album_in', w: @user.name, w2: @album.name)
+        raw "#{@album.name} - #{link_to t('s_album', w: @user.name), albums_path}"
       end
     elsif controller_path=='photos'
       if controller.action_name=='index'
         t('s_recent_photos',w: @user.name)
       else
-        t('s_album_in', w: @user.name, w2: @album.name)
+        raw "#{@photo.description.to_s=='' ? t('_photo_title')+@photo_position.to_s : @photo.description[0..17]} - #{link_to @album.name, @album} - #{link_to t('s_album', w: @user.name), albums_path}"
       end
     elsif controller_path=='categories'
       if controller.action_name=='index'
@@ -47,7 +51,7 @@ module HeadHelper
       elsif controller.action_name=='edit'
         t'category.edit'
       else
-        t('s_category', w: @user.name, w2: @category.name)
+        raw "#{@category.name} - #{link_to t('s_blog', w: @user.name), blogs_path}"
       end
     elsif controller_path=='notecates'
       if controller.action_name=='index'
@@ -55,7 +59,7 @@ module HeadHelper
       elsif controller.action_name=='edit'
         t'notecate.edit'
       else
-        t('s_notecate', w: @user.name, w2: @notecate.name)
+        raw "#{@notecate.name} - #{link_to t('s_note', w: @user.name), notes_path}"
       end
     elsif controller_path=='tags'
       if params[:name].nil?
