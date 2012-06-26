@@ -60,4 +60,5 @@ class User < ActiveRecord::Base
   validates :passwd, :length => { :in => 6..100 }
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }
+  validates :signature, :length => { :in => 0..300 }
 end

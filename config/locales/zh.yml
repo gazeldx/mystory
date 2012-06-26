@@ -49,6 +49,9 @@ zh:
   send_letters_to: "给%{w}发私信"
   send_letter: "发私信"
   letters_box: "私信箱"
+  whose_signature: "签名档_%{w}"
+  please_signature: "请设置您的签名档，签名档会显示在您发的所有文章结尾。"
+
 
   send_again: "再发一封"
   _archive: "归档"
@@ -270,7 +273,7 @@ zh:
   split_with_blank_time: "多个以空格分隔，距今近的写在前面"
   
   s_home_page: "%{w}主页"
-  ss_home_page: "%{w}的主页"
+  ss_home_page: "%{w}_我的故事"
   ss_home_page_note: "最新日记_%{w}"
   ss_home_page_blog: "最新作品_%{w}"
   ss_home_page_photo: "最近照片_%{w}"
@@ -407,7 +410,8 @@ zh:
   click_show_old: "点击查看旧一张"
   user_help: "帮助中心"
   #_account: "帐号"
-  manage: "管理"
+  #manage: "管理"
+  _setting: "设置"
   _admin_title: "管理我的帐号"
   _login: "登录"
   login_items: "邮箱/帐号/域名"

@@ -6,36 +6,36 @@
     <%= yield :stylesheet %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <style>
-      .item-reply { border-bottom:1px dashed #ddd;margin-top:4px; }
-      .recreplylst { padding-bottom:6px; }
-      .recreplylst .simplelst { border-bottom:none; }
-      .last { border:none; }
+    <%#*<style>%>
+      <%#*.item-reply { border-bottom:1px dashed #ddd;margin-top:4px; }%>
+      <%#*.recreplylst { padding-bottom:6px; }%>
+      <%#*.recreplylst .simplelst { border-bottom:none; }%>
+      <%#*.last { border:none; }%>
 
-      /* guess rules */
-      .guess-list li,.guess-list .content  { zoom:1;overflow:hidden;color:#666; }
-      .guess-list li { border-bottom:1px dashed #ddd;padding-bottom:6px;margin-top:8px; }
-      .guess-list .pic, .guess-list .info { display:table-cell;vertical-align:top;*float:left; }
-      .guess-list .pic { padding-right:12px;*padding-right:0;*margin-right:12px; }
-      .guess-list .pic img { width:56px;vertical-align:text-bottom; }
-      .guess-list .pic a:hover { background:transparent; }
-      .guess-list .info { *vertical-align:baseline;word-wrap:break-word; }
-      .guess-list .favs { color:#999; }
-      .guess-list .title { margin-bottom:3px; }
-      .guess-list .content { margin-bottom:4px; }
-      .guess-list .star { color:#ff5138;overflow:hidden;font-size:11px;font-family:tahoma;*zoom:1; }
-      .guess-list .pic .album_t { width:47px;height:47px;padding:2px 8px 8px 2px;background:url(/pics/album_s.png) no-repeat; }
+      <%#*/* guess rules */%>
+      <%#*.guess-list li,.guess-list .content  { zoom:1;overflow:hidden;color:#666; }%>
+      <%#*.guess-list li { border-bottom:1px dashed #ddd;padding-bottom:6px;margin-top:8px; }%>
+      <%#*.guess-list .pic, .guess-list .info { display:table-cell;vertical-align:top;*float:left; }%>
+      <%#*.guess-list .pic { padding-right:12px;*padding-right:0;*margin-right:12px; }%>
+      <%#*.guess-list .pic img { width:56px;vertical-align:text-bottom; }%>
+      <%#*.guess-list .pic a:hover { background:transparent; }%>
+      <%#*.guess-list .info { *vertical-align:baseline;word-wrap:break-word; }%>
+      <%#*.guess-list .favs { color:#999; }%>
+      <%#*.guess-list .title { margin-bottom:3px; }%>
+      <%#*.guess-list .content { margin-bottom:4px; }%>
+      <%#*.guess-list .star { color:#ff5138;overflow:hidden;font-size:11px;font-family:tahoma;*zoom:1; }%>
+      <%#*.guess-list .pic .album_t { width:47px;height:47px;padding:2px 8px 8px 2px;background:url(/pics/album_s.png) no-repeat; }%>
 
-      /* 登录后－新用户tip */
-      #miniblog_guide { position: relative; left: 0; top: 0; color: #31323b; background: #fff6ed; padding: 12px; margin-bottom: 15px; zoom: 1 }
-      #miniblog_guide a.close { color: #31323b; padding: 0 5px; position: absolute; right: 7px; top: 12px }
-      #miniblog_guide a.close:hover { color: #31323b; background: #fff6ed }
-      /* 切换到说 */
-      .switch-to-shuo { float: right; margin-top: -45px; }
-      .switch-to-shuo a { display: block; width: 134px; height: 38px; background: url('/pics/switch_to_shuo.png') no-repeat left top }
-      .switch-to-shuo a:hover { background-position: left -38px }
-      .switch-to-shuo a:active { background-position: left -76px }
-    </style>
+      <%#*/* 登录后－新用户tip */%>
+      <%#*#miniblog_guide { position: relative; left: 0; top: 0; color: #31323b; background: #fff6ed; padding: 12px; margin-bottom: 15px; zoom: 1 }%>
+      <%#*#miniblog_guide a.close { color: #31323b; padding: 0 5px; position: absolute; right: 7px; top: 12px }%>
+      <%#*#miniblog_guide a.close:hover { color: #31323b; background: #fff6ed }%>
+      <%#*/* 切换到说 */%>
+      <%#*.switch-to-shuo { float: right; margin-top: -45px; }%>
+      <%#*.switch-to-shuo a { display: block; width: 134px; height: 38px; background: url('/pics/switch_to_shuo.png') no-repeat left top }%>
+      <%#*.switch-to-shuo a:hover { background-position: left -38px }%>
+      <%#*.switch-to-shuo a:active { background-position: left -76px }%>
+    <%#*</style>%>
   </head>
   <body>
     <%= render 'shared/top' %>

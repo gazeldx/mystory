@@ -73,7 +73,7 @@ class HomeController < ApplicationController
         @blogs_new = Blog.includes(:category, :user, :blogcomments).order("id desc").limit(50)
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
         if DOMAIN_NAME=="mystory.cc"
-          @users = User.find([2, 11, 26, 70, 18, 48, 22, 39, 28, 44, 75, 110, 101])
+          @users = User.find([106, 2, 11, 26, 70, 18, 48, 22, 39, 28, 44, 75, 110, 101])
         else
           @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
         end

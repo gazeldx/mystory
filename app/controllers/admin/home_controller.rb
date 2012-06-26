@@ -1,6 +1,6 @@
 class Admin::HomeController < Admin::BaseController
 
-#  layout 'portal_others'
+  layout 'help'
 
   def index
     

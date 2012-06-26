@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   layout 'portal_others'
+
+  before_filter :url_authorize, :only => [:edit, :signature]
   
   def index
     @users = User.order("created_at DESC")
@@ -103,6 +105,21 @@ class UsersController < ApplicationController
 
   def as_a_writer
     render layout: 'help'
+  end
+
+  def signature
+    @_user = User.find(session[:id])
+    render layout: 'help'
+  end
+
+  def update_signature
+    @_user = User.find(session[:id])
+    if @_user.update_attributes(params[:user])
+      flash[:notice] = t'update_succ'
+      redirect_to admin_path
+    else
+      _render :signature
+    end
   end
 
   private

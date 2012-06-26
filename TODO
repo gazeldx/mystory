@@ -1,1 +1,3 @@
 Editor Page!
+@_user.update_attribute('signature', params[:user][:signature]) not validate
+Bu

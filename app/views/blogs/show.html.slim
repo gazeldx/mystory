@@ -20,6 +20,9 @@ div id='note-#{@blog.id}'
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content
+      br
+      br
+      = style_it @user.signature
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer
   .sns-bar
