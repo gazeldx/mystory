@@ -62,7 +62,7 @@ class HomeController < ApplicationController
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
-        @posts = Post.includes([:board, :user, :postcomments]).order("id desc").limit(40)
+        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(40)
         unless session[:id].nil?
           @board = Board.new
           @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
@@ -71,7 +71,7 @@ class HomeController < ApplicationController
       elsif @user.nil?
         @notes_new = Note.includes(:notecate, :user, :notecomments).order("id desc").limit(29)
         @blogs_new = Blog.includes(:category, :user, :blogcomments).order("id desc").limit(50)
-        @posts = Post.includes(:user).order("id desc").limit(8)
+        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
         if DOMAIN_NAME=="mystory.cc"
           @users = User.find([2, 11, 26, 70, 18, 48, 22, 39, 28, 44, 75, 110, 101])
         else

@@ -13,4 +13,4 @@
 br
 - @boards.each do |board|
   = link_to "#{board.name}", "#{board.id}"
-  | (#{board.posts.count})&nbsp;&nbsp;
+  | (#{board.posts.size})&nbsp;&nbsp;

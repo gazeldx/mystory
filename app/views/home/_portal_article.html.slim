@@ -23,56 +23,53 @@
           h2
             | 最近诞生的作品
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .b
+          .pa
             - @blogs_new.each do |blog|
-              /.headline
-                /a.pic href=site(blog.user)
-                /  = image_tag(blog.user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-                /.desc
-                  /h3
               = link_to blog.user.name, site(blog.user), target: '_blank'
               | ：
               = link_to blog.title, site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
               | &nbsp;[
               = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
               | ]&nbsp;
-              - cc = blog.blogcomments.count
-              = cc if cc>0
-              /span.rr
-              /
-              /span.pl
-              /  = blog.created_at.strftime t'date_without_year'
+              - cc = blog.blogcomments.size
+              -if cc>0
+                span.red
+                  = cc
               br
-                  /= summary_comment_portal(blog, 75)
       .nav
         #db-music-artists
           h2
             | 论坛新贴
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-          .b
+          .pa
             - @posts.each do |post|
               = link_to post.user.name, site(post.user), target: '_blank'
               | ：
               - etc = t('all_characters', w: post.content.size) if post.content.size>100
               = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
               | &nbsp;
-              - cc = post.postcomments.count
-              = cc if cc>0
+              - cc = post.postcomments.size
+              -if cc>0
+                span.red
+                  = cc
               br
           br
           h2
             | 最新日记
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .b
+          .pa
             - @notes_new.each do |note|
               = link_to note.user.name, site(note.user), target: '_blank'
               | ：
               = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : note.title, site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
               | &nbsp;[
-              = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
+              - unless note.notecate.nil?
+                = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
               | ]&nbsp;
-              - cc = note.notecomments.count
-              = cc if cc>0
+              - cc = note.notecomments.size
+              -if cc>0
+                span.red
+                  = cc
               br
       .aside
         h2
