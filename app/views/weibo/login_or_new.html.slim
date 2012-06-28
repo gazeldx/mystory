@@ -8,10 +8,10 @@ div align='center'
     | 针对“我的故事网站”您是否注册过，
     br
     | 请选择：
-    a href=""
+    a href="javascript:;" onclick="javascript:showNewuser()"
       | 我是新用户
     | &nbsp;或&nbsp;
-    a href="#" onclick="javascript:showLogin()"
+    a href="javascript:;" onclick="javascript:showLogin()"
       | 我已注册过
     .login style='display:none'
       = form_tag do
@@ -29,9 +29,20 @@ div align='center'
         span.pl
           | 提示：登录后将自动绑定新浪微博帐号。
         = hidden_field_tag 'url', SITE_URL
+    .newuser style='display:none'
+      = form_tag 'weibo_create_account' do
+        = hidden_field_tag 'weiboid', @weibo_user.id
+        br
+        input type='submit' value='创建帐号'
+      span.pl
+        | 提示：点击后帐号将自动创建，仅需这一步。
   coffee:
     this.showLogin = ->
       $('.login').css 'display', ''
+      $('.newuser').css 'display', 'none'
+    this.showNewuser = ->
+      $('.newuser').css 'display', ''
+      $('.login').css 'display', 'none'
     this.checkLogin = ->
       $.ajax
         url: 'login/bind_weibo_login'
