@@ -1,28 +1,23 @@
 class WeiboController < ApplicationController
-  Weibo::Config.api_key = WEIBO_API_KEY
-  Weibo::Config.api_secret = WEIBO_API_SECRET
+#  Weibo::Config.api_key = WEIBO_API_KEY
+#  Weibo::Config.api_secret = WEIBO_API_SECRET
   
   #  layout 'help'
 
   def connect
-    oauth = Weibo::OAuth.new(WEIBO_API_KEY, WEIBO_API_SECRET)
+    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
     request_token = oauth.consumer.get_request_token
     session[:rtoken], session[:rsecret] = request_token.token, request_token.secret
     redirect_to "#{request_token.authorize_url}&oauth_callback=http://#{request.env["HTTP_HOST"]}/weibo_callback"
   end
 
   def callback
-    oauth = Weibo::OAuth.new(WEIBO_API_KEY, WEIBO_API_SECRET)
+    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
     oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
     session[:rtoken], session[:rsecret] = nil, nil
     session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
     oauth.authorize_from_access(session[:atoken], session[:asecret])
-    #    @timeline = Weibo::Base.new(oauth).friends_timeline
-    #     friends = Weibo::Base.new(oauth).friends
-    #     user = Weibo::Base.new(oauth).user(1837900163)
     @weibo_user = Weibo::Base.new(oauth).verify_credentials
-    #    @user_show = Weibo::Base.new(oauth).user_show
-    #    puts @user_show.inspect
     puts @weibo_user.inspect
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id)
