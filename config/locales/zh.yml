@@ -51,7 +51,10 @@ zh:
   letters_box: "私信箱"
   whose_signature: "签名档_%{w}"
   please_signature: "请设置您的签名档，签名档会显示在您发的所有文章结尾。"
-
+  default_real_name: "网友"
+  weibo_bind_succ: "微博绑定成功!"
+  weibo_login_succ: "微博登录成功!"
+  weibo_bound_by_others: "该微博帐号已经被其它人绑定了，您无法绑定。"
 
   send_again: "再发一封"
   _archive: "归档"
@@ -452,6 +455,7 @@ zh:
   sort: "排序"
   confirm:
     delete: "确定删除吗?"
+    cancel_bind_weibo: "确定取消绑定新浪微博?"
 
   release_date: "发布日期"
   password: "密码"

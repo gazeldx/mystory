@@ -33,6 +33,23 @@ class LoginController < ApplicationController
       end
     end
   end
+
+  def bind_weibo_login
+    if check_member==0
+      puts "zzzzzzzzzzzzzzzzzzzzzzzero"
+      @user.update_attribute('weiboid', params[:weiboid])
+      flash[:notice] = t'weibo_bind_succ'
+      proc_session
+      puts @user.inspect
+      render json: @user.as_json
+    else
+      puts "not zzzzzzzzzzzzzzzzzzzzzzzero"
+      user = User.new
+      user.memo = flash[:error]
+      puts user.as_json
+      render json: user.as_json
+    end
+  end
   
   #in user domain login directly
   def login
@@ -47,9 +64,7 @@ class LoginController < ApplicationController
   private
 
   def login_now
-    session[:id] = @user.id
-    session[:name] = @user.name
-    session[:domain] = @user.domain
+    proc_session
     redirect_to m_or(my_site + like_path)
   end
   
@@ -73,11 +88,53 @@ class LoginController < ApplicationController
     end
   end
 
+  def judge_user_simple(r)
+    if @user.nil?
+      if r == "email"
+        flash[:error] = t'login.email_not_exist'
+      else
+        flash[:error] = t'login.user_not_exist'
+      end
+    elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
+      0
+    else
+      if r == "email"
+        flash[:error] = t'login.email_exist_password_wrong'
+      else
+        flash[:error] = t'login.domain_exist_password_wrong'
+      end
+    end
+  end
+
   def go_redirect
     if @m
       redirect_to login_path
     else
       redirect_to root_path
+    end
+  end
+
+  def check_member
+    if params[:loginname] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+      @user = User.find_by_email(params[:loginname])
+      judge_user_simple("email")
+    else
+      @user = User.find_by_username(params[:loginname])
+      if @user.nil?
+        @user = User.find_by_domain(params[:loginname])
+        judge_user_simple("domain")
+      elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
+        0
+      else
+        @user = User.find_by_domain(params[:loginname])
+        if @user.nil?
+          flash[:error] = t'login.username_exist_password_wrong'
+        elsif @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
+          0
+        else
+          flash[:error] = t'login.user_exist_password_wrong'
+        end
+      end
     end
   end
 end

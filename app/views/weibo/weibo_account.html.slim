@@ -1,0 +1,19 @@
+= title '设置新浪微博'
+.b
+  h2
+    | 新浪微博设置
+  - if @_user.weiboid.to_i > 0
+    | 您已绑定新浪微博。
+    br
+    | 您可以：
+    = link_to '取消绑定', cancel_weibo_bind_path, confirm: t('confirm.cancel_bind_weibo')
+  - else
+    a href=weibo_connect_path
+      | 开始绑定
+      = image_tag('/images/sina.png')
+    br
+    | 绑定后，您可以使用新浪微博帐号登录本站。
+    br
+    | 我们正在开发的其它微博功能有：将您的微博显示在我的故事网站上；发日记、作品的时候内容自动同步到微博等。
+/coffee:
+/  $('#user_signature').focus()

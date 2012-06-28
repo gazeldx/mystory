@@ -1,4 +1,6 @@
 = title t('active_state', w: @user.name)
+- if flash[:notice]
+  #notice= flash[:notice]
 #miniblog
   - if @user.id == session[:id]
     h2

@@ -82,9 +82,7 @@ class UsersController < ApplicationController
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
-      session[:id] = @user.id
-      session[:name] = @user.name
-      session[:domain] = @user.domain
+      proc_session
       #UserMailer.welcome_email(@user).deliver
       flash[:notice] = t'regiter_succ_memo'
       redirect_to m_or(my_site + edit_profile_path)

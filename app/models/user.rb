@@ -52,11 +52,11 @@ class User < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
 
-  validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{5,25}$/ }
+  validates :username, :uniqueness => true, :format => { :with => /^(?!_)(?!.*_$)\w{4,25}$/ }
   validates :email, :uniqueness => true, :length => { :in => 9..36 }, :email => true
   validates :domain, :uniqueness => true, :domain => true
   #  , :format => { :with => /^[a-z][a-z\d\-]{1,17}[a-z\d]$/ }
-  validates :name, :length => { :in => 2..15 }
+  validates :name, :length => { :in => 2..16 }
   validates :passwd, :length => { :in => 6..100 }
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }

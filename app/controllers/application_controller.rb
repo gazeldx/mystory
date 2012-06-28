@@ -59,6 +59,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def proc_session
+    session[:id] = @user.id
+    session[:name] = @user.name
+    session[:domain] = @user.domain
+  end
+
   def summary_common(something, size, tmp)
     if something.is_a?(Note)
       si = note_path(something)

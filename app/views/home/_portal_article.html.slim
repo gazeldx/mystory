@@ -1,5 +1,7 @@
 #wrapper
   #content
+    - if flash[:notice]
+      #notice= flash[:notice]
     .grid-24-0.clearfix
       .article
         h2

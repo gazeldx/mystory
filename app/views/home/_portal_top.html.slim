@@ -19,7 +19,7 @@
                 strong
                   = t('register_new_user')
       .login
-        = form_tag "login/member_login",:id => 'lzform' do
+        = form_tag "login/member_login" do
           - if flash[:error]
             #error= flash[:error]
           fieldset
@@ -34,11 +34,15 @@
               = password_field_tag :passwd
               /!忘记密码
             .item1
-              label
-                input type='checkbox' 
-                | 记住我
-            .item1
-              input type='submit' value='登  录' class='bn-submit' 
+              /label
+                /input type='checkbox'
+                /| 记住我
+              | 第三方登录：
+              a href=weibo_connect_path
+                = image_tag('/images/sina.png', title: '使用微博帐号登录')
+              | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              input type='submit' value='登  录' class='bn-submit'
+               
 - else
   = render 'shared/top'
   

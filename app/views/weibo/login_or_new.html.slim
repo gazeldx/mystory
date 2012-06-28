@@ -1,0 +1,44 @@
+= title '微博用户登录'
+- content_for :javascript do
+  = javascript_include_tag "jquery"
+div align='center'
+  .b
+    | 微博用户“#{@weibo_user.screen_name}”您好，
+    br
+    | 针对“我的故事网站”您是否注册过，
+    br
+    | 请选择：
+    a href=""
+      | 我是新用户
+    | &nbsp;或&nbsp;
+    a href="#" onclick="javascript:showLogin()"
+      | 我已注册过
+    .login style='display:none'
+      = form_tag do
+        = hidden_field_tag 'weiboid', @weibo_user.id
+        #error
+          | &nbsp;
+        = t'login_items'
+        = text_field_tag :loginname
+        br
+        = t'password'
+        = password_field_tag :passwd
+        br
+        input type='button' value='登录我的故事' onclick='checkLogin()'
+        br
+        span.pl
+          | 提示：登录后将自动绑定新浪微博帐号。
+        = hidden_field_tag 'url', SITE_URL
+  coffee:
+    this.showLogin = ->
+      $('.login').css 'display', ''
+    this.checkLogin = ->
+      $.ajax
+        url: 'login/bind_weibo_login'
+        data: "weiboid=" + $('#weiboid').val() + "&loginname=" + $('#loginname').val() + "&passwd=" + $('#passwd').val()
+        type: "POST"
+        success: (data) ->
+          if data['id']>0
+            window.location.replace $('#url').val()
+          else
+            $('#error').html data['memo']
