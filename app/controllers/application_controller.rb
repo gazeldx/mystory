@@ -32,14 +32,14 @@ class ApplicationController < ActionController::Base
     if request.domain==DOMAIN_NAME
       if request.subdomain.match(/.+\.m/)
         @m = true
-#        puts "yyxxxx  "
+        #        puts "yyxxxx  "
         three_domain = request.subdomain.sub(/\.m/, "")
         if three_domain == 'bbs'
           @bbs_flag = true
         else
-#          puts "xx"
+          #          puts "xx"
           @user = User.find_by_domain(three_domain)
-#          r301 if @user.nil?
+          #          r301 if @user.nil?
         end
         #puts @user.inspect        
       elsif request.subdomain == 'm'
@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
         @bbs_flag = true
       else
         @user = User.find_by_domain(request.subdomain)
-#        r301 if @user.nil?
+        #        r301 if @user.nil?
       end
     end
   end
@@ -63,6 +63,7 @@ class ApplicationController < ActionController::Base
     session[:id] = @user.id
     session[:name] = @user.name
     session[:domain] = @user.domain
+    session[:atoken], session[:asecret] = @user.atoken, @user.asecret
   end
 
   def summary_common(something, size, tmp)
@@ -197,10 +198,10 @@ class ApplicationController < ActionController::Base
     render text: t('page_not_found'), status: 404
   end
 
-#  def r301
-#    puts root_url
-#    redirect_to root_url
-#  end
+  #  def r301
+  #    puts root_url
+  #    redirect_to root_url
+  #  end
 
   def _render(str)
     if @m
@@ -210,6 +211,36 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def weibo_auth
+    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+    oauth.authorize_from_access(session[:atoken], session[:asecret])
+    oauth
+  end
+
+#  def verify_credentials
+##    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+##    request_token = oauth.consumer.get_request_token
+##    session[:rtoken], session[:rsecret] = request_token.token, request_token.secret
+##    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
+##    session[:rtoken], session[:rsecret] = nil, nil
+##    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
+##    oauth.authorize_from_access(session[:atoken], session[:asecret])
+##    Weibo::Base.new(oauth).verify_credentials
+#    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+#    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
+#    session[:rtoken], session[:rsecret] = nil, nil
+#    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
+#    puts session[:atoken], session[:asecret]
+##    oauth.authorize_from_access(session[:atoken], session[:asecret])
+##    @weibo_user = Weibo::Base.new(oauth).verify_credentials
+#  end
+
+  def verify_credentials
+    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+    oauth.authorize_from_access(session[:atoken], session[:asecret])
+    Weibo::Base.new(oauth).verify_credentials
+  end
+  
   module Tags
     def tagsIndex
       tags = @user.tags.map {|x| x.name}

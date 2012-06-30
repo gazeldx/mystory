@@ -3,7 +3,7 @@
   = javascript_include_tag "jquery"
 div align='center'
   .b
-    | 微博用户“#{@weibo_user.screen_name}”您好，
+    | 微博用户“#{@weibo_user.screen_name}”您好，#{session[:atoken]}
     br
     | 针对“我的故事网站”您是否注册过，
     br
@@ -36,6 +36,7 @@ div align='center'
         input type='submit' value='创建帐号'
       span.pl
         | 提示：点击后帐号将自动创建，仅需这一步。
+  /checkLogin ajax beforeSend is need . Reason see http://stackoverflow.com/questions/5126721/rails-not-reloading-session-on-ajax-post
   coffee:
     this.showLogin = ->
       $('.login').css 'display', ''
@@ -45,6 +46,8 @@ div align='center'
       $('.login').css 'display', 'none'
     this.checkLogin = ->
       $.ajax
+        beforeSend: (xhr) ->
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
         url: 'login/bind_weibo_login'
         data: "weiboid=" + $('#weiboid').val() + "&loginname=" + $('#loginname').val() + "&passwd=" + $('#passwd').val()
         type: "POST"

@@ -128,10 +128,9 @@ class HomeController < ApplicationController
   end
 
   def logout
-    session[:id] = nil
-    session[:name] = nil
-    session[:domain] = nil
-    if @m      
+    session[:id], session[:name], session[:domain] = nil
+    session[:atoken], session[:asecret] = nil, nil
+    if @m
       redirect_to m(SITE_URL + login_path)
     else
       redirect_to root_path

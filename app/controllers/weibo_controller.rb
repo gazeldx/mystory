@@ -1,7 +1,4 @@
 class WeiboController < ApplicationController
-#  Weibo::Config.api_key = WEIBO_API_KEY
-#  Weibo::Config.api_secret = WEIBO_API_SECRET
-  
   #  layout 'help'
 
   def connect
@@ -19,11 +16,13 @@ class WeiboController < ApplicationController
     oauth.authorize_from_access(session[:atoken], session[:asecret])
     @weibo_user = Weibo::Base.new(oauth).verify_credentials
     puts @weibo_user.inspect
+    puts session[:atoken]
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id)
       if @user.nil?
         render 'login_or_new', layout: 'portal'
       else
+        @user.update_attributes(:atoken => session[:atoken], :asecret => session[:asecret])
         proc_session
         flash[:notice] = t'weibo_login_succ'
         redirect_to my_site + like_path
@@ -32,7 +31,7 @@ class WeiboController < ApplicationController
       user = User.find_by_weiboid(@weibo_user.id)
       if user.nil?
         me = User.find(session[:id])
-        me.update_attribute('weiboid', @weibo_user.id)
+        me.update_attributes(:weiboid => @weibo_user.id, :atoken => session[:atoken], :asecret => session[:asecret])
       else
         flash[:error] = t'weibo_bound_by_others'
       end
@@ -45,6 +44,8 @@ class WeiboController < ApplicationController
     @user.weiboid = params[:weiboid]
     @user.name = t'default_real_name'
     @user.passwd = Digest::SHA1.hexdigest((10000000+Random.rand(89999999)).to_s)
+    @user.atoken = session[:atoken]
+    @user.asecret = session[:asecret]
     id = User.last.id + 1000
     @user.username = "u#{id}"
     @user.domain = "u#{id}"
@@ -63,12 +64,16 @@ class WeiboController < ApplicationController
 
   def weibo_account
     @_user = User.find(session[:id])
+    if @_user.weiboid.to_i > 0
+      @weibo_user = verify_credentials
+    end
     render layout: 'help'
   end
 
   def cancel_weibo_bind
     @_user = User.find(session[:id])
-    @_user.update_attribute('weiboid', nil)
+    @_user.update_attributes(:weiboid => nil, :atoken => nil, :asecret => nil)
+    session[:atoken], session[:asecret] = nil, nil
     redirect_to :back
   end
 

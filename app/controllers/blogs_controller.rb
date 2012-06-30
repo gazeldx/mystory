@@ -70,6 +70,7 @@ class BlogsController < ApplicationController
     build_tags @blog
     if @blog.save
       flash[:notice2] = t'blog_posted'
+      send_blog_to_weibo
       redirect_to blog_path(@blog)
     else
       _render :new
@@ -125,5 +126,14 @@ class BlogsController < ApplicationController
     params[:id] = 2
     show
     render :show
+  end
+
+  private
+  def send_blog_to_weibo
+    if session[:atoken]
+      oauth = weibo_auth
+      str = "#{@blog.title} - "
+      Weibo::Base.new(oauth).update("#{str}#{@blog.content[0..130-str.size]}#{site(@user) + blog_path(@blog)}")
+    end
   end
 end

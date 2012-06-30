@@ -34,24 +34,21 @@ class LoginController < ApplicationController
     end
   end
 
+  #This is ajax login check.
   def bind_weibo_login
     if check_member==0
-      puts "zzzzzzzzzzzzzzzzzzzzzzzero"
-      @user.update_attribute('weiboid', params[:weiboid])
+      @user.update_attributes(:weiboid => params[:weiboid], :atoken => session[:atoken], :asecret => session[:asecret])
       flash[:notice] = t'weibo_bind_succ'
       proc_session
-      puts @user.inspect
       render json: @user.as_json
     else
-      puts "not zzzzzzzzzzzzzzzzzzzzzzzero"
       user = User.new
       user.memo = flash[:error]
-      puts user.as_json
       render json: user.as_json
     end
   end
   
-  #in user domain login directly
+  #in user domain login directly, not used
   def login
     if @user.passwd == Digest::SHA1.hexdigest(params[:passwd])
       login_now

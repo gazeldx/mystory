@@ -46,6 +46,7 @@ class NotesController < ApplicationController
     build_tags @note
     if @note.save
       flash[:notice2] = t'note_post_succ'
+      send_note_to_weibo
       redirect_to note_path(@note)
     else
       _render :new
@@ -131,4 +132,12 @@ class NotesController < ApplicationController
     archives
   end
 
+  private
+  def send_note_to_weibo
+    if session[:atoken]
+      oauth = weibo_auth
+      str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
+      Weibo::Base.new(oauth).update("#{str}#{@note.content[0..130-str.size]}#{site(@user) + note_path(@note)}")
+    end
+  end
 end
