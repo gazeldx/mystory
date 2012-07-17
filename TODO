@@ -1,6 +1,3 @@
 Editor Page!
 @_user.update_attribute('signature', params[:user][:signature]) not validate
 Bu
-
-atoken everybody is the same ? 5d91091003f0ccea1da4245042326d3e
-why in session?

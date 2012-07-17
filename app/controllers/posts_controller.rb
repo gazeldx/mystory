@@ -14,6 +14,8 @@ class PostsController < ApplicationController
     @post.replied_at = Time.now
     if @post.save
       flash[:notice] = t'post_posted'
+      send_weibo
+      send_qq
       redirect_to m_or(sub_site("bbs") + "/#{@post.board_id.to_s}")
     else
       @board = Board.find(@post.board_id)
@@ -56,52 +58,33 @@ class PostsController < ApplicationController
     render layout: 'memoir'
   end
   
-  # GET /posts
-  # GET /posts.json
-#  def index
-#    #@posts = Post.all
-#    #@posts = Post.paginate(:page => params[:page])
-#    @posts = Post.page(params[:page])
-#    respond_to do |format|
-#      format.html # index.html.erb
-#      format.json { render json: @posts }
-#    end
-#  end
+  private
+  def send_weibo
+    if session[:atoken]
+      begin
+        oauth = weibo_auth
+        str = "#{@post.title + ' - '}"
+        data = "#{str}#{text_it_pure(@post.content)[0..130-str.size]}#{site(@user)}/p/#{@post.id}"
+        Weibo::Base.new(oauth).update(data)
+      rescue
+        logger.warn("---Send_post_to_weibo post.id=#{@post.id} failed.Data is #{data} #{session[:atoken]} ")
+      end
+    end
+  end
 
-  
-
-  # GET /posts/1/edit
-#  def edit
-#    @post = Post.find(params[:id])
-#  end
-
-  
-
-  # PUT /posts/1
-  # PUT /posts/1.json
-#  def update
-#    @post = Post.find(params[:id])
-#
-#    respond_to do |format|
-#      if @post.update_attributes(params[:post])
-#        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-#        format.json { head :ok }
-#      else
-#        format.html { render action: "edit" }
-#        format.json { render json: @post.errors, status: :unprocessable_entity }
-#      end
-#    end
-#  end
-
-  # DELETE /posts/1
-  # DELETE /posts/1.json
-#  def destroy
-#    @post = Post.find(params[:id])
-#    @post.destroy
-#
-#    respond_to do |format|
-#      format.html { redirect_to posts_url }
-#      format.json { head :ok }
-#    end
-#  end
+  def send_qq
+    if session[:token]
+      begin
+        qq = Qq.new
+        auth = qq.gen_auth(session[:token], session[:openid])
+        text = text_it_pure(@post.content)
+        url = "#{site(@user)}/p/#{@post.id}"
+        comment = text[0..40]
+        summary = "...#{text[41..160]}"
+        qq.add_share(auth, @post.title, url, comment, summary, "", '1', site(@user), '', '')
+      rescue
+        logger.warn("---Send_post_to_qq post.id=#{@post.id} failed.Data is #{url}, #{comment}, #{summary}, #{auth} ")
+      end
+    end
+  end
 end

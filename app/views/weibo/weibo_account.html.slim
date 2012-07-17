@@ -2,12 +2,13 @@
 .b
   = render 'shared/notice_error'
   h2
-    | 新浪微博设置
+    = link_to t('_setting'), my_site + admin_path
+    |  > 新浪微博设置
   - if @_user.weiboid.to_i > 0
     | 您已绑定新浪微博： #{link_to @weibo_user.screen_name, "http://weibo.com/#{@weibo_user.id}", target: '_blank'} #{link_to '取消绑定', cancel_weibo_bind_path, confirm: t('confirm.cancel_bind_weibo')}
     br
     br
-    | 您可以使用新浪微博帐号登录本站。发日记、作品的时候内容会自动同步到微博。    
+    | 您可以使用新浪微博帐号登录本站。日记、作品自动同步到微博。    
   - else
     | 您还没有绑定新浪微博呢。
     br
@@ -16,8 +17,6 @@
       = image_tag('/images/bind_weibo.png', width: 98, height: 20)
     br
     br
-    | 绑定后，您可以使用新浪微博帐号登录本站。发日记、作品的时候内容自动同步到微博。
+    | 绑定后，您可以使用新浪微博帐号登录本站。日记、作品自动同步到微博。
   br
-  | 我们正在开发的其它微博功能有：将您的微博显示在我的故事网站上。
-/coffee:
-/  $('#user_signature').focus()
+  | 我们正在开发更多微博相关功能。

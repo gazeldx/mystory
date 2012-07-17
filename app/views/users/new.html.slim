@@ -8,7 +8,7 @@ h1
       span.red
         | *
       = t'user_name'
-    = f.text_field :username, class: "basic-input"
+    = f.text_field :username, size: 15, class: "basic-input"
     span.tips
       = t'user_name_desc'
   .item.extra-tips
@@ -25,6 +25,8 @@ h1
         | *
       = t'domain'
     = f.text_field :domain, class: "basic-input"
+    span.b
+      | .mystory.cc
     span.tips
       = t'domain_desc'
   .item.extra-tips

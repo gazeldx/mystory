@@ -1,6 +1,6 @@
 class WeiboController < ApplicationController
   #  layout 'help'
-
+  include AutoCreatedUserInfo
   def connect
     oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
     request_token = oauth.consumer.get_request_token
@@ -33,6 +33,7 @@ class WeiboController < ApplicationController
         me = User.find(session[:id])
         me.update_attributes(:weiboid => @weibo_user.id, :atoken => session[:atoken], :asecret => session[:asecret])
       else
+        session[:atoken], session[:asecret] = nil, nil
         flash[:error] = t'weibo_bound_by_others'
       end
       redirect_to my_site + weibo_account_path
@@ -42,21 +43,9 @@ class WeiboController < ApplicationController
   def create_account
     @user = User.new
     @user.weiboid = params[:weiboid]
-    @user.name = t'default_real_name'
-    @user.passwd = Digest::SHA1.hexdigest((10000000+Random.rand(89999999)).to_s)
     @user.atoken = session[:atoken]
     @user.asecret = session[:asecret]
-    id = User.last.id + 1000
-    @user.username = "u#{id}"
-    @user.domain = "u#{id}"
-    @user.email = "u#{id}@mystory.cc"
-    unless @user.save
-      num = Random.rand(9999)
-      @user.username = "u#{id}-#{num}"
-      @user.domain = "u#{id}-#{num}"
-      @user.email = "u#{id}-#{num}@mystory.cc"
-      @user.save
-    end
+    same_user_info
     proc_session
     flash[:notice] = t'weibo_regiter_succ_memo'
     redirect_to my_site + edit_profile_path

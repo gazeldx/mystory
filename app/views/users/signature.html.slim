@@ -2,6 +2,8 @@
 = form_for @_user, url: {action: "update_signature"} do |f|
   = error_msg @_user
   h2
+    = link_to t('_setting'), my_site + admin_path
+    |  >&nbsp;
     = t'please_signature'
   span.b
     | 签名档内容：

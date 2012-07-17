@@ -70,7 +70,8 @@ class BlogsController < ApplicationController
     build_tags @blog
     if @blog.save
       flash[:notice2] = t'blog_posted'
-      send_blog_to_weibo
+      send_weibo
+      send_qq
       redirect_to blog_path(@blog)
     else
       _render :new
@@ -129,11 +130,47 @@ class BlogsController < ApplicationController
   end
 
   private
-  def send_blog_to_weibo
+  def send_weibo
     if session[:atoken]
-      oauth = weibo_auth
-      str = "#{@blog.title} - "
-      Weibo::Base.new(oauth).update("#{str}#{@blog.content[0..130-str.size]}#{site(@user) + blog_path(@blog)}")
+      begin
+        oauth = weibo_auth
+        str = "#{@blog.title} - "
+        data = "#{str}#{text_it_pure(@blog.content)[0..130-str.size]}#{site(@user) + blog_path(@blog)}"
+        Weibo::Base.new(oauth).update(data)
+      rescue
+        logger.warn("---Send_blog_to_weibo blog.id=#{@blog.id} failed.Data is #{data} #{session[:atoken]}")
+      end
+    end
+  end
+
+  def send_qq
+    if session[:token]
+      begin
+        qq = Qq.new
+        auth = qq.gen_auth(session[:token], session[:openid])
+        text = text_it_pure(@blog.content)
+        url = site(@user) + blog_path(@blog)
+        comment = text[0..40]
+        summary = "...#{text[41..160]}"
+        #TODO image pengyou.com no data.来自不对
+        qq.add_share(auth, @blog.title, url, comment, summary, "", '1', site(@user), '', '')
+
+
+
+#        str = "#{@blog.title} - "
+#        data = "#{str}#{text[0..130-str.size]}#{url}"
+#        puts "t sent now.."
+#        qq.add_t(auth, '', '', '', '1', "testweibohaihihihih")
+#        puts "t sent over.."
+#        puts "sent...#{comment}"
+#        def add_share(auth,title,url,comment,summary,images,source,site,nswb,*play)
+#          data=auth + '&title=' + title + '&url=' + url + '&comment=' + comment + '&summary=' + summary + '&images=' + images + '&source=' + source + '&site=' + site + '&nswb=' + nswb + '&type=' + play[0]
+#          data=data + '&playurl=' + play[1] unless play.count ==1
+#          MultiJson.decode(post_comm(ADDSHAREURL,URI.escape(data)))
+#        end        
+      rescue
+        logger.warn("---Send_blog_to_qq blog.id=#{@blog.id} failed.Data is #{url}, #{comment}, #{summary}, #{auth} ")
+      end
     end
   end
 end

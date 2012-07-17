@@ -4,10 +4,10 @@ class NotesController < ApplicationController
   def index
     @notes = @user.notes.page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
-#    default_category = Notecate.new
-#    default_category.id = 0
-#    default_category.name = t'default_notecate_name'
-#    @notecates.unshift(default_category)
+    #    default_category = Notecate.new
+    #    default_category.id = 0
+    #    default_category.name = t'default_notecate_name'
+    #    @notecates.unshift(default_category)
   end
 
   def new
@@ -46,7 +46,8 @@ class NotesController < ApplicationController
     build_tags @note
     if @note.save
       flash[:notice2] = t'note_post_succ'
-      send_note_to_weibo
+      send_weibo
+      send_qq
       redirect_to note_path(@note)
     else
       _render :new
@@ -133,11 +134,32 @@ class NotesController < ApplicationController
   end
 
   private
-  def send_note_to_weibo
+  def send_weibo
     if session[:atoken]
-      oauth = weibo_auth
-      str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
-      Weibo::Base.new(oauth).update("#{str}#{@note.content[0..130-str.size]}#{site(@user) + note_path(@note)}")
+      begin
+        oauth = weibo_auth
+        str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
+        data = "#{str}#{text_it_pure(@note.content)[0..130-str.size]}#{site(@user) + note_path(@note)}"
+        Weibo::Base.new(oauth).update(data)
+      rescue
+        logger.warn("---Send_note_to_weibo note.id=#{@note.id} failed.Data is #{data} #{session[:atoken]} ")
+      end
+    end
+  end
+
+  def send_qq
+    if session[:token]
+      begin
+        qq = Qq.new
+        auth = qq.gen_auth(session[:token], session[:openid])
+        text = text_it_pure(@note.content)
+        url = site(@user) + note_path(@note)
+        comment = text[0..40]
+        summary = "...#{text[41..160]}"
+        qq.add_share(auth, @note.title.to_s=='' ? @note.created_at.strftime(t'date_format') : @note.title, url, comment, summary, "", '1', site(@user), '', '')
+      rescue
+        logger.warn("---Send_note_to_qq note.id=#{@note.id} failed.Data is #{url}, #{comment}, #{summary} , #{auth} ")
+      end
     end
   end
 end

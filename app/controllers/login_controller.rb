@@ -47,6 +47,20 @@ class LoginController < ApplicationController
       render json: user.as_json
     end
   end
+
+  #This is ajax login check.
+  def bind_qq_login
+    if check_member==0
+      @user.update_attributes(:openid => params[:openid], :token => session[:token])
+      flash[:notice] = t'qq_bind_succ'
+      proc_session
+      render json: @user.as_json
+    else
+      user = User.new
+      user.memo = flash[:error]
+      render json: user.as_json
+    end
+  end
   
   #in user domain login directly, not used
   def login

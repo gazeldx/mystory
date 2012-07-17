@@ -8,7 +8,10 @@
       - else
         - if session[:atoken].nil?
           a href=weibo_connect_path
-            = image_tag('/images/bind_weibo.png', title: '绑定后，你可以使用微博帐号登录，可设置展示您的微博，发日记、作品时同步到微博等', width: 98, height: 20)
+            = image_tag('/images/bind_weibo.png', title: '绑定后，可用微博帐号登录，可展示您的微博，日记、作品同步到微博', width: 98, height: 20)
+        - if session[:token].nil?
+          a href=qq_connect_path
+            = image_tag('/images/qq_login_2.png', title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说、朋友网', width: 120, height: 24)
         = link_to t('_active'), my_site + like_path
         = link_to session[:name], my_site
         = link_to t('_setting'), my_site + admin_path, title: t('_admin_title')

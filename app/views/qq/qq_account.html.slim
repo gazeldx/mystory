@@ -1,0 +1,22 @@
+= title '设置QQ'
+.b
+  = render 'shared/notice_error'
+  h2
+    = link_to t('_setting'), my_site + admin_path
+    |  >&nbsp;QQ绑定设置
+  - if !@_user.openid.nil?
+    | 您已绑定QQ用户： #{@qq_user['nickname']} #{link_to '取消绑定', cancel_qq_bind_path, confirm: t('confirm.cancel_bind_qq')}
+    br
+    br
+    | 您可以使用QQ帐号登录本站。日记、作品自动同步到腾讯微博、QQ空间说说、朋友网。
+  - else
+    | 您还没有绑定QQ。
+    br
+    | 请点击此处 >>&nbsp;
+    a href=qq_connect_path
+      = image_tag('/images/qq_login_2.png', width: 120, height: 24)
+    br
+    br
+    | 绑定后，您可以使用QQ帐号登录本站。发日记、作品自动同步到腾讯微博、QQ空间说说、朋友网。
+  br
+  | 我们正在研发更多QQ相关功能。

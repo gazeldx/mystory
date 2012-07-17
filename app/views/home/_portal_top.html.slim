@@ -12,7 +12,7 @@
               br
               b 分享我的故事，让世界更美
               br
-              | 原创社交网络
+              | 原创社区。日记、作品同步到微博、QQ空间
               br
               br
               a class='lnk-reg' href=(register_path)
@@ -39,9 +39,11 @@
                 /| 记住我
               a href=weibo_connect_path
                 = image_tag('/images/sina.png', title: '使用微博帐号登录', width: 126, height: 24)
-              | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              | &nbsp;&nbsp;
+              a href=qq_connect_path
+                = image_tag('/images/qq_login.png', title: '使用QQ号登录', width: 63, height: 24)
+              | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               input type='submit' value='登  录' class='bn-submit'
                
 - else
   = render 'shared/top'
-  

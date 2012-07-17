@@ -89,8 +89,8 @@ class HomeController < ApplicationController
 
         t = params[:t]
         if t.nil?
-          notes = @user.notes.limit(30)
-          blogs = @user.blogs.limit(10)
+          notes = @user.notes.limit(30).order("id desc")
+          blogs = @user.blogs.limit(10).order("id desc")
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
           all_ = notes | blogs | photos
           memoir = @user.memoir

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :my_site, :site, :sub_site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :m
+  helper_method :my_site, :site, :sub_site, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def site(user)
     SITE_URL.sub(/\:\/\//, "://" + user.domain + ".")
-  end
+  end  
 
   def sub_site(str)
     SITE_URL.sub(/\:\/\//, "://" + str + ".")
@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
     session[:name] = @user.name
     session[:domain] = @user.domain
     session[:atoken], session[:asecret] = @user.atoken, @user.asecret
+    session[:token], session[:openid] = @user.token, @user.openid
   end
 
   def summary_common(something, size, tmp)
@@ -194,6 +195,51 @@ class ApplicationController < ActionController::Base
     mystr
   end
 
+  def text_it_pure(something)
+    s = ignore_draft(something.gsub(/\r\n/,' '))
+    s = ignore_img(s)
+    s = ignore_image_tag(s)
+    ignore_style_tag(s)
+  end
+
+  def ignore_draft(mystr)
+    m = mystr.scan(/(##(.*?)##)/m)
+    m.each do |e|
+      mystr = mystr.sub(e[0], " ")
+    end
+    mystr
+  end
+
+  def ignore_img(mystr)
+    require 'uri'
+    x = URI.extract(mystr, ['http'])
+    x.each do |e|
+      m = e.match(/.*.(png|jpg|jpeg|gif)/i)
+      if m
+        mystr = mystr.sub(m[0], "")
+      end
+    end
+    mystr
+  end
+
+  def ignore_image_tag(str)
+    m = str.scan(/\+photo\d{2,}\+/m)
+    m.each do |e|
+      str = str.sub(e, "")
+    end
+    str
+  end
+
+  def ignore_style_tag(s)
+    m = s.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
+    m.each do |e|
+      unless e[1].nil?
+        s = s.sub(e[0], e[2])
+      end
+    end
+    s
+  end
+
   def r404
     render text: t('page_not_found'), status: 404
   end
@@ -251,6 +297,24 @@ class ApplicationController < ActionController::Base
         @tags[v] += 1
       end
       @tags = @tags.sort_by{|k, v| v}.reverse!
+    end
+  end
+
+  module AutoCreatedUserInfo
+    def same_user_info
+      @user.name = t'default_real_name'
+      @user.passwd = Digest::SHA1.hexdigest((10000000+Random.rand(89999999)).to_s)
+      id = User.last.id + 1000
+      @user.username = "u#{id}"
+      @user.domain = "u#{id}"
+      @user.email = "u#{id}@mystory.cc"
+      unless @user.save
+        num = Random.rand(9999)
+        @user.username = "u#{id}-#{num}"
+        @user.domain = "u#{id}-#{num}"
+        @user.email = "u#{id}-#{num}@mystory.cc"
+        @user.save
+      end
     end
   end
 

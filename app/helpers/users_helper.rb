@@ -35,14 +35,6 @@ module UsersHelper
     #    end
   end
 
-  def ignore_image_tag(str)
-    m = str.scan(/\+photo\d{2,}\+/m)
-    m.each do |e|
-      str = str.sub(e, "")
-    end
-    str
-  end
-
   def summary_no_comments_portal(something, size)
     tmp = text_it(something.content[0, size])
     if something.is_a?(Memoir)
@@ -232,24 +224,6 @@ module UsersHelper
     s = ignore_image_tag(s)
     raw ignore_style_tag(s)
   end
-
-  def ignore_style_tag(s)
-    m = s.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
-    m.each do |e|
-      unless e[1].nil?
-        s = s.sub(e[0], e[2])
-      end
-    end
-    s
-  end
-
-  def ignore_draft(mystr)
-    m = mystr.scan(/(##(.*?)##)/m)
-    m.each do |e|
-      mystr = mystr.sub(e[0], " ")
-    end
-    mystr
-  end
   
   def summary_comment_style(something, size)
     _style = style_it(something.content[0, size])
@@ -261,19 +235,7 @@ module UsersHelper
     s = auto_link(s)
     s = auto_img(s)
     raw auto_style(auto_photo(s))
-  end
-
-  def ignore_img(mystr)
-    require 'uri'
-    x = URI.extract(mystr, ['http'])
-    x.each do |e|
-      m = e.match(/.*.(png|jpg|jpeg|gif)/i)
-      if m
-        mystr = mystr.sub(m[0], "")
-      end
-    end
-    mystr
-  end
+  end  
   
   def photos_count(mystr)
     m = mystr.scan(/(\+photo(\d{2,})\+)/m)
