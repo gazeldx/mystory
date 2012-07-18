@@ -1,8 +1,6 @@
 module HeadHelper
 
   def banner_text
-    #puts controller_path
-    #puts controller.action_name
     if controller_path=='notes'
       if controller.action_name=='archives'
         t('s_note_archive', w: @user.name)

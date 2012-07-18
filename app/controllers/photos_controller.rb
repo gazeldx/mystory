@@ -19,7 +19,8 @@ class PhotosController < ApplicationController
     if @album.user == @user
       @photo_new = Photo.where(["album_id = ? AND created_at > ?", @album.id, @photo.created_at]).order('created_at').first
       @photo_old = Photo.where(["album_id = ? AND created_at < ?", @album.id, @photo.created_at]).order('created_at DESC').first
-      @album.photos.each_with_index { |x, i|
+      @photos = @album.photos
+      @photos.each_with_index { |x, i|
         if x == @photo
           @photo_position = i + 1
           break
@@ -79,18 +80,7 @@ class PhotosController < ApplicationController
   end
 
   def m_upload_photo
-#    if params[:photo][:album_id].nil?
-#      puts "it is nil"
-#      @album = Album.new
-#      @album.name = t'default_album_name'
-#      @album.user_id = session[:id]
-#      @album.save
-#    else
-#      puts params[:photo][:album_id]
-#      @album = Album.find(params[:photo][:album_id])
-#    end
     @album = @user.albums.first(:order => "id")
-    puts @album.inspect
     if @album.nil?
       puts "it is nil"
       @album = Album.new
@@ -98,7 +88,6 @@ class PhotosController < ApplicationController
       @album.user_id = session[:id]
       @album.save
     end
-    puts @album.name
     @photo = @album.photos.build(params[:photo])
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1

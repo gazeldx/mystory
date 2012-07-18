@@ -159,10 +159,7 @@ class BlogsController < ApplicationController
 
 #        str = "#{@blog.title} - "
 #        data = "#{str}#{text[0..130-str.size]}#{url}"
-#        puts "t sent now.."
 #        qq.add_t(auth, '', '', '', '1', "testweibohaihihihih")
-#        puts "t sent over.."
-#        puts "sent...#{comment}"
 #        def add_share(auth,title,url,comment,summary,images,source,site,nswb,*play)
 #          data=auth + '&title=' + title + '&url=' + url + '&comment=' + comment + '&summary=' + summary + '&images=' + images + '&source=' + source + '&site=' + site + '&nswb=' + nswb + '&type=' + play[0]
 #          data=data + '&playurl=' + play[1] unless play.count ==1

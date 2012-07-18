@@ -26,22 +26,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def query_user_by_domain
-    
-    #puts request.domain
+  def query_user_by_domain    
     if request.domain==DOMAIN_NAME
       if request.subdomain.match(/.+\.m/)
         @m = true
-        #        puts "yyxxxx  "
         three_domain = request.subdomain.sub(/\.m/, "")
         if three_domain == 'bbs'
           @bbs_flag = true
         else
-          #          puts "xx"
           @user = User.find_by_domain(three_domain)
-          #          r301 if @user.nil?
         end
-        #puts @user.inspect        
       elsif request.subdomain == 'm'
         @m = true
       elsif request.subdomain == 'bbs'

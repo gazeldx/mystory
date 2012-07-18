@@ -453,7 +453,7 @@ zh:
   domain_desc: " 可用于登录，建议用姓名拼音"
   #domain_desc: "可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc和http://mystory.cc/yourname访问"
   real_name: "真实姓名"
-  name_desc: "“我的故事”是真实社交网络，建议填写真实姓名！会显示在主页。"
+  name_desc: "会显示在主页。“我的故事”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
 
   num_error: "个原因"
   op_error: "使得操作未成功"

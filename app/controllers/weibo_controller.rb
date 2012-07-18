@@ -15,8 +15,6 @@ class WeiboController < ApplicationController
     session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
     oauth.authorize_from_access(session[:atoken], session[:asecret])
     @weibo_user = Weibo::Base.new(oauth).verify_credentials
-    puts @weibo_user.inspect
-    puts session[:atoken]
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id)
       if @user.nil?

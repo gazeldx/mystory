@@ -39,7 +39,6 @@ class Qq
 	def get_token(code,httpstat)
     #获取令牌
 		@token=open(TOKENURL + 'grant_type=authorization_code&client_id=' + APPID + '&client_secret=' + APPKEY + '&code=' + code + '&state='+ httpstat + REDURL).read[/(?<=access_token=)\w{32}/]
-#    puts OPENIDURL + @token
 		#获取Openid
 		@openid=open(OPENIDURL + @token).read[/\w{32}/]
 		#获取通用验证参数

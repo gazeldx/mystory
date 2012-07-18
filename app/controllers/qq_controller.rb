@@ -12,7 +12,6 @@ class QqController < ApplicationController
     qq.get_token(params[:code], request.env['HTTP_CONNECTION'])
     session[:token], session[:openid] = qq.token, qq.openid
     @qq_user = qq.get_user_info(qq.auth)
-    puts @qq_user.inspect
     if session[:id].nil?
       @user = User.find_by_openid(qq.openid)
       if @user.nil?
