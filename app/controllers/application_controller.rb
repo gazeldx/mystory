@@ -74,9 +74,9 @@ class ApplicationController < ActionController::Base
       comments = ' ' + t('comments', w: count)
     end
     if something.content.size > size
-      tmp + t('etc') + "<a href='#{si}'>" + t('whole_article') + comments + "</a>"
+      tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + comments + "</a>"
     else
-      tmp + "<a href='#{si}'>" + comments + "</a>"
+      tmp + "<a href='#{si}' target='_blank'>" + comments + "</a>"
     end
   end
 
@@ -309,6 +309,20 @@ class ApplicationController < ActionController::Base
         @user.email = "u#{id}-#{num}@mystory.cc"
         @user.save
       end
+    end
+  end
+
+  module Archives
+    def archives_months_count
+      _ns = @user.notes.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+      _bs = @user.blogs.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+      _ps = Photo.where(album_id: @user.albums).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+      a = _ns + _bs + _ps
+      h = Hash.new(0)
+      a.each do |x|
+        h[x.t_date] += x.t_count.to_i
+      end
+      @items = h.sort_by{|k, v| k}.reverse!
     end
   end
 

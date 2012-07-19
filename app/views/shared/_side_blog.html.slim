@@ -1,0 +1,26 @@
+#event.pl2
+  h2
+    = t('s_categories', w: @user.name)
+  - @categories.each do |category|
+    - link_css = 'selected' if category==@blog.category and @categories.size>1
+    = link_to category.name, category, class: link_css
+    br
+  - if session[:id]==@user.id
+    span
+      | (
+      = link_to t('category.edit'), categories_path
+      | )
+    br
+  br
+  h2
+    = t('s_new_blog', w: @user.name)
+  - @new_blogs.each do |blog|
+    = link_to blog.title, blog
+    br
+  br
+  h2
+    = t('s_recommend', w: @user.name)
+  - @rblogs.each do |blog|
+    = link_to blog.title, blog
+    br
+  = render 'shared/archives_side'

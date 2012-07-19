@@ -44,7 +44,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  发日记 #{link_to item.title, note_path(item)}&nbsp;
+              |  发日记 #{link_to item.title, note_path(item), target: '_blank'}&nbsp;
             span.inq
               = summary_comment(item, 140)
               = thumbs_here(item, 3)
@@ -52,7 +52,7 @@
                 = article_time item
               = recommend_etc item
               - if item.user_id == session[:id]
-                = link_to t('edit'), edit_note_path(item)
+                = link_to t('edit'), edit_note_path(item), target: '_blank'
                 | &nbsp;
                 = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
       - elsif item.is_a?(Blog)
@@ -61,7 +61,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  发表作品《#{link_to item.title, blog_path(item)}》
+              |  发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》
             span.inq
               = summary_comment(item, 180)
               = thumbs_here(item, 3)
@@ -69,7 +69,7 @@
                 = article_time item
               - if item.user_id == session[:id]
                 | &nbsp;
-                = link_to t('edit'), edit_blog_path(item)
+                = link_to t('edit'), edit_blog_path(item), target: '_blank'
       - elsif item.is_a?(Photo)
         - album = item.album
         - user = album.user
@@ -78,7 +78,7 @@
           span.inq
             = link_to user.name, site(user)
             span.pl1  上传照片到&nbsp;
-            = link_to album.name, album_path(album)
+            = link_to album.name, album_path(album), target: '_blank'
             - unless item.description.nil?
               br
               = item.description
@@ -103,7 +103,7 @@
           span.inq
             | &nbsp;&nbsp;原文
             = link_to note.user.name, site(note.user)
-            | :#{link_to note.title, site(note.user) + note_path(note)}&nbsp;
+            | :#{link_to note.title, site(note.user) + note_path(note), target: '_blank'}&nbsp;
             = summary_comment_portal(note, 140)
             = thumbs_here(note, 3)
             span.pl
@@ -124,7 +124,7 @@
             | &nbsp;&nbsp;原文
             = link_to blog.user.name, site(blog.user)
             span.pl1  发表作品
-            | 《#{link_to blog.title, site(blog.user) + blog_path(blog)}》
+            | 《#{link_to blog.title, site(blog.user) + blog_path(blog), target: '_blank'}》
             = summary_comment_portal(blog, 180)
             = thumbs_here(blog, 3)
             span.pl
@@ -147,7 +147,7 @@
           span.inq
             = link_to user.name, site(user)
             span.pl1  上传照片到&nbsp;
-            = link_to album.name, site(user) + album_path(album)
+            = link_to album.name, site(user) + album_path(album), target: '_blank'
             - unless photo.description.nil?
               br
               = photo.description
@@ -168,4 +168,4 @@
             span.pl
               = article_time item
             - if item.user_id == session[:id]
-              = link_to t('edit'), edit_memoirs_path
+              = link_to t('edit'), edit_memoirs_path, target: '_blank'

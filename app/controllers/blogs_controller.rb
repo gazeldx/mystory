@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   layout 'memoir'
+  include Archives
   
   def index
     @blogs = @user.blogs.page(params[:page]).order("created_at DESC")
@@ -10,17 +11,25 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     if @blog.user == @user
       @categories = @user.categories.order('created_at')
+      @new_blogs = @user.blogs.order('created_at DESC').limit(6)
       @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
       @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
       comments = @blog.blogcomments
       @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.blogs.select('id')
-      @rblogs = @user.r_blogs.where(id: ids).limit(5)
+      @rblogs = @user.r_blogs.where(id: ids).limit(6)
+      cate_ids = @user.blogs.where(["category_id = ?", @blog.category_id]).select('id')
+      @cate_rblogs = @user.r_blogs.where(id: cate_ids).limit(5)
+      if @cate_rblogs.size < 5
+        @cate_blogs = @user.blogs.where(["category_id = ?", @blog.category_id]).order('created_at DESC').limit(5 - @cate_rblogs.size)
+      end
+      archives_months_count
+      #TODO UNIQUE @cate_blogs AND @cate_rblogs
       if @m
         render mr, layout: 'm/portal'
       else
-        render layout: 'memoir_share'
+        render layout: 'blog'
       end
     else
       r404

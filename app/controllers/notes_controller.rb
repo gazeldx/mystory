@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   layout 'memoir'
+  include Archives
   
   def index
     @notes = @user.notes.page(params[:page]).order("created_at DESC")
@@ -64,22 +65,29 @@ class NotesController < ApplicationController
     end
   end
 
+  #TODO change to max or min?
   def show
     @note = Note.find(params[:id])
     if @note.user == @user
-      #TODO change to max or min?
       @notecates = @user.notecates.order('created_at')
+      @new_notes = @user.notes.order('created_at DESC').limit(6)
       @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
       @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
       comments = @note.notecomments
       @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.notes.select('id')
-      @rnotes = @user.r_notes.where(id: ids).limit(5)
+      @rnotes = @user.r_notes.where(id: ids).limit(6)
+      cate_ids = @user.notes.where(["notecate_id = ?", @note.notecate_id]).select('id')
+      @cate_rnotes = @user.r_notes.where(id: cate_ids).limit(5)
+      if @cate_rnotes.size < 5
+        @cate_notes = @user.notes.where(["notecate_id = ?", @note.notecate_id]).order('created_at DESC').limit(5 - @cate_rnotes.size)
+      end
+      archives_months_count
       if @m
         render mr, layout: 'm/portal'
       else
-        render layout: 'memoir_share'
+        render layout: 'note'
       end
     else
       r404

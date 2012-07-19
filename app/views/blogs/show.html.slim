@@ -58,29 +58,34 @@ div id='note-#{@blog.id}'
       br
     = t'_category_'
     - @categories.each do |category|
+      - link_css = 'selected' if category==@blog.category and @categories.size>1
       | [
-      = link_to category.name, category
+      = link_to category.name, category, class: link_css
       | ]&nbsp;&nbsp;
     br
     = t'a_new'
     - if @blog_pre.nil?
       = t'none'
     - else
-      = link_to @blog_pre.title, @blog_pre
+      = link_to @blog_pre.title[0..25], @blog_pre
     br
     = t'an_old'
     - if @blog_next.nil?
       = t'none'
     - else
-      = link_to @blog_next.title, @blog_next
-- unless @rblogs.blank?
+      = link_to @blog_next.title[0..25], @blog_next
+- unless @rblogs.blank? and @cate_rblogs.blank?
   .rr
     span.pl
-      = t'_recommend'
+      = t('s_cate_recommend', w: @blog.category.name)
     br
-    - @rblogs.each do |blog|
-      = link_to blog.title, blog
+    - @cate_rblogs.each do |blog|
+      = link_to blog.title[0..25], blog
       br
+    - unless @cate_blogs.nil?
+      - @cate_blogs.each do |blog|
+        = link_to blog.title[0..25], blog
+        br
 - @clazz = 'blog'
 = comments
 javascript:

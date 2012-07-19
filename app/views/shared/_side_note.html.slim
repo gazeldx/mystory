@@ -1,0 +1,26 @@
+#event.pl2
+  h2
+    = t('s_notecates', w: @user.name)
+  - @notecates.each do |category|
+    - link_css = 'selected' if category==@note.notecate and @notecates.size>1
+    = link_to category.name, category, class: link_css
+    br
+  - if session[:id]==@user.id
+    span
+      | (
+      = link_to t('notecate.edit'), notecates_path
+      | )
+    br
+  br
+  h2
+    = t('s_new_note', w: @user.name)
+  - @new_notes.each do |note|
+    = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title, note
+    br
+  br
+  h2
+    = t('s_recommend', w: @user.name)
+  - @rnotes.each do |note|
+    = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title, note
+    br
+  = render 'shared/archives_side'

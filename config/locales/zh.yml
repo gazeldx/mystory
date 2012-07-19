@@ -61,6 +61,7 @@ zh:
   
   send_again: "再发一封"
   _archive: "归档"
+  s_archives: "归档阅读"
   recommend_note: "推荐日记"
   recommend_blog: "推荐作品"
   recommend_photo: "推荐照片"
@@ -133,8 +134,8 @@ zh:
   sender: "发信人"
   recipient: "收信人"
   insert_photo: "插照片"
-  _category: "作品分类"
-  _category_: "作品分类："
+  _category: "作品目录"
+  _category_: "作品目录："
   _notecate_: "日记分类："
   _notecate: "日记分类"
   _all_albums: "全部影集："
@@ -150,11 +151,11 @@ zh:
 
 
   category:
-    name: "分类名"
-    edit: "编辑作品分类"
-    name_must_notnull: "作品分类必须填写！"
-    has_blogs_when_delete: "该作品分类下有作品，不可以删除。你可以将该分类下的所有作品转移到其它分类后再进行删除。"
-  category_addtip: "添加作品分类，请输入分类名："
+    name: "目录名"
+    edit: "编辑作品目录"
+    name_must_notnull: "作品目录必须填写！"
+    has_blogs_when_delete: "该作品目录下有作品，不可以删除。你可以将该目录下的所有作品转移到其它目录后再进行删除。"
+  category_addtip: "添加作品目录，请输入目录名："
   notecate_addtip: "添加日记分类，请输入分类名："
   notecate:
     edit: "编辑日记分类"
@@ -319,9 +320,10 @@ zh:
 
   _idol_: "偶像:"
   
-  s_categories: "%{w}作品分类"
+  s_categories: "%{w}作品目录"
   s_notecates: "%{w}日记分类"
   s_recommend: "%{w}推荐阅读"
+  s_cate_recommend: "“%{w}”下的文章推荐"
   s_idol: "%{w}的偶像"
   s_hobby: "%{w}的爱好"
   s_editor: "%{w}推荐"
@@ -342,7 +344,6 @@ zh:
   s_album_in: "%{w2} - %{w}影集"
   s_album_add: "添加照片 - %{w}影集"
   s_album_title: "%{a}_%{w}影集"
-  s_categories: "%{w}作品分类"
   _recommend: "推荐阅读："
   _my_boards: "我的讨论版："
   all_boards: "所有讨论版"
@@ -475,6 +476,8 @@ zh:
   contact_us: "联系我们"
   hot_blog: "热门作品"
   new_blog: "最新作品"
+  s_new_blog: "%{w}最新作品"
+  s_new_note: "%{w}最新日记"
   post_blog: "发表作品"
   p_blog: "发作品"
   upload_photo: "传照片"

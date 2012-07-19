@@ -6,6 +6,7 @@
         br
       = k[0..3] + t('year')
       | &nbsp;&nbsp;&nbsp;
-    = link_to k[4..5] + t('month'), "/archives/#{k}"
+    - link_css = "selected" if k[0..5]==params[:month]
+    = link_to k[4..5] + t('month'), "/archives/#{k}", class: link_css
     | (#{v})&nbsp;&nbsp;
     - _year = k[0..3]

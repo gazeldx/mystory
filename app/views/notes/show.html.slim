@@ -79,8 +79,9 @@ div.note-ft id='note_#{@note.id}_footer'
       br
     = t'_notecate_'
     - @notecates.each do |category|
+      - link_css = 'selected' if category==@note.notecate and @notecates.size>1
       | [
-      = link_to category.name, category
+      = link_to category.name, category, class: link_css
       | ]&nbsp;&nbsp;
     br
     = t'a_new'
@@ -94,14 +95,18 @@ div.note-ft id='note_#{@note.id}_footer'
       = t'none'
     - else
       = link_to_note @note_next
-- unless @rnotes.blank?
+- unless @rnotes.blank? and @cate_rnotes.blank?
   .rr
     span.pl
-      = t'_recommend'
+      = t('s_cate_recommend', w: @note.notecate.name)
     br
-    - @rnotes.each do |note|
-      = link_to_note note
+    - @cate_rnotes.each do |note|
+      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title[0..25], note
       br
+    - unless @cate_notes.nil?
+      - @cate_notes.each do |note|
+        = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title[0..25], note
+        br
 - @clazz = 'note'
 = comments
 javascript:

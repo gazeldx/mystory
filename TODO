@@ -1,3 +1,7 @@
 Editor Page!
 @_user.update_attribute('signature', params[:user][:signature]) not validate
 Bu
+
+
+作者联系方式加到个人资料中?
+QQ：12824901， E-mail：ling288@tom.com

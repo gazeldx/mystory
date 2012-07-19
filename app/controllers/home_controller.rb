@@ -120,7 +120,7 @@ class HomeController < ApplicationController
         end
 
         ids = @user.blogs.select('id')
-        @rblogs = @user.r_blogs.where(id: ids).limit(5)
+        @rblogs = @user.r_blogs.where(id: ids).limit(7)
 
         render :user
       end

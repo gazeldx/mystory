@@ -166,9 +166,9 @@ module UsersHelper
       comments = ' ' + t('comments', w: count)
     end
     if something.content.size > size
-      raw tmp + t('etc') + (link_to t('whole_article') + comments, something)
+      raw tmp + t('etc') + (link_to t('whole_article') + comments, something, target: '_blank')
     else
-      raw tmp + (link_to comments, something)
+      raw tmp + (link_to comments, something, target: '_blank')
     end
   end
 
@@ -185,9 +185,9 @@ module UsersHelper
       comments = ' ' + t('comments', w: count)
     end
     if something.content.size > size
-      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path)
+      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
     else
-      raw tmp + (link_to comments, site(something.user) + path)
+      raw tmp + (link_to comments, site(something.user) + path, target: '_blank')
     end
   end
 

@@ -4,9 +4,9 @@
       span.wrap
         h3
           - if note.title.to_s == ''
-            = link_to note.created_at.strftime(t'date_format'), note, class: 'll'
+            = link_to note.created_at.strftime(t'date_format'), note, target: '_blank', class: 'll'
           - else
-            = link_to note.title, note, class: 'll'
+            = link_to note.title, note, target: '_blank', class: 'll'
             | &nbsp;
             = note.created_at.strftime(t'date_without_year')
           a.rr id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title=t('open_article')

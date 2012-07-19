@@ -116,6 +116,15 @@ body {
   float:right;
   width:170px
 }
+.grid-19-5 .article {
+  float:left;
+  width:730px;
+  padding-right:20px
+}
+.grid-19-5 .aside {
+  float:right;
+  width:190px
+}
 .grid-18-6 .article {
   float:left;
   width:690px;
@@ -240,11 +249,14 @@ input {
   font-size:$s
 }
 a {
-  cursor:pointer
+  cursor:pointer  
 }
 a:link {
   color:#369;
-  text-decoration:none
+  text-decoration:none;
+}
+a:link.selected,a:visited.selected {
+  color:red
 }
 a:visited {
   color:#669;

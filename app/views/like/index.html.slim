@@ -49,7 +49,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  #{t'post_note'} #{link_to item.title, site(user) + note_path(item)}&nbsp;
+              |  #{t'post_note'} #{link_to item.title, site(user) + note_path(item), target: '_blank'}&nbsp;
             span.inq
               = summary_comment_portal(item, 140)
               = thumbs_here(item, 5)
@@ -57,7 +57,7 @@
                 = article_time item
               = recommend_etc item
               - if item.user_id == session[:id]
-                = link_to t('edit'), edit_note_path(item)
+                = link_to t('edit'), edit_note_path(item), target: '_blank'
                 | &nbsp;
                 = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
       - elsif item.is_a?(Blog)
@@ -69,7 +69,7 @@
           li.mbtr
             = link_to user.name, site(user)
             span.pl1
-              |  #{t'blog.add'}《#{link_to item.title, site(user) + blog_path(item)}》
+              |  #{t'blog.add'}《#{link_to item.title, site(user) + blog_path(item), target: '_blank'}》
             span.inq
               = summary_comment_portal(item, 180)
               = thumbs_here(item, 5)
@@ -77,7 +77,7 @@
                 = article_time item
               - if item.user_id == session[:id]
                 | &nbsp;
-                = link_to t('edit'), edit_blog_path(item)
+                = link_to t('edit'), edit_blog_path(item), target: '_blank'
       - elsif item.is_a?(Rnote)
         - note = item.note
         - user = note.user
@@ -94,7 +94,7 @@
           span.inq
             | &nbsp;&nbsp;#{t'article_source'} 
             = link_to user.name, site(user)
-            | : #{link_to note.title, site(user) + note_path(note)}&nbsp;
+            | : #{link_to note.title, site(user) + note_path(note), target: '_blank'}&nbsp;
             = summary_comment_portal(note, 140)
             = thumbs_here(note, 5)
             span.pl
@@ -117,7 +117,7 @@
             = link_to user.name, site(user)
             span.pl1
               |  #{t'blog.add'}
-            | 《#{link_to blog.title, site(user) + blog_path(blog)}》
+            | 《#{link_to blog.title, site(user) + blog_path(blog), target: '_blank'}》
             = summary_comment_portal(blog, 180)
             = thumbs_here(blog, 5)
             span.pl
@@ -141,7 +141,7 @@
             = link_to user.name, site(user)
             span.pl1
               |  #{t'upload_photo_to'}&nbsp;
-            = link_to album.name, site(user) + album_path(album)
+            = link_to album.name, site(user) + album_path(album), target: '_blank'
             - unless photo.description.nil?
               br
               = photo.description
@@ -163,7 +163,7 @@
             = link_to user.name, site(user)
             span.pl1
               |  #{t'upload_photo_to'}&nbsp;
-            = link_to album.name, site(user) + album_path(album)
+            = link_to album.name, site(user) + album_path(album), target: '_blank'
             - unless item.description.nil?
               br
               = item.description
@@ -182,13 +182,12 @@
         li.mbtr
           = link_to user.name, site(user)
           span.pl1
-            |  #{t'update_memoir'} #{link_to item.title, site(user) + memoirs_path}&nbsp;
+            |  #{t'update_memoir'} #{link_to item.title, site(user) + memoirs_path, target: '_blank'}&nbsp;
           span.inq
             = summary_no_comments_portal(item, 200)
             = thumbs_here(item, 5)
             span.pl
               = article_time item
             - if item.user_id == session[:id]
-              = link_to t('edit'), edit_memoirs_path
-.b
+              = link_to t('edit'), edit_memoirs_path, target: '_blank'
   = will_paginate @all
