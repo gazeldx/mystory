@@ -15,12 +15,12 @@
   h2
     = t('s_new_blog', w: @user.name)
   - @new_blogs.each do |blog|
-    = link_to blog.title, blog
+    = link_to raw(blog.title), blog
     br
   br
   h2
     = t('s_recommend', w: @user.name)
   - @rblogs.each do |blog|
-    = link_to blog.title, blog
+    = link_to raw(blog.title), blog
     br
   = render 'shared/archives_side'

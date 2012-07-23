@@ -11,7 +11,7 @@ module NotesHelper
     if note.title.to_s==''
       link_to t('s_note', w: note.created_at.strftime(t'date_format')), note
     else
-      link_to note.title, note
+      link_to raw(note.title), note
     end
   end
 
@@ -19,7 +19,7 @@ module NotesHelper
     if note.title.to_s==''
       link_to t('s_note', w: note.created_at.strftime(t'date_format')), site(note.user) + note_path(note)
     else
-      link_to note.title, site(note.user) + note_path(note)
+      link_to raw(note.title), site(note.user) + note_path(note)
     end
   end
 
@@ -27,7 +27,7 @@ module NotesHelper
     if note.title.to_s==''
       link_to t('s_note', w: note.created_at.strftime(t'date_format')), m(site(note.user) + note_path(note))
     else
-      link_to note.title, m(site(note.user) + note_path(note))
+      link_to raw(note.title), m(site(note.user) + note_path(note))
     end
   end
 
@@ -35,7 +35,7 @@ module NotesHelper
     if note.title.to_s==''
       link_to note.created_at.strftime(t'date_without_year'), m(site(note.user) + note_path(note))
     else
-      link_to note.title, m(site(note.user) + note_path(note))
+      link_to raw(note.title), m(site(note.user) + note_path(note))
     end
   end
   

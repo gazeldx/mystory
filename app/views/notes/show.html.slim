@@ -1,4 +1,4 @@
-- _title = t('s_note_date_title', t: @note.title.to_s=='' ? @note.created_at.strftime(t'date_format') : @note.title, c: @note.notecate.name, w: @user.name)
+- _title = t('s_note_date_title', t: @note.title.to_s=='' ? @note.created_at.strftime(t'date_format') : raw(@note.title), c: @note.notecate.name, w: @user.name)
 = title _title
 - tip = text_it_pure(@note.content)
 = metadesc tip[0..D_SIZE]
@@ -9,7 +9,7 @@ div id='note-#{@note.id}'
   .note-header
     - if @note.title.to_s!=''
       h2
-        = @note.title
+        == @note.title
         - if @note.user_id == session[:id]
           | &nbsp;
           = link_to t('edit'), edit_note_path(@note)
@@ -101,11 +101,11 @@ div.note-ft id='note_#{@note.id}_footer'
       = t('s_cate_recommend', w: @note.notecate.name)
     br
     - @cate_rnotes.each do |note|
-      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title[0..25], note
+      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..25]), note
       br
     - unless @cate_notes.nil?
       - @cate_notes.each do |note|
-        = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : note.title[0..25], note
+        = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..25]), note
         br
 - @clazz = 'note'
 = comments

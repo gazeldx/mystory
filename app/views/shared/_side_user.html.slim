@@ -42,7 +42,7 @@
     = t'_recommend'
   br
   - @rblogs.each do |blog|
-    = link_to blog.title, blog, target: '_blank', class: 'pl2'
+    = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
     br
 #friend
   h2

@@ -29,7 +29,7 @@
             - @blogs_new.each do |blog|
               = link_to blog.user.name, site(blog.user), target: '_blank'
               | ：
-              = link_to blog.title, site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
+              = link_to raw(blog.title), site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
               | &nbsp;[
               = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
               | ]&nbsp;
@@ -63,7 +63,7 @@
             - @notes_new.each do |note|
               = link_to note.user.name, site(note.user), target: '_blank'
               | ：
-              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : note.title, site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
+              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : raw(note.title), site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
               | &nbsp;[
               - unless note.notecate.nil?
                 = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'

@@ -25,6 +25,12 @@ class TracesController < ApplicationController
     head :ok
   end
 
+  def start_trace_sina_user_two_list
+    trace_a_sina_user_one_list_blogs(params[:sina_user_id], params[:page_id])
+    trace_a_sina_user_one_list_blogs(params[:sina_user_id], params[:page_id].to_i - 1)
+    head :ok
+  end
+
   def trace_a_sina_user_all_blogs(sina_user_id)
     k = 0
     loop {
@@ -45,7 +51,7 @@ class TracesController < ApplicationController
 #      end
       s = Net::HTTP.get('blog.sina.com.cn', "/s/blog_#{e[1]}.html")
       unless Tracemap.where(["siteid = ? AND sitename = ?", e[1], 'sina']).exists?
-        puts title = s.match(/<h2 id=.*>(.*)<\/h2>/)[1]
+        puts title = s.match(/<h2 id=.*>(.*)<\/h2>/)[1].gsub(/&nbsp;/, " ")
         unless title.force_encoding('utf-8').include?("#{t('copy_article')}")
           puts content = s.match(/sina_keyword_ad_area2" class="articalContent  ">(.*)<div class="shareUp/m)[1].gsub(/<\/?[^>]*>/,"").gsub(/&nbsp;/, " ").gsub(/\n[ \n]{2,15}/, "\n\n ").gsub(/http/, " http")
           #      puts tags = s.match(/<span class="SG_txtb">.*<\/span>.*sina_keyword_ad_area2" class="articalContent  ">(.*)
@@ -66,7 +72,7 @@ class TracesController < ApplicationController
           categories = user.categories
           if _category.nil?
             if categories.blank?
-              category = new_category(t'default_category_name', user)
+              category = new_category(t('default_category_name'), user)
             else
               category = categories.first
             end
@@ -102,6 +108,6 @@ class TracesController < ApplicationController
     cate.name = category_name
     cate.user = user
     cate.save
-    cate.reload
+    cate
   end
 end

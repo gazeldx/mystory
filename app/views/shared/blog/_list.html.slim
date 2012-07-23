@@ -3,7 +3,7 @@
     div
       span.wrap
         h3
-          = link_to blog.title, blog, target: '_blank'
+          = link_to raw(blog.title), blog, target: '_blank'
           | &nbsp;
           = blog_info2 blog
           - if blog.user_id == session[:id]
