@@ -9,13 +9,15 @@
           | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           span
             | &nbsp;
-            = link_to t('more_photos'), photos_path
+            = link_to t('more_photos'), photos_path, target: '_blank'
           | &nbsp;&nbsp;
-          = link_to '论坛', sub_site('bbs')
+          = link_to '论坛', sub_site('bbs'), target: '_blank'
           | &nbsp;&nbsp;
-          = link_to t('become_writer'), as_a_writer_path
+          = link_to t('become_writer'), as_a_writer_path, target: '_blank'
           | &nbsp;&nbsp;
-          = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/"
+          = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/", target: '_blank'
+          | &nbsp;&nbsp;
+          = link_to '搜索', s_path, target: '_blank'
           span.rr
             = render 'shared/share'
         = render 'photo_square_portal'

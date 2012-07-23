@@ -54,18 +54,20 @@ class TracesController < ApplicationController
         puts title = s.match(/<h2 id=.*>(.*)<\/h2>/)[1].gsub(/&nbsp;/, " ")
         unless title.force_encoding('utf-8').include?("#{t('copy_article')}")
           puts content = s.match(/sina_keyword_ad_area2" class="articalContent  ">(.*)<div class="shareUp/m)[1].gsub(/<\/?[^>]*>/,"").gsub(/&nbsp;/, " ").gsub(/\n[ \n]{2,15}/, "\n\n ").gsub(/http/, " http")
+          user_id = USER_HASH.invert[sina_user_id.to_i]
+#          if user_id == 127
+#            content = content.gsub(/<\/?[^>]*>/," ")
+#          end
           #      puts tags = s.match(/<span class="SG_txtb">.*<\/span>.*sina_keyword_ad_area2" class="articalContent  ">(.*)
           puts "------------------------category td ="
           puts _category_td = s.match(/blog_class(.*?)<\/td>/m)[1]
           puts _category = _category_td.match(/.*html">(.*?)<\/a>/m)[1] unless _category_td.size < 15
-          puts created_at = s.match(/time SG_txtc">\((.*?)\)/)[1]
-
-        
+          puts created_at = s.match(/time SG_txtc">\((.*?)\)/)[1]        
 
           blog = Blog.new
           blog.title = title[0..80]
           blog.content = content[0..100000]
-          user_id = USER_HASH.invert[sina_user_id.to_i]
+          
           user = User.find(user_id)
           blog.user = user
 
@@ -83,6 +85,7 @@ class TracesController < ApplicationController
           blog.category = category
 
           blog.created_at = Time.zone.parse(created_at)#http://stackoverflow.com/questions/354657/rails-activesupport-time-parsing
+          blog.updated_at = blog.created_at
           blog.save
           tracemap = Tracemap.new
           tracemap.siteid = e[1]
@@ -99,6 +102,12 @@ class TracesController < ApplicationController
     unless session[:domain]=="zhangjian"
       redirect_to root_path
     end
+  end
+
+  def clear_user_blogs
+    user = User.find_by_domain(params[:domain])
+    user.blogs.destroy_all
+    head :ok
   end
 
   private

@@ -1,0 +1,8 @@
+.b
+  | 作品标题:
+  = text_field_tag :title, params[:title]
+  | &nbsp;
+  input type='button' value='搜索' onclick='goSearch()'
+coffee:
+  this.goSearch = ->
+    window.location.href = "/s/blogs/" + $('#title').val()

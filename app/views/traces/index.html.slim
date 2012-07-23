@@ -1,20 +1,25 @@
 = render 'shared/notice_error'
 .b
   = @user_hash.inspect
-  = form_tag do
-    #error
-      | &nbsp;
-    | sina user id:
-    = text_field_tag :sina_user_id
-    br
-    | page id:
-    = text_field_tag :page_id
-    br
-    input type='button' value='采取一页' onclick='trace()'
-    | &nbsp;&nbsp;&nbsp;
-    input type='button' value='采取两页' onclick='traceTwo()'
-    | &nbsp;&nbsp;&nbsp;
-    input type='button' value='采取全部' onclick='traceAll()'
+  #error
+    | &nbsp;
+  | sina user id:
+  = text_field_tag :sina_user_id
+  br
+  | page id:
+  = text_field_tag :page_id
+  br
+  input type='button' value='采取一页' onclick='trace()'
+  | &nbsp;&nbsp;&nbsp;
+  input type='button' value='采取两页' onclick='traceTwo()'
+  | &nbsp;&nbsp;&nbsp;
+  input type='button' value='采取全部' onclick='traceAll()'
+  br
+  br
+  br
+  | 用户domain:
+  = text_field_tag :domain
+  input type='button' value='清空作品' onclick='clearBlogs()'
   /a href=start_trace_path
   /  | 开始
 coffee:
@@ -36,6 +41,13 @@ coffee:
     $.ajax
       url: 'traces/start_trace_sina_user_two_list'
       data: "sina_user_id=" + $('#sina_user_id').val() + "&page_id=" + $('#page_id').val()
+      type: "GET"
+      success: (data) ->
+        alert("over")
+  this.clearBlogs = ->
+    $.ajax
+      url: 'traces/clear_user_blogs'
+      data: "domain=" + $('#domain').val()
       type: "GET"
       success: (data) ->
         alert("over")

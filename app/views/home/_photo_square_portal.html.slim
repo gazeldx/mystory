@@ -3,7 +3,6 @@
     - break if i==8
     - if item.is_a?(Photo)
       - @photo = item
-      = render 'photo_content'
     - elsif item.is_a?(Rphoto)
       - @photo = item.photo
-      = render 'photo_content'
+    = render 'photo_content'

@@ -67,24 +67,24 @@ div id='note-#{@blog.id}'
     - if @blog_pre.nil?
       = t'none'
     - else
-      = link_to raw(@blog_pre.title[0..25]), @blog_pre
+      = link_to raw(@blog_pre.title)[0..25], @blog_pre
     br
     = t'an_old'
     - if @blog_next.nil?
       = t'none'
     - else
-      = link_to raw(@blog_next.title[0..25]), @blog_next
+      = link_to raw(@blog_next.title)[0..25], @blog_next
 - unless @rblogs.blank? and @cate_rblogs.blank?
   .rr
     span.pl
       = t('s_cate_recommend', w: @blog.category.name)
     br
     - @cate_rblogs.each do |blog|
-      = link_to blog.title[0..25], blog
+      = link_to raw(blog.title)[0..25], blog
       br
     - unless @cate_blogs.nil?
       - @cate_blogs.each do |blog|
-        = link_to blog.title[0..25], blog
+        = link_to raw(blog.title)[0..25], blog
         br
 - @clazz = 'blog'
 = comments

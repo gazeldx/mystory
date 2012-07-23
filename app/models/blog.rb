@@ -4,6 +4,7 @@ class Blog < ActiveRecord::Base
   has_many :blogcomments, :dependent => :destroy
   has_many :rblogs, :dependent => :destroy
   has_many :tags, :dependent => :destroy
+  has_many :tracemaps, :dependent => :destroy
 
   validates :title, :length => { :in => 1..80 }
   validates :content, :length => { :in => 1..1000000 }

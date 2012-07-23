@@ -5,12 +5,12 @@
       - album = photo.album
       - user = album.user
       .photo_wrap
-        a.photolst_photo href=site(user)+album_photo_path(album, photo)
+        a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
           = image_tag(photo.avatar.thumb.url)
         br
-        = link_to user.name, site(user)
+        = link_to user.name, site(user), target: '_blank'
         | :
-        = link_to album.name, site(user)+album_path(album)
+        = link_to album.name, site(user)+album_path(album), target: '_blank'
         - unless photo.description.nil?
           | &nbsp;
           = photo.description[0..40]
@@ -23,15 +23,15 @@
       - album = photo.album
       - user = album.user
       .photo_wrap
-        a.photolst_photo href=site(user)+album_photo_path(album, photo)
+        a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
           = image_tag(photo.avatar.thumb.url)
         br
-        = link_to item.user.name, site(item.user)
+        = link_to item.user.name, site(item.user), target: '_blank'
         span.pl
           |  推荐 
-        = link_to user.name, site(user)
+        = link_to user.name, site(user), target: '_blank'
         | :
-        = link_to album.name, site(user)+album_path(album)
+        = link_to album.name, site(user)+album_path(album), target: '_blank'
         - unless photo.description.nil?
           | &nbsp;
           = photo.description[0..40]
