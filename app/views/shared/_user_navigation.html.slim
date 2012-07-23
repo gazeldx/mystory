@@ -15,5 +15,7 @@
       | 视图
 - if ['albums', 'photos'].include?controller_path
   | &nbsp;&nbsp;&nbsp;&nbsp;
-  a href=photos_path
+  - if request.fullpath=='/photos'
+    - link_css = "selected"
+  a href=photos_path class=link_css
     = t'photo.recent'

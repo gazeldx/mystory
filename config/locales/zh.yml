@@ -777,3 +777,7 @@ zh:
       create: "新增"
       update: "更新"
       submit: "提交"
+#  sina:
+#    article_start: "正文开始"
+#    article_end: "正文结束"
+  copy_article: "转"

@@ -93,7 +93,7 @@ module HeadHelper
 
   def navigation_item(title,link)
     if "/" + controller_path==link || (controller_path=='categories' && link==blogs_path)
-      link_to title,link,:class => "selected"
+      link_to title,link, :class => "selected"
     else
       link_to title,link
     end

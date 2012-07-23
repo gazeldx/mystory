@@ -176,9 +176,9 @@ class ApplicationController < ActionController::Base
         end
         album = photo.album
         user = album.user
-        source_from = " [<a href='#{m_or(site(user) + album_path(album))}'>#{album.name}</a>]"
+        source_from = " [<a href='#{m_or(site(user) + album_path(album))}' target='_blank'>#{album.name}</a>]"
         if @user.nil? or user.id!=@user.id
-          source_from = "#{t('source_from')}<a href='#{m_or(site(user))}'>#{user.name}</a>#{t('his_album')}" + source_from
+          source_from = "#{t('source_from')}<a href='#{m_or(site(user))}' target='_blank'>#{user.name}</a>#{t('his_album')}" + source_from
         else
           source_from = "#{t('source_from')}#{t('_album')}" + source_from
         end
@@ -257,23 +257,23 @@ class ApplicationController < ActionController::Base
     oauth
   end
 
-#  def verify_credentials
-##    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-##    request_token = oauth.consumer.get_request_token
-##    session[:rtoken], session[:rsecret] = request_token.token, request_token.secret
-##    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
-##    session[:rtoken], session[:rsecret] = nil, nil
-##    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
-##    oauth.authorize_from_access(session[:atoken], session[:asecret])
-##    Weibo::Base.new(oauth).verify_credentials
-#    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-#    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
-#    session[:rtoken], session[:rsecret] = nil, nil
-#    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
-#    puts session[:atoken], session[:asecret]
-##    oauth.authorize_from_access(session[:atoken], session[:asecret])
-##    @weibo_user = Weibo::Base.new(oauth).verify_credentials
-#  end
+  #  def verify_credentials
+  ##    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+  ##    request_token = oauth.consumer.get_request_token
+  ##    session[:rtoken], session[:rsecret] = request_token.token, request_token.secret
+  ##    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
+  ##    session[:rtoken], session[:rsecret] = nil, nil
+  ##    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
+  ##    oauth.authorize_from_access(session[:atoken], session[:asecret])
+  ##    Weibo::Base.new(oauth).verify_credentials
+  #    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+  #    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
+  #    session[:rtoken], session[:rsecret] = nil, nil
+  #    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
+  #    puts session[:atoken], session[:asecret]
+  ##    oauth.authorize_from_access(session[:atoken], session[:asecret])
+  ##    @weibo_user = Weibo::Base.new(oauth).verify_credentials
+  #  end
 
   def verify_credentials
     oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
@@ -325,6 +325,11 @@ class ApplicationController < ActionController::Base
       @items = h.sort_by{|k, v| k}.reverse!
     end
   end
+
+  module Sina
+     USER_HASH= { 131 => 1447497337, 127 => 1163218074 }
+  end
+
 
   def mr
     "m/#{controller_path}/#{params[:action]}"

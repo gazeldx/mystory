@@ -1,0 +1,32 @@
+= render 'shared/notice_error'
+.b
+  = @user_hash.inspect
+  = form_tag do
+    #error
+      | &nbsp;
+    | sina user id:
+    = text_field_tag :sina_user_id
+    br
+    | page id:
+    = text_field_tag :page_id
+    br
+    input type='button' value='采取一页' onclick='trace()'
+    | &nbsp;&nbsp;&nbsp;
+    input type='button' value='采取全部' onclick='traceAll()'
+  /a href=start_trace_path
+  /  | 开始
+coffee:
+  this.trace = ->
+    $.ajax
+      url: 'traces/start_trace_sina_user_one_list'
+      data: "sina_user_id=" + $('#sina_user_id').val() + "&page_id=" + $('#page_id').val()
+      type: "GET"
+      success: (data) ->
+        alert("over")
+  this.traceAll = ->
+    $.ajax
+      url: 'traces/start_trace_sina_user_all_list'
+      data: "sina_user_id=" + $('#sina_user_id').val()
+      type: "GET"
+      success: (data) ->
+        alert("over")
