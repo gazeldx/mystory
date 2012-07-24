@@ -38,12 +38,14 @@ div id='note-#{@note.id}'
           = link_to t('edit'), edit_note_path(@note)
           | &nbsp;
           = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
+  = render 'shared/ad/blog_link'
   div id='note_#{@note.id}_full'
     pre.note_full
       = style_it @note.content
       br
       br
       = style_it @user.signature.to_s
+  = render 'shared/ad/blog_content'
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer
   .sns-bar

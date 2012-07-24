@@ -17,10 +17,11 @@
   - @new_notes.each do |note|
     = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
     br
-  br
+  = render 'shared/ad/blog_side'
   h2
     = t('s_recommend', w: @user.name)
   - @rnotes.each do |note|
     = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
     br
   = render 'shared/archives_side'
+  = render 'shared/ad/blog_side_2'

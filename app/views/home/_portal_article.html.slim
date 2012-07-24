@@ -16,14 +16,34 @@
           = link_to t('become_writer'), as_a_writer_path, target: '_blank'
           | &nbsp;&nbsp;
           = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/", target: '_blank'
-          | &nbsp;&nbsp;
-          = link_to '搜索', s_path, target: '_blank'
+          | &nbsp;&nbsp;作品：
+          = text_field_tag :title, params[:title], size: 10
+          | &nbsp;
+          input type='button' value=t'_search' onclick='goSearch()'
           span.rr
             = render 'shared/share'
         = render 'photo_square_portal'
     .grid-14-2-8.clearfix
       .article
         #db-music-artists
+          h2
+            | 推荐阅读
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+          .pa
+            - @r_blogs.each do |blog|
+              = link_to blog.user.name, site(blog.user), target: '_blank'
+              | ：
+              = link_to raw(blog.title)[0..24], site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
+              | &nbsp;[
+              = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
+              | ]&nbsp;
+              - cc = blog.blogcomments.size
+              -if cc>0
+                span.red
+                  = cc
+              br
+          br
+          = render 'shared/ad/portal_blog'
           h2
             | 最近诞生的作品
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
@@ -58,6 +78,7 @@
                   = cc
               br
           br
+          = render 'shared/ad/portal_note'
           h2
             | 最新日记
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
@@ -77,7 +98,7 @@
               br
       .aside
         h2
-          | 人气会员
+          | 活跃博主
         - @users.each do |user|
           dl.obu
             dt
@@ -86,3 +107,4 @@
             dd style="height:20px;"
               = link_to user.name, site(user), target: '_blank'
   = render 'shared/footer_portal'
+= render 'search_js'

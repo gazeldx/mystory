@@ -17,7 +17,6 @@
   - @new_blogs.each do |blog|
     = link_to raw(blog.title), blog
     br
-  br
   = render 'shared/ad/blog_side'
   h2
     = t('s_recommend', w: @user.name)
@@ -25,5 +24,4 @@
     = link_to raw(blog.title), blog
     br
   = render 'shared/archives_side'
-  br
   = render 'shared/ad/blog_side_2'

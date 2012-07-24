@@ -9,6 +9,7 @@ zh:
   delete: "删除"
   update: "更新"
   save: "保存"
+  _search: "搜索"
   up: "上移"
   down: "下移"
   new_succ: "添加成功！"
