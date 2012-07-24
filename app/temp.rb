@@ -11,5 +11,7 @@
 #puts i=i+1
 #puts "bacd".include? "acc"
 #encoding: ASCII-8BIT
-str = "dfshttp://ddfs.com".gsub(/http/, " http")
+str = "ggg<span class='MASSd53c41267bf6'>fsdsdfds<\/span>
+fsd
+sdfsfd".gsub(/<span class='MASS.*?<\/span>/m, "")
 puts str

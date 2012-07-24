@@ -46,18 +46,12 @@ class TracesController < ApplicationController
     m = source.match(/.*START --(.*).*SG_page.*/m)
     m_links = m[1].scan(/(http:\/\/blog.sina.com.cn\/s\/blog_(.*?)\.html)/m)
     m_links.each_with_index do |e, i|
-#      if i>2
-#        break
-#      end
       s = Net::HTTP.get('blog.sina.com.cn', "/s/blog_#{e[1]}.html")
       unless Tracemap.where(["siteid = ? AND sitename = ?", e[1], 'sina']).exists?
         puts title = s.match(/<h2 id=.*>(.*)<\/h2>/)[1].gsub(/&nbsp;/, " ")
         unless title.force_encoding('utf-8').include?("#{t('copy_article')}")
-          puts content = s.match(/sina_keyword_ad_area2" class="articalContent  ">(.*)<div class="shareUp/m)[1].gsub(/<\/?[^>]*>/,"").gsub(/&nbsp;/, " ").gsub(/\n[ \n]{2,15}/, "\n\n ").gsub(/http/, " http")
+          puts content = s.match(/sina_keyword_ad_area2" class="articalContent  ">(.*)<div class="shareUp/m)[1].gsub(/<span class='MASS.*?<\/span>/m, "").gsub(/<\/?[^>]*>/,"").gsub(/<\/?[^>]*>/,"").gsub(/&nbsp;/, " ").gsub(/\n[ \n]{2,15}/, "\n\n ").gsub(/http/, " http")
           user_id = USER_HASH.invert[sina_user_id.to_i]
-#          if user_id == 127
-#            content = content.gsub(/<\/?[^>]*>/," ")
-#          end
           #      puts tags = s.match(/<span class="SG_txtb">.*<\/span>.*sina_keyword_ad_area2" class="articalContent  ">(.*)
           puts "------------------------category td ="
           puts _category_td = s.match(/blog_class(.*?)<\/td>/m)[1]

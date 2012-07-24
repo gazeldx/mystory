@@ -327,7 +327,9 @@ class ApplicationController < ActionController::Base
   end
 
   module Sina
-     USER_HASH= { 131 => 1447497337, 127 => 1163218074 }
+#    130 => 1300112204 letter is so little
+    USER_HASH= { 131 => 1447497337, 127 => 1163218074, 140 => 1338246804, 126 => 1631985261, 141 => 1407728082, 142 => 1245732825, 143 => 1870913595, 144 => 1410248531, 145 => 1347189314, 146 => 1655219222 }
+#    CODE_HASH= { 127 => "MASSd53c41267bf6", 141 => "MASSb2a806bf5bfa" }
   end
 
 
