@@ -3,18 +3,19 @@
   = @user_hash.inspect
   #error
     | &nbsp;
+  input type='button' value='采取最新' onclick='traceLatest()'
+  br
   | sina user id:
   = text_field_tag :sina_user_id
   br
   | page id:
-  = text_field_tag :page_id
+  = text_field_tag :page_id  
   br
-  input type='button' value='采取一页' onclick='trace()'
-  | &nbsp;&nbsp;&nbsp;
   input type='button' value='采取两页' onclick='traceTwo()'
   | &nbsp;&nbsp;&nbsp;
+  input type='button' value='采取一页' onclick='trace()'
+  | &nbsp;&nbsp;&nbsp;
   input type='button' value='采取全部' onclick='traceAll()'
-  br
   br
   br
   | 用户domain:
@@ -29,25 +30,31 @@ coffee:
       data: "sina_user_id=" + $('#sina_user_id').val() + "&page_id=" + $('#page_id').val()
       type: "GET"
       success: (data) ->
-        alert("over")
+        alert("One page trace over!")
   this.traceAll = ->
     $.ajax
       url: 'traces/start_trace_sina_user_all_list'
       data: "sina_user_id=" + $('#sina_user_id').val()
       type: "GET"
       success: (data) ->
-        alert("over")
+        alert("All over!")
   this.traceTwo = ->
     $.ajax
       url: 'traces/start_trace_sina_user_two_list'
       data: "sina_user_id=" + $('#sina_user_id').val() + "&page_id=" + $('#page_id').val()
       type: "GET"
       success: (data) ->
-        alert("over")
+        alert("Two pages trace over!")
+  this.traceLatest = ->
+    $.ajax
+      url: 'traces/start_trace_sina_users_latest_blogs'
+      type: "GET"
+      success: (data) ->
+        alert("Latest trace over!")
   this.clearBlogs = ->
     $.ajax
       url: 'traces/clear_user_blogs'
       data: "domain=" + $('#domain').val()
       type: "GET"
       success: (data) ->
-        alert("over")
+        alert("Clear over!")

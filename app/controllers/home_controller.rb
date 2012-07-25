@@ -13,8 +13,8 @@ class HomeController < ApplicationController
       elsif @user.nil?
         t = params[:t]
         if t.nil?
-          blogs = Blog.includes(:user).order("id desc").limit(30)
-          notes = Note.includes(:user).order("id desc").limit(20)
+          blogs = Blog.includes(:user).order("created_at desc").limit(30)
+          notes = Note.includes(:user).order("created_at desc").limit(20)
           photos = Photo.includes(:album).limit(10).order('photos.id desc')
           @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 10)
         elsif t == 'note'
@@ -28,8 +28,8 @@ class HomeController < ApplicationController
       else
         t = params[:t]
         if t.nil?
-          notes = @user.notes.limit(30)
-          blogs = @user.blogs.limit(10)
+          notes = @user.notes.limit(30).order('created_at desc')
+          blogs = @user.blogs.limit(20).order('created_at desc')
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(6).order('id desc')
           all_ = notes | blogs | photos
           memoir = @user.memoir
@@ -70,7 +70,7 @@ class HomeController < ApplicationController
         render 'boards/index', layout: 'help'
       elsif @user.nil?
         if DOMAIN_NAME=="mystory.cc"
-          @users = User.find([131, 2, 140, 141, 144, 145, 142, 143, 146, 127])
+          @users = User.find([131, 2, 140, 141, 144, 145, 142, 143, 146, 127, 126])
           admin_id = 2
         else
           @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
@@ -78,8 +78,8 @@ class HomeController < ApplicationController
         end
         admin = User.find(admin_id)
         @r_blogs = admin.r_blogs.includes(:category, :user, :blogcomments).order('created_at DESC').limit(9)
-        @notes_new = Note.includes(:notecate, :user, :notecomments).order("id desc").limit(29)
-        @blogs_new = Blog.includes(:category, :user, :blogcomments).order("id desc").limit(50)
+        @notes_new = Note.includes(:notecate, :user, :notecomments).order("created_at desc").limit(29)
+        @blogs_new = Blog.includes(:category, :user, :blogcomments).order("created_at desc").limit(50)
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
         
         rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
@@ -94,8 +94,8 @@ class HomeController < ApplicationController
 
         t = params[:t]
         if t.nil?
-          notes = @user.notes.limit(30).order("id desc")
-          blogs = @user.blogs.limit(10).order("id desc")
+          notes = @user.notes.limit(30).order("created_at desc")
+          blogs = @user.blogs.limit(20).order("created_at desc")
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
           all_ = notes | blogs | photos
           memoir = @user.memoir

@@ -23,8 +23,43 @@
           span.rr
             = render 'shared/share'
         = render 'photo_square_portal'
-    .grid-14-2-8.clearfix
-      .article
+    .grid-7-10-7.clearfix
+      .left
+        #db-music-artists
+          h2
+            | 论坛新贴
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
+          .pa
+            - @posts.each do |post|
+              = link_to post.user.name, site(post.user), target: '_blank'
+              | ：
+              - etc = t('all_characters', w: post.content.size) if post.content.size>100
+              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+              | &nbsp;
+              - cc = post.postcomments.size
+              -if cc>0
+                span.red
+                  = cc
+              br
+          br
+          h2
+            | 最新日记
+            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+          .pa
+            - @notes_new.each do |note|
+              = link_to note.user.name, site(note.user), target: '_blank'
+              | ：
+              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : raw(note.title), site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
+              | &nbsp;[
+              - unless note.notecate.nil?
+                = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
+              | ]&nbsp;
+              - cc = note.notecomments.size
+              -if cc>0
+                span.red
+                  = cc
+              br
+      .middle
         #db-music-artists
           h2
             | 推荐阅读
@@ -45,7 +80,7 @@
           br
           = render 'shared/ad/portal_blog'
           h2
-            | 最近诞生的作品
+            | 最新作品
             | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           .pa
             - @blogs_new.each do |blog|
@@ -60,43 +95,7 @@
                 span.red
                   = cc
               br
-      .nav
-        #db-music-artists
-          h2
-            | 论坛新贴
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-          .pa
-            - @posts.each do |post|
-              = link_to post.user.name, site(post.user), target: '_blank'
-              | ：
-              - etc = t('all_characters', w: post.content.size) if post.content.size>100
-              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
-              | &nbsp;
-              - cc = post.postcomments.size
-              -if cc>0
-                span.red
-                  = cc
-              br
-          br
-          = render 'shared/ad/portal_note'
-          h2
-            | 最新日记
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .pa
-            - @notes_new.each do |note|
-              = link_to note.user.name, site(note.user), target: '_blank'
-              | ：
-              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : raw(note.title), site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
-              | &nbsp;[
-              - unless note.notecate.nil?
-                = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
-              | ]&nbsp;
-              - cc = note.notecomments.size
-              -if cc>0
-                span.red
-                  = cc
-              br
-      .aside
+      .right
         h2
           | 活跃博主
         - @users.each do |user|
@@ -106,5 +105,6 @@
                 = image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
             dd style="height:20px;"
               = link_to user.name, site(user), target: '_blank'
+        = render 'shared/ad/portal_note'
   = render 'shared/footer_portal'
 = render 'search_js'
