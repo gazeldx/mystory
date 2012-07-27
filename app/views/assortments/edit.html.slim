@@ -1,0 +1,10 @@
+= title t'assortment.edit'
+.table.b
+  = link_to "返回栏目列表", assortments_path
+  = render 'shared/notice_error'
+  = form_for @assortment do |f|
+    = error_msg @assortment
+    = f.label t'assortment.name'
+    = f.text_field :name, size: 10, class: 'required'
+    = f.submit t(:submit)
+= validate_form 'edit_assortment_' + @assortment.id.to_s

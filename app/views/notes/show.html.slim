@@ -45,7 +45,6 @@ div id='note-#{@note.id}'
       br
       br
       = style_it @user.signature.to_s
-  = render 'shared/ad/blog_content'
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer
   .sns-bar
@@ -109,6 +108,7 @@ div.note-ft id='note_#{@note.id}_footer'
       - @cate_notes.each do |note|
         = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..25]), note
         br
+= render 'shared/ad/blog_content'
 - @clazz = 'note'
 = comments
 javascript:

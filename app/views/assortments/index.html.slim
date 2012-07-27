@@ -1,0 +1,35 @@
+= title t'assortment.edit'
+= render 'shared/notice_error'
+h2
+  = link_to t('_setting'), my_site + admin_path
+  |  >&nbsp;
+  = t'assortment.edit'
+.table.b
+  = form_for @assortment do |f|
+    = f.label t'assortment_addtip'
+    = f.text_field :name, size: 10, class: 'required'
+    = f.submit t(:submit)
+  table
+    tr
+      th
+        = t'assortment.name'
+      th
+      th
+      th colspan=2
+        = t'sort'
+    - @assortments.each_with_index do |assortment, i|
+      tr
+        td
+          = assortment.name
+        td
+          = link_to t(:edit), edit_assortment_path(assortment)
+        td
+          = link_to t(:delete), assortment_path(assortment), confirm:t('confirm.delete'), method: :delete
+        td
+          - if i > 0
+            = link_to t(:up), up_assortment_path(assortment)
+          - else
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          - if i < @assortments.length-1
+            = link_to t(:down), down_assortment_path(assortment)
+= validate_form 'new_assortment'

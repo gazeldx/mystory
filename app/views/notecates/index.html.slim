@@ -1,6 +1,10 @@
 = title t'notecate.edit'
 = render 'shared/notice_error'
-.table
+h2
+  = link_to t('_setting'), my_site + admin_path
+  |  >&nbsp;
+  = t'notecate.edit'
+.table.b
   = form_for @notecate do |f|
     = f.label t'notecate_addtip'
     = f.text_field :name, size: 10, class: 'required'

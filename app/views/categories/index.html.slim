@@ -1,6 +1,10 @@
 = title t'category.edit'
 = render 'shared/notice_error'
-.table
+h2
+  = link_to t('_setting'), my_site + admin_path
+  |  >&nbsp;
+  = t'category.edit'
+.table.b
   = form_for @category do |f|
     = f.label t'category_addtip'
     = f.text_field :name, size: 10, class: 'required'

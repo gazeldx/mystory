@@ -162,6 +162,13 @@ zh:
     edit: "编辑日记分类"
     name_must_notnull: "日记分类必须填写！"
     has_notes_when_delete: "该日记分类下有日记，不可以删除。你可以将该分类下的所有日记转移到其它分类后再进行删除。"
+  assortment:
+    name: "分组名"
+    edit: "编辑分组"
+    name_must_notnull: "分组录必须填写！"
+    has_when_delete: "该分组下有你关注的人或你推荐的文章，不可以删除。将关注的人或推荐的文章后转到其它分后，才可以删除。"
+  assortment_addtip: "添加分组，请输入分组名称："
+  
   #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
   comments: "(评论%{w})"
@@ -255,7 +262,7 @@ zh:
   #all: "阅读全文"
   site:
     desc: "我的故事"
-    seotitle: "我的故事 - facebook"
+    seotitle: "我的故事 - 写日记、自传，读励志名人名言"
     metadesc: "MyStory是原创社交网络。写日记、发作品、传照片、写自传，分享一切您生命中最重要的事情，关注有创造力的人。"
 #    desc: "人，诗意处栖居！"
   more: "更多"

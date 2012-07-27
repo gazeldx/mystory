@@ -15,10 +15,8 @@
     li
       - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
         a href=follow_me_path
-          = image_tag('/images/follow.png')
-      - elsif myself.following?(@user)
-        = link_to t('unfollow'), unfollow_path
-      | &nbsp;
+          = image_tag('/images/follow.png')      
+        | &nbsp;
       = link_to t('my_info'), profile_path
       - if @user.id == session[:id]
         span
@@ -29,12 +27,12 @@
       = link_to t('_archive'), archives_path
       | &nbsp;
       = link_to t('_forum'), bbs_path
-      - unless session[:id].nil?
-        | &nbsp;
-        - if session[:id]==@user.id
-          = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters')
-        - else
-          = link_to t('_letter'), my_site + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to')
+      | &nbsp;
+      = link_to t('_comment'), commented_path
+      | &nbsp;
+      = link_to t('view_as_him'), like_path, title:t('view_as_him_desc')
+      | &nbsp;
+      = link_to t('he_editor'), editor_path, title:t('see_what_he_edit')
   ul
     li
       = link_to t('following') + @user.follow_count.to_s, following_path
@@ -46,12 +44,18 @@
     = @user.city
     | &nbsp;
     = @user.jobs
-    | &nbsp;
-    = link_to t('_comment'), commented_path
-    | &nbsp;
-    = link_to t('view_as_him'), like_path, title:t('view_as_him_desc')
-    | &nbsp;
-    = link_to t('he_editor'), editor_path, title:t('see_what_he_edit')
+    - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
+    - elsif myself.following?(@user)
+      | &nbsp;
+      = link_to t('unfollow'), unfollow_path
+      /| &nbsp;
+      /= link_to '设置分组', unfollow_path
+    - unless session[:id].nil?
+      | &nbsp;
+      - if session[:id]==@user.id
+        = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters')
+      - else
+        = link_to t('_letter'), my_site + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to')
     br
     - @user.hobbies.each_with_index do |hobby, i|
       - if i==0

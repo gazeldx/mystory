@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  layout 'memoir'
+  layout 'help'
   def index
     @categories = Category.where(["user_id = ?", session[:id]]).order('created_at')
     @category = Category.new
@@ -45,7 +45,12 @@ class CategoriesController < ApplicationController
     if @category.user == @user
       @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
       @categories = @user.categories.order('created_at')
-      render mr, layout: 'm/portal' if @m
+      if @m
+        layout = 'm/portal'
+      else
+        layout = 'memoir'
+      end
+      render mr, layout: layout
     else
       r404
     end

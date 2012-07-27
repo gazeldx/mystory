@@ -8,6 +8,7 @@ class LikeController < ApplicationController
     t = params[:t]
     require 'will_paginate/array'
     if t.nil?
+      @assortments = @user.assortments
       notes = Note.where(user_id: following_ids).limit(30).order('id desc')
       blogs = Blog.where(user_id: following_ids).limit(15).order('created_at desc')
       album_ids = Album.where(user_id: following_ids)

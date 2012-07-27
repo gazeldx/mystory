@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120722085759) do
+ActiveRecord::Schema.define(:version => 20120726040631) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20120722085759) do
   end
 
   add_index "albums", ["user_id"], :name => "index_albums_on_user_id"
+
+  create_table "assortments", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assortments", ["user_id"], :name => "index_assortments_on_user_id"
 
   create_table "blogcomments", :force => true do |t|
     t.text     "body"
@@ -234,8 +243,10 @@ ActiveRecord::Schema.define(:version => 20120722085759) do
     t.integer  "blog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "assortment_id"
   end
 
+  add_index "rblogs", ["assortment_id"], :name => "index_rblogs_on_assortment_id"
   add_index "rblogs", ["blog_id"], :name => "index_rblogs_on_blog_id"
   add_index "rblogs", ["user_id"], :name => "index_rblogs_on_user_id"
 

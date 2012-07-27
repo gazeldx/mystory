@@ -17,14 +17,13 @@ div id='note-#{@blog.id}'
     div
       span.pl
         = blog_info @blog
-  = render 'shared/ad/blog_link'
+  /= render 'shared/ad/blog_link'
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content
       br
       br
       = style_it @user.signature.to_s
-  = render 'shared/ad/blog_content'
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer
   .sns-bar
@@ -88,6 +87,7 @@ div id='note-#{@blog.id}'
       - @cate_blogs.each do |blog|
         = link_to raw(blog.title)[0..25], blog
         br
+= render 'shared/ad/blog_content'
 - @clazz = 'blog'
 = comments
 javascript:

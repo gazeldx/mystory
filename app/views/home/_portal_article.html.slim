@@ -12,8 +12,8 @@
             = link_to t('more_photos'), photos_path, target: '_blank'
           | &nbsp;&nbsp;
           = link_to '论坛', sub_site('bbs'), target: '_blank'
-          | &nbsp;&nbsp;
-          = link_to t('become_writer'), as_a_writer_path, target: '_blank'
+          /| &nbsp;&nbsp;
+          /= link_to t('become_writer'), as_a_writer_path, target: '_blank'
           | &nbsp;&nbsp;
           = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/", target: '_blank'
           | &nbsp;&nbsp;作品：
@@ -27,24 +27,8 @@
       .left
         #db-music-artists
           h2
-            | 论坛新贴
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-          .pa
-            - @posts.each do |post|
-              = link_to post.user.name, site(post.user), target: '_blank'
-              | ：
-              - etc = t('all_characters', w: post.content.size) if post.content.size>100
-              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
-              | &nbsp;
-              - cc = post.postcomments.size
-              -if cc>0
-                span.red
-                  = cc
-              br
-          br
-          h2
             | 最新日记
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           .pa
             - @notes_new.each do |note|
               = link_to note.user.name, site(note.user), target: '_blank'
@@ -59,11 +43,10 @@
                 span.red
                   = cc
               br
-      .middle
-        #db-music-artists
+          br
           h2
             | 推荐阅读
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           .pa
             - @r_blogs.each do |blog|
               = link_to blog.user.name, site(blog.user), target: '_blank'
@@ -77,11 +60,11 @@
                 span.red
                   = cc
               br
-          br
-          = render 'shared/ad/portal_blog'
+      .middle
+        #db-music-artists
           h2
             | 最新作品
-            | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
+            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
           .pa
             - @blogs_new.each do |blog|
               = link_to blog.user.name, site(blog.user), target: '_blank'
@@ -95,6 +78,8 @@
                 span.red
                   = cc
               br
+          br
+          /= render 'shared/ad/portal_blog'          
       .right
         h2
           | 活跃博主
@@ -105,6 +90,22 @@
                 = image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
             dd style="height:20px;"
               = link_to user.name, site(user), target: '_blank'
+        br        
         = render 'shared/ad/portal_note'
+        h2
+          | 论坛新贴
+          | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
+          .pa
+            - @posts.each do |post|
+              = link_to post.user.name, site(post.user), target: '_blank'
+              | ：
+              - etc = t('all_characters', w: post.content.size) if post.content.size>100
+              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+              | &nbsp;
+              - cc = post.postcomments.size
+              -if cc>0
+                span.red
+                  = cc
+              br
   = render 'shared/footer_portal'
 = render 'search_js'

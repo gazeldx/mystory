@@ -37,6 +37,19 @@
         li.on= url
       - else
         li= url
+      - if @assortments.size > 0
+        br
+        - url = link_to '全部分组', like_path
+        - if params[:g].nil?
+          li.on= url
+        - else
+          li= url
+        - @assortments.each do |assortment|
+          - url = link_to assortment.name, like_path + "?z=#{assortment.id}"
+          - if params[:z] == assortment.name
+            li.on= url
+          - else
+            li= url
   ul.mbt
     = render 'see_nothing'
     - @all.each do |item|

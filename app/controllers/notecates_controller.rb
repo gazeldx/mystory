@@ -1,5 +1,5 @@
 class NotecatesController < ApplicationController
-  layout 'memoir'
+  layout 'help'
   def index
     @notecates = Notecate.where(["user_id = ?", session[:id]]).order('created_at')
     @notecate = Notecate.new
@@ -45,7 +45,12 @@ class NotecatesController < ApplicationController
     if @notecate.user == @user
       @notes = @notecate.notes.page(params[:page]).order("created_at DESC")
       @notecates = @user.notecates.order('created_at')
-      render mr, layout: 'm/portal' if @m
+      if @m
+        layout = 'm/portal'
+      else
+        layout = 'memoir'
+      end
+      render mr, layout: layout
     else
       r404
     end

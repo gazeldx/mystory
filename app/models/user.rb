@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
+  has_many :assortments, :dependent => :destroy
   has_many :blogs, :dependent => :destroy
   has_many :blogcomments, :dependent => :destroy
   has_many :tags, :through => :blogs, :source => :tags
