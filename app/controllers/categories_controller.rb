@@ -46,11 +46,10 @@ class CategoriesController < ApplicationController
       @blogs = @category.blogs.page(params[:page]).order("created_at DESC")
       @categories = @user.categories.order('created_at')
       if @m
-        layout = 'm/portal'
+        render mr, layout: 'm/portal'
       else
-        layout = 'memoir'
+        render layout: 'memoir'
       end
-      render mr, layout: layout
     else
       r404
     end

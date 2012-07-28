@@ -71,7 +71,7 @@ class HomeController < ApplicationController
         render 'boards/index', layout: 'help'
       elsif @user.nil?
         if ENV["RAILS_ENV"] == "production"
-          @users = User.find([2, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
+          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
           admin_id = 2
         else
           @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
@@ -80,9 +80,10 @@ class HomeController < ApplicationController
         #TODO DIFFERENT COLOR
         admin = User.find(admin_id)
         @r_blogs = admin.r_blogs.includes(:category, :user, :blogcomments).order('created_at DESC').limit(9)
-        @notes_new = Note.includes(:notecate, :user, :notecomments).order("created_at desc").limit(29)
-        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(50)
+        @notes_new = Note.includes(:notecate, :user, :notecomments).order("created_at desc").limit(28)
+        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(40)
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
+        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
         
         rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
         new_photo_count = 8 - rphotos.size

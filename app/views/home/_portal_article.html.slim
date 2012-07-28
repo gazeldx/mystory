@@ -95,17 +95,33 @@
         h2
           | 论坛新贴
           | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-          .pa
-            - @posts.each do |post|
-              = link_to post.user.name, site(post.user), target: '_blank'
-              | ：
-              - etc = t('all_characters', w: post.content.size) if post.content.size>100
-              = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
-              | &nbsp;
-              - cc = post.postcomments.size
-              -if cc>0
-                span.red
-                  = cc
-              br
+        .pa
+          - @posts.each do |post|
+            = link_to post.user.name, site(post.user), target: '_blank'
+            | ：
+            - etc = t('all_characters', w: post.content.size) if post.content.size>100
+            = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+            | &nbsp;
+            - cc = post.postcomments.size
+            -if cc>0
+              span.red
+                = cc
+            br
+        br
+        h2
+          | 名人日记
+        .pa
+          - @personage_blogs.each do |blog|
+            = link_to blog.user.name, site(blog.user), target: '_blank'
+            | ：
+            = link_to raw(blog.title), site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
+            | &nbsp;[
+            = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
+            | ]&nbsp;
+            - cc = blog.blogcomments.size
+            -if cc>0
+              span.red
+                = cc
+            br
   = render 'shared/footer_portal'
 = render 'search_js'
