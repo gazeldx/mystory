@@ -61,15 +61,16 @@
           = image_tag(guy.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
       dd
         = link_to guy.name, site(guy)
-#artist
-  h2
-    = t('s_idol',w: @user.name)
-  - @user.idols.each do |idol|
-    = link_to idol.name, "/idols/#{idol.name}"
-    |  
-  - if @user.id == session[:id]
-    span
-      | (
-      = link_to t('edit'), idols_path
-      | )
+- unless @user.idols.blank?
+  #artist
+    h2
+      = t('s_idol',w: @user.name)
+    - @user.idols.each do |idol|
+      = link_to idol.name, "/idols/#{idol.name}"
+      | &nbsp;
+    - if @user.id == session[:id]
+      span
+        | (
+        = link_to t('edit'), idols_path
+        | )
 /= render 'shared/ad/user_side'

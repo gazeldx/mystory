@@ -13,10 +13,6 @@
           = render 'shared/quick_post_navigation'
   ul
     li
-      - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
-        a href=follow_me_path
-          = image_tag('/images/follow.png')      
-        | &nbsp;
       = link_to t('my_info'), profile_path
       - if @user.id == session[:id]
         span
@@ -33,44 +29,57 @@
       = link_to t('view_as_him'), like_path, title:t('view_as_him_desc')
       | &nbsp;
       = link_to t('he_editor'), editor_path, title:t('see_what_he_edit')
+      .rr
+        = text_field_tag :title, params[:title], size: 6
+        | &nbsp;
+        input type='button' value='搜' onclick='goSearch()'
   ul
     li
       = link_to t('following') + @user.follow_count.to_s, following_path
-      |  | 
+      | &nbsp;|&nbsp;
       = link_to t('followers') + @user.followers_count.to_s, followers_path
-      |  | 
+      | &nbsp;|&nbsp;
       = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, blogs_path
   ul
-    = @user.city
-    | &nbsp;
-    = @user.jobs
-    - if session[:id].nil? || (!myself.following?(@user) && myself != @user)
-    - elsif myself.following?(@user)
+    - follow_flag = session[:id].nil? || (!myself.following?(@user) && myself != @user)
+    - if follow_flag
+      a href=follow_me_path
+        = image_tag('/images/follow.png')
       | &nbsp;
+    = @user.city
+    - unless @user.city.to_s==''
+      | &nbsp;
+    = @user.jobs
+    - unless @user.jobs.to_s==''
+      | &nbsp;
+    - if !follow_flag and myself.following?(@user)
       = link_to t('unfollow'), unfollow_path
-      /| &nbsp;
+      | &nbsp;
       /= link_to '设置分组', unfollow_path
     - unless session[:id].nil?
-      | &nbsp;
       - if session[:id]==@user.id
-        = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters')
+        = link_to t('_letter'), site_url + letters_path, title:t('view_my_letters'), target: '_blank'
       - else
-        = link_to t('_letter'), my_site + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to')
-    br
+        = link_to t('_letter'), site_url + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to'), target: '_blank'
+    br    
     - @user.hobbies.each_with_index do |hobby, i|
       - if i==0
         span.pl
           = t'_hobby_'
       = hobby.name
-      |  
+      | &nbsp;
     - if @user.id == session[:id]
       span
         | (
         = link_to t('edit_hobby'), hobbies_path
         | )
-    br
+    - unless @user.hobbies.blank?
+      br
     span.pl
       = @user.memo
     br
     .info style="font-size:16px"
       = render 'shared/user_navigation'
+coffee:
+  this.goSearch = ->
+    window.location.href = "/s/blogs/" + $('#title').val()

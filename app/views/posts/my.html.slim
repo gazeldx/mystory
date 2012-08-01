@@ -17,9 +17,9 @@ table.b.olt
         td
           - if post.content.size>100
             - etc = t('all_characters', w: post.content.size)
-          = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s
+          = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
         td
-          = link_to post.board.name, post.board.id.to_s
+          = link_to post.board.name, post.board.id.to_s, target: '_blank'
         td
           = post.postcomments.size
         td.pl

@@ -6,6 +6,11 @@ class SearchController < ApplicationController
   end
 
   def blogs
-    @blogs = Blog.where("title like ?", "%#{params[:title]}%").order('created_at DESC')
+    if @user.nil?
+      blogs = Blog.includes(:user)
+    else
+      blogs = @user.blogs
+    end
+    @blogs = blogs.where("title like ?", "%#{params[:title]}%").order('created_at DESC')
   end
 end

@@ -11,7 +11,7 @@ module RecommendHelper
       onclick = "javascript:recommend_note(" + item.id.to_s + ")"
     end
     if session[:id].nil?
-      r += link_to t('recommend'), SITE_URL, :title => t('please_login')
+      r += link_to t('recommend'), site_url, :title => t('please_login')
     else
       if item.is_a?(Note)
         if Rnote.find_by_user_id_and_note_id(session[:id], item.id).nil?

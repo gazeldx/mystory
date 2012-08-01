@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726040631) do
+ActiveRecord::Schema.define(:version => 20120801024550) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -51,6 +51,9 @@ ActiveRecord::Schema.define(:version => 20120726040631) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "views_count",     :default => 0
+    t.integer  "comments_count",  :default => 0
+    t.integer  "recommend_count", :default => 0
   end
 
   add_index "blogs", ["category_id"], :name => "index_blogs_on_category_id"
@@ -180,6 +183,9 @@ ActiveRecord::Schema.define(:version => 20120726040631) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "notecate_id"
+    t.integer  "views_count",     :default => 0
+    t.integer  "comments_count",  :default => 0
+    t.integer  "recommend_count", :default => 0
   end
 
   add_index "notes", ["notecate_id"], :name => "index_notes_on_notecate_id"
@@ -243,10 +249,8 @@ ActiveRecord::Schema.define(:version => 20120726040631) do
     t.integer  "blog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "assortment_id"
   end
 
-  add_index "rblogs", ["assortment_id"], :name => "index_rblogs_on_assortment_id"
   add_index "rblogs", ["blog_id"], :name => "index_rblogs_on_blog_id"
   add_index "rblogs", ["user_id"], :name => "index_rblogs_on_user_id"
 
@@ -312,6 +316,16 @@ ActiveRecord::Schema.define(:version => 20120726040631) do
 
   add_index "rphotos", ["photo_id"], :name => "index_rphotos_on_photo_id"
   add_index "rphotos", ["user_id"], :name => "index_rphotos_on_user_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tags", :force => true do |t|
     t.string  "name"

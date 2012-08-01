@@ -1,4 +1,5 @@
 class Blog < ActiveRecord::Base
+#  acts_as_views_count
   belongs_to :category
   belongs_to :user
   has_many :blogcomments, :dependent => :destroy

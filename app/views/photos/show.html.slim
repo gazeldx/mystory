@@ -56,7 +56,7 @@ br
     = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
-        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
+        = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rphoto.find_by_user_id_and_photo_id(session[:id], @photo.id)
         - if ri.nil?

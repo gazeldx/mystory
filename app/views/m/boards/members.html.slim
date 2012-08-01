@@ -1,4 +1,4 @@
-= title t('board.member_of', w: @board.name)
+= title t('board.member_of', w: @board.name, s: site_name)
 span.txt-bold
   = link_to @board.name, m(sub_site("bbs")+"/#{@board.id.to_s}")
   = t'board._member'

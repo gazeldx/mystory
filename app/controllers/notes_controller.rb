@@ -68,6 +68,7 @@ class NotesController < ApplicationController
   #TODO change to max or min?
   def show
     @note = Note.find(params[:id])
+    @note.update_attribute('views_count', @note.views_count + 1)
     if @note.user == @user
       @notecates = @user.notecates.order('created_at')
       @new_notes = @user.notes.order('created_at DESC').limit(6)

@@ -1,4 +1,7 @@
 Cms::Application.configure do
+  DOMAINS = ['mystory2.cc', 'cy22.org']
+  REDURL = '&redirect_uri=mystory2.cc/qq_callback'
+#  site_url = "http://" + DOMAIN_NAME + ":8080"
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -30,5 +33,5 @@ Cms::Application.configure do
   config.assets.debug = true
 
   config.log_level = :debug
-#  config.logger = Logger.new(STDOUT)
+  #  config.logger = Logger.new(STDOUT)
 end

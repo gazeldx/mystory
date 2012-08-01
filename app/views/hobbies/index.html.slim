@@ -1,7 +1,9 @@
 = title t('s_hobby',w: @user.name)
 - if flash[:notice]
   #notice= flash[:notice]
-.table
+h2
+  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;爱好
+.table.b
   - @hobbies.each do |hobby|
     = hobby.name
     = link_to '×', hobby, method: :delete, title: t('delete')

@@ -17,6 +17,7 @@ class NotecommentsController < ApplicationController
       @notecomment = comments.new(params[:notecomment])
       @notecomment.user_id = session[:id]
       @notecomment.save
+      @note.update_attribute('comments_count', @note.comments_count + 1)
       flash[:notice] = t'comment_succ'
     end
     redirect_to note_path(@note) + "#notice"
@@ -26,6 +27,7 @@ class NotecommentsController < ApplicationController
     @note = Note.find(params[:note_id])
     @comment = @note.notecomments.find(params[:id])
     @comment.destroy
+    @note.update_attribute('comments_count', @note.comments_count - 1)
     flash[:notice] = t('delete_succ1', w: t('comment'))
     redirect_to note_path(@note) + "#notice"
   end

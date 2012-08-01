@@ -2,8 +2,8 @@
 .b
   = render 'shared/notice_error'
   h2
-    = link_to t('_setting'), my_site + admin_path
-    |  >&nbsp;QQ绑定设置
+    | #{link_to t('_setting'), my_site + admin_path} >&nbsp;
+    | QQ绑定设置
   - if !@_user.openid.nil?
     | 您已绑定QQ用户： #{@qq_user['nickname']} #{link_to '取消绑定', cancel_qq_bind_path, confirm: t('confirm.cancel_bind_qq')}
     br

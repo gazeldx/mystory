@@ -1,4 +1,4 @@
-= title t('s_board', w: @board.name)
+= title t('s_board', w: @board.name, s: site_name)
 = render 'shared/notice_error'
 h1
   = @board.name
@@ -17,7 +17,7 @@ h1
     = link_to t('board.member'), "#{@board.id}/members"
     - unless session[:id].nil?
       .rr.b
-        = link_to t('post.new'), my_site + new_post_path
+        = link_to t('post.new'), site_url + new_post_path
 table.b.olt
   tbody
     tr
@@ -33,9 +33,9 @@ table.b.olt
       tr
         td
           - etc = t('all_characters', w: post.content.size) if post.content.size>100
-          = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s
+          = link_to post.title[0..40], "p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
         td
-          = link_to post.user.name, site(post.user)
+          = link_to post.user.name, site(post.user), target: '_blank'
         td
           = post.postcomments.size
         td.pl

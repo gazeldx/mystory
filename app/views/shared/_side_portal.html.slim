@@ -20,7 +20,7 @@
   - else
     = t'hello'
     | ,
-    = link_to session[:name], my_site + like_path
+    = link_to session[:name], site_url + like_path
   /!TOP关注度会员
   h3= t'new_user'
   - @users.each do |user|

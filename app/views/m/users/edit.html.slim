@@ -16,8 +16,9 @@
   = t'domain'
   | ：
   = f.text_field :domain, size: 10
+  | .#{request.domain}
   span.pl
-    | 可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc访问
+    | 可用于登录，建议用姓名拼音
   br
   | 登录密码
   | ：

@@ -32,6 +32,9 @@ zh:
   a_new: "新一篇 "
   an_old: "旧一篇 "
   none: "无"
+  views_count: "阅读(%{w})"
+  comments_count: "评论(%{w})"
+  recommend_count: "推荐(%{w})"
   same_idol: "喜爱“%{w}”的人"
   same_hobby: "同道中人"
   _board: "讨论版"
@@ -39,7 +42,7 @@ zh:
   create_board: "创建讨论版"
   whose_board: "%{w}的讨论版："
   none_board: "还没关注任何讨论版"
-  s_board: "%{w}_我的故事论坛"
+  s_board: "%{w}_%{s}论坛"
   _letter: "私信"
   #my_letters: "我的私信"
   all_my_letters: "我的所有私信"
@@ -113,15 +116,15 @@ zh:
   board:
     member: "成员"
     _member: " - 成员"
-    member_of: "成员_%{w}_我的故事论坛"
+    member_of: "成员_%{w}_%{s}论坛"
     #_member_of: "%{w}成员"
   post:
     new: "发表新帖"
     new_of_board: "发表新帖 - %{w}"
     _new_of_board: " - 发表新帖"
   post_reply: "发表回复"
-  sub_site: "%{w} - 我的故事原创社区"
-  bbs_title: "我的故事论坛"
+  #sub_site: "%{w} - %{s}原创社区"
+  bbs_title: "%{w}论坛"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"
   
 #  delete_failed: "删除失败！%{w}"
@@ -192,9 +195,9 @@ zh:
   me: "我"
   topic: "话题"
   whose_topic: "%{w}发表的帖子"
-  whose_topic_title: "%{w}发表的帖子_我的故事论坛"
+  whose_topic_title: "%{w}发表的帖子_%{s}论坛"
   whose_reply_topic: "%{w}回复的帖子"
-  whose_reply_topic_title: "%{w}回复的帖子_我的故事论坛"
+  whose_reply_topic_title: "%{w}回复的帖子_%{s}论坛"
   my_posts: "我的帖子"
   reply: "回复"
   _who_reply: "%{w}回复"
@@ -260,10 +263,7 @@ zh:
   
   ren: "人"
   #all: "阅读全文"
-  site:
-    desc: "我的故事"
-    seotitle: "我的故事 - 写日记、自传，读励志名人名言"
-    metadesc: "MyStory是原创社交网络。写日记、发作品、传照片、写自传，分享一切您生命中最重要的事情，关注有创造力的人。"
+  
 #    desc: "人，诗意处栖居！"
   more: "更多"
   avatar: "头像"
@@ -276,7 +276,7 @@ zh:
   my_home_page: "我的主页"
   plaza: "广场"
   mobile_version: "手机版"
-  my_story: "我的故事"
+  #my_story: "我的故事"
   my_note: "我的日记"
   my_blog: "我的作品"
   my_photo: "我的影集"
@@ -288,7 +288,7 @@ zh:
   split_with_blank_time: "多个以空格分隔，距今近的写在前面"
   
   s_home_page: "%{w}主页"
-  ss_home_page: "%{w}_我的故事"
+  ss_home_page: "%{w}_%{s}"
   ss_home_page_note: "最新日记_%{w}"
   ss_home_page_blog: "最新作品_%{w}"
   ss_home_page_photo: "最近照片_%{w}"
@@ -318,10 +318,10 @@ zh:
   he_following: "%{w}关注了%{r}人"
   s_followers: "%{w}的粉丝"
   he_followers: "%{w}的粉丝%{r}人"
-  post_title: "%{p}_%{b}_我的故事论坛"
+  post_title: "%{p}_%{b}_%{s}论坛"
   post_posted: "帖子发表成功！"
-  reg_title: "注册_我的故事"
-  welcome_reg: "欢迎加入我的故事！"
+  reg_title: "注册_%{w}"
+  welcome_reg: "欢迎加入%{w}！"
 
   following: "关注"
   followers: "粉丝"
@@ -339,8 +339,8 @@ zh:
   s_album: "%{w}影集"
   _upload_at: "上传于 %{w}"
   photo_title: "%{p}_%{a}_%{w}影集"
-  photo_title_desc: "%{p}_%{a}_%{w}影集_我的故事原创社区"
-  _metadesc_plug: "——我的故事原创社区"
+  photo_title_desc: "%{p}_%{a}_%{w}影集_%{s}原创社区"
+  _metadesc_plug: "——%{w}原创社区"
   s_note_date_title: "%{t}_%{c}_%{w}日记"
   s_note_date2: "%{w} - %{w3}%{w2}日记"
   s_note_date_edit: "编辑 - %{w}%{w2}日记"
@@ -402,14 +402,14 @@ zh:
 
   view_blogs_in_category: "查看该分类下的作品"
 
-  user_meta_desc_c: "%{w}自传、日记、作品、影集——我的故事原创社区"
-  user_meta_album_c: "%{w}影集——我的故事原创社区"
+  user_meta_desc_c: "%{w}自传、日记、作品、影集——%{s}原创社区"
+  user_meta_album_c: "%{w}影集——%{s}原创社区"
   maxim: "座右铭"
   _simple_desc: "简介:"
   profile:
     memo: "个人介绍"
     memo_memo: "介绍下你的性格、经历、信念、梦想等"
-  account_settings: "帐号设置"
+  account_settings: "帐号设置_%{w}"
   _post: "发布"
   send: "发送"
 
@@ -455,14 +455,13 @@ zh:
   weibo_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。目前您只能通过微博账号登录，修改邮箱和密码功能还在研发中，所以请不要取消与微博的绑定。"
   qq_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。目前您只能通过QQ账号登录，修改邮箱和密码功能还在研发中，所以请不要取消与QQ的绑定。"
   new_user: "最近加入会员"
-  user_name: "用户名"
+  user_name: "帐号"
   user_name_desc: "仅用于登录，不显示。英文字母、数字和_"
   can_login: "可用于登录"
   domain: "个性域名"
   domain_desc: " 可用于登录，建议用姓名拼音"
-  #domain_desc: "可用于登录，建议用姓名拼音，支持http://yourname.mystory.cc和http://mystory.cc/yourname访问"
   real_name: "真实姓名"
-  name_desc: "会显示在主页。“我的故事”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
+  name_desc: "会显示在主页。“%{w}”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
 
   num_error: "个原因"
   op_error: "使得操作未成功"
@@ -480,7 +479,7 @@ zh:
   #view: "视角"
   home_page: "首页"
   return_home: "返回他的首页"
-  return_root: "我的故事首页"
+  return_root: "%{w}首页"
   contact_us: "联系我们"
   hot_blog: "热门作品"
   new_blog: "最新作品"
@@ -499,7 +498,7 @@ zh:
 
   unfinished: "正在研发中，敬请期待……"
 
-  page_not_found: "页面不存在！返回<a href='http://mystory.cc'>我的故事原创社区</a>"
+  page_not_found: "页面不存在！返回<a href='http://mystory.cc'>%{w}原创社区</a>"
   
   #sitename: "网站名称"
   #official_website: "官方网站"
@@ -756,7 +755,7 @@ zh:
         <<: *errors_template
     attributes:
       user:
-        username: "用户名：应由字母、数字和下划线组成，至少5位"        
+        username: "帐号：应由字母、数字和下划线组成，至少5位"
         name: "真实姓名："
         domain: "个性域名：应由小写字母、数字和“-”组成，以小写字母打头，至少4位"
         email: "Email"
@@ -789,3 +788,16 @@ zh:
 #    article_start: "正文开始"
 #    article_end: "正文结束"
   copy_article: "转"
+
+  site:
+    name: "我的故事"
+    seotitle: "我的故事 - 写日记、自传，读励志名人名言"
+    metadesc: "MyStory是原创社交网络。写日记、发作品、传照片、写自传，分享一切您生命中最重要的事情，关注有创造力的人。"
+    desc: "分享我的故事，让世界更美"
+    detail: "原创社区。日记、作品同步到微博、QQ空间"
+  cy:
+    name: "创源智库"
+    seotitle: "创源智库_博客日记|股票期货|金融财经|社会历史|民生银行|企业管理|黄金投资|货币经济|读书炒股|励志名人名言"
+    metadesc: "“创源智库”由一群对经济、民生、文化有着积极思考的人发起，志在传播优质思想。"
+    desc: "创造之源，智慧宝库"
+    detail: "创建你自己的研究项目，众人为你出主意"

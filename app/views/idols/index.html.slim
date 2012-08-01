@@ -1,7 +1,9 @@
 = title t('s_idol',w: @user.name)
 - if flash[:notice]
   #notice= flash[:notice]
-.table
+h2
+  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;偶像
+.table.b
   - @idols.each do |idol|
     = idol.name
     = link_to '×', idol, method: :delete, title: t('delete')

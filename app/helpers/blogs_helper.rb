@@ -105,7 +105,7 @@ module BlogsHelper
     @albums.each_with_index do |album, i|
       r += "[#{album.name}] "
     end
-    r += " " + t('user_meta_album_c', w: @user.name)
+    r += " " + t('user_meta_album_c', w: @user.name, s: site_name)
     raw r
   end
 
@@ -114,13 +114,13 @@ module BlogsHelper
     unless @photos.blank?
       r += t('_album_desc', n: @photos.size)
     end
-    r += " #{@album.description}#{t'_metadesc_plug'}"
+    r += " #{@album.description}#{t('_metadesc_plug', w: site_name)}"
     raw r
   end
 
   def meta_desc_photo
     r = t('_upload_at', w: @photo.created_at.strftime(t'date_format'))
-    r += " " + t('photo_title_desc', p: @photo.description, a: @album.name, w: @user.name)
+    r += " " + t('photo_title_desc', p: @photo.description, a: @album.name, w: @user.name, s: site_name)
   end
 
   def meta_desc_user
@@ -130,7 +130,23 @@ module BlogsHelper
       r += "#{hobby.name} "
     end
     r += @user.memo.to_s=='' ? "": "&nbsp;#{t'_simple_desc'}#{@user.memo}"
-    r += " " + t('user_meta_desc_c', w: @user.name)
+    r += " " + t('user_meta_desc_c', w: @user.name, s: site_name)
     raw r
+  end
+
+  def blog_read_comment_recommend item
+    views_link = link_to t('views_count', w: item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
+    comments_link = link_to t('comments_count', w: item.comments_count), blog_path(item), target: '_blank' if item.comments_count > 0
+    recommend_link = link_to t('recommend_count', w: item.recommend_count), blog_path(item), target: '_blank' if item.recommend_count > 0
+    _content = raw "#{recommend_link}&nbsp;&nbsp;#{comments_link}&nbsp;&nbsp;#{views_link}"
+    content_tag(:span, _content, class: 'rr')
+  end
+
+  def note_read_comment_recommend item
+    views_link = link_to t('views_count', w: item.views_count), note_path(item), target: '_blank' if item.views_count > 0
+    comments_link = link_to t('comments_count', w: item.comments_count), note_path(item), target: '_blank' if item.comments_count > 0
+    recommend_link = link_to t('recommend_count', w: item.recommend_count), note_path(item), target: '_blank' if item.recommend_count > 0
+    _content = raw "#{recommend_link}&nbsp;&nbsp;#{comments_link}&nbsp;&nbsp;#{views_link}"
+    content_tag(:span, _content, class: 'rr')
   end
 end

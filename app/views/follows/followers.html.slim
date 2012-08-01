@@ -22,7 +22,7 @@ ul.user-list
                     = image_tag('/images/follow.png')
               - unless session[:id]==guy.id
                 | &nbsp;
-                = link_to t('_letter'), my_site + "/send_a_letter_to_#{guy.domain}", title:t('send_letter_to')
+                = link_to t('_letter'), site_url + "/send_a_letter_to_#{guy.domain}", title:t('send_letter_to')
           | &nbsp;
           span.pl
             = guy.city

@@ -38,7 +38,7 @@ div id='note-#{@note.id}'
           = link_to t('edit'), edit_note_path(@note)
           | &nbsp;
           = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
-  = render 'shared/ad/blog_link'
+  /= render 'shared/ad/blog_link'
   div id='note_#{@note.id}_full'
     pre.note_full
       = style_it @note.content
@@ -51,7 +51,7 @@ div.note-ft id='note_#{@note.id}_footer'
     = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
-        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
+        = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
         - if ri.nil?

@@ -1,4 +1,4 @@
-= title t'bbs_title'
+= title t('bbs_title', w: site_name)
 = render 'shared/notice_error'
 .b
   - unless session[:id].nil?
@@ -28,8 +28,8 @@
   - @posts.each do |post|
     - etc = t('all_characters', w: post.content.size) if post.content.size>100
     - cs = "(#{post.postcomments.size})" if post.postcomments.size>0
-    = link_to "#{post.title[0..40]}#{cs.to_s}", sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s
+    = link_to "#{post.title[0..40]}#{cs.to_s}", sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
     | &nbsp;&nbsp;[#{link_to post.board.name, "#{post.board.id}"}]&nbsp;&nbsp;/
-    = link_to post.user.name, site(post.user)
+    = link_to post.user.name, site(post.user), target: '_blank'
     br
 = validate_form 'new_board'

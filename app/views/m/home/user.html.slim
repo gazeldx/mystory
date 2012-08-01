@@ -24,9 +24,9 @@ table width="100%"
       - unless session[:id].nil?
         | &nbsp;
         - if session[:id]==@user.id
-          = link_to t('_letter'), m(my_site + letters_path)
+          = link_to t('_letter'), m(site_url + letters_path)
         - else
-          = link_to t('_letter'), m(my_site + "/send_a_letter_to_#{@user.domain}")
+          = link_to t('_letter'), m(site_url + "/send_a_letter_to_#{@user.domain}")
       - unless @user.maxim.nil?
         | (#{@user.maxim})
 p

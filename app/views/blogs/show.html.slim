@@ -30,7 +30,7 @@ div id='note-#{@blog.id}'
     = render 'shared/share'
     .sns-bar-fav
       - if session[:id].nil?
-        = link_to t('recommend'), SITE_URL, class: 'fav-add btn-fav', title: t('please_login')
+        = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
         - if ri.nil?

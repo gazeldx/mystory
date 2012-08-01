@@ -4,7 +4,7 @@ class FollowsController < ApplicationController
   def follow_me
     if session[:id].nil?
       flash[:notice] = 'Please login!'
-      redirect_to SITE_URL
+      redirect_to site_url
     else
       follower = User.find(session[:id])
       follower.follow(@user)
@@ -15,7 +15,7 @@ class FollowsController < ApplicationController
   def unfollow_me
     if session[:id].nil?
       flash[:notice] = 'Please login!'
-      redirect_to SITE_URL
+      redirect_to site_url
     else
       follower = User.find(session[:id])
       follower.stop_following(@user)

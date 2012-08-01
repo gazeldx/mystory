@@ -1,4 +1,4 @@
-= title t'bbs_title'
+= title t('bbs_title', w: site_name)
 - unless session[:id].nil?  
   a href='my'
     = t'my_posts'

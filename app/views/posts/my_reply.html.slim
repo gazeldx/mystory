@@ -1,4 +1,4 @@
-= title t('whose_reply_topic_title', w: t('me'))
+= title t('whose_reply_topic_title', w: t('me'), s: site_name)
 table.b.olt
   tbody
     tr
@@ -23,15 +23,15 @@ table.b.olt
           - if post.content.size>100
             - etc = t('all_characters', w: post.content.size)
           - tetc = ".." if post.title.size>20
-          = link_to post.title[0..20]+tetc.to_s, sub_site('bbs') + "/p/#{post.id}", title: post.content[0..100]+etc.to_s
+          = link_to post.title[0..20]+tetc.to_s, sub_site('bbs') + "/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
         - _comment = comment_no_html(p_comment_info_title(post.postcomments.find_by_user_id(session[:id]).body))
         td title=_comment
           - etc = ".." if _comment.size>20
           = _comment[0..20]+etc.to_s
         td
-          = link_to post.user.name, site(post.user)
+          = link_to post.user.name, site(post.user), target: '_blank'
         td
-          = link_to post.board.name, sub_site('bbs') + "/#{post.board.id.to_s}"
+          = link_to post.board.name, sub_site('bbs') + "/#{post.board.id.to_s}", target: '_blank'
         td
           = post.postcomments.size
         td.pl

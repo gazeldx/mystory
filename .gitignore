@@ -6,6 +6,7 @@ nbproject/
 public/photos
 public/uploads
 config/routes.rb
+config/database.yml
 config/environment.rb
 config/weibo.yml
 config/initializers/session_store.rb

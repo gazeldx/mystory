@@ -1,4 +1,4 @@
-= title t('s_board', w: @board.name)
+= title t('s_board', w: @board.name, s: site_name)
 - if flash[:notice]
   #notice= flash[:notice]
 strong
@@ -17,7 +17,7 @@ strong
 = link_to t('board.member'), m(sub_site("bbs")+"/#{@board.id}/members")
 | &nbsp;
 - unless session[:id].nil?
-  = link_to t('post.new'), m(my_site + new_post_path)
+  = link_to t('post.new'), m(site_url + new_post_path)
 br
 - @posts.each do |post|
   - comments_count = post.postcomments.size

@@ -79,9 +79,10 @@ class HomeController < ApplicationController
         end
         #TODO DIFFERENT COLOR
         admin = User.find(admin_id)
-        @r_blogs = admin.r_blogs.includes(:category, :user, :blogcomments).order('created_at DESC').limit(9)
-        @notes_new = Note.includes(:notecate, :user, :notecomments).order("created_at desc").limit(28)
-        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(40)
+        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
+        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
+        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
+        #TODO includes postcomments need to delete
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
         @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
         
@@ -136,10 +137,10 @@ class HomeController < ApplicationController
   end
 
   def logout
-    session[:id], session[:name], session[:domain] = nil
+    session[:id], session[:name], session[:domain] = nil, nil, nil
     session[:atoken], session[:asecret] = nil, nil
     if @m
-      redirect_to m(SITE_URL + login_path)
+      redirect_to m(site_url + login_path)
     else
       redirect_to root_path
     end

@@ -2,8 +2,8 @@
 .b
   = render 'shared/notice_error'
   h2
-    = link_to t('_setting'), my_site + admin_path
-    |  > 新浪微博设置
+    | #{link_to t('_setting'), my_site + admin_path} >&nbsp;
+    | 新浪微博设置
   - if @_user.weiboid.to_i > 0
     | 您已绑定新浪微博： #{link_to @weibo_user.screen_name, "http://weibo.com/#{@weibo_user.id}", target: '_blank'} #{link_to '取消绑定', cancel_weibo_bind_path, confirm: t('confirm.cancel_bind_weibo')}
     br

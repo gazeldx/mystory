@@ -3,8 +3,7 @@
 = title t('edit_profile') + ' - ' + session[:name]
 = render 'shared/notice_error'
 h2
-  = link_to t('_setting'), my_site + admin_path
-  |  >&nbsp;
+  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;
   = t'edit_profile'
 = form_for @_user do |f|
   = error_msg @_user
@@ -39,7 +38,7 @@ h2
         td
           = f.text_field :domain, size: 10
           span.m
-            | .mystory.cc
+            | .#{request.domain}
           span.pl
             | &nbsp;可用于登录，建议用姓名拼音
       tr

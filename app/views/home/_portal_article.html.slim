@@ -15,7 +15,7 @@
           /| &nbsp;&nbsp;
           /= link_to t('become_writer'), as_a_writer_path, target: '_blank'
           | &nbsp;&nbsp;
-          = link_to t('mobile_version'), m(SITE_URL), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/", target: '_blank'
+          = link_to t('mobile_version'), m(site_url), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.#{request.domain}/", target: '_blank'
           | &nbsp;&nbsp;作品：
           = text_field_tag :title, params[:title], size: 10
           | &nbsp;
@@ -38,8 +38,8 @@
               - unless note.notecate.nil?
                 = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
               | ]&nbsp;
-              - cc = note.notecomments.size
-              -if cc>0
+              - cc = note.comments_count
+              - if cc>0
                 span.red
                   = cc
               br
@@ -55,7 +55,7 @@
               | &nbsp;[
               = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
               | ]&nbsp;
-              - cc = blog.blogcomments.size
+              - cc = blog.comments_count
               -if cc>0
                 span.red
                   = cc
@@ -73,7 +73,7 @@
               | &nbsp;[
               = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
               | ]&nbsp;
-              - cc = blog.blogcomments.size
+              - cc = blog.comments_count
               -if cc>0
                 span.red
                   = cc
@@ -118,7 +118,7 @@
             | &nbsp;[
             = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
             | ]&nbsp;
-            - cc = blog.blogcomments.size
+            - cc = blog.comments_count
             -if cc>0
               span.red
                 = cc

@@ -1,8 +1,7 @@
 = title t'category.edit'
 = render 'shared/notice_error'
 h2
-  = link_to t('_setting'), my_site + admin_path
-  |  >&nbsp;
+  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;
   = t'category.edit'
 .table.b
   = form_for @category do |f|

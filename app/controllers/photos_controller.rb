@@ -82,7 +82,6 @@ class PhotosController < ApplicationController
   def m_upload_photo
     @album = @user.albums.first(:order => "id")
     if @album.nil?
-      puts "it is nil"
       @album = Album.new
       @album.name = t'default_album_name'
       @album.user_id = session[:id]

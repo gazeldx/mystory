@@ -9,6 +9,8 @@ class BlogsController < ApplicationController
 
   def show
     @blog = Blog.find(params[:id])
+    @blog.update_attribute('views_count', @blog.views_count + 1)
+#    @blog.update_views_count
     if @blog.user == @user
       @categories = @user.categories.order('created_at')
       @new_blogs = @user.blogs.order('created_at DESC').limit(6)

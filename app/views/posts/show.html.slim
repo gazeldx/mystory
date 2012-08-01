@@ -1,4 +1,4 @@
-- _title = t('post_title', p: @post.title, b: @post.board.name)
+- _title = t('post_title', p: @post.title, b: @post.board.name, s: site_name)
 = title _title
 = h @post.title
 = summary text_it_pure(@post.content)[0..S_SIZE-_title.size]

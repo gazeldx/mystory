@@ -1,6 +1,6 @@
-= title t'reg_title'
+= title t('reg_title', w: site_name)
 h1
-  = t'welcome_reg'
+  = t('welcome_reg', w: site_name)
 = form_for @user do |f|
   = error_msg @user
   .item.extra-tips
@@ -26,7 +26,7 @@ h1
       = t'domain'
     = f.text_field :domain, class: "basic-input"
     span.b
-      | .mystory.cc
+      | .#{request.domain}
     span.tips
       = t'domain_desc'
   .item.extra-tips
@@ -36,7 +36,7 @@ h1
       = t'real_name'
     = f.text_field :name, class: "basic-input"
     span.tips
-      = t'name_desc'
+      = t('name_desc', w: site_name)
   .item.extra-tips
     label
       span.red

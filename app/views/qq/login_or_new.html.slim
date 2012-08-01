@@ -16,11 +16,11 @@ div align='center'
         = t'password'
         = password_field_tag :passwd
         br
-        input type='button' value='登录我的故事' onclick='checkLogin()'
+        input type='button' value='登录#{site_name}' onclick='checkLogin()'
         br
         span.pl
           | 提示：登录后将自动绑定QQ帐号。
-        = hidden_field_tag 'url', SITE_URL
+        = hidden_field_tag 'url', site_url
     .newuser style='display:none'
       = form_tag 'qq_create_account' do
         = hidden_field_tag 'openid', session[:openid]

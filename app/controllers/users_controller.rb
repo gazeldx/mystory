@@ -49,7 +49,7 @@ class UsersController < ApplicationController
       @_user.renjoys.destroy_all
       build_enjoys @_user
       @_user.update_attributes(params[:user])
-      redirect_to m_or(my_site + profile_path), notice: t('update_succ')
+      redirect_to m_or(site_url + profile_path), notice: t('update_succ')
     else
       _render :edit
     end
@@ -85,7 +85,7 @@ class UsersController < ApplicationController
       proc_session
       #UserMailer.welcome_email(@user).deliver
       flash[:notice] = t'regiter_succ_memo'
-      redirect_to m_or(my_site + edit_profile_path)
+      redirect_to m_or(site_url + edit_profile_path)
     else
       _render :new
     end

@@ -1,14 +1,14 @@
 module UsersHelper
   #  def site(user)
-  #    SITE_URL.sub(/\:\/\//, "://" + user.domain + ".")
+  #    site_url.sub(/\:\/\//, "://" + user.domain + ".")
   #  end
   #
-  #  def my_site
-  #    SITE_URL.sub(/\:\/\//, "://" + session[:domain] + ".")
+  #  def site_url
+  #    site_url.sub(/\:\/\//, "://" + session[:domain] + ".")
   #  end
 
   def whose_site(domain)
-    SITE_URL.sub(/\:\/\//, "://" + domain + ".")
+    site_url.sub(/\:\/\//, "://" + domain + ".")
   end
 
   def myself
@@ -156,19 +156,21 @@ module UsersHelper
   end
 
   def summary_common(something, size, tmp)
-    if something.is_a?(Note)
-      count = something.notecomments.count
-    elsif something.is_a?(Blog)
-      count = something.blogcomments.count
-    end
-    comments = ""
-    if count > 0
-      comments = ' ' + t('comments', w: count)
-    end
+#    if something.is_a?(Note)
+#      count = something.notecomments.count
+#    elsif something.is_a?(Blog)
+#      count = something.blogcomments.count
+#    end
+#    comments = ""
+#    if count > 0
+#      comments = ' ' + t('comments', w: count)
+#    end
     if something.content.size > size
-      raw tmp + t('etc') + (link_to t('whole_article') + comments, something, target: '_blank')
+      raw tmp + t('etc') + (link_to t('whole_article'), something, target: '_blank')
+#      raw tmp + t('etc') + (link_to t('whole_article') + comments, something, target: '_blank')
     else
-      raw tmp + (link_to comments, something, target: '_blank')
+#      raw tmp + (link_to comments, something, target: '_blank')
+      raw tmp
     end
   end
 

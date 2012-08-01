@@ -1,6 +1,6 @@
-= title t'reg_title'
+= title t('reg_title', w: site_name)
 strong
-  = t'welcome_reg'
+  = t('welcome_reg', w: site_name)
 br
 | 以下内容全是必填项。
 = form_for @user do |f|
@@ -19,6 +19,8 @@ br
   | *
   = t'domain'
   = f.text_field :domain, size: 10
+  span.b
+    | .#{request.domain}
   span.pl
     = t'domain_desc'
   br
@@ -26,7 +28,7 @@ br
   = t'real_name'
   = f.text_field :name, size: 10
   span.pl
-    = t'name_desc'
+    = t('name_desc', w: site_name)
   br
   | *
   = t'password'

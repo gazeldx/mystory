@@ -19,7 +19,7 @@ module Cms
     # config.autoload_paths += %W(#{config.root}/extras)
 
     #add by zhangjian for ckeditor
-#    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
+    #    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -49,5 +49,8 @@ module Cms
     config.assets.version = '1.0'
     #add a paths by zhangjian for ckeditor
     #config.assets.paths << "#{Rails.root}/public/assets/javascripts/ckeditor"
+
+#    require "#{Rails.root}/lib/custom_domain_cookie.rb"
+#    config.middleware.use CustomDomainCookie
   end
 end

@@ -48,10 +48,11 @@
             span.inq
               = summary_comment(item, 140)
               = thumbs_here(item, 3)
-              span.pl
-                = article_time item
-              = recommend_etc item
+              = article_time item
+              /= recommend_etc item
+              = note_read_comment_recommend item
               - if item.user_id == session[:id]
+                | &nbsp;
                 = link_to t('edit'), edit_note_path(item), target: '_blank'
                 | &nbsp;
                 = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
@@ -59,14 +60,15 @@
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
           - user = item.user
           li.mbtr
-            = link_to user.name, site(user)
-            span.pl1
+            span.pl2.b
+              = link_to user.name, site(user)
               |  发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》
+            br
             span.inq
               = summary_comment(item, 180)
               = thumbs_here(item, 3)
-              span.pl
-                = article_time item
+              = article_time item
+              = blog_read_comment_recommend item
               - if item.user_id == session[:id]
                 | &nbsp;
                 = link_to t('edit'), edit_blog_path(item), target: '_blank'

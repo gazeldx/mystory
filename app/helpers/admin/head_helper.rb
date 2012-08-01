@@ -1,11 +1,11 @@
 module Admin::HeadHelper
-  def navigation_link(title,link)
-    if '/'+controller_path==link || (title==t('home_page') && controller_path=='admin/home') || (title==t('account_settings') && controller_path=='admin/users')
-      link_to title,link, :class => "selected"
-    else
-      link_to title,link
-    end
-  end
+#  def navigation_link(title,link)
+#    if '/'+controller_path==link || (title==t('home_page') && controller_path=='admin/home') || (title==t('account_settings') && controller_path=='admin/users')
+#      link_to title,link, :class => "selected"
+#    else
+#      link_to title,link
+#    end
+#  end
 
 #  def tip_info
 #    if /.+\/edit\z/=~request.url
