@@ -20,7 +20,7 @@ class QqController < ApplicationController
         @user.update_attributes(:token => session[:token])
         proc_session
         flash[:notice] = t'qq_login_succ'
-        redirect_to site_url + like_path
+        redirect_to my_site + like_path
       end
     else
       user = User.find_by_openid(qq.openid)
@@ -31,7 +31,7 @@ class QqController < ApplicationController
         session[:token], session[:openid] = nil, nil
         flash[:error] = t'qq_bound_by_others'
       end
-      redirect_to site_url + qq_account_path
+      redirect_to my_site + qq_account_path
     end
   end
 
@@ -42,7 +42,7 @@ class QqController < ApplicationController
     same_user_info
     proc_session
     flash[:notice] = t'qq_regiter_succ_memo'
-    redirect_to site_url + edit_profile_path
+    redirect_to my_site + edit_profile_path
   end
 
   def qq_account

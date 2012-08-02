@@ -1,0 +1,28 @@
+= title t'role.edit'
+.b
+  = render 'shared/notice_error'
+  h2
+    | #{link_to t('_manage'), site_url + cy_path} >&nbsp;
+    = t'role.edit'
+  = form_for @role do |f|
+    = f.label t'role_addtip'
+    = f.text_field :name, size: 10, class: 'required'
+    = f.submit t(:submit)
+  table.olt
+    tr
+      th
+        = t'role.name'
+      th width=75
+      th width=40
+      th width=40
+    - @roles.each_with_index do |role, i|
+      tr
+        td
+          = role.name
+        td
+          = link_to t('assign_menus'), assign_menus_role_path(role)
+        td
+          = link_to t(:edit), edit_role_path(role)
+        td
+          = link_to t(:delete), role_path(role), confirm:t('confirm.delete'), method: :delete
+  = validate_form 'new_role'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120801024550) do
+ActiveRecord::Schema.define(:version => 20120802074245) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -155,6 +155,20 @@ ActiveRecord::Schema.define(:version => 20120801024550) do
   end
 
   add_index "memoirs", ["user_id"], :name => "index_memoirs_on_user_id"
+
+  create_table "menus", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "menus_roles", :id => false, :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "menu_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notecates", :force => true do |t|
     t.string   "name"
@@ -305,6 +319,21 @@ ActiveRecord::Schema.define(:version => 20120801024550) do
 
   add_index "rnotes", ["note_id"], :name => "index_rnotes_on_note_id"
   add_index "rnotes", ["user_id"], :name => "index_rnotes_on_user_id"
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
 
   create_table "rphotos", :force => true do |t|
     t.text     "body"

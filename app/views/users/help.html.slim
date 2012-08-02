@@ -1,7 +1,10 @@
 .note
-  | “#{site_name}”网站旨在分享人生故事。分享生命中最重要的事。
+  - if mystory?
+    | “#{site_name}”网站旨在分享人生故事。分享生命中最重要的事。
+  - else
+    | “#{site_name}”旨在让有思想的人得到关注！
   br
-  | 因此，网站内容是<span style="color:green;">原创</span>的。下一步将重点开发版权保护。
+  | 因此，网站内容是<span style="color:green;">原创</span>的。我们正在重点开发版权保护。
   br
 br
 .pl2

@@ -21,5 +21,8 @@
       ul
         li.on
           = link_to site_name, site_url, title: t('return_root', w: site_name)
+        - unless mystory?
+          li.on
+            = link_to '博客', sub_site('blog')
         li.on
           = link_to t('_forum'), sub_site('bbs')

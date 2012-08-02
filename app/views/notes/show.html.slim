@@ -7,37 +7,20 @@
   #notice= flash[:notice2]
 div id='note-#{@note.id}'
   .note-header
-    - if @note.title.to_s!=''
-      h2
+    h2
+      - if @note.title.to_s!=''
         == @note.title
-        - if @note.user_id == session[:id]
-          | &nbsp;
-          = link_to t('edit'), edit_note_path(@note)
-          | &nbsp;
-          = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
-      div
-        span.pl
-          = @note.created_at.strftime t'time_format'
-          = t'write'
-          | &nbsp;
-          = update_info @note
-          | &nbsp;分类：
-          = link_to @note.notecate.name, @note.notecate
-    - else
-      h2
+      - else
         = t('s_note', w: @note.created_at.strftime(t'date_format'))
-        span.pl2
-          | &nbsp;
-          = @note.created_at.strftime t'h_m'
-          | &nbsp;
-          = update_info @note
-          | &nbsp;#{t'_cate'}
-          = link_to @note.notecate.name, @note.notecate
-        - if @note.user_id == session[:id]
-          | &nbsp;
-          = link_to t('edit'), edit_note_path(@note)
-          | &nbsp;
-          = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
+      = edit_delete_note
+    .mi
+      = @note.created_at.strftime t'time_format'
+      = t'write'
+      | &nbsp;
+      = update_info @note
+      | &nbsp;分类：
+      = link_to @note.notecate.name, @note.notecate
+      = read_comment_recommend_show @note
   /= render 'shared/ad/blog_link'
   div id='note_#{@note.id}_full'
     pre.note_full
@@ -58,6 +41,7 @@ div.note-ft id='note_#{@note.id}_footer'
           = hidden_field_tag :ri_id
           span#ri_body
           span#edit
+          | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
           = hidden_field_tag :ri_id, ri.id
@@ -67,6 +51,7 @@ div.note-ft id='note_#{@note.id}_footer'
               = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
             - else
               = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
+          | &nbsp;#{t('recommend_count2', w: @note.recommend_count)}
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none' 
       span

@@ -14,9 +14,9 @@ div id='note-#{@blog.id}'
         = link_to t('edit'), edit_blog_path(@blog)
         | &nbsp;
         = link_to t('delete'), @blog, confirm: t('confirm.delete'), method: :delete
-    div
-      span.pl
-        = blog_info @blog
+    .mi
+      = blog_info @blog
+      = read_comment_recommend_show @blog
   /= render 'shared/ad/blog_link'
   div id='note_#{@blog.id}_full'
     pre.note_full
@@ -37,6 +37,7 @@ div id='note-#{@blog.id}'
           = hidden_field_tag :ri_id
           span#ri_body
           span#edit
+          | #{t('recommend_count2', w: @blog.recommend_count) if @blog.recommend_count > 0}
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
           = hidden_field_tag :ri_id, ri.id
@@ -46,6 +47,7 @@ div id='note-#{@blog.id}'
               = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
             - else
               = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
+          | &nbsp;#{t('recommend_count2', w: @blog.recommend_count)}
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
     #bodydiv style='text-align:right;display:none' 
       span

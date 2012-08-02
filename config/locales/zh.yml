@@ -33,8 +33,10 @@ zh:
   an_old: "旧一篇 "
   none: "无"
   views_count: "阅读(%{w})"
+  #views_count2: "共%{w}次阅读"
   comments_count: "评论(%{w})"
   recommend_count: "推荐(%{w})"
+  recommend_count2: "%{w}人推荐"
   same_idol: "喜爱“%{w}”的人"
   same_hobby: "同道中人"
   _board: "讨论版"
@@ -153,6 +155,24 @@ zh:
   tip_auto_create_cate: "填写后将自动创建分类"
   continue_upload_photo: "继续上传照片"
 
+  return_which: "返回%{w}"
+  menu:
+    name: "功能名"
+    code: "控制字"
+    edit: "功能管理"
+    name_must_notnull: "功能名必须填写！"
+    has_roles_when_delete: "功能下存在角色，不可以删除。"
+    
+  role:
+    name: "角色名"
+    edit: "角色管理"
+    name_must_notnull: "角色名必须填写！"
+    has_users_when_delete: "角色下存在用户，不可以删除。"
+  assign_menus: "授予功能"
+
+  user:
+    edit: "用户管理"
+  assign_role: "授予角色"
 
   category:
     name: "目录名"
@@ -161,6 +181,8 @@ zh:
     has_blogs_when_delete: "该作品目录下有作品，不可以删除。你可以将该目录下的所有作品转移到其它目录后再进行删除。"
   category_addtip: "添加作品目录，请输入目录名："
   notecate_addtip: "添加日记分类，请输入分类名："
+  role_addtip: "添加角色，请输入角色名："
+  menu_addtip: "添加功能，请输入功能名："
   notecate:
     edit: "编辑日记分类"
     name_must_notnull: "日记分类必须填写！"
@@ -427,6 +449,7 @@ zh:
   #_account: "帐号"
   #manage: "管理"
   _setting: "设置"
+  _manage: "后台管理"
   _admin_title: "管理我的帐号"
   _login: "登录"
   login_items: "邮箱/帐号/域名"

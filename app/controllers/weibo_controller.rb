@@ -23,7 +23,7 @@ class WeiboController < ApplicationController
         @user.update_attributes(:atoken => session[:atoken], :asecret => session[:asecret])
         proc_session
         flash[:notice] = t'weibo_login_succ'
-        redirect_to site_url + like_path
+        redirect_to my_site + like_path
       end
     else
       user = User.find_by_weiboid(@weibo_user.id)
@@ -34,7 +34,7 @@ class WeiboController < ApplicationController
         session[:atoken], session[:asecret] = nil, nil
         flash[:error] = t'weibo_bound_by_others'
       end
-      redirect_to site_url + weibo_account_path
+      redirect_to my_site + weibo_account_path
     end
   end
 
@@ -46,7 +46,7 @@ class WeiboController < ApplicationController
     same_user_info
     proc_session
     flash[:notice] = t'weibo_regiter_succ_memo'
-    redirect_to site_url + edit_profile_path
+    redirect_to my_site + edit_profile_path
   end
 
   def weibo_account

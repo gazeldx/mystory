@@ -67,12 +67,6 @@ class TracesController < ApplicationController
     end
   end  
 
-  def super_admin
-    unless session[:domain]=="zhangjian"
-      redirect_to root_path
-    end
-  end
-
   def clear_user_blogs
     user = User.find_by_domain(params[:domain])
     user.blogs.destroy_all

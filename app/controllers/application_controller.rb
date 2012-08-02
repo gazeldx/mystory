@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m
+  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def site_url
     "http://#{request.domain}:#{request.port.to_s}"
   end
-
+  
   def my_site
     site_url.sub(/\:\/\//, "://" + session[:domain] + ".")
   end
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def query_user_by_domain    
+  def query_user_by_domain
     if DOMAINS.include? request.domain
       if request.subdomain.match(/.+\.m/)
         @m = true
@@ -57,15 +57,19 @@ class ApplicationController < ActionController::Base
       elsif request.subdomain == 'bbs'
         @bbs_flag = true
       else
-        @user = User.find_by_domain(request.subdomain) unless request.subdomain == ''
-        #        r301 if @user.nil?
+        unless ['', 'blog'].include? request.subdomain
+          @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'
+          r_to 302 if @user.nil?
+        end
       end
     end
   end
 
   def url_authorize
-    unless @user.id == session[:id]
-      redirect_to site(@user)
+    unless 'roles'==controller_path
+      unless @user.id == session[:id]
+        redirect_to site(@user)
+      end
     end
   end
 
@@ -254,16 +258,30 @@ class ApplicationController < ActionController::Base
     render text: t('page_not_found', w: site_name), status: 404
   end
 
-  #  def r301
-  #    puts root_url
-  #    redirect_to root_url
-  #  end
+  #301 302 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
+  def r_to code
+    if mystory?
+      redirect_to site_url, :status => code
+    else
+      redirect_to sub_site('blog'), :status => code
+    end
+  end
 
   def _render(str)
     if @m
       render mn(str), layout: 'm/portal'
     else
       render str
+    end
+  end
+
+  def super_admin?
+    ['zhangjian', 'caidingchuang'].include? session[:domain]
+  end
+  
+  def super_admin
+    unless ['zhangjian', 'caidingchuang'].include? session[:domain]
+      redirect_to root_path
     end
   end
 
@@ -343,7 +361,7 @@ class ApplicationController < ActionController::Base
   end
 
   module Sina
-#    130 => 1300112204 letter is so little
+    #    130 => 1300112204 letter is so little
     if ENV["RAILS_ENV"] == "production"
       USER_HASH_OLD = { 131 => 1447497337, 127 => 1163218074, 140 => 1338246804, 126 => 1631985261, 141 => 1407728082, 142 => 1245732825, 143 => 1870913595, 144 => 1410248531, 145 => 1347189314, 146 => 1655219222 }
       USER_HASH = { 131 => 1447497337, 145 => 1347189314 }
@@ -351,7 +369,7 @@ class ApplicationController < ActionController::Base
       USER_HASH_OLD = { 131 => 1447497337, 127 => 1163218074, 144 => 1410248531 }
       USER_HASH = { 131 => 1447497337, 127 => 1163218074, 144 => 1410248531 }
     end    
-#    CODE_HASH= { 127 => "MASSd53c41267bf6", 141 => "MASSb2a806bf5bfa" }
+    #    CODE_HASH= { 127 => "MASSd53c41267bf6", 141 => "MASSb2a806bf5bfa" }
   end
 
 

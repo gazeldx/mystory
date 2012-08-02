@@ -19,7 +19,7 @@ class BlogcommentsController < ApplicationController
       @blogcomment = comments.new(params[:blogcomment])
       @blogcomment.user_id = session[:id]
       @blogcomment.save
-      @blog.update_attribute('comments_count', @blog.comments_count + 1)
+      Blog.update_all("comments_count = #{@blog.comments_count + 1}", "id = #{@blog.id}")
       flash[:notice] = t'comment_succ'
     end
     redirect_to blog_path(@blog) + "#notice"
@@ -29,7 +29,7 @@ class BlogcommentsController < ApplicationController
     @blog = Blog.find(params[:blog_id])
     @comment = @blog.blogcomments.find(params[:id])
     @comment.destroy
-    @blog.update_attribute('comments_count', @blog.comments_count - 1)
+    Blog.update_all("comments_count = #{@blog.comments_count - 1}", "id = #{@blog.id}")
     flash[:notice] = t('delete_succ1', w: t('comment'))
     redirect_to blog_path(@blog) + "#notice"
   end

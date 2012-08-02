@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   layout 'portal_others'
-
+#  before_filter :super_admin, :only => [:index]
   before_filter :url_authorize, :only => [:edit, :signature]
   
   def index
-    @users = User.order("created_at DESC")
+    @users = User.page(params[:page]).order("created_at DESC")
+    render layout: 'help'
   end
 
   def show

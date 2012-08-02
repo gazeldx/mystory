@@ -16,6 +16,7 @@ end
 
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
+  has_and_belongs_to_many :roles
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
   has_many :assortments, :dependent => :destroy

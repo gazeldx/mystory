@@ -1,3 +1,6 @@
+2 user diff from mystory and cy21 need because mail etc.
+ALLOW CHECK ONLY THE TOPIC REPLY OR RECOMMOND > 3
+
 Editor Page!
 @_user.update_attribute('signature', params[:user][:signature]) not validate
 Bu
