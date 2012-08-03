@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   layout 'portal_others'
-#  before_filter :super_admin, :only => [:index]
-  before_filter :url_authorize, :only => [:edit, :signature]
+  #TODO :index need control key it not super_admin
+  before_filter :manager?, :only => [:index, :assign_roles, :do_assign_roles]
+  before_filter :url_authorize, :only => [:edit, :edit_password, :signature]
   
   def index
     @users = User.page(params[:page]).order("created_at DESC")
@@ -79,6 +80,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.avatar = params[:file]
     @user.passwd = Digest::SHA1.hexdigest(params[:user][:passwd])
+    if mystory?
+      @user.source = 0
+    else
+      @user.source = 1
+    end
     #TODO change file name
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
@@ -86,7 +92,7 @@ class UsersController < ApplicationController
       proc_session
       #UserMailer.welcome_email(@user).deliver
       flash[:notice] = t'regiter_succ_memo'
-      redirect_to m_or(site_url + edit_profile_path)
+      redirect_to m_or(my_site + edit_profile_path)
     else
       _render :new
     end
@@ -119,6 +125,24 @@ class UsersController < ApplicationController
     else
       _render :signature
     end
+  end
+
+  def assign_roles
+    @_user = User.find(params[:id])
+    @roles = @_user.roles
+    @all_roles = Role.order("created_at DESC")
+    render layout: 'help'
+  end
+
+  def do_assign_roles
+    user = User.find(params[:id])
+    user.roles.destroy_all
+    unless params[:role].nil?
+      params[:role].each do |k|
+        user.roles << Role.find(k)
+      end
+    end
+    redirect_to users_path, notice: t('succ', w: t('assign_roles'))
   end
 
   private

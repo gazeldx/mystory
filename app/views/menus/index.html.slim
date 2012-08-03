@@ -2,7 +2,7 @@
 .b
   = render 'shared/notice_error'  
   h2
-    | #{link_to t('_manage'), site_url + cy_path} >&nbsp;
+    | #{link_to t('_manage'), site_url + my_path} >&nbsp;
     = t'menu.edit'
   span.red
     | 注意：请不要修改任何内容！  
@@ -12,7 +12,6 @@
         = t'menu.name'
       th
         = t'menu.code'
-      th width=40
       th width=40
     - @menus.each_with_index do |menu, i|
       tr

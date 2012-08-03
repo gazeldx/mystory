@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
   layout 'help'
+  before_filter :url_authorize, :except => [:show]
+  
   def index
     @categories = Category.where(["user_id = ?", session[:id]]).order('created_at')
     @category = Category.new
@@ -73,5 +75,5 @@ class CategoriesController < ApplicationController
     @category.update_attribute('created_at', @category_t.created_at)
     @category_t.update_attribute('created_at', m_c_at)
     redirect_to categories_path
-  end  
+  end
 end

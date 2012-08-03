@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 #TODO news should be defined by user，and Model should be changed to defined Chinese.
 zh:
+  a_b: "%{a}_%{b}"
   list: "列表"
   new: "添加"
   edit: "编辑"
@@ -12,6 +13,7 @@ zh:
   _search: "搜索"
   up: "上移"
   down: "下移"
+  succ: "%{w}成功！"
   new_succ: "添加成功！"
   create_succ: "创建成功！"
   update_succ: "修改成功！"
@@ -168,12 +170,20 @@ zh:
     edit: "角色管理"
     name_must_notnull: "角色名必须填写！"
     has_users_when_delete: "角色下存在用户，不可以删除。"
+    has_menus_when_delete: "角色已被授权功能，不可以删除。"
   assign_menus: "授予功能"
-
+  s_assign_menus: "授予角色“%{w}”功能"
+  
   user:
     edit: "用户管理"
-  assign_role: "授予角色"
+  assign_roles: "授予角色"
+  s_assign_roles: "授予用户“%{w}”角色"
 
+  column:
+    name: "栏目名称"
+    edit: "栏目管理"
+    name_must_notnull: "栏目名称必须填写！"
+  
   category:
     name: "目录名"
     edit: "编辑作品目录"

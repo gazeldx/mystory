@@ -1,5 +1,7 @@
 class NotecatesController < ApplicationController
   layout 'help'
+  before_filter :url_authorize, :except => [:show]
+  
   def index
     @notecates = Notecate.where(["user_id = ?", session[:id]]).order('created_at')
     @notecate = Notecate.new

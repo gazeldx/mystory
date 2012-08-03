@@ -1,6 +1,7 @@
 class IdolsController < ApplicationController
 
   layout 'memoir'
+  before_filter :url_authorize
   
   def index
     @idols = @user.idols

@@ -1,6 +1,7 @@
 class HobbiesController < ApplicationController
 
   layout 'memoir'
+  before_filter :url_authorize
   
   def index
     @hobbies = @user.hobbies

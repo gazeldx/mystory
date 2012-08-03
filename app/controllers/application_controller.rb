@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?
+  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -66,10 +66,8 @@ class ApplicationController < ActionController::Base
   end
 
   def url_authorize
-    unless 'roles'==controller_path
-      unless @user.id == session[:id]
-        redirect_to site(@user)
-      end
+    unless @user.id == session[:id]
+      redirect_to site(@user)
     end
   end
 
@@ -258,7 +256,8 @@ class ApplicationController < ActionController::Base
     render text: t('page_not_found', w: site_name), status: 404
   end
 
-  #301 302 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
+  #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
+  #redirect_to default is 302
   def r_to code
     if mystory?
       redirect_to site_url, :status => code
@@ -283,6 +282,19 @@ class ApplicationController < ActionController::Base
     unless ['zhangjian', 'caidingchuang'].include? session[:domain]
       redirect_to root_path
     end
+  end
+
+  def manage? code
+    user = User.find(session[:id])
+    super_admin? or user.menus.any?{|x| x.code==code}
+  end
+
+  def manager?
+    user = User.find(session[:id])
+    if users_path == "/#{controller_path}"
+      code = ['assign_roles', 'do_assign_roles'].include?(action_name) ? 'assign_roles': 'users'
+    end
+    redirect_to root_path unless super_admin? or user.menus.any?{|x| x.code==code}
   end
 
   def weibo_auth

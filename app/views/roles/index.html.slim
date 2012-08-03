@@ -2,7 +2,7 @@
 .b
   = render 'shared/notice_error'
   h2
-    | #{link_to t('_manage'), site_url + cy_path} >&nbsp;
+    | #{link_to t('_manage'), site_url + my_path} >&nbsp;
     = t'role.edit'
   = form_for @role do |f|
     = f.label t'role_addtip'
@@ -12,6 +12,8 @@
     tr
       th
         = t'role.name'
+      th
+        | 已拥有的功能
       th width=75
       th width=40
       th width=40
@@ -19,6 +21,8 @@
       tr
         td
           = role.name
+        td
+          = role.menus.order('created_at DESC').map{|t| t.name}.join(", ")
         td
           = link_to t('assign_menus'), assign_menus_role_path(role)
         td

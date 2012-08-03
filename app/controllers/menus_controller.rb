@@ -45,8 +45,8 @@ class MenusController < ApplicationController
 #    redirect_to menus_path
 #  end
 
-  def show
-    @menu = Menu.find(params[:id])
-    @users = @menu.roles.order("created_at DESC")
-  end
+#  def show
+#    @menu = Menu.find(params[:id])
+#    @users = @menu.roles.order("created_at DESC")
+#  end
 end

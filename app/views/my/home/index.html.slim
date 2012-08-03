@@ -1,0 +1,24 @@
+= title "后台管理首页_#{site_name}"
+= render 'shared/notice_error'
+.b
+  - if super_admin?
+    | 超级管理员权限
+    br
+    a href=menus_path
+      = t'menu.edit'
+    br
+    a href=roles_path
+      = t'role.edit'
+    br
+    a href=columns_path
+      = t'column.edit'
+    br
+    br
+    | 后台普通权限
+    br
+  - if manage? 'users'
+    a href=users_path
+      = t'user.edit'
+    br
+    
+      /| 博客文章归类

@@ -76,6 +76,7 @@ class LoginController < ApplicationController
 
   def login_now
     proc_session
+    flash[:notice] = t('succ', w: t('_login'))
     redirect_to m_or(my_site + like_path)
   end
   

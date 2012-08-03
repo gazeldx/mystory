@@ -1,7 +1,8 @@
 class RolesController < ApplicationController
   before_filter :super_admin
-  before_filter :url_authorize, :only => [:delete]
+  skip_before_filter :url_authorize
   layout 'help'
+  
   def index
     @roles = Role.order('created_at')
     @role = Role.new
@@ -34,6 +35,8 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     if @role.users.exists?
       flash[:error] = t'role.has_users_when_delete'
+    elsif @role.menus.exists?
+      flash[:error] = t'role.has_menus_when_delete'
     else
       @role.destroy
       flash[:notice] = t'delete_succ'
@@ -41,21 +44,26 @@ class RolesController < ApplicationController
     redirect_to roles_path
   end
 
-#  def show
-#    @role = Role.find(params[:id])
-#    @users = @role.users.page(params[:page]).order("created_at DESC")
-#  end
+  #  def show
+  #    @role = Role.find(params[:id])
+  #    @users = @role.users.page(params[:page]).order("created_at DESC")
+  #  end
   
   def assign_menus
     @role = Role.find(params[:id])
     @menus = @role.menus
+    puts @menus.inspect
     @all_menus = Menu.order("created_at DESC")
   end
 
   def do_assign_menus
-    puts "do_assign_menus"
-    redirect_to roles_path
+    role = Role.find(params[:id])
+    role.menus.destroy_all
+    unless params[:menu].nil?
+      params[:menu].each do |k|
+        role.menus << Menu.find(k)
+      end
+    end
+    redirect_to roles_path, notice: t('succ', w: t('assign_menus'))
   end
-
-
 end

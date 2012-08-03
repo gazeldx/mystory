@@ -17,6 +17,7 @@ end
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   has_and_belongs_to_many :roles
+  has_many :menus, :through => :roles, :source => :menus
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
   has_many :assortments, :dependent => :destroy
@@ -63,4 +64,5 @@ class User < ActiveRecord::Base
   validates :maxim, :length => { :in => 0..25 }
   validates :memo, :length => { :in => 0..100 }
   validates :signature, :length => { :in => 0..300 }
+  validates :source, :presence => true
 end

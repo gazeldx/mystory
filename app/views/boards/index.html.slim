@@ -6,7 +6,7 @@
       = f.label t'board_name'
       = f.text_field :name, size: 10, class: 'required', title: '输入名称后，点“创建讨论版”即可'
       = f.submit t('create_board')
-    a href='my'
+    a href=my_posts_path
       = t'my_posts'
     br
     = t'_my_boards'

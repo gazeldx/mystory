@@ -1,0 +1,26 @@
+= title t'column.edit'
+.b
+  = render 'shared/notice_error'  
+  h2
+    | #{link_to t('_manage'), site_url + my_path} >&nbsp;
+    = t'column.edit'
+  table.olt
+    tr
+      th
+        = t'column.name'
+      th width=40
+      th width=40
+      th width=40
+    - @columns.each_with_index do |column, i|
+      tr
+        td
+          = column.name
+        td
+          = link_to t(:edit), edit_column_path(column)
+        td
+          - if i > 0
+            = link_to t(:up), up_column_path(column)
+        td
+          - if i < @columns.length-1
+            = link_to t(:down), down_column_path(column)
+  = validate_form 'new_column'

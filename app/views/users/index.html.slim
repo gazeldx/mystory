@@ -2,7 +2,7 @@
 .b
   = render 'shared/notice_error'
   h2
-    | #{link_to t('_manage'), site_url + cy_path} >&nbsp;
+    | #{link_to t('_manage'), site_url + my_path} >&nbsp;
     = t'user.edit'
   table.olt
     tr
@@ -10,8 +10,10 @@
         | ID
       th
         = t'real_name'
-      /th
-      /  | email
+      th
+        | 已授权角色
+      th
+        = t'domain'
       th
         | 文章数
       th
@@ -22,14 +24,19 @@
         | 学校
       th
         | 注册时间
-      th
-        = t'user.assign_role'
+      - if manage? 'assign_roles'
+        th
+          = t'assign_roles'
     - @users.each_with_index do |user, i|
       tr
         td
           = user.id
         td
           = user.name
+        td
+          = user.roles.order('created_at DESC').map{|t| t.name}.join(", ")
+        td
+          = link_to user.domain, site(user), target: '_blank'
         td
           | #{user.blogs.size>0 ? "作品#{user.blogs.size} " : ""}#{user.notes.size>0 ? "日记#{user.notes.size} " : ""}#{user.photos.size>0 ? "相片#{user.photos.size} " : ""}
         td
@@ -40,6 +47,7 @@
           = user.school
         td
           = user.created_at.strftime t('date_format')
-        td
-          = link_to t('user.assign_role'), root_path
+        - if manage? 'assign_roles'
+          td
+            = link_to t('assign_roles'), assign_roles_user_path(user)
   = will_paginate @users
