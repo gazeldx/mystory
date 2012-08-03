@@ -2,7 +2,7 @@
 .b
   = render 'shared/notice_error'  
   h2
-    | #{link_to t('_manage'), site_url + my_path} >&nbsp;
+    = my_nav
     = t'menu.edit'
   span.red
     | 注意：请不要修改任何内容！  

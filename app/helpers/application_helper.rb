@@ -124,4 +124,7 @@ module ApplicationHelper
     raw i + content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), href: avatar.thumb.url)
   end
 
+  def my_nav
+    raw "#{link_to t('_manage'), sub_site('blog') + my_path} >&nbsp;"
+  end
 end
