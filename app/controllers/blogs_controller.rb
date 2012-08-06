@@ -1,4 +1,6 @@
 class BlogsController < ApplicationController
+  before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
+  skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
   include Archives
   
@@ -138,6 +140,37 @@ class BlogsController < ApplicationController
     params[:id] = 2
     show
     render :show
+  end
+
+  def assign_columns
+    @blog = Blog.find(params[:id])
+    @columns = @blog.columns
+    @all_columns = Column.order("created_at DESC")
+    render layout: 'help'
+  end
+
+  def do_assign_columns
+    blog = Blog.find(params[:id])
+    blog.columns.destroy_all
+    unless params[:column].nil?
+      params[:column].each do |k|
+        blog.columns << Column.find(k)
+      end
+    end
+    redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
+  end
+
+  def latest_attention
+    @columns = Column.order("created_at DESC")
+    @blogs = Blog.where('replied_at is not null').page(params[:page]).order("replied_at DESC")
+    render layout: 'column'
+  end
+
+  def hotest
+    #TODO FILTER 'replied_at is not null'
+    @columns = Column.order("created_at DESC")
+    @blogs = Blog.page(params[:page]).order("comments_count DESC")
+    render layout: 'column'
   end
 
   private

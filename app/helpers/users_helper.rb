@@ -372,6 +372,15 @@ module UsersHelper
     end
   end
 
+  def show_role user
+    roles = user.roles
+    if roles.blank?
+      t'blog_master'
+    else
+      user.roles.order('created_at DESC').map{|t| t.name}.join(", ")
+    end
+  end
+
   private
   def thumb_id(something, photo)
     if something.is_a?(Note)

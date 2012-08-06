@@ -70,28 +70,30 @@ class HomeController < ApplicationController
         end
         render 'boards/index', layout: 'help'
       elsif @user.nil?
-        if ENV["RAILS_ENV"] == "production"
-          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
-          admin_id = 2
-        else
-          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
-          admin_id = 14
-        end
+#        if ENV["RAILS_ENV"] == "production"
+#          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
+#          admin_id = 2
+#        else
+#          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
+#          admin_id = 14
+#        end
         #TODO DIFFERENT COLOR
-        admin = User.find(admin_id)
-        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
-        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
-        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
-        #TODO includes postcomments need to delete
-        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
-        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
-        
-        rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
-        new_photo_count = 8 - rphotos.size
-        new_photo_count = 2 if new_photo_count < 2
-        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
-        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
-
+#        admin = User.find(admin_id)
+#        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
+#        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
+#        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
+#        #TODO includes postcomments need to delete
+#        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
+#        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
+#
+#        rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
+#        new_photo_count = 8 - rphotos.size
+#        new_photo_count = 2 if new_photo_count < 2
+#        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
+#        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
+        @columns = Column.order('created_at DESC')
+        #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
+        @blogs_new = Blog.includes(:category, :user).order("created_at desc").limit(12)
         render layout: 'portal'
       else
         @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')

@@ -2,7 +2,7 @@
 = render 'shared/notice_error'
 .b
   - unless @user.roles.blank?
-    a href=site_url+my_path
+    a href=sub_site('blog')+my_path
       | 后台管理
     br
     br

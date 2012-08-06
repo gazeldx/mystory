@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803081925) do
+ActiveRecord::Schema.define(:version => 20120806083602) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -54,10 +54,21 @@ ActiveRecord::Schema.define(:version => 20120803081925) do
     t.integer  "views_count",     :default => 0
     t.integer  "comments_count",  :default => 0
     t.integer  "recommend_count", :default => 0
+    t.datetime "replied_at"
   end
 
   add_index "blogs", ["category_id"], :name => "index_blogs_on_category_id"
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "blogs_columns", :id => false, :force => true do |t|
+    t.integer  "column_id"
+    t.integer  "blog_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blogs_columns", ["blog_id"], :name => "index_blogs_columns_on_blog_id"
+  add_index "blogs_columns", ["column_id"], :name => "index_blogs_columns_on_column_id"
 
   create_table "boards", :force => true do |t|
     t.string   "name"

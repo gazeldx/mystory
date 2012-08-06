@@ -36,6 +36,15 @@ module ApplicationHelper
     end
   end
 
+  def s_site_root
+    if mystory?
+      site_url
+    else
+      sub_site('blog')
+    end
+  end
+
+
   #month as 201204
   def chinese_month(month)
     month[0..3] + t('year') + month[4..5] + t('month')

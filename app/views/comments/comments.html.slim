@@ -1,8 +1,8 @@
 = title t('commented_by_self', w: @user.name)
 span.b
-  = link_to t('commented_by_friend'), commented_path
-  | &nbsp;|&nbsp;
   = t('commented_by_self', w: @user.name)
+  | &nbsp;|&nbsp;
+  = link_to t('commented_by_friend'), commented_path
 table.b.olt
   tbody
     tr

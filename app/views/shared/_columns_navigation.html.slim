@@ -1,0 +1,14 @@
+.grid-24-0.clearfix
+  .article
+    span.xl
+      = link_to '博客首页', s_site_root
+      | &nbsp;&nbsp;|&nbsp;&nbsp;
+      - @columns.each do |column|
+        = link_to column.name, s_site_root + column_path(column)
+        | &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to t('latest_attention'), latest_attention_path
+      | &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to t('most_comments_articles'), hotest_path
+      | &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to t('top_commentators'), "#commentators_path"
+br

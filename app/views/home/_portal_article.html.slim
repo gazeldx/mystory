@@ -2,126 +2,32 @@
   #content
     - if flash[:notice]
       #notice= flash[:notice]
-    .grid-24-0.clearfix
-      .article
-        h2
-          = t'recent_photos'
-          | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          span
-            | &nbsp;
-            = link_to t('more_photos'), photos_path, target: '_blank'
-          | &nbsp;&nbsp;
-          = link_to '论坛', sub_site('bbs'), target: '_blank'
-          /| &nbsp;&nbsp;
-          /= link_to t('become_writer'), as_a_writer_path, target: '_blank'
-          | &nbsp;&nbsp;
-          = link_to t('mobile_version'), m(site_url), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.#{request.domain}/", target: '_blank'
-          | &nbsp;&nbsp;作品：
-          = text_field_tag :title, params[:title], size: 10
-          | &nbsp;
-          input type='button' value=t'_search' onclick='goSearch()'
-          span.rr
-            = render 'shared/share'
-        = render 'photo_square_portal'
-    .grid-7-10-7.clearfix
+    = render 'shared/columns_navigation'
+    .grid-13-11.clearfix
       .left
-        #db-music-artists
-          h2
-            | 最新日记
-            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .pa
-            - @notes_new.each do |note|
-              = link_to note.user.name, site(note.user), target: '_blank'
-              | ：
-              = link_to note.title.to_s=='' ? note.created_at.strftime(t'date_format') : raw(note.title), site(note.user) + note_path(note), title: text_it_pure(note.content)[0..60], target: '_blank'
-              | &nbsp;[
-              - unless note.notecate.nil?
-                = link_to note.notecate.name, site(note.user) + notecate_path(note.notecate), target: '_blank'
-              | ]&nbsp;
-              - cc = note.comments_count
-              - if cc>0
-                span.red
-                  = cc
-              br
-          br
-          h2
-            | 推荐阅读
-            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .pa
-            - @r_blogs.each do |blog|
-              = link_to blog.user.name, site(blog.user), target: '_blank'
-              | ：
-              = link_to raw(blog.title)[0..24], site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
-              | &nbsp;[
-              = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
-              | ]&nbsp;
+        - @blogs_new.each do |blog|
+          - user = blog.user
+          .topic-content2
+            .user-face
+              a href=site(user)
+                = image_tag(user.avatar.thumb.url, class: 'pil')
+            .topic-doc2
+              span.x.pl20
+                = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
               - cc = blog.comments_count
               -if cc>0
-                span.red
+                span.b.red.rr
                   = cc
               br
-      .middle
-        #db-music-artists
-          h2
-            | 最新作品
-            /| &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
-          .pa
-            - @blogs_new.each do |blog|
-              = link_to blog.user.name, site(blog.user), target: '_blank'
-              | ：
-              = link_to raw(blog.title), site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
-              | &nbsp;[
-              = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
-              | ]&nbsp;
-              - cc = blog.comments_count
-              -if cc>0
-                span.red
-                  = cc
+              span.b.pl20
+                | 作者:#{show_role(user)}&nbsp;
+                = link_to user.name, site(user), target: '_blank'
+              span.c.rr
+                = blog.created_at.strftime t'date_without_year'
               br
-          br
-          /= render 'shared/ad/portal_blog'          
-      .right
-        h2
-          | 活跃博主
-        - @users.each do |user|
-          dl.obu
-            dt
-              a.nbg href=site(user) target='_blank'
-                = image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-            dd style="height:20px;"
-              = link_to user.name, site(user), target: '_blank'
-        br        
-        = render 'shared/ad/portal_note'
-        h2
-          | 论坛新贴
-          | &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·#{link_to t('all'), sub_site('bbs')}
-        .pa
-          - @posts.each do |post|
-            = link_to post.user.name, site(post.user), target: '_blank'
-            | ：
-            - etc = t('all_characters', w: post.content.size) if post.content.size>100
-            = link_to post.title[0..35], sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
-            | &nbsp;
-            - cc = post.postcomments.size
-            -if cc>0
-              span.red
-                = cc
-            br
-        br
-        h2
-          | 名人日记
-        .pa
-          - @personage_blogs.each do |blog|
-            = link_to blog.user.name, site(blog.user), target: '_blank'
-            | ：
-            = link_to raw(blog.title), site(blog.user) + blog_path(blog), title: text_it_pure(blog.content)[0..60], target: '_blank'
-            | &nbsp;[
-            = link_to blog.category.name, site(blog.user) + category_path(blog.category), target: '_blank'
-            | ]&nbsp;
-            - cc = blog.comments_count
-            -if cc>0
-              span.red
-                = cc
-            br
+              span.b.pl20
+                = text_it_pure(blog.content)[0..98]
+                | ......#{link_to t('whole_article'), site(user) + blog_path(blog), target: '_blank'}
+      = render 'shared/columns_blogs'
   = render 'shared/footer_portal'
-= render 'search_js'
+/= render 'search_js'

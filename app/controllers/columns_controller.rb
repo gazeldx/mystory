@@ -1,7 +1,14 @@
 class ColumnsController < ApplicationController
-  before_filter :super_admin
+  before_filter :super_admin, :except => :show
   skip_before_filter :url_authorize
   layout 'help'
+
+  def show
+    @column = Column.find(params[:id])
+    @blogs = @column.blogs.page(params[:page]).order("created_at DESC")
+    @columns = Column.order('created_at DESC')
+    render layout: 'column'
+  end
 
   def new
     @column = Column.new
@@ -57,10 +64,7 @@ class ColumnsController < ApplicationController
   #    redirect_to columns_path
   #  end
 
-  #  def show
-  #    @column = Column.find(params[:id])
-  #    @users = @column.roles.order("created_at DESC")
-  #  end
+  
   private
   def exchange_create_at
     m_c_at = @column.created_at

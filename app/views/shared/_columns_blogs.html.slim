@@ -1,0 +1,18 @@
+.right
+  span.b
+    - @columns.each do |column|
+      .x
+        = column.name
+        span.b
+          | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          = link_to '...更多', column_path(column)
+      - column.blogs.includes(:user).each do |blog|
+        - user = blog.user
+        = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
+        - cc = blog.comments_count
+        -if cc>0
+          span.red
+            | &nbsp;#{cc}
+        | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
+        br
+      br

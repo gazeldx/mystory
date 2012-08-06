@@ -1,0 +1,13 @@
+= title t('columnblogs.edit')
+.table.b
+  = link_to t('return_which', w: t('columnblogs.edit')), column_blogs_path
+  h2
+    = t's_assign_columns', w: "#{@blog.user.name}:《#{raw(@blog.title)}》"
+  = render 'shared/notice_error'
+  = form_for @blog, url: {action: "do_assign_columns"} do |f|
+    = error_msg @blog
+    - @all_columns.each do |column|
+      = check_box_tag "column[#{column.id}]", column.id, @columns.any?{|x| x==column}
+      = label_tag "column[#{column.id}]", column.name
+      br
+    = f.submit t(:submit)

@@ -20,6 +20,7 @@ class BlogcommentsController < ApplicationController
       @blogcomment.user_id = session[:id]
       @blogcomment.save
       Blog.update_all("comments_count = #{@blog.comments_count + 1}", "id = #{@blog.id}")
+      Blog.update_all(["replied_at = ?", Time.now], "id = #{@blog.id}")
       flash[:notice] = t'comment_succ'
     end
     redirect_to blog_path(@blog) + "#notice"

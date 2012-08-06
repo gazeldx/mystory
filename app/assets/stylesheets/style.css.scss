@@ -3,6 +3,7 @@ $m: 14px;
 $c: 15px;
 $b: 16px;
 $x: 18px;
+$xl: 20px;
 $main_color: #060;
 $gray: #666;
 
@@ -115,6 +116,15 @@ body {
 .grid-20-4 .aside {
   float:right;
   width:170px
+}
+.grid-13-11 .left {
+  float:left;
+  width:500px;
+  padding-right:30px
+}
+.grid-13-11 .right {
+  float:right;
+  width:410px
 }
 .grid-19-5 .article {
   float:left;
@@ -293,8 +303,8 @@ table {
   @extend table;
   font-size:$m;
   td,th {
-    font-size:$m;
-  }
+  font-size:$m;
+}
 }
 
 h1 {
@@ -737,7 +747,7 @@ ul .mbtr2 {
   line-height:1.62
 }
 .note a img {
-/*  vertical-align:bottom*/
+  /*  vertical-align:bottom*/
 }
 body .note {
   white-space:pre-wrap
@@ -927,19 +937,19 @@ body {
   margin-bottom: 20px;
   background-color: #f0f0f0;
   h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: $m;
-    margin: -7px;
-    margin-bottom: 0px;
-    background-color: #c00;
-    color: #fff;
-  }
-  ul li {
-    font-size: $s;
-/*    list-style: square; */
-  }
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: $m;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+ul li {
+  font-size: $s;
+  /*    list-style: square; */
+}
 }
 
 #photo_desc{
@@ -956,8 +966,8 @@ body {
 
 @mixin table-base($param) {
   td,th {
-    font-size:$param;
-  }
+  font-size:$param;
+}
 }
 
 .s{
@@ -980,18 +990,28 @@ body {
   @include table-base($b);
 }
 
+.x{
+  font-size:$x;
+  @include table-base($b);
+}
+
+.xl{
+  font-size:$xl;
+  @include table-base($b);
+}
+
 .red{
   color: red;
 }
 
 .W_btn_b, .W_btn_b span, .W_btn_b_disable, .W_btn_b_disable span {
-    background: url("../../../images/common/btn.png?id=1329484998540") no-repeat scroll 0 0 transparent;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    line-height: 23px;
-    padding: 0 0 0 2px;
+  background: url("../../../images/common/btn.png?id=1329484998540") no-repeat scroll 0 0 transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  height: 24px;
+  line-height: 23px;
+  padding: 0 0 0 2px;
 }
 
 #db-timeline-hd {
@@ -1046,18 +1066,18 @@ body {
 }
 .obu{
   dt {
-    margin:0;
-    height:50px;
-    overflow:hidden;
-    text-align:center;
-    line-height:$b;
-  }
-  dd {
-    margin:0;
-    height:55px;
-    text-align:center;
-    overflow:hidden
-  }
+  margin:0;
+  height:50px;
+  overflow:hidden;
+  text-align:center;
+  line-height:$b;
+}
+dd {
+  margin:0;
+  height:55px;
+  text-align:center;
+  overflow:hidden
+}
 }
 .photitle {
   border-bottom:1px solid #ddd;
@@ -1124,7 +1144,7 @@ a.btn-fav:hover,a.btn-fav:active {
 .pl20 {
   padding-left:20px
 }
-.topic-content .user-face,.topic-reply .user-face {
+.topic-content .user-face,.topic-content2 .user-face,.topic-reply .user-face {
   float:left;
   width:48px;
   height:48px;
@@ -1176,6 +1196,18 @@ a.btn-fav:hover,a.btn-fav:active {
   word-wrap:break-word;
   overflow:hidden
 }
+
+.topic-content2 .topic-doc2 {
+  width:460px;
+  margin-bottom:30px;
+  h3 {
+    margin:0;
+    padding:5px 0;
+    height:auto;
+    background:0
+  }
+}
+
 .color-green {
   color:$main_color
 }
@@ -1204,7 +1236,7 @@ a.btn-fav:hover,a.btn-fav:active {
 }
 .user-list .info {
   float:left;
-/*  width:515px*/
+  /*  width:515px*/
 }
 .user-list .info h3 {
   margin:0 0 2px;

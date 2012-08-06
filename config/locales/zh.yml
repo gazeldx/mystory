@@ -66,7 +66,11 @@ zh:
   qq_bind_succ: "QQ绑定成功!"
   qq_login_succ: "QQ登录成功!"
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
-  
+
+  latest_attention: "最新关注"
+  most_comments_articles: "热评文章"
+  top_commentators: "评论排行"
+
   send_again: "再发一封"
   _archive: "归档"
   s_archives: "归档阅读"
@@ -173,7 +177,13 @@ zh:
     has_menus_when_delete: "角色已被授权功能，不可以删除。"
   assign_menus: "授予功能"
   s_assign_menus: "授予角色“%{w}”功能"
-  
+
+  columnblogs:
+    edit: "博客文章归类"
+  assign_columns: "归类"
+  s_assign_columns: "将博文“%{w}”归类到："
+
+  blog_master: "博主"
   user:
     edit: "用户管理"
   assign_roles: "授予角色"
@@ -209,7 +219,7 @@ zh:
   comments: "(评论%{w})"
   comments_: "评论%{w}"
   comment: "评论"
-  commented_by_friend: "网友评论"
+  commented_by_friend: "网友评论ta"
   s_commented_by_friend: "网友评论 - %{w}"
   s_commented_by_friend_title: "网友评论_%{w}"
   commented_by_self: "%{w}发表的评论"
