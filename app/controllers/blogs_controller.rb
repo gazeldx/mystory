@@ -145,7 +145,7 @@ class BlogsController < ApplicationController
   def assign_columns
     @blog = Blog.find(params[:id])
     @columns = @blog.columns
-    @all_columns = Column.order("created_at DESC")
+    @all_columns = Column.order("created_at")
     render layout: 'help'
   end
 
@@ -161,14 +161,14 @@ class BlogsController < ApplicationController
   end
 
   def latest_attention
-    @columns = Column.order("created_at DESC")
+    @columns = Column.order("created_at")
     @blogs = Blog.where('replied_at is not null').page(params[:page]).order("replied_at DESC")
     render layout: 'column'
   end
 
   def hotest
     #TODO FILTER 'replied_at is not null'
-    @columns = Column.order("created_at DESC")
+    @columns = Column.order("created_at")
     @blogs = Blog.page(params[:page]).order("comments_count DESC")
     render layout: 'column'
   end

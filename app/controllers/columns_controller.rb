@@ -6,7 +6,7 @@ class ColumnsController < ApplicationController
   def show
     @column = Column.find(params[:id])
     @blogs = @column.blogs.page(params[:page]).order("created_at DESC")
-    @columns = Column.order('created_at DESC')
+    @columns = Column.order('created_at')
     render layout: 'column'
   end
 

@@ -145,6 +145,15 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: t('succ', w: t('assign_roles'))
   end
 
+  def top
+    if ENV["RAILS_ENV"] == "production"
+      @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
+    else
+      @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
+    end
+    render layout: 'help'
+  end
+
   private
   def build_enjoys(item)
     build_item(item, 'enjoy_books', 1)

@@ -91,7 +91,7 @@ class HomeController < ApplicationController
 #        new_photo_count = 2 if new_photo_count < 2
 #        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
 #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
-        @columns = Column.order('created_at DESC')
+        @columns = Column.order('created_at')
         #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
         @blogs_new = Blog.includes(:category, :user).order("created_at desc").limit(12)
         render layout: 'portal'
