@@ -1,17 +1,17 @@
 .grid-24-0.clearfix
   .article
     span.xl align='center'
-      = link_to '博客首页', s_site_root
+      = link_to '首页', s_site_root
       | &nbsp;&nbsp;|&nbsp;&nbsp;
       - @columns.each_with_index do |column, i|
         = link_to column.name, s_site_root + column_path(column)
         | &nbsp;&nbsp;|&nbsp;&nbsp;
-        - if i==6
-          br
-      = link_to t('latest_attention'), latest_attention_path
-      | &nbsp;&nbsp;|&nbsp;&nbsp;
+        /- if i==6
+        /  br
+      /= link_to t('latest_attention'), latest_attention_path
+      /| &nbsp;&nbsp;|&nbsp;&nbsp;
       = link_to t('most_comments_articles'), hotest_path
       | &nbsp;&nbsp;|&nbsp;&nbsp;
-      = link_to t('top_users'), top_users_path
+      = link_to t('_user'), top_users_path
       /= link_to t('top_commentators'), "#commentators_path"
 br

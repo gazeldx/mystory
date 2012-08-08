@@ -1,4 +1,5 @@
 class Note < ActiveRecord::Base
+  has_and_belongs_to_many :columns
   belongs_to :notecate
   belongs_to :user
   has_many :notecomments, :dependent => :destroy

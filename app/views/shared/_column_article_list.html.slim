@@ -2,17 +2,17 @@ table.olt.b
   tr
     th width='85%'
     th width=100
-  - @blogs.each_with_index do |blog, i|
-    - user = blog.user
+  - @all.each_with_index do |item, i|
+    - user = item.user
     tr
       td
-        = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
-        - cc = blog.comments_count
+        = s_link_to item
+        - cc = item.comments_count
         -if cc>0
           span.red
             | &nbsp;#{cc}
         | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
       td
-        = blog.created_at.strftime t'date_without_year'
+        = item.created_at.strftime t'date_without_year'
 .b
   = will_paginate @blogs

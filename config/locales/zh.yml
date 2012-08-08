@@ -68,7 +68,7 @@ zh:
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
 
   latest_attention: "最新关注"
-  most_comments_articles: "热评文章"
+  most_comments_articles: "热评"
   top_commentators: "评论排行"
   top_users: "博客排行"
 
@@ -492,6 +492,7 @@ zh:
   password: "密码"
   edit_password: "修改密码"
   #member_login: "会员登录"
+  _user: "用户"
   register_new_user: "注册新用户"
   _register: "注册"
   forgot_password: "忘记密码"

@@ -5,5 +5,6 @@ class ColumnblogsController < ApplicationController
 
   def index
     @blogs = Blog.includes(:category, :user).page(params[:page]).order("created_at desc")
-  end  
+  end
+
 end

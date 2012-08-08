@@ -5,29 +5,29 @@
     = render 'shared/columns_navigation'
     .grid-13-11.clearfix
       .left
-        - @blogs_new.each do |blog|
-          - user = blog.user
+        - @all.each do |item|
           .topic-content2
+            - user = item.user
             .user-face
               a href=site(user)
-                = image_tag(user.avatar.thumb.url, class: 'pil')
+                = image_tag(user.avatar.thumb.url)
             .topic-doc2
               span.x.pl20
-                = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
-              - cc = blog.comments_count
+                = s_link_to item
+              - cc = item.comments_count
               -if cc>0
                 span.b.red.rr
                   = cc
               br
               span.b.pl20
-                | 作者:#{show_role(user)}&nbsp;
+                | 作者:&nbsp;
                 = link_to user.name, site(user), target: '_blank'
               span.c.rr
-                = blog.created_at.strftime t'date_without_year'
+                = item.created_at.strftime t'date_without_year'
               br
               span.b.pl20
-                = text_it_pure(blog.content)[0..98]
-                | ......#{link_to t('whole_article'), site(user) + blog_path(blog), target: '_blank'}
+                = text_it_pure(item.content)[0..98]
+                | ......#{s_link_name(t('whole_article'), item)}
       = render 'shared/columns_blogs'
   = render 'shared/footer_portal'
 /= render 'search_js'

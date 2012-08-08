@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
+  skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
   include Archives
   
@@ -141,6 +143,24 @@ class NotesController < ApplicationController
   def month
     @notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).page(params[:page])
     archives
+  end
+
+  def assign_columns
+    @note = Note.find(params[:id])
+    @columns = @note.columns
+    @all_columns = Column.order("created_at")
+    render layout: 'help'
+  end
+
+  def do_assign_columns
+    note = Note.find(params[:id])
+    note.columns.destroy_all
+    unless params[:column].nil?
+      params[:column].each do |k|
+        note.columns << Column.find(k)
+      end
+    end
+    redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
   end
 
   private

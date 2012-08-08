@@ -6,6 +6,8 @@ class ColumnsController < ApplicationController
   def show
     @column = Column.find(params[:id])
     @blogs = @column.blogs.page(params[:page]).order("created_at DESC")
+    notes = @column.notes.page(params[:page]).order("created_at DESC")
+    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
     @columns = Column.order('created_at')
     render layout: 'column'
   end

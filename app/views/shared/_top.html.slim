@@ -3,8 +3,8 @@
   .bd
     .top-nav-info
       - if session[:id].nil?
-        = link_to t('_login'), site_url
-        = link_to t('_register'), site_url + register_path
+        = link_to t('_login'), s_site_root
+        = link_to t('_register'), s_site_root + register_path
       - else
         - if mystory?
           - if session[:atoken].nil?
@@ -16,7 +16,7 @@
         = link_to t('_active'), my_site + like_path
         = link_to session[:name], my_site
         = link_to t('_setting'), my_site + admin_path, title: t('_admin_title')
-        = link_to t('logout'), "#{site_url}#{logout_path}"
+        = link_to t('logout'), "#{s_site_root}#{logout_path}"
     .top-nav-items
       ul
         li.on
