@@ -151,6 +151,8 @@ class UsersController < ApplicationController
     else
       @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
     end
+
+    @columns = Column.order('created_at')
     render layout: 'help'
   end
 

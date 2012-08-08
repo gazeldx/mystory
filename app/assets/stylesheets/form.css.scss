@@ -1138,7 +1138,7 @@ a.bn-radio:hover {
   border-color:#b9b9b9!important;
   background:#f0f0f0!important;
   color:#999!important;
-/*  cursor:text zj i change it to hand*/
+  /*  cursor:text zj i change it to hand*/
   cursor:hand
 }
 .talk-disable .bn-flat,.talk-processing .btn .bn-flat:hover,.talk-disable .btn .bn-flat:hover {
@@ -1402,4 +1402,9 @@ a.bn-add:link,a.bn-add:visited,a.bn-add:hover,a.bn-add:active {
   height:9px;
   overflow:hidden;
   background: url(/pics/icon/ic_new.png) no-repeat 0 0
+}
+
+.item2 input {
+  border: 1px solid #CCCCCC;
+  padding: 3px 2px;
 }

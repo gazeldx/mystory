@@ -170,6 +170,8 @@ class BlogsController < ApplicationController
     #TODO FILTER 'replied_at is not null'
     @columns = Column.order("created_at")
     @blogs = Blog.page(params[:page]).order("comments_count DESC")
+    notes = Note.page(params[:page]).order("comments_count DESC")
+    @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
     render layout: 'column'
   end
 

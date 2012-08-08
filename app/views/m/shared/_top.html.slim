@@ -8,12 +8,12 @@
     | &nbsp;
     = link_to t('_register'), m(site_url+register_path)
   - else    
-    = link_to t('_active'), m(site_url+like_path)
+    = link_to t('_active'), m(my_site+like_path)
     | &nbsp;
-    = link_to session[:name], m(site_url)
+    = link_to session[:name], m(my_site)
     br
-    = link_to t('write_note'), m(site_url+new_note_path)
+    = link_to t('write_note'), m(my_site+new_note_path)
     | &nbsp;
-    = link_to t('p_blog'), m(site_url+new_blog_path)
+    = link_to t('p_blog'), m(my_site+new_blog_path)
     | &nbsp;
-    = link_to t('upload_photo'), m(site_url+upload_photo_path)
+    = link_to t('upload_photo'), m(my_site+upload_photo_path)

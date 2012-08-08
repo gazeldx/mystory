@@ -10,12 +10,18 @@
               = image_tag("/images/#{mystory?? '' : 'cy_'}logo.png", title: "#{site_name}原创社区")
             td
               br
-              b #{t_t'desc'}
+              b#{t_t'desc'} 
               br
               | #{t_t'detail'}
               br
               /| #{link_to '《广告分享计划》', as_a_writer_path, target: '_blank'} 让您写博客还有钱赚。
               br
+              span.item2
+                = text_field_tag :title, params[:title], size: 6
+                | &nbsp;
+              input type='button' value=t'_search' onclick='goSearch()'
+              = render 'shared/search_js'
+              | &nbsp;&nbsp;&nbsp;&nbsp;
               a class='lnk-reg' href=(register_path)
                 strong
                   = t('register_new_user')
@@ -48,6 +54,5 @@
               input type='submit' value='登  录' class='bn-submit'
               - unless mystory?
                 | &nbsp;&nbsp;&nbsp;&nbsp;我们在持续改进网站，请您关注！
-               
 - else
   = render 'shared/top'
