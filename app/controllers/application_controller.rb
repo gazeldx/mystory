@@ -322,9 +322,13 @@ class ApplicationController < ActionController::Base
   #  end
 
   def verify_credentials
-    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-    oauth.authorize_from_access(session[:atoken], session[:asecret])
+    oauth = weibo_auth
     Weibo::Base.new(oauth).verify_credentials
+  end
+
+  def user_timeline(query={})
+    oauth = weibo_auth
+    Weibo::Base.new(oauth).user_timeline(query)
   end
   
   module Tags
@@ -344,7 +348,7 @@ class ApplicationController < ActionController::Base
     def same_user_info
       @user.name = t'default_real_name'
       @user.passwd = Digest::SHA1.hexdigest((10000000+Random.rand(89999999)).to_s)
-      id = User.last.id + 1000
+      id = User.last.id + 1001
       @user.username = "u#{id}"
       @user.domain = "u#{id}"
       @user.email = "u#{id}@#{request.domain}"

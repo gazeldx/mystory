@@ -1,3 +1,4 @@
+= render 'shared/weibo_signature'
 #event
   h2
     = t('s_memoir', w: @user.name, c: '')
@@ -37,13 +38,13 @@
       = link_to t('category.edit'), categories_path
       | )
     br
-  br
-  span.pl
-    = t'_recommend'
-  br
-  - @rblogs.each do |blog|
-    = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
+  - unless @rblogs.blank?
     br
+    h2
+      = t('s_recommend', w: @user.name)
+    - @rblogs.each do |blog|
+      = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
+      br
 #friend
   h2
     = t('s_following',w: @user.name)
@@ -57,10 +58,10 @@
   - @user.all_following.each do |guy|
     dl.obu
       dt
-        a.nbg href=site(guy)
+        a.nbg href=site(guy) target='_blank'
           = image_tag(guy.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
       dd
-        = link_to guy.name, site(guy)
+        = link_to guy.name, site(guy), target: '_blank'
 - unless @user.idols.blank?
   #artist
     h2

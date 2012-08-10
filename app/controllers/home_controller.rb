@@ -99,6 +99,7 @@ class HomeController < ApplicationController
         render layout: 'portal'
       else
         @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
+#        @user_timeline = user_timeline({count: 1, feature: 1})
 
         t = params[:t]
         if t.nil?

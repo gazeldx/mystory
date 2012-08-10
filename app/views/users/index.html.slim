@@ -23,6 +23,8 @@
       th
         | 学校
       th
+        | 微博/QQ
+      th
         | 注册时间
       - if manage? 'assign_roles'
         th
@@ -45,6 +47,8 @@
           = user.jobs
         td
           = user.school
+        td
+          | #{user.weiboid.to_s[0..2]},#{user.openid.to_s[0..2]}
         td
           = user.created_at.strftime t('date_format')
         - if manage? 'assign_roles'

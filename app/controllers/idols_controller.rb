@@ -1,7 +1,7 @@
 class IdolsController < ApplicationController
 
   layout 'memoir'
-  before_filter :url_authorize
+  before_filter :url_authorize, :except=> [:show]
   
   def index
     @idols = @user.idols

@@ -5,16 +5,16 @@ class UsersController < ApplicationController
   before_filter :url_authorize, :only => [:edit, :edit_password, :signature]
   
   def index
-    @users = User.page(params[:page]).order("created_at DESC")
+    @users = User.paginate(:page => params[:page], :per_page => 100).order("created_at DESC")
     render layout: 'help'
   end
 
   def show
-    #UserMailer.welcome_email(@user).deliver
+#    UserMailer.welcome_email(@user).deliver
     @enjoy_books = @user.enjoys.where("stype = 1")
     @enjoy_musics = @user.enjoys.where("stype = 2")
     @enjoy_movies = @user.enjoys.where("stype = 3")
-    if @m      
+    if @m
       render mr, layout: 'm/portal'
     else
       render layout: 'memoir'
