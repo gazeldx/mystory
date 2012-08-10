@@ -23,6 +23,7 @@
     |  更新  
   div id='note_#{@memoir.id}_full'
     pre.note_full
+      = render 'shared/weibo_follow_signature'
       = style_it @memoir.content
   div.note-ft id='note_#{@memoir.id}_footer'
     .note_upper_footer

@@ -27,6 +27,7 @@ div id='note-#{@note.id}'
       = style_it @note.content
       br
       br
+      = render 'shared/weibo_follow_signature'
       = style_it @user.signature.to_s
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer

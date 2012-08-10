@@ -1,0 +1,4 @@
+<% unless @user.weiboid.nil? %>
+  <a id="weibo_signature" href="http://weibo.com/u/<%= @user.weiboid %>" target="_blank"></a>
+  <%= hidden_field('', '', id: 'weiboid', value: @user.weiboid) %>
+<% end %>
