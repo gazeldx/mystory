@@ -4,6 +4,8 @@ class LoginController < ApplicationController
   def to_login
     if @m
       render mr, layout: 'm/portal'
+    else
+      render layout: 'portal_simple'
     end
   end
 
@@ -119,11 +121,11 @@ class LoginController < ApplicationController
   end
 
   def go_redirect
-    if @m
+#    if @m
       redirect_to login_path
-    else
-      redirect_to root_path
-    end
+#    else
+#      redirect_to root_path
+#    end
   end
 
   def check_member

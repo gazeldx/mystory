@@ -1,0 +1,30 @@
+.right
+  span.b
+    - @columns.each_with_index do |column, i|
+      .x
+        = column.name
+        span.b
+          | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          = link_to '...更多', column_path(column)
+        - if i==0
+          span.b.rr
+            | &nbsp;&nbsp;&nbsp;&nbsp;#{link_to t('mobile_version'), m(site_url), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.#{request.domain}/", target: '_blank'}
+      - column.blogs.includes(:user).each do |blog|
+        - user = blog.user
+        = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
+        - cc = blog.comments_count
+        -if cc>0
+          span.red
+            | &nbsp;#{cc}
+        | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
+        br
+      - column.notes.includes(:user).each do |note|
+        - user = note.user
+        = s_link_to note
+        - cc = note.comments_count
+        -if cc>0
+          span.red
+            | &nbsp;#{cc}
+        | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
+        br
+      br

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="ua-ff4" lang="zh-CN">
+  <head>
+    <title><%= yield :title %></title>
+    <meta name="description" content="<%= yield :metadesc %>" />
+    <%= stylesheet_link_tag "style", "form" %>
+    <%= yield :stylesheet %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render 'shared/top' %>
+    <div id='wrapper'>
+      <div id='content'>
+        <%= render 'shared/columns_navigation'%>
+        <div class='grid-13-11 clearfix'>
+          <div class='left'>
+            <%= yield %>
+          </div>
+          <%= render 'shared/columns_blogs'%>
+        </div>
+      </div>
+      <%= render 'shared/footer_portal' %>
+    </div>
+  </body>
+</html>

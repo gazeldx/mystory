@@ -1,5 +1,5 @@
 <% unless @user.weiboid.nil? %>
-  <iframe width="230" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=230&height=24&uid=<%= @user.weiboid %>&style=3&btn=light&dpc=1"></iframe>
+  <iframe width="290" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" border="0" src="http://widget.weibo.com/relationship/followbutton.php?language=zh_cn&width=230&height=24&uid=<%= @user.weiboid %>&style=3&btn=light&dpc=1"></iframe>
   <a id="weibo_signature" href="http://weibo.com/u/<%= @user.weiboid %>" target="_blank"></a>
   <%= hidden_field('', '', id: 'weiboid', value: @user.weiboid) %>
 <% end %>

@@ -1,26 +1,30 @@
-<!DOCTYPE html>
-<html class="ua-ff4" lang="zh-CN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
     <meta name="description" content="<%= yield :metadesc %>" />
-    <%= stylesheet_link_tag "style", "form" %>
-    <%= yield :stylesheet %>
-    <%= javascript_include_tag "application" %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="imagetoolbar" content="no">
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "hu_base", "hu_portal" %>
+    <%= javascript_include_tag "photos" %>
+    <%= favicon_link_tag '/assets/favicon.ico'%>
   </head>
   <body>
-    <%= render 'shared/top' %>
-    <div id='wrapper'>
-      <div id='content'>
-        <%= render 'shared/columns_navigation'%>
-        <div class='grid-13-11 clearfix'>
-          <div class='left'>
-            <%= yield %>
+    <%= render 'shared/download_browser' %>
+    <%= render 'shared/portal_top' %>
+    <div class="LAND" id="t-sys">
+      <div class="land">
+        <div class="Bgs"><p class="Bg1"></p><p class="Bg2"></p><p class="Bg3"></p></div>
+        <div class="LANDBG">
+          <%= render 'shared/portal_head' %>
+          <div class="Bdy">
+            <%= render 'shared/portal_body' %>
+            <%= render 'shared/portal_aside' %>
           </div>
-          <%= render 'shared/columns_blogs'%>
+          <%= render 'shared/portal_footer' %>
         </div>
       </div>
-      <%= render 'shared/footer_portal' %>
     </div>
   </body>
 </html>

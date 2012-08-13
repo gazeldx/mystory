@@ -285,7 +285,7 @@ module UsersHelper
         id = "blog_photo_#{photo.id}"
       end
       source_from = ""
-      if photo.album.user_id!=@user.id
+      if !@user.nil? && photo.album.user_id!=@user.id
         source_from = raw "<span class='pl'><br/>#{t('source_from')}<a href='#{site(photo.album.user)}' target='_blank'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}' target='_blank'>#{photo.album.name}</a>]</span>"
       end
       content_tag(:a, image_tag(photo.avatar.thumb.url), href: 'javascript:;', id: id, onclick: "switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')", title: "#{t('click_enlarge')}") + source_from

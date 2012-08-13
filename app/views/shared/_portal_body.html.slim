@@ -1,0 +1,44 @@
+.Main
+  .main
+    .mainT
+    .mainC
+      .ap.stream
+        .twis id='timeline'
+          - @all.each do |item|
+            - user = item.user
+            - n = photos_count item.content
+            - if n>0
+              - t_class = "twi twiHasPic"
+            - else
+              - t_class = "twi"
+            div id="#{item.id}_con" class=t_class
+              - if n>0
+                .twiM
+                  p.pics id="prev_{item.id}_0"
+                    /i.pic
+                    = thumb_here item
+              .twiT
+                p ref="176181993" id="p_4489363765" fed="" type="" class="avt "
+                  a href=site(user) target='_blank'
+                    = image_tag(user.avatar.thumb.url)
+                b.b class="pd jsNickBox_176181993" data-wrap="false"
+                  b class="nm"
+                    = link_to user.name, site(user), target: '_blank'
+                  | ：
+                  = s_link_to item
+              .twiC
+                p.wid
+                  b
+                p.ugc
+                  /= s_link_to item
+                  /br
+                  = text_it_pure(item.content)[0..98]
+                  | ......#{s_link_name(t('whole_article'), item)}
+                .twiB
+                  b.tm.mi
+                    - cc = item.comments_count
+                    -if cc>0
+                      span style='color:red'
+                        = s_link_name "评论(#{cc})", item
+                    | &nbsp;&nbsp;&nbsp;
+                    = item.created_at.strftime t'date_without_year'

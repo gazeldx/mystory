@@ -1,18 +1,16 @@
-#miniblog
-  ul.mbt
-    - @photos.each_with_index do |photo, i|
-      - album = photo.album
-      - user = album.user
-      - avatar = photo.avatar
-      li.mbtr
-        span.inq
-          a id='photo_#{photo.id}' href='javascript:;' onclick="switchPhoto('photo_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
-            = image_tag(avatar.thumb.url)
-          br
-          span.pl
-            = photo.created_at.strftime t'no_year'
-          | &nbsp;
-          = link_to album.name, album_path(album)
-          | &nbsp;
-          - unless photo.description.nil?
-            = photo.description
+li.navL
+            a.nava href=hotest_path
+              b
+                = t'most_comments_articles'
+          li.navL
+            a.nava href=photos_path, target: '_blank'
+              b
+                = t'_photo'
+          li.navL
+            a.nava href=sub_site('bbs'), target: '_blank'
+              b
+                = t'_forum'
+          li.navL
+            a.nava href=top_users_path, target: '_blank'
+              b
+                = t'_user'

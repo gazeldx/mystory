@@ -1,0 +1,30 @@
+.Aside
+  .aside
+    - @columns.each_with_index do |column, i|
+      .ap
+        h4
+          span.opt
+            a href=column_path(column) class='fuc js-next'
+              b
+                | 更多
+          em
+            = column.name
+        ul.lis
+          li.c
+            - column.blogs.includes(:user).each do |blog|
+              - user = blog.user
+              = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank'
+              - cc = blog.comments_count
+              - if cc>0
+                span.red
+                  | &nbsp;#{cc}
+              | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
+              br
+            - column.notes.includes(:user).each do |note|
+              - user = note.user
+              = s_link_to note
+              - cc = note.comments_count
+              - if cc>0
+                span.red
+                  | &nbsp;#{cc}
+              | &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
