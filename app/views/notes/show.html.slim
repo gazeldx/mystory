@@ -12,6 +12,7 @@ div id='note-#{@note.id}'
         == @note.title
       - else
         = t('s_note', w: @note.created_at.strftime(t'date_format'))
+      = t'draft_desc' if @note.is_draft
       = edit_delete_note
     .mi
       = @note.created_at.strftime t'time_format'

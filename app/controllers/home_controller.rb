@@ -14,14 +14,14 @@ class HomeController < ApplicationController
       elsif @user.nil?
         t = params[:t]
         if t.nil?
-          blogs = Blog.includes(:user).order("created_at desc").limit(30)
-          notes = Note.includes(:user).order("created_at desc").limit(20)
+          blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(30)
+          notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(20)
           photos = Photo.includes(:album).limit(10).order('photos.id desc')
           @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 10)
         elsif t == 'note'
-          @all = Note.includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
+          @all = Note.where(:is_draft => false).includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
         elsif t == 'blog'
-          @all = Blog.includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
+          @all = Blog.where(:is_draft => false).includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
         elsif t == 'photo'
           @all = Photo.includes(:album).limit(45).order('photos.id desc').paginate(:page => params[:page], :per_page => 15)
         end
@@ -29,8 +29,8 @@ class HomeController < ApplicationController
       else
         t = params[:t]
         if t.nil?
-          notes = @user.notes.limit(30).order('created_at desc')
-          blogs = @user.blogs.limit(20).order('created_at desc')
+          notes = @user.notes.where(:is_draft => false).limit(30).order('created_at desc')
+          blogs = @user.blogs.where(:is_draft => false).limit(20).order('created_at desc')
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(6).order('id desc')
           all_ = notes | blogs | photos
           memoir = @user.memoir
@@ -40,19 +40,20 @@ class HomeController < ApplicationController
           end
           @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'note'
-          @all = @user.notes.limit(50).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
+          @all = @user.notes.where(:is_draft => false).limit(50).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'blog'
-          @all = @user.blogs.limit(40).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
+          @all = @user.blogs.where(:is_draft => false).limit(40).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'photo'
           @all = Photo.where(album_id: @user.albums).includes(:album).limit(20).order('id desc').paginate(:page => params[:page], :per_page => 20)
         elsif t == 'updated'
-          notes = @user.notes.where("updated_at > created_at").limit(30)
-          blogs = @user.blogs.where("updated_at > created_at").limit(30)
+          notes = @user.notes.where("updated_at > created_at and is_draft = false").limit(30)
+          blogs = @user.blogs.where("updated_at > created_at and is_draft = false").limit(30)
           all_ = notes | blogs
           memoir = @user.memoir
           all_ << memoir unless memoir.nil?
           @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'recommend'
+          #TODO .where(:is_draft => false) not do,maybe in view proc it is best.
           rnotes = @user.rnotes.includes(:note => :user).limit(30)
           rblogs = @user.rblogs.includes(:blog => :user).limit(15)
           rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(5)
@@ -91,10 +92,10 @@ class HomeController < ApplicationController
 #        new_photo_count = 2 if new_photo_count < 2
 #        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
 #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
-        @columns = Column.order('created_at')
+        @columns = Column.order('created_at').limit(6)
         #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
-        blogs_new = Blog.includes(:category, :user).order("created_at desc").limit(12)
-        notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(6)
+        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
+        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
         @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
         render layout: 'portal'
       else
@@ -103,8 +104,8 @@ class HomeController < ApplicationController
 
         t = params[:t]
         if t.nil?
-          notes = @user.notes.limit(30).order("created_at desc")
-          blogs = @user.blogs.limit(20).order("created_at desc")
+          notes = @user.notes.where(:is_draft => false).limit(30).order("created_at desc")
+          blogs = @user.blogs.where(:is_draft => false).limit(20).order("created_at desc")
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
           all_ = notes | blogs | photos
           memoir = @user.memoir
@@ -120,8 +121,8 @@ class HomeController < ApplicationController
         elsif t == 'photo'
           @all = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
         elsif t == 'updated'
-          notes = @user.notes.where("updated_at > created_at").limit(30)
-          blogs = @user.blogs.where("updated_at > created_at").limit(30)
+          notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(30)
+          blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(30)
           all_ = notes | blogs
           memoir = @user.memoir
           all_ << memoir unless memoir.nil?
@@ -133,7 +134,7 @@ class HomeController < ApplicationController
           @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
         end
 
-        ids = @user.blogs.select('id')
+        ids = @user.blogs.where(:is_draft => false).select('id')
         @rblogs = @user.r_blogs.where(id: ids).limit(7)
 
         render :user

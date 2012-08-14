@@ -8,9 +8,9 @@
       span#display.pl
         - unless @user.maxim.nil?
           | (#{@user.maxim})
-      - if @user.id == session[:id]
-        span.rr.pl2
-          = render 'shared/quick_post_navigation'
+    - if @user.id == session[:id]
+      span.rr.pl2
+        = render 'shared/quick_post_navigation'
   ul
     li
       = link_to t('my_info'), profile_path

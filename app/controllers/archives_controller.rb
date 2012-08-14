@@ -1,5 +1,5 @@
 class ArchivesController < ApplicationController
-  layout 'memoir'  
+  layout 'memoir'
   include Archives
   include Tags
   
@@ -11,9 +11,9 @@ class ArchivesController < ApplicationController
   def month
     case params[:t]
     when 'note'
-      @all = @user.notes.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).order('created_at desc')
+      @all = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).order('created_at desc')
     when 'blog'
-      @all = @user.blogs.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).order('created_at desc')
+      @all = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).order('created_at desc')
     when 'photo'
       @all = Photo.where(album_id: @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album).order('id desc')
     when 'recommend'
@@ -22,8 +22,8 @@ class ArchivesController < ApplicationController
       rphotos = @user.rphotos.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:photo => [:album => :user])
       @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
     else
-      notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ?", params[:month])
-      blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ?", params[:month])
+      notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month])
+      blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month])
       photos = Photo.where(album_id: @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album)
       @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!
     end

@@ -45,7 +45,7 @@ class NotecatesController < ApplicationController
   def show
     @notecate = Notecate.find(params[:id])
     if @notecate.user == @user
-      @notes = @notecate.notes.page(params[:page]).order("created_at DESC")
+      @notes = @notecate.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
       @notecates = @user.notecates.order('created_at')
       if @m
         render mr, layout: 'm/portal'

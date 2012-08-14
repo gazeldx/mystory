@@ -3,7 +3,7 @@
   .bd
     .top-nav-info
       - if session[:id].nil?
-        = link_to t('_login'), s_site_root
+        = link_to t('_login'), s_site_root + login_path
         = link_to t('_register'), s_site_root + register_path
       - else
         - if mystory?

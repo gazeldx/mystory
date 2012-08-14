@@ -9,7 +9,7 @@ class ColumnsController < ApplicationController
     notes = @column.notes.page(params[:page]).order("created_at DESC")
     @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
 
-    @columns = Column.order('created_at')
+    @columns = Column.order('created_at').limit(6)
     render layout: 'column'
   end
 

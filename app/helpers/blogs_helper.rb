@@ -173,4 +173,13 @@ module BlogsHelper
       link_to name, site(item.user) + note_path(item), target: '_blank'
     end
   end
+
+  def s_edit_link(item)
+    if item.is_a? Blog
+      link_to t('edit'), edit_blog_path(item), target: '_blank'
+    else
+      link_to t('edit'), edit_note_path(item), target: '_blank'
+    end
+  end
+
 end

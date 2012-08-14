@@ -5,7 +5,7 @@ class NotesController < ApplicationController
   include Archives
   
   def index
-    @notes = @user.notes.page(params[:page]).order("created_at DESC")
+    @notes = @user.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
     #    default_category = Notecate.new
     #    default_category.id = 0
@@ -48,7 +48,11 @@ class NotesController < ApplicationController
   def create_proc
     build_tags @note
     if @note.save
-      flash[:notice2] = t'note_post_succ'
+      if @note.is_draft
+        flash[:notice2] = t'note_drafted_succ'
+      else
+        flash[:notice2] = t'note_post_succ'
+      end
       send_weibo
       send_qq
       redirect_to note_path(@note)
@@ -70,31 +74,36 @@ class NotesController < ApplicationController
   #TODO change to max or min?
   def show
     @note = Note.find(params[:id])
-    @note.views_count = @note.views_count + 1
-    Note.update_all("views_count = #{@note.views_count}", "id = #{@note.id}")
-    if @note.user == @user
-      @notecates = @user.notecates.order('created_at')
-      @new_notes = @user.notes.order('created_at DESC').limit(6)
-      @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
-      @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
-      comments = @note.notecomments
-      @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-      @comments_uids = comments.collect{|c| c.user_id}
-      ids = @user.notes.select('id')
-      @rnotes = @user.r_notes.where(id: ids).limit(6)
-      cate_ids = @user.notes.where(["notecate_id = ?", @note.notecate_id]).select('id')
-      @cate_rnotes = @user.r_notes.where(id: cate_ids).limit(5)
-      if @cate_rnotes.size < 5
-        @cate_notes = @user.notes.where(["notecate_id = ?", @note.notecate_id]).order('created_at DESC').limit(5 - @cate_rnotes.size)
-      end
-      archives_months_count
-      if @m
-        render mr, layout: 'm/portal'
-      else
-        render layout: 'note'
-      end
+    if @note.is_draft && @user.id != session[:id]
+      redirect_to site @user
     else
-      r404
+      if @note.user == @user
+        @note.views_count = @note.views_count + 1
+        Note.update_all("views_count = #{@note.views_count}", "id = #{@note.id}")
+
+        @notecates = @user.notecates.order('created_at')
+        @new_notes = @user.notes.order('created_at DESC').limit(6)
+        @note_pre = @user.notes.where(["created_at > ?", @note.created_at]).order('created_at').first
+        @note_next = @user.notes.where(["created_at < ?", @note.created_at]).order('created_at DESC').first
+        comments = @note.notecomments
+        @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+        @comments_uids = comments.collect{|c| c.user_id}
+        ids = @user.notes.select('id')
+        @rnotes = @user.r_notes.where(id: ids).limit(6)
+        cate_ids = @user.notes.where(["notecate_id = ?", @note.notecate_id]).select('id')
+        @cate_rnotes = @user.r_notes.where(id: cate_ids).limit(5)
+        if @cate_rnotes.size < 5
+          @cate_notes = @user.notes.where(["notecate_id = ?", @note.notecate_id]).order('created_at DESC').limit(5 - @cate_rnotes.size)
+        end
+        archives_months_count
+        if @m
+          render mr, layout: 'm/portal'
+        else
+          render layout: 'note'
+        end
+      else
+        r404
+      end
     end
   end
 
@@ -111,7 +120,11 @@ class NotesController < ApplicationController
       @note.notetags.destroy_all
       build_tags @note
       @note.update_attributes(params[:note])
-      flash[:notice2] = t'update_succ'
+      if @note.is_draft
+        flash[:notice2] = t'note_drafted_update_succ'
+      else
+        flash[:notice2] = t'update_succ'
+      end
       redirect_to note_path
     else
       _render :edit
@@ -137,18 +150,18 @@ class NotesController < ApplicationController
 
   def archives
     #ISSUE to_char maybe only work in postgresql
-    @items = @user.notes.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+    @items = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
   end
 
   def month
-    @notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).page(params[:page])
+    @notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
     archives
   end
 
   def assign_columns
     @note = Note.find(params[:id])
     @columns = @note.columns
-    @all_columns = Column.order("created_at")
+    @all_columns = Column.order("created_at").limit(6)
     render layout: 'help'
   end
 
@@ -165,7 +178,7 @@ class NotesController < ApplicationController
 
   private
   def send_weibo
-    if session[:atoken]
+    if session[:atoken] and @note.is_draft==false
       begin
         oauth = weibo_auth
         str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
@@ -178,7 +191,7 @@ class NotesController < ApplicationController
   end
 
   def send_qq
-    if session[:token]
+    if session[:token] and @note.is_draft==false
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

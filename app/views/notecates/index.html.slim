@@ -1,7 +1,7 @@
 = title t'notecate.edit'
 = render 'shared/notice_error'
 h2
-  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;
+  = setting_nav
   = t'notecate.edit'
 .table.b
   = form_for @notecate do |f|

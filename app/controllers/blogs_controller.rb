@@ -5,38 +5,42 @@ class BlogsController < ApplicationController
   include Archives
   
   def index
-    @blogs = @user.blogs.page(params[:page]).order("created_at DESC")
+    @blogs = @user.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
   end
 
   def show
     @blog = Blog.find(params[:id])
-    @blog.views_count = @blog.views_count + 1
-    Blog.update_all("views_count = #{@blog.views_count}", "id = #{@blog.id}")
-    if @blog.user == @user
-      @categories = @user.categories.order('created_at')
-      @new_blogs = @user.blogs.order('created_at DESC').limit(6)
-      @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
-      @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
-      comments = @blog.blogcomments
-      @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-      @comments_uids = comments.collect{|c| c.user_id}
-      ids = @user.blogs.select('id')
-      @rblogs = @user.r_blogs.where(id: ids).limit(6)
-      cate_ids = @user.blogs.where(["category_id = ?", @blog.category_id]).select('id')
-      @cate_rblogs = @user.r_blogs.where(id: cate_ids).limit(5)
-      if @cate_rblogs.size < 5
-        @cate_blogs = @user.blogs.where(["category_id = ?", @blog.category_id]).order('created_at DESC').limit(5 - @cate_rblogs.size)
-      end
-      archives_months_count
-      #TODO UNIQUE @cate_blogs AND @cate_rblogs
-      if @m
-        render mr, layout: 'm/portal'
-      else
-        render layout: 'blog'
-      end
+    if @blog.is_draft && @user.id != session[:id]
+      redirect_to site @user
     else
-      r404
+      if @blog.user == @user
+        @blog.views_count = @blog.views_count + 1
+        Blog.update_all("views_count = #{@blog.views_count}", "id = #{@blog.id}")
+        @categories = @user.categories.order('created_at')
+        @new_blogs = @user.blogs.order('created_at DESC').limit(6)
+        @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ?", @blog.category_id, @blog.created_at]).order('created_at').first
+        @blog_next = @user.blogs.where(["category_id = ? AND created_at < ?", @blog.category_id, @blog.created_at]).order('created_at DESC').first
+        comments = @blog.blogcomments
+        @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+        @comments_uids = comments.collect{|c| c.user_id}
+        ids = @user.blogs.select('id')
+        @rblogs = @user.r_blogs.where(id: ids).limit(6)
+        cate_ids = @user.blogs.where(["category_id = ?", @blog.category_id]).select('id')
+        @cate_rblogs = @user.r_blogs.where(id: cate_ids).limit(5)
+        if @cate_rblogs.size < 5
+          @cate_blogs = @user.blogs.where(["category_id = ?", @blog.category_id]).order('created_at DESC').limit(5 - @cate_rblogs.size)
+        end
+        archives_months_count
+        #TODO UNIQUE @cate_blogs AND @cate_rblogs
+        if @m
+          render mr, layout: 'm/portal'
+        else
+          render layout: 'blog'
+        end
+      else
+        r404
+      end
     end
   end
 
@@ -82,7 +86,11 @@ class BlogsController < ApplicationController
   def create_proc
     build_tags @blog
     if @blog.save
-      flash[:notice2] = t'blog_posted'
+      if @blog.is_draft
+        flash[:notice2] = t'blog_drafted'
+      else
+        flash[:notice2] = t'blog_posted'
+      end
       send_weibo
       send_qq
       redirect_to blog_path(@blog)
@@ -97,7 +105,11 @@ class BlogsController < ApplicationController
       @blog.tags.destroy_all
       build_tags @blog
       @blog.update_attributes(params[:blog])
-      flash[:notice2] = t'update_succ'
+      if @blog.is_draft
+        flash[:notice2] = t'blog_drafted_update_succ'
+      else
+        flash[:notice2] = t'update_succ'
+      end
       redirect_to blog_path
     else
       _render :edit
@@ -128,11 +140,11 @@ class BlogsController < ApplicationController
 
   def archives
     #ISSUE to_char maybe only work in postgresql
-    @items = @user.blogs.select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+    @items = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
   end
 
   def month
-    @blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).page(params[:page])
+    @blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
     archives
   end
 
@@ -145,7 +157,7 @@ class BlogsController < ApplicationController
   def assign_columns
     @blog = Blog.find(params[:id])
     @columns = @blog.columns
-    @all_columns = Column.order("created_at")
+    @all_columns = Column.order("created_at").limit(6)
     render layout: 'help'
   end
 
@@ -160,24 +172,26 @@ class BlogsController < ApplicationController
     redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
   end
 
+  #not used
   def latest_attention
-    @columns = Column.order("created_at")
-    @blogs = Blog.where('replied_at is not null').page(params[:page]).order("replied_at DESC")
+    @columns = Column.order("created_at").limit(6)
+    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
     render layout: 'column'
   end
 
   def hotest
     #TODO FILTER 'replied_at is not null'
-    @columns = Column.order("created_at")
-    @blogs = Blog.page(params[:page]).order("comments_count DESC")
-    notes = Note.page(params[:page]).order("comments_count DESC")
+    @columns = Column.order("created_at").limit(6)
+    @blogs = Blog.where(:is_draft => false).page(params[:page]).order("comments_count DESC")
+    notes = Note.where(:is_draft => false).page(params[:page]).order("comments_count DESC")
     @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
     render layout: 'column'
   end
 
   private
   def send_weibo
-    if session[:atoken]
+    #TODO  UPDATE FROM IS_DRAFT TO FALSE HAVN'T DO SEND.
+    if session[:atoken] and @blog.is_draft==false
       begin
         oauth = weibo_auth
         str = "#{@blog.title} - "
@@ -190,7 +204,7 @@ class BlogsController < ApplicationController
   end
 
   def send_qq
-    if session[:token]
+    if session[:token] and @blog.is_draft==false
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])
@@ -203,14 +217,14 @@ class BlogsController < ApplicationController
 
 
 
-#        str = "#{@blog.title} - "
-#        data = "#{str}#{text[0..130-str.size]}#{url}"
-#        qq.add_t(auth, '', '', '', '1', "testweibohaihihihih")
-#        def add_share(auth,title,url,comment,summary,images,source,site,nswb,*play)
-#          data=auth + '&title=' + title + '&url=' + url + '&comment=' + comment + '&summary=' + summary + '&images=' + images + '&source=' + source + '&site=' + site + '&nswb=' + nswb + '&type=' + play[0]
-#          data=data + '&playurl=' + play[1] unless play.count ==1
-#          MultiJson.decode(post_comm(ADDSHAREURL,URI.escape(data)))
-#        end        
+        #        str = "#{@blog.title} - "
+        #        data = "#{str}#{text[0..130-str.size]}#{url}"
+        #        qq.add_t(auth, '', '', '', '1', "testweibohaihihihih")
+        #        def add_share(auth,title,url,comment,summary,images,source,site,nswb,*play)
+        #          data=auth + '&title=' + title + '&url=' + url + '&comment=' + comment + '&summary=' + summary + '&images=' + images + '&source=' + source + '&site=' + site + '&nswb=' + nswb + '&type=' + play[0]
+        #          data=data + '&playurl=' + play[1] unless play.count ==1
+        #          MultiJson.decode(post_comm(ADDSHAREURL,URI.escape(data)))
+        #        end
       rescue
         logger.warn("---Send_blog_to_qq blog.id=#{@blog.id} failed.Data is #{url}, #{comment}, #{summary}, #{auth} ")
       end

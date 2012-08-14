@@ -2,7 +2,8 @@
 - if flash[:notice]
   #notice= flash[:notice]
 h2
-  | #{link_to t('_setting'), my_site + admin_path} >&nbsp;偶像
+  = setting_nav
+  | 偶像
 .table.b
   - @idols.each do |idol|
     = idol.name

@@ -3,9 +3,6 @@
 = hidden_field_tag :view, params[:view]
 - if flash[:notice]
   #notice= flash[:notice]
-- if @user.id == session[:id]
-  h2
-    = link_to t('post_blog'), new_blog_path
 h2
   = link_to t('_archive'), blogs_archives_path
   | &nbsp;&nbsp;&nbsp;

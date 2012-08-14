@@ -9,6 +9,7 @@ div id='note-#{@blog.id}'
   .note-header
     h2
       == @blog.title
+      = t'draft_desc' if @blog.is_draft
       - if @blog.user_id == session[:id]
         | &nbsp;
         = link_to t('edit'), edit_blog_path(@blog)
