@@ -1,5 +1,6 @@
 class DraftsController < ApplicationController
   layout 'help'
+  before_filter :url_authorize
   
   def index
     blogs = @user.blogs.where(:is_draft => true)

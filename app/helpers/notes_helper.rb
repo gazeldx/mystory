@@ -11,7 +11,7 @@ module NotesHelper
     if note.title.to_s==''
       link_to t('s_note', w: note.created_at.strftime(t'date_format')), note
     else
-      link_to raw(note.title), note
+      link_to raw(note.title)[0..30], note
     end
   end
 

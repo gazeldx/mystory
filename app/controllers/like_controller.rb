@@ -9,8 +9,8 @@ class LikeController < ApplicationController
     require 'will_paginate/array'
     if t.nil?
       @assortments = @user.assortments
-      notes = Note.where(user_id: following_ids).limit(30).order('id desc')
-      blogs = Blog.where(user_id: following_ids).limit(15).order('created_at desc')
+      notes = Note.where(user_id: following_ids).where(:is_draft => false).limit(30).order('id desc')
+      blogs = Blog.where(user_id: following_ids).where(:is_draft => false).limit(15).order('created_at desc')
       album_ids = Album.where(user_id: following_ids)
       photos = Photo.where(album_id: album_ids).includes(:album).limit(20).order('photos.id desc')
       rnotes = Rnote.where(user_id: following_ids).limit(15).order('id desc')
@@ -26,15 +26,15 @@ class LikeController < ApplicationController
       end
       @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
     elsif t == 'note'
-      @all = Note.where(user_id: following_ids).limit(50).page(params[:page]).order('id desc')
+      @all = Note.where(user_id: following_ids).where(:is_draft => false).limit(50).page(params[:page]).order('id desc')
     elsif t == 'blog'
-      @all = Blog.where(user_id: following_ids).limit(40).page(params[:page]).order('created_at desc')
+      @all = Blog.where(user_id: following_ids).where(:is_draft => false).limit(40).page(params[:page]).order('created_at desc')
     elsif t == 'photo'
       album_ids = Album.where(user_id: following_ids)
       @all = Photo.where(album_id: album_ids).includes(:album).limit(50).page(params[:page]).order('photos.id desc')
     elsif t == 'updated'
-      notes = Note.where(user_id: following_ids).where("updated_at > created_at").limit(30).order('updated_at desc')
-      blogs = Blog.where(user_id: following_ids).where("updated_at > created_at").limit(30).order('updated_at desc')
+      notes = Note.where(user_id: following_ids).where("updated_at > created_at AND is_draft = false").limit(30).order('updated_at desc')
+      blogs = Blog.where(user_id: following_ids).where("updated_at > created_at AND is_draft = false").limit(30).order('updated_at desc')
       all_ = notes | blogs
       memoirs = Memoir.where(user_id: following_ids)
       unless memoirs.blank?

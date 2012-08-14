@@ -115,9 +115,9 @@ class HomeController < ApplicationController
           end
           @all = all_.sort_by{|x| x.created_at}.reverse!
         elsif t == 'note'
-          @all = @user.notes.limit(50).order('created_at desc')
+          @all = @user.notes.where(:is_draft => false).limit(50).order('created_at desc')
         elsif t == 'blog'
-          @all = @user.blogs.limit(40).order('created_at desc')
+          @all = @user.blogs.where(:is_draft => false).limit(40).order('created_at desc')
         elsif t == 'photo'
           @all = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
         elsif t == 'updated'
