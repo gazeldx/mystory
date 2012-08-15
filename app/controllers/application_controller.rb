@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def site_url
-    "http://#{request.domain}:#{request.port.to_s}"
+    if request.port==80
+      "http://#{request.domain}"
+    else
+      "http://#{request.domain}:#{request.port.to_s}"
+    end
   end
   
   def my_site

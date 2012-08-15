@@ -1,14 +1,21 @@
 class UserMailer < ActionMailer::Base
-  default from: "zj137@163.com"
+#  default from: "mail_zlj@163.com"
+  default from: "zjloveztt@gmail.com"
 
-  def welcome_email(user)
+  def new_function(user)
     @user = user
-    @url  = "http://example.com/login"
-    puts "begin now send mailing...."
-    mail(from: "mystory.cc <mail_zlj@163.com>", :to => "mail_zlj@163.com", :subject => "mystory.cc welcome you!")
-    puts "mail sent ,haha!"
-    #      mail from: "#{shop.name} <#{shop.email}>", to: email, subject: subject, body: body, content_type: email_template.content_type
+    puts "--begin mail sending at new_function(#{@user.email})...."
+    mail(:to => @user.email, :subject => t('mail.subject.new_function', w: @user.name))
+    puts "--end mail sent"
   end
+
+  def welcome_new_user(user)
+    @user = user
+    puts "--begin mail sending at welcome_new_user(#{@user.email})...."
+    mail(:to => @user.email, :subject => t('mail.subject.welcome_new_user', w: @user.name))
+    puts "--end mail sent"
+  end
+  
   #  require "aws/ses"
   #  def welcome_email(user)
   ##    ses = AWS::SES::Base.new( ... connection info ... )

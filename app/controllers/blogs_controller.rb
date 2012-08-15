@@ -15,8 +15,7 @@ class BlogsController < ApplicationController
       redirect_to site @user
     else
       if @blog.user == @user
-        @blog.views_count = @blog.views_count + 1
-        Blog.update_all("views_count = #{@blog.views_count}", "id = #{@blog.id}")
+        add_view_count
         @categories = @user.categories.order('created_at')
         @new_blogs = @user.blogs.where(:is_draft => false).order('created_at DESC').limit(6)
         @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ? AND is_draft = false", @blog.category_id, @blog.created_at]).order('created_at').first
@@ -134,6 +133,7 @@ class BlogsController < ApplicationController
 
   def click_show_blog
     @blog = Blog.find(params[:id])
+    add_view_count
     @blog.content = summary_comment_style(@blog, 4000)
     render json: @blog.as_json()
   end  
@@ -229,5 +229,10 @@ class BlogsController < ApplicationController
         logger.warn("---Send_blog_to_qq blog.id=#{@blog.id} failed.Data is #{url}, #{comment}, #{summary}, #{auth} ")
       end
     end
+  end
+
+  def add_view_count
+    @blog.views_count = @blog.views_count + 1
+    Blog.update_all("views_count = #{@blog.views_count}", "id = #{@blog.id}")
   end
 end

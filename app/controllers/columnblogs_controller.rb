@@ -4,7 +4,7 @@ class ColumnblogsController < ApplicationController
   layout 'help'
 
   def index
-    @blogs = Blog.includes(:category, :user).page(params[:page]).order("created_at desc")
+    @blogs = Blog.where(:is_draft => false).includes(:category, :user).page(params[:page]).order("created_at desc")
   end
 
 end

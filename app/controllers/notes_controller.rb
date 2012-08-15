@@ -78,9 +78,7 @@ class NotesController < ApplicationController
       redirect_to site @user
     else
       if @note.user == @user
-        @note.views_count = @note.views_count + 1
-        Note.update_all("views_count = #{@note.views_count}", "id = #{@note.id}")
-
+        add_view_count
         @notecates = @user.notecates.order('created_at')
         @new_notes = @user.notes.where(:is_draft => false).order('created_at DESC').limit(6)
         @note_pre = @user.notes.where(["notecate_id = ? AND created_at > ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at').first
@@ -144,6 +142,7 @@ class NotesController < ApplicationController
 
   def click_show_note
     @note = Note.find(params[:id])
+    add_view_count
     @note.content = summary_comment_style(@note, 3000)
     render json: @note.as_json()
   end
@@ -204,5 +203,10 @@ class NotesController < ApplicationController
         logger.warn("---Send_note_to_qq note.id=#{@note.id} failed.Data is #{url}, #{comment}, #{summary} , #{auth} ")
       end
     end
+  end
+
+  def add_view_count
+    @note.views_count = @note.views_count + 1
+    Note.update_all("views_count = #{@note.views_count}", "id = #{@note.id}")
   end
 end

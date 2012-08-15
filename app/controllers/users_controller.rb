@@ -10,7 +10,6 @@ class UsersController < ApplicationController
   end
 
   def show
-#    UserMailer.welcome_email(@user).deliver
     @enjoy_books = @user.enjoys.where("stype = 1")
     @enjoy_musics = @user.enjoys.where("stype = 2")
     @enjoy_movies = @user.enjoys.where("stype = 3")
@@ -90,7 +89,7 @@ class UsersController < ApplicationController
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
       proc_session
-      #UserMailer.welcome_email(@user).deliver
+      UserMailer.welcome_new_user(@user).deliver
       flash[:notice] = t'regiter_succ_memo'
       redirect_to m_or(my_site + edit_profile_path)
     else

@@ -67,6 +67,14 @@ zh:
   qq_login_succ: "QQ登录成功!"
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
 
+  follow_succ: "关注成功！"
+  unfollow_succ: "取消关注成功！"
+
+  mail:
+    subject:
+      new_function: "HI %{w}，我是我的故事站长张健。mystory有不少新功能，邀请你去测试。"
+      welcome_new_user: "HI %{w}，我是我的故事站长张健。欢迎你加入mystory。"
+
   latest_attention: "最新关注"
   most_comments_articles: "热评"
   top_commentators: "评论排行"

@@ -27,7 +27,7 @@ table width="100%"
           = link_to t('_letter'), m(my_site + letters_path)
         - else
           = link_to t('_letter'), m(my_site + "/send_a_letter_to_#{@user.domain}")
-      - unless @user.maxim.nil?
+      - unless @user.maxim.to_s==''
         | (#{@user.maxim})
 p
   = @user.memo
