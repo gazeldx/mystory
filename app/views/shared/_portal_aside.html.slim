@@ -11,21 +11,17 @@
             = column.name
         ul.lis
           li.c
-            - column.blogs.includes(:user).each do |blog|
-              - user = blog.user
-              = link_to raw(blog.title), site(user) + blog_path(blog), target: '_blank', title: "作者：#{user.name}"
-              - cc = blog.comments_count
+            - blogs = column.blogs.includes(:user).where(:is_draft => false).order("created_at desc").limit(6)
+            - notes = column.notes.includes(:user).where(:is_draft => false).order("created_at desc").limit(6-blogs.size)
+            - all = (blogs + notes).sort_by{|x| x.created_at}.reverse!
+            - all.each_with_index do |item, i|
+              - user = item.user
+              - if item.is_a? Blog
+                = link_to raw(item.title), site(user) + blog_path(item), target: '_blank', title: "作者：#{user.name}"
+              - else
+                = link_to item.title.to_s=='' ? t('s_note', w: item.created_at.strftime(t'date_format')) : raw(item.title[0..24]), site(user) + note_path(item), target: '_blank', title: "作者：#{user.name}"
+              - cc = item.comments_count
               - if cc>0
                 span.red title="评论数#{cc}"
                   | &nbsp;#{cc}
-              /| &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
-              br
-            - column.notes.includes(:user).each do |note|
-              - user = note.user
-              = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..24]), site(user) + note_path(note), target: '_blank', title: "作者：#{user.name}"
-              - cc = note.comments_count
-              - if cc>0
-                span.red title="评论数#{cc}"
-                  | &nbsp;#{cc}
-              /| &nbsp;/&nbsp;#{link_to user.name, site(user), target: '_blank'}
               br

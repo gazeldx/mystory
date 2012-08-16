@@ -17,8 +17,7 @@ table width="100%"
           = link_to t('unfollow'), unfollow_path
         - else
           - unless myself==@user
-            a href=follow_me_path
-              input type="button" name="fm" value=t('follow_him') class="sub-bg-ss"
+            = link_to t('follow_him'), follow_me_path
         | &nbsp;
       = link_to '查看资料', profile_path
       - unless session[:id].nil?

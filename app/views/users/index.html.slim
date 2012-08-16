@@ -11,6 +11,8 @@
       th
         = t'real_name'
       th
+        | 照片
+      th
         | 已授权角色
       th
         = t'domain'
@@ -37,6 +39,8 @@
           = user.id
         td
           = user.name
+        td
+          = image_tag(user.avatar.thumb.url)
         td
           = user.roles.order('created_at DESC').map{|t| t.name}.join(", ")
         td

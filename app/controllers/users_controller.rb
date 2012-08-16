@@ -146,11 +146,12 @@ class UsersController < ApplicationController
 
   def top
     if ENV["RAILS_ENV"] == "production"
-      @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
+      ids = [2, 135, 66, 151, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131]
     else
-      @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
+      ids = [1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11]
     end
-
+    r = User.find(ids)
+    @users = ids.map{|id| r.detect{|e| e.id == id}}
     @columns = Column.order('created_at')
     render layout: 'help'
   end

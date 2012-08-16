@@ -56,33 +56,31 @@ div id='note-#{@blog.id}'
         = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("blog")'
-.ll
-  span.pl
-    - unless @blog.tags.blank?
-      = join_tags(@blog)
-      br
-    = t'_category_'
-    - @categories.each do |category|
-      - link_css = 'selected' if category==@blog.category and @categories.size>1
-      | [
-      = link_to category.name, category, class: link_css
-      | ]&nbsp;&nbsp;
+.ll.pl2 style='width:50%'
+  - unless @blog.tags.blank?
+    = join_tags(@blog)
     br
-    = t'a_new'
-    - if @blog_pre.nil?
-      = t'none'
-    - else
-      = link_to raw(@blog_pre.title)[0..25], @blog_pre
-    br
-    = t'an_old'
-    - if @blog_next.nil?
-      = t'none'
-    - else
-      = link_to raw(@blog_next.title)[0..25], @blog_next
+  = t'_category_'
+  - @categories.each do |category|
+    - link_css = 'selected' if category==@blog.category and @categories.size>1
+    | [
+    = link_to category.name, category, class: link_css
+    | ]&nbsp;&nbsp;
+  br
+  = t'a_new'
+  - if @blog_pre.nil?
+    = t'none'
+  - else
+    = link_to raw(@blog_pre.title)[0..25], @blog_pre
+  br
+  = t'an_old'
+  - if @blog_next.nil?
+    = t'none'
+  - else
+    = link_to raw(@blog_next.title)[0..25], @blog_next
 - unless @rblogs.blank? and @cate_rblogs.blank?
-  .rr
-    span.pl
-      = t('s_cate_recommend', w: @blog.category.name)
+  .ll.pl2 style='width:50%'
+    = t('s_cate_recommend', w: @blog.category.name)
     br
     - @cate_rblogs.each do |blog|
       = link_to raw(blog.title)[0..25], blog

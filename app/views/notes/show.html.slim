@@ -60,33 +60,31 @@ div.note-ft id='note_#{@note.id}_footer'
         = t'recommend_reason'
       = text_area_tag :body
       = button_tag t('submit'), onclick: 'modify_ri("note")'
-.ll
-  span.pl
-    - unless @note.notetags.blank?
-      = join_notetags(@note)
-      br
-    = t'_notecate_'
-    - @notecates.each do |category|
-      - link_css = 'selected' if category==@note.notecate and @notecates.size>1
-      | [
-      = link_to category.name, category, class: link_css
-      | ]&nbsp;&nbsp;
+.ll.pl2 style='width:50%'
+  - unless @note.notetags.blank?
+    = join_notetags(@note)
     br
-    = t'a_new'
-    - if @note_pre.nil?
-      = t'none'
-    - else
-      = link_to_note @note_pre
-    br
-    = t'an_old'
-    - if @note_next.nil?
-      = t'none'
-    - else
-      = link_to_note @note_next
+  = t'_notecate_'
+  - @notecates.each do |category|
+    - link_css = 'selected' if category==@note.notecate and @notecates.size>1
+    | [
+    = link_to category.name, category, class: link_css
+    | ]&nbsp;&nbsp;
+  br
+  = t'a_new'
+  - if @note_pre.nil?
+    = t'none'
+  - else
+    = link_to_note @note_pre
+  br
+  = t'an_old'
+  - if @note_next.nil?
+    = t'none'
+  - else
+    = link_to_note @note_next
 - unless @rnotes.blank? and @cate_rnotes.blank?
-  .rr
-    span.pl
-      = t('s_cate_recommend', w: @note.notecate.name)
+  .ll.pl2 style='width:50%'
+    = t('s_cate_recommend', w: @note.notecate.name)
     br
     - @cate_rnotes.each do |note|
       = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..25]), note
