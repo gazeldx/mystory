@@ -1,6 +1,9 @@
 class BlogsController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
+#  caches_action :index
+#  cache_sweeper :user_sweeper
+  
   layout 'memoir'
   include Archives
   
@@ -90,6 +93,7 @@ class BlogsController < ApplicationController
       else
         flash[:notice2] = t'blog_posted'
       end
+#      expire_action :action => :index
       send_weibo
       send_qq
       redirect_to blog_path(@blog)
