@@ -74,6 +74,7 @@ zh:
     subject:
       new_function: "HI %{w}，我是我的故事站长张健。mystory有不少新功能，邀请你去测试。"
       welcome_new_user: "HI %{w}，我是我的故事站长张健。欢迎你加入mystory。"
+      note_21days: "%{w}好哦，为激发你的创作力，我的故事网站举办连续21天，每天写一篇日记的挑战，完成即可获得价值106元图书"
 
   latest_attention: "最新关注"
   most_comments_articles: "热评"
