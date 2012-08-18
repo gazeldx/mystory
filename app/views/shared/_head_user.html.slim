@@ -6,7 +6,7 @@
     = banner_text
     - if controller_path == 'home'
       span#display.pl
-        - unless @user.maxim.nil?
+        - unless @user.maxim.to_s==''
           | (#{@user.maxim})
     - if @user.id == session[:id]
       span.rr.pl2

@@ -4,6 +4,10 @@
     .mainC
       .ap.stream
         .twis id='timeline'
+          .b
+            | 公告：
+            a href=sub_site('zhangjian')+"/notes/117" target='_blank'
+              | 在本站连续21天，每天写一篇日记，即可获得价值106元的图书三本!
           - @all.each do |item|
             - user = item.user
             - n = photos_count item.content
