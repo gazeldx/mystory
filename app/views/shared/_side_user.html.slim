@@ -1,4 +1,4 @@
-= render 'shared/weibo_followbutton'
+/= render 'shared/weibo_followbutton'
 #event
   h2
     = t('s_memoir', w: @user.name, c: '')
@@ -7,6 +7,9 @@
       | &nbsp;(
       = link_to t('whole_article'), memoirs_path
       | )
+    - unless @user.weiboid.nil?
+      span.rr.mi
+        = show_weibo
   .text
     - @memoir = Memoir.find_by_user_id(@user.id)
     - if @memoir.nil?
@@ -75,7 +78,7 @@
         = link_to t('edit'), idols_path
         | )
 /= render 'shared/ad/user_side'
-= render 'shared/weibo_signature_2'
+/= render 'shared/weibo_signature_2'
 coffee:
   if screen.width>1024
     $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")

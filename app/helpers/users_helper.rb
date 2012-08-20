@@ -381,6 +381,11 @@ module UsersHelper
     end
   end
 
+  def show_weibo
+    link_name = raw "#{image_tag('/images/weibo16_16.png', width: 16, height: 16)}#{@user.name}"
+    link_to link_name, "http://weibo.com/u/#{@user.weiboid}", target: "_blank", title: t('show_weibo_title')
+  end
+
   private
   def thumb_id(something, photo)
     if something.is_a?(Note)

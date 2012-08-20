@@ -66,6 +66,7 @@ zh:
   qq_bind_succ: "QQ绑定成功!"
   qq_login_succ: "QQ登录成功!"
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
+  show_weibo_title: "访问ta的新浪微博"
 
   follow_succ: "关注成功！"
   unfollow_succ: "取消关注成功！"
