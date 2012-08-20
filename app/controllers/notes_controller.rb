@@ -25,6 +25,7 @@ class NotesController < ApplicationController
   def create    
     @note = Note.new(params[:note])
     @note.user_id = session[:id]
+    @note.replied_at = Time.now
     if params[:category_name].nil?
       create_proc
     else

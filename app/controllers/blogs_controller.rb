@@ -65,6 +65,7 @@ class BlogsController < ApplicationController
   def create
     @blog = Blog.create(params[:blog])
     @blog.user_id = session[:id]
+    @blog.replied_at = Time.now
     if params[:category_name].nil?
       create_proc
     else
@@ -177,17 +178,25 @@ class BlogsController < ApplicationController
   end
 
   #not used
-  def latest_attention
+#  def latest_attention
+#    @columns = Column.order("created_at").limit(6)
+#    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
+#    render layout: 'column'
+#  end
+
+  def latest
     @columns = Column.order("created_at").limit(6)
-    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
+    @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
+    notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
+    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
     render layout: 'column'
   end
 
   def hotest
     #TODO FILTER 'replied_at is not null'
     @columns = Column.order("created_at").limit(6)
-    @blogs = Blog.where(:is_draft => false).page(params[:page]).order("comments_count DESC")
-    notes = Note.where(:is_draft => false).page(params[:page]).order("comments_count DESC")
+    @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
+    notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
     @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
     render layout: 'column'
   end

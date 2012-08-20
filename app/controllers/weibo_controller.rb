@@ -18,7 +18,7 @@ class WeiboController < ApplicationController
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id)
       if @user.nil?
-        render 'login_or_new', layout: 'portal'
+        render 'login_or_new', layout: 'help'
       else
         @user.update_attributes(:atoken => session[:atoken], :asecret => session[:asecret])
         proc_session

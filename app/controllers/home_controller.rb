@@ -94,9 +94,13 @@ class HomeController < ApplicationController
 #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
         @columns = Column.order('created_at').limit(6)
         #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
-        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
-        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
-        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
+#        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
+#        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
+#        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
+        @columns = Column.order("created_at").limit(6)
+        @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
+        notes = Note.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
+        @all = (@blogs | notes).sort_by{|x| x.replied_at}.reverse!
         render layout: 'portal'
       else
         @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')

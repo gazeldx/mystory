@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814023204) do
+ActiveRecord::Schema.define(:version => 20120820122843) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20120814023204) do
     t.integer  "comments_count",  :default => 0
     t.integer  "recommend_count", :default => 0
     t.boolean  "is_draft",        :default => false
+    t.datetime "replied_at"
   end
 
   add_index "notes", ["notecate_id"], :name => "index_notes_on_notecate_id"

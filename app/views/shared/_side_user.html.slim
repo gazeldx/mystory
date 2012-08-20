@@ -7,7 +7,7 @@
       | &nbsp;(
       = link_to t('whole_article'), memoirs_path
       | )
-    - unless @user.weiboid.nil?
+    - unless @user.atoken.nil?
       span.rr.mi
         = show_weibo
   .text

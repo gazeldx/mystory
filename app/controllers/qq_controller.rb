@@ -15,7 +15,7 @@ class QqController < ApplicationController
     if session[:id].nil?
       @user = User.find_by_openid(qq.openid)
       if @user.nil?
-        render 'login_or_new', layout: 'portal'
+        render 'login_or_new', layout: 'help'
       else
         @user.update_attributes(:token => session[:token])
         proc_session
