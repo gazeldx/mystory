@@ -30,6 +30,7 @@ class MailsController < ApplicationController
         logger.info("Email sent to #{user.email} from new_function_email")
       end
     end
+    render :new_function_email
   end
 
   private
