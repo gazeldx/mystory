@@ -37,7 +37,7 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'e_book'}:
         td
           - @enjoys.each do |enjoy|
-            = enjoy.name
+            = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;
     - unless @enjoy_books.blank?
       tr
@@ -45,7 +45,7 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'e_book'}:
         td
           - @enjoy_books.each do |enjoy|
-            = enjoy.name
+            = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;
     - unless @enjoy_musics.blank?
       tr
@@ -53,7 +53,7 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'e_music'}:
         td
           - @enjoy_musics.each do |enjoy|
-            = enjoy.name
+            = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;
     - unless @enjoy_movies.blank?
       tr
@@ -61,5 +61,5 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'e_movie'}:
         td
           - @enjoy_movies.each do |enjoy|
-            = enjoy.name
+            = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;

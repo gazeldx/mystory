@@ -10,9 +10,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @enjoy_books = @user.enjoys.where("stype = 1")
-    @enjoy_musics = @user.enjoys.where("stype = 2")
-    @enjoy_movies = @user.enjoys.where("stype = 3")
+    @enjoy_books = @user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
+    @enjoy_musics = @user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
+    puts @enjoy_musics.inspect
+    @enjoy_movies = @user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
     if @m
       render mr, layout: 'm/portal'
     else
@@ -22,9 +23,9 @@ class UsersController < ApplicationController
 
   def edit
     @_user = User.find(session[:id])
-    @enjoy_books = @_user.enjoys.where("stype = 1").map { |t| t.name }.join(" ")
-    @enjoy_musics = @_user.enjoys.where("stype = 2").map { |t| t.name }.join(" ")
-    @enjoy_movies = @_user.enjoys.where("stype = 3").map { |t| t.name }.join(" ")
+    @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
+    @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
+    @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
     if @m
       render mr, layout: 'm/portal'
     else
@@ -166,6 +167,7 @@ class UsersController < ApplicationController
   def build_item(item, enjoy_name, stype)
     unless params[enjoy_name].to_s == ''
       _a = params[enjoy_name].split ' '
+      puts _a.inspect
       _a.uniq.each do |x|
         enjoy = Enjoy.find_by_name_and_stype(x, stype)
         if enjoy.nil?

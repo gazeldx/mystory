@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   layout 'help'
   before_filter :url_authorize, :except => [:show]
+  cache_sweeper :category_sweeper
   
   def index
     @categories = Category.where(["user_id = ?", session[:id]]).order('created_at')

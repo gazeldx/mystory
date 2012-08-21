@@ -1,4 +1,3 @@
-/= render 'shared/weibo_followbutton'
 #event
   h2
     = t('s_memoir', w: @user.name, c: '')
@@ -11,7 +10,7 @@
       span.rr.mi
         = show_weibo
   .text
-    - @memoir = Memoir.find_by_user_id(@user.id)
+    - @memoir = @user.memoir if @memoir.nil?
     - if @memoir.nil?
       | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
       br
@@ -30,11 +29,12 @@
           | )
 #event
   h2
-    = t('s_blog',w: @user.name)
-  - user_categories
-  - @categories_.each do |category|
-    = link_to category.name, category, class: 'pl2'
-    br
+    = t('s_blog', w: @user.name)
+  - cache("side_user_categories_#{@user.id}") do
+    - user_categories
+    - @categories_.each do |category|
+      = link_to category.name, category, class: 'pl2'
+      br
   - if session[:id]==@user.id
     span
       | (
@@ -79,6 +79,6 @@
         | )
 /= render 'shared/ad/user_side'
 /= render 'shared/weibo_signature_2'
-coffee:
-  if screen.width>1024
-    $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")
+/coffee:
+/  if screen.width>1024
+/    $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")

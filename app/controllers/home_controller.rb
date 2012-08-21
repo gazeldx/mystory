@@ -33,10 +33,10 @@ class HomeController < ApplicationController
           blogs = @user.blogs.where(:is_draft => false).limit(20).order('created_at desc')
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(6).order('id desc')
           all_ = notes | blogs | photos
-          memoir = @user.memoir
-          unless memoir.nil?
-            memoir.created_at = memoir.updated_at
-            all_ << memoir
+          @memoir = @user.memoir
+          unless @memoir.nil?
+            @memoir.created_at = @memoir.updated_at
+            all_ << @memoir
           end
           @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'note'
@@ -49,8 +49,8 @@ class HomeController < ApplicationController
           notes = @user.notes.where("updated_at > created_at and is_draft = false").limit(30)
           blogs = @user.blogs.where("updated_at > created_at and is_draft = false").limit(30)
           all_ = notes | blogs
-          memoir = @user.memoir
-          all_ << memoir unless memoir.nil?
+          @memoir = @user.memoir
+          all_ << @memoir unless @memoir.nil?
           @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'recommend'
           #TODO .where(:is_draft => false) not do,maybe in view proc it is best.
@@ -98,8 +98,8 @@ class HomeController < ApplicationController
 #        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
 #        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
 #        @columns = Column.order("created_at").limit(6)
-        @blogs = Blog.where('replied_at is not null and is_draft = false').includes(:user).page(params[:page]).order("replied_at DESC")
-        notes = Note.where('replied_at is not null and is_draft = false').includes(:user).page(params[:page]).order("replied_at DESC")
+        @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
+        notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
         @all = (@blogs | notes).sort_by{|x| x.replied_at}.reverse!
         render layout: 'portal'
       else
@@ -112,10 +112,10 @@ class HomeController < ApplicationController
           blogs = @user.blogs.where(:is_draft => false).limit(20).order("created_at desc")
           photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
           all_ = notes | blogs | photos
-          memoir = @user.memoir
-          unless memoir.nil?
-            memoir.created_at = memoir.updated_at
-            all_ << memoir
+          @memoir = @user.memoir
+          unless @memoir.nil?
+            @memoir.created_at = @memoir.updated_at
+            all_ << @memoir
           end
           @all = all_.sort_by{|x| x.created_at}.reverse!
         elsif t == 'note'
@@ -128,8 +128,8 @@ class HomeController < ApplicationController
           notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(30)
           blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(30)
           all_ = notes | blogs
-          memoir = @user.memoir
-          all_ << memoir unless memoir.nil?
+          @memoir = @user.memoir
+          all_ << @memoir unless @memoir.nil?
           @all = all_.sort_by{|x| x.updated_at}.reverse!
         elsif t == 'recommend'
           rnotes = @user.rnotes.includes(:note => :user).limit(30)

@@ -24,7 +24,8 @@ div id='note-#{@blog.id}'
       = style_it @blog.content
       br
       br
-      = render 'shared/weibo_follow_signature'
+      - unless @user.atoken.nil?
+        = show_weibo
       = style_it @user.signature.to_s
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer

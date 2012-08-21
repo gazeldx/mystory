@@ -16,7 +16,10 @@ module Cms
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-#    config.autoload_paths += %W(#{config.root}/app/sweepers)
+
+    %w( observers sweepers ).each do |dir|
+      config.autoload_paths << "#{Rails.root}/app/#{dir}"
+    end
 
     #add by zhangjian for ckeditor
     #    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
