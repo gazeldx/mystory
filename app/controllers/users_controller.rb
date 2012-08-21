@@ -166,7 +166,7 @@ class UsersController < ApplicationController
   def build_item(item, enjoy_name, stype)
     unless params[enjoy_name].to_s == ''
       _a = params[enjoy_name].split ' '
-      _a.uniq.reverse.each do |x|
+      _a.uniq.each do |x|
         enjoy = Enjoy.find_by_name_and_stype(x, stype)
         if enjoy.nil?
           enjoy = Enjoy.new

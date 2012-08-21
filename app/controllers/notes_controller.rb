@@ -173,6 +173,7 @@ class NotesController < ApplicationController
         note.columns << Column.find(k)
       end
     end
+    expire_fragment('columns_articles')
     redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
   end
 

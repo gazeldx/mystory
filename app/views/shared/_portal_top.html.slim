@@ -2,38 +2,35 @@
   .Tray id="crjs_headbar"
     p.Png
     .tray
-      .jumper
-        i.txt.blur
-          = text_field_tag :title, params[:title], tabindex: 1
-          a title="搜索" href="javascript:;" onclick='goSearch()'
-          = render 'shared/search_js'
-      .nav.nav2
-        ul.navG
-          li.navL
-            a.nava href=s_site_root
-              b
-                | 首页
-          - @columns.each_with_index do |column, i|
+      - cache('columns_navigation') do
+        .jumper
+          i.txt.blur
+            = text_field_tag :title, params[:title], tabindex: 1
+            a title="搜索" href="javascript:;" onclick='goSearch()'
+            = render 'shared/search_js'
+        .nav.nav2
+          ul.navG
             li.navL
-              a.nava href=s_site_root+column_path(column)
+              a.nava href=s_site_root
                 b
-                  = column.name
-          /li.navL
-          /  a.nava href=hotest_path
-          /    b
-          /      = t'most_comments_articles'
-          li.navL
-            a.nava href=photos_path target='_blank'
-              b
-                = t'_photo'
-          li.navL
-            a.nava href=sub_site('bbs') target='_blank'
-              b
-                = t'_forum'
-          li.navL
-            a.nava href=top_users_path target='_blank'
-              b
-                = t'_user'
+                  | 首页
+            - Column.order("created_at").limit(6).each_with_index do |column, i|
+              li.navL
+                a.nava href=s_site_root+column_path(column)
+                  b
+                    = column.name
+            li.navL
+              a.nava href=photos_path target='_blank'
+                b
+                  = t'_photo'
+            li.navL
+              a.nava href=sub_site('bbs') target='_blank'
+                b
+                  = t'_forum'
+            li.navL
+              a.nava href=top_users_path target='_blank'
+                b
+                  = t'_user'
       .nav
         ul.navG
           - if session[:id].nil?
@@ -58,6 +55,3 @@
               a.nava href=my_site+admin_path title=t('_admin_title') style='color:#B7BABD !important' target='_blank'
                 b
                   = t'_setting'
-/coffee:
-/  $('#search_input').focus ->
-/    alert 1
