@@ -1,6 +1,8 @@
-br
-h2
-  = t's_archives'
-- @items.each_with_index do |(k ,v), i|
-  = link_to "#{k[0..3] + t('year')}#{k[4..5] + t('month')}(#{v}篇)", "/archives/#{k}", class: 'pl2'
+- cache("side_archives_#{@user.id}") do
+  - items = archives_months_count
   br
+  h2
+    = t's_archives'
+  - items.each_with_index do |(k ,v), i|
+    = link_to "#{k[0..3] + t('year')}#{k[4..5] + t('month')}(#{v}篇)", "/archives/#{k}", class: 'pl2'
+    br

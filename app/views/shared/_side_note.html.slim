@@ -14,15 +14,17 @@
   br
   h2
     = t('s_new_note', w: @user.name)
-  - @new_notes.each do |note|
-    = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
+  - cache("side_note_latest_#{@user.id}") do
+    - @user.notes.where(:is_draft => false).order('created_at DESC').limit(6).each do |note|
+      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
+      br
+  - unless @rnotes.blank?
     br
-  br
-  /= render 'shared/ad/blog_side'
-  h2
-    = t('s_recommend', w: @user.name)
-  - @rnotes.each do |note|
-    = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
-    br
+    /= render 'shared/ad/blog_side'
+    h2
+      = t('s_recommend_note', w: @user.name)
+    - @rnotes.each do |note|
+      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
+      br
   = render 'shared/archives_side'
   /= render 'shared/ad/blog_side_2'

@@ -15,6 +15,7 @@ class IdolsController < ApplicationController
     ri.user_id = session[:id]
     ri.save
     flash[:notice] = t('new_succ')
+    expire_cache
     redirect_to idols_path
   end
 
@@ -25,6 +26,7 @@ class IdolsController < ApplicationController
       @idol = Idol.find(params[:id])
       @idol.destroy
     end
+    expire_cache
     redirect_to idols_path, notice: t('delete_succ')
   end
 
@@ -40,6 +42,11 @@ class IdolsController < ApplicationController
       @notetags = (notetags + @notetags).uniq
     end
     render layout: 'help'
+  end
+
+  private
+  def expire_cache
+    expire_fragment("side_idols_#{session[:id]}")
   end
 
   # GET /idols/1

@@ -15,8 +15,7 @@ class BlogSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(blog)
-#    expire_page(:controller => 'blogs', :action => 'index')
-
-#    expire_fragment('recent_blogs')
+    expire_fragment("side_archives_#{blog.user.id}")
+    expire_fragment("side_blog_latest_#{blog.user.id}")
   end
 end

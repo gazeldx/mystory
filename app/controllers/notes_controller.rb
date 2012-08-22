@@ -2,7 +2,8 @@ class NotesController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
-  include Archives
+  cache_sweeper :note_sweeper
+#  include Archives
   
   def index
     @notes = @user.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
@@ -49,6 +50,8 @@ class NotesController < ApplicationController
   def create_proc
     build_tags @note
     if @note.save
+      user = @note.user
+      user.update_attribute('notes_count', user.notes_count + 1)
       if @note.is_draft
         flash[:notice2] = t'note_drafted_succ'
       else
@@ -81,7 +84,7 @@ class NotesController < ApplicationController
       if @note.user == @user
         add_view_count
         @notecates = @user.notecates.order('created_at')
-        @new_notes = @user.notes.where(:is_draft => false).order('created_at DESC').limit(6)
+#        @new_notes = @user.notes.where(:is_draft => false).order('created_at DESC').limit(6)
         @note_pre = @user.notes.where(["notecate_id = ? AND created_at > ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at').first
         @note_next = @user.notes.where(["notecate_id = ? AND created_at < ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at DESC').first
         comments = @note.notecomments
@@ -94,7 +97,7 @@ class NotesController < ApplicationController
         if @cate_rnotes.size < 5
           @cate_notes = @user.notes.where(["notecate_id = ? AND is_draft = false", @note.notecate_id]).order('created_at DESC').limit(5 - @cate_rnotes.size)
         end
-        archives_months_count
+#        archives_months_count
         if @m
           render mr, layout: 'm/portal'
         else
@@ -132,7 +135,9 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
+    user = @note.user
     @note.destroy
+    user.update_attribute('notes_count', user.notes_count - 1)
     flash[:notice] = t'delete_succ'
     if @m
       redirect_to notice_path
@@ -161,7 +166,7 @@ class NotesController < ApplicationController
   def assign_columns
     @note = Note.find(params[:id])
     @columns = @note.columns
-    @all_columns = Column.order("created_at").limit(6)
+    @all_columns = Column.order("created_at")
     render layout: 'help'
   end
 
@@ -179,7 +184,7 @@ class NotesController < ApplicationController
 
   private
   def send_weibo
-    if session[:atoken] and @note.is_draft==false
+    if session[:atoken] and @note.is_draft==false and Rails.env.production?
       begin
         oauth = weibo_auth
         str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
@@ -192,7 +197,7 @@ class NotesController < ApplicationController
   end
 
   def send_qq
-    if session[:token] and @note.is_draft==false
+    if session[:token] and @note.is_draft==false and Rails.env.production?
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

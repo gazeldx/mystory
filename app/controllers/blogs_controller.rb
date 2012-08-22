@@ -1,11 +1,11 @@
 class BlogsController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
-#  caches_action :index
-#  cache_sweeper :user_sweeper
+  #  caches_action :index
+  cache_sweeper :blog_sweeper
   
   layout 'memoir'
-  include Archives
+  #  include Archives
   
   def index
     @blogs = @user.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
@@ -33,7 +33,7 @@ class BlogsController < ApplicationController
         if @cate_rblogs.size < 5
           @cate_blogs = @user.blogs.where(["category_id = ? AND is_draft = false", @blog.category_id]).order('created_at DESC').limit(5 - @cate_rblogs.size)
         end
-        archives_months_count
+        #        archives_months_count
         #TODO UNIQUE @cate_blogs AND @cate_rblogs
         if @m
           render mr, layout: 'm/portal'
@@ -89,15 +89,18 @@ class BlogsController < ApplicationController
   def create_proc
     build_tags @blog
     if @blog.save
+      user = @blog.user
+      user.update_attribute('blogs_count', user.blogs_count + 1)
       if @blog.is_draft
         flash[:notice2] = t'blog_drafted'
       else
         flash[:notice2] = t'blog_posted'
       end
-#      expire_action :action => :index
+      #      expire_action :action => :index
       send_weibo
       send_qq
       redirect_to blog_path(@blog)
+      puts "end create_proc"
     else
       _render :new
     end
@@ -132,8 +135,15 @@ class BlogsController < ApplicationController
 
   def destroy
     @blog = Blog.find(params[:id])
-    @blog.destroy
-    redirect_to blogs_path, notice: t('delete_succ')
+    user = @blog.user
+    @blog.destroy    
+    user.update_attribute('blogs_count', user.blogs_count - 1)
+    flash[:notice] = t'delete_succ'
+    if @m
+      redirect_to notice_path
+    else
+      redirect_to blogs_path
+    end
   end
 
   def click_show_blog
@@ -162,7 +172,7 @@ class BlogsController < ApplicationController
   def assign_columns
     @blog = Blog.find(params[:id])
     @columns = @blog.columns
-    @all_columns = Column.order("created_at").limit(6)
+    @all_columns = Column.order("created_at")
     render layout: 'help'
   end
 
@@ -179,14 +189,13 @@ class BlogsController < ApplicationController
   end
 
   #not used
-#  def latest_attention
-#    @columns = Column.order("created_at").limit(6)
-#    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
-#    render layout: 'column'
-#  end
+  #  def latest_attention
+  #    @columns = Column.order("created_at").limit(6)
+  #    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
+  #    render layout: 'column'
+  #  end
 
   def latest
-    @columns = Column.order("created_at").limit(6)
     @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
     notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
     @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
@@ -194,8 +203,6 @@ class BlogsController < ApplicationController
   end
 
   def hotest
-    #TODO FILTER 'replied_at is not null'
-    @columns = Column.order("created_at").limit(6)
     @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
     notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
     @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
@@ -205,7 +212,7 @@ class BlogsController < ApplicationController
   private
   def send_weibo
     #TODO  UPDATE FROM IS_DRAFT TO FALSE HAVN'T DO SEND.
-    if session[:atoken] and @blog.is_draft==false
+    if session[:atoken] and @blog.is_draft==false and Rails.env.production?
       begin
         oauth = weibo_auth
         str = "#{@blog.title} - "
@@ -218,7 +225,7 @@ class BlogsController < ApplicationController
   end
 
   def send_qq
-    if session[:token] and @blog.is_draft==false
+    if session[:token] and @blog.is_draft==false and Rails.env.production?
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

@@ -49,36 +49,33 @@
       = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
       br
 #friend
-  h2
-    = t('s_following',w: @user.name)
-    | &nbsp;·&nbsp;·&nbsp;·
-    span.pl
-      | &nbsp;(
-      = link_to t('all') + @user.follow_count.to_s + t('ren'), following_path
-      |  · 
-      = link_to t('view_as_him'), site(@user) + like_path, title: t('view_as_him_desc')
-      | )
-  - @user.all_following.each do |guy|
-    dl.obu
-      dt
-        a.nbg href=site(guy) target='_blank'
-          = image_tag(guy.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
-      dd
-        = link_to guy.name, site(guy), target: '_blank'
-- unless @user.idols.blank?
-  #artist
+  - cache "side_user_following_#{@user.id}" do
     h2
-      = t('s_idol',w: @user.name)
-    - @user.idols.each do |idol|
-      = link_to idol.name, "/idols/#{idol.name}"
-      | &nbsp;
-    - if @user.id == session[:id]
-      span
-        | (
-        = link_to t('edit'), idols_path
+      = t('s_following', w: @user.name)
+      | &nbsp;·&nbsp;·&nbsp;·
+      span.pl
+        | &nbsp;(
+        = link_to "#{t('all')}#{@user.following_num}#{t('ren')}", following_path
+        |  ·
+        = link_to t('view_as_him'), site(@user) + like_path, title: t('view_as_him_desc')
         | )
-/= render 'shared/ad/user_side'
-/= render 'shared/weibo_signature_2'
-/coffee:
-/  if screen.width>1024
-/    $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")
+    - @user.all_following.each do |guy|
+      dl.obu
+        dt
+          a.nbg href=site(guy) target='_blank'
+            = image_tag(guy.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
+        dd
+          = link_to guy.name, site(guy), target: '_blank'
+- cache "side_idols_#{@user.id}" do
+  - unless @user.idols.blank?
+    #artist
+      h2
+        = t('s_idol', w: @user.name)
+      - @user.idols.each do |idol|
+        = link_to idol.name, "/idols/#{idol.name}"
+        | &nbsp;
+- if @user.id == session[:id]
+  span
+    | (
+    = link_to t('s_edit', w: t('_idol')), idols_path
+    | )

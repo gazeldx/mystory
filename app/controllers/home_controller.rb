@@ -92,12 +92,11 @@ class HomeController < ApplicationController
 #        new_photo_count = 2 if new_photo_count < 2
 #        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
 #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
-#        @columns = Column.order('created_at').limit(6)
+
         #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
 #        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
 #        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
 #        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
-#        @columns = Column.order("created_at").limit(6)
         @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
         notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
         @all = (@blogs | notes).sort_by{|x| x.replied_at}.reverse!

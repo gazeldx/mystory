@@ -16,10 +16,11 @@ module Cms
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-
-    %w( observers sweepers ).each do |dir|
+#    %w( observers sweepers ).each do |dir|
+    %w( sweepers ).each do |dir|
       config.autoload_paths << "#{Rails.root}/app/#{dir}"
     end
+
 
     #add by zhangjian for ckeditor
     #    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
@@ -30,6 +31,7 @@ module Cms
 
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+#    config.active_record.observers = :blog_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

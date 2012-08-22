@@ -93,3 +93,10 @@ javascript:
     |  &nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·
   = render "#{@clazz}comments/form"
 'notes' == controller_path
+
+_side_user.html.slim
+/= render 'shared/ad/user_side'
+/= render 'shared/weibo_signature_2'
+/coffee:
+/  if screen.width>1024
+/    $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")

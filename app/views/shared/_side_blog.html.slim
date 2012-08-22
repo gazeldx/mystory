@@ -14,9 +14,10 @@
   br
   h2
     = t('s_new_blog', w: @user.name)
-  - @new_blogs.each do |blog|
-    = link_to raw(blog.title), blog
-    br
+  - cache("side_note_latest_#{@user.id}") do
+    - @new_blogs.each do |blog|
+      = link_to raw(blog.title), blog
+      br
   - unless @rblogs.blank?
     br
     /= render 'shared/ad/blog_side'

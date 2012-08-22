@@ -4,19 +4,27 @@
     .mainC
       .ap.stream
         .twis id='timeline'
-          span.b style='float:right'
-             a href=root_path
-               | 最后回复
-             | &nbsp;|&nbsp;
-             a href=hotest_path
-               | 最热文章
-             | &nbsp;|&nbsp;
-             a href=latest_path
-               | 最新文章
-          .xl.red
-            br
+          span.b
+            a href=photos_path target='_blank'
+              = t'_photo'
+            | &nbsp;|&nbsp;
+            a href=sub_site('bbs') target='_blank'
+              = t'_forum'
+            | &nbsp;|&nbsp;
+            a href=top_users_path target='_blank'
+              = t'_user'
+            span style='float:right'
+              a href=root_path
+                | 最后回复
+              | &nbsp;|&nbsp;
+              a href=hotest_path
+                | 最热文章
+              | &nbsp;|&nbsp;
+              a href=latest_path
+                | 最新文章
+          .b.red
             | 公告：
-            a.red.xl href=sub_site('zhangjian')+"/notes/117" target='_blank'
+            a href=sub_site('zhangjian')+"/notes/117" target='_blank'
               | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
           - @all.each do |item|
             - user = item.user

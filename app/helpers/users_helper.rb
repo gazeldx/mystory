@@ -196,12 +196,11 @@ module UsersHelper
   def m_summary_common_portal(something, size, tmp)
     if something.is_a?(Note)
       path = note_path(something)
-      count = something.notecomments.count
     elsif something.is_a?(Blog)
       path = blog_path(something)
-      count = something.blogcomments.count
     end
     comments = ""
+    count = something.comments_count
     if count > 0
       comments = ' ' + t('comments', w: count)
     end

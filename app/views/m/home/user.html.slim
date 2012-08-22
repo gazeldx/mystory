@@ -31,11 +31,11 @@ table width="100%"
 p
   = @user.memo
 .ctor-info.guset-br
-  = link_to t('following') + @user.follow_count.to_s, following_path
+  = link_to t('following') + @user.following_num.to_s, following_path
   |  |&nbsp;
-  = link_to t('followers') + @user.followers_count.to_s, followers_path
+  = link_to t('followers') + @user.followers_num.to_s, followers_path
   |  |&nbsp;
-  = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, "?t=blog"
+  = link_to t('_blog') + @user.blogs_count.to_s, "?t=blog"
   p
     - @user.hobbies.each_with_index do |hobby, i|
       - if i==0

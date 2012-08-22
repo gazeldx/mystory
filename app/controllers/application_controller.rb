@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?
+  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -301,6 +301,18 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless super_admin? or user.menus.any?{|x| x.code==code}
   end
 
+  def archives_months_count
+    _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+    _bs = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+    _ps = Photo.where(album_id: @user.albums).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+    a = _ns + _bs + _ps
+    h = Hash.new(0)
+    a.each do |x|
+      h[x.t_date] += x.t_count.to_i
+    end
+    h.sort_by{|k, v| k}.reverse!
+  end
+
   def weibo_auth
     oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
     oauth.authorize_from_access(session[:atoken], session[:asecret])
@@ -334,6 +346,8 @@ class ApplicationController < ActionController::Base
     oauth = weibo_auth
     Weibo::Base.new(oauth).user_timeline(query)
   end
+
+
   
   module Tags
     def tagsIndex
@@ -364,21 +378,11 @@ class ApplicationController < ActionController::Base
         @user.save
       end
     end
-  end
-
-  module Archives
-    def archives_months_count
-      _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
-      _bs = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
-      _ps = Photo.where(album_id: @user.albums).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
-      a = _ns + _bs + _ps
-      h = Hash.new(0)
-      a.each do |x|
-        h[x.t_date] += x.t_count.to_i
-      end
-      @items = h.sort_by{|k, v| k}.reverse!
-    end
-  end
+  end  
+  
+#  module Archives
+#
+#  end
 
   module Sina
     #    130 => 1300112204 letter is so little

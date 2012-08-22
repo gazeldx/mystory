@@ -6,6 +6,7 @@ zh:
   list: "列表"
   new: "添加"
   edit: "编辑"
+  s_edit: "编辑%{w}"
   modify: "修改"
   delete: "删除"
   update: "更新"
@@ -384,11 +385,13 @@ zh:
   following: "关注"
   followers: "粉丝"
 
+  _idol: "偶像"
   _idol_: "偶像:"
   
   s_categories: "%{w}作品目录"
   s_notecates: "%{w}日记分类"
-  s_recommend: "%{w}推荐阅读"
+  s_recommend: "%{w}推荐作品"
+  s_recommend_note: "%{w}推荐日记"
   s_cate_recommend: "“%{w}”下的文章推荐"
   s_idol: "%{w}的偶像"
   s_hobby: "%{w}的爱好"

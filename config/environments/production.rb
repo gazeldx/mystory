@@ -1,5 +1,5 @@
 Cms::Application.configure do
-  DOMAINS = ['mystory.cc', 'cy21.org']
+  DOMAINS = ['mystory.cc', 'mystory2.cc']
   REDURL = '&redirect_uri=mystory.cc/qq_callback'
   # Settings specified here will take precedence over those in config/application.rb
 

@@ -6,23 +6,11 @@
     <%= stylesheet_link_tag "style", "form" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <% if @user.customize %>
-      <style>
-        body {
-          background: url("<%= @user.customize.bgimage.url %>") repeat fixed right top;
-        }
-      </style>
-    <% end %>
-<%# if controller_path == 'blogs' && controller.action_name='show' %>
-<%# if !@blog.nil? && @blog.id == 2 %>
-<%#*<BGSOUND SRC="/uploads/music/wedding.mp3">%>
-<%# end %>
-<%# end %>
   </head>
   <body>
     <%= render 'shared/top' %>
     <div id='wrapper'>
-      <div id='content' <% if @user.customize %>style="background: none repeat scroll 0 0 #FFFFFF;"<% end %>>
+      <div id='content'>
         <div class='grid-16-8 clearfix'>
           <div class='article'>
             <div id='db-usr-profile'>

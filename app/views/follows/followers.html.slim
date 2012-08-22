@@ -1,6 +1,6 @@
 = title t('s_followers',w: @user.name)
 h1
-  = t('he_followers', w: @user.name, r: @user.followers_count)
+  = t('he_followers', w: @user.name, r: @user.followers_num)
 ul.user-list
   - @user.followers.each do |guy|
     li.clearfix id='u#{guy.id}'
@@ -33,13 +33,13 @@ ul.user-list
           .user-group-opt
             | &nbsp;
         span.pl
-          = link_to t('following') + guy.follow_count.to_s, site(guy) + following_path
+          = link_to t('following') + guy.following_num.to_s, site(guy) + following_path
           | &nbsp;|&nbsp;
-          = link_to t('followers') + guy.followers_count.to_s, site(guy) + followers_path
+          = link_to t('followers') + guy.followers_num.to_s, site(guy) + followers_path
           | &nbsp;|&nbsp;
-          = link_to t('_note') + Note.where(["user_id = ?", guy.id]).count.to_s, site(guy) + notes_path
+          = link_to t('_note') + guy.notes_count.to_s, site(guy) + notes_path
           | &nbsp;|&nbsp;
-          = link_to t('_blog') + Blog.where(["user_id = ?", guy.id]).count.to_s, site(guy) + blogs_path
+          = link_to t('_blog') + guy.blogs_count.to_s, site(guy) + blogs_path
         br
         span.pl
           - guy.hobbies.each_with_index do |hobby, i|

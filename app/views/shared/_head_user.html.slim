@@ -35,11 +35,11 @@
         input type='button' value='搜' onclick='goSearch()'
   ul
     li
-      = link_to t('following') + @user.follow_count.to_s, following_path
+      = link_to "#{t('following')}#{@user.following_num}", following_path
       | &nbsp;|&nbsp;
-      = link_to t('followers') + @user.followers_count.to_s, followers_path
+      = link_to "#{t('followers')}#{@user.followers_num}", followers_path
       | &nbsp;|&nbsp;
-      = link_to t('_blog') + Blog.where(["user_id = ?", @user.id]).count.to_s, blogs_path
+      = link_to "#{t('_blog')}#{@user.blogs_count}", blogs_path
   ul
     - follow_flag = session[:id].nil? || (!myself.following?(@user) && myself != @user)
     - if follow_flag
@@ -55,26 +55,27 @@
     - if !follow_flag and myself.following?(@user)
       = link_to t('unfollow'), unfollow_path
       | &nbsp;
-      /= link_to '设置分组', unfollow_path
     - unless session[:id].nil?
       - if session[:id]==@user.id
         = link_to t('_letter'), my_site + letters_path, title:t('view_my_letters'), target: '_blank'
       - else
         = link_to t('_letter'), my_site + "/send_a_letter_to_#{@user.domain}", title:t('send_letter_to'), target: '_blank'
-    br    
-    - @user.hobbies.each_with_index do |hobby, i|
-      - if i==0
-        span.pl
-          = t'_hobby_'
-      = hobby.name
-      | &nbsp;
+    br
+    - cache("head_user_hobbies_#{@user.id}") do
+      - hobbies = @user.hobbies
+      - hobbies.each_with_index do |hobby, i|
+        - if i==0
+          span.pl
+            = t'_hobby_'
+        = hobby.name
+        | &nbsp;
+      - unless hobbies.blank?
+        br
     - if @user.id == session[:id]
       span
         | (
         = link_to t('edit_hobby'), hobbies_path
         | )
-    - unless @user.hobbies.blank?
-      br
     span.pl
       = @user.memo
     br

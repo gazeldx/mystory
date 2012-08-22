@@ -1,10 +1,10 @@
 = title t('s_hobby',w: @user.name)
-- if flash[:notice]
-  #notice= flash[:notice]
 h2
   = setting_nav
   | 爱好
 .table.b
+  - if flash[:notice]
+    #notice= flash[:notice]
   - @hobbies.each do |hobby|
     = hobby.name
     = link_to '×', hobby, method: :delete, title: t('delete')

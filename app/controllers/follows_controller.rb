@@ -8,6 +8,9 @@ class FollowsController < ApplicationController
     else
       follower = User.find(session[:id])
       follower.follow(@user)
+      follower.update_attribute('following_num', follower.follow_count)
+      @user.update_attribute('followers_num', @user.followers_count)
+      expire_cache
       if @m
         flash[:notice] = t'follow_succ'
         render 'm/shared/notice', layout: 'm/portal'
@@ -24,6 +27,9 @@ class FollowsController < ApplicationController
     else
       follower = User.find(session[:id])
       follower.stop_following(@user)
+      follower.update_attribute('following_num', follower.follow_count)
+      @user.update_attribute('followers_num', @user.followers_count)
+      expire_cache
       if @m
         flash[:notice] = t'unfollow_succ'
         render 'm/shared/notice', layout: 'm/portal'
@@ -41,5 +47,19 @@ class FollowsController < ApplicationController
     render mr, layout: 'm/portal' if @m
   end
 
+  def update_follow_count
+    users = User.all
+    users.each do |user|
+      user.update_attribute('following_num', user.follow_count)
+      user.update_attribute('followers_num', user.followers_count)
+      user.update_attribute('blogs_count', user.blogs.count)
+      user.update_attribute('notes_count', user.notes.count)
+    end
+  end
+
+  private
+  def expire_cache
+    expire_fragment("side_user_following_#{session[:id]}")
+  end
   
 end

@@ -15,6 +15,7 @@ class HobbiesController < ApplicationController
     rh.user_id = session[:id]
     rh.save
     flash[:notice] = t('new_succ')
+    expire_cache
     redirect_to hobbies_path
   end
 
@@ -25,7 +26,13 @@ class HobbiesController < ApplicationController
       @hobby = Hobby.find(params[:id])
       @hobby.destroy
     end
+    expire_cache
     redirect_to hobbies_path, notice: t('delete_succ')
+  end
+
+  private
+  def expire_cache
+    expire_fragment("head_user_hobbies_#{session[:id]}")
   end
 
 end

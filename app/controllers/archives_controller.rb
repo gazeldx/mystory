@@ -1,10 +1,10 @@
 class ArchivesController < ApplicationController
   layout 'memoir'
-  include Archives
+#  include Archives
   include Tags
   
   def index
-    archives_months_count
+    @items = archives_months_count
     tagsIndex
   end
 
