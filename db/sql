@@ -1,1 +1,0 @@
-﻿select * from blogs order by id desc limit 10
