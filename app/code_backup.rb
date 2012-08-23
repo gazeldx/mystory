@@ -115,3 +115,14 @@ views/like/index.html.slim
 /      li.on= url
 /    - else
 /      li= url
+
+views/columns/show.html.slim
+h1
+  = @column.name
+  span.b.rr style="font-weight:normal"
+    | 作品标题：
+    = text_field_tag :title, params[:title], size: 10
+    | &nbsp;
+    input type='button' value=t'_search' onclick='goSearch()'
+    = render 'shared/search_js'
+= render 'shared/column_article_list'

@@ -11,7 +11,7 @@
     <%= favicon_link_tag '/assets/favicon.ico'%>
   </head>
   <body>
-    <%= render 'shared/download_browser' %>    
+    <%= render 'shared/download_browser' %>
     <%= render 'shared/portal_top' %>
     <div class="LAND" id="t-sys">
       <div class="land">
@@ -19,23 +19,7 @@
         <div class="LANDBG">
           <%= render 'shared/portal_head' %>
           <div class="Bdy">
-            <div class="Main">
-              <div class="main">
-                <div class="mainT"></div>
-                <div class="mainC">
-                  <% case controller.action_name %>
-                  <% when 'index' %>
-                    <%= render 'shared/portal_body' %>
-                  <% when 'hotest' %>
-                    <%= render 'shared/portal_hotest' %>
-                  <% when 'latest' %>
-                    <%= render 'shared/portal_latest' %>
-                  <% when 'show' %>
-                    <%= render 'shared/portal_column' %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+            <%= render 'shared/portal_body' %>
             <%= render 'shared/portal_aside' %>
           </div>
           <%= render 'shared/portal_footer' %>

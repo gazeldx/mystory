@@ -97,9 +97,8 @@ class HomeController < ApplicationController
 #        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
 #        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
 #        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
-        @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
-        notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("replied_at DESC")
-        @all = (@blogs | notes).sort_by{|x| x.replied_at}.reverse!
+        #.page(params[:page])
+        
         render layout: 'portal'
       else
 #        @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')

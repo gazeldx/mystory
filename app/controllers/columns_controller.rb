@@ -5,10 +5,10 @@ class ColumnsController < ApplicationController
 
   def show
     @column = Column.find(params[:id])
-    @blogs = @column.blogs.includes(:user).page(params[:page]).order("created_at DESC")
-    notes = @column.notes.includes(:user).page(params[:page]).order("created_at DESC")
-    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
-    render layout: 'column'
+#    @blogs = @column.blogs.includes(:user).page(params[:page]).order("created_at DESC")
+#    notes = @column.notes.includes(:user).page(params[:page]).order("created_at DESC")
+#    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
+    render layout: 'portal'
   end
 
   def new

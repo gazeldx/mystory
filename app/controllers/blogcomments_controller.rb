@@ -22,6 +22,8 @@ class BlogcommentsController < ApplicationController
       Blog.update_all("comments_count = #{@blog.comments_count + 1}", "id = #{@blog.id}")
       Blog.update_all(["replied_at = ?", Time.now], "id = #{@blog.id}")
       flash[:notice] = t'comment_succ'
+      expire_fragment("portal_body")
+      expire_fragment("portal_hotest")
     end
     redirect_to blog_path(@blog) + "#notice"
   end

@@ -140,4 +140,29 @@ module ApplicationHelper
   def setting_nav
     raw "#{link_to t('_setting'), my_site + admin_path} >&nbsp;"
   end
+
+  def portal_body_query
+    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(25)
+    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(15)
+    (blogs | notes).sort_by{|x| x.replied_at}.reverse!
+  end
+
+  def portal_hotest_query
+    blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
+    notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
+    (blogs | notes).sort_by{|x| x.comments_count}.reverse!
+  end
+
+  def portal_latest_query
+    blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
+    notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(25)
+    (blogs | notes).sort_by{|x| x.created_at}.reverse!
+  end
+  
+  def portal_column_query
+    @column = Column.find(params[:id])
+    blogs = @column.blogs.includes(:user).order("created_at DESC").limit(40)
+    notes = @column.notes.includes(:user).order("created_at DESC").limit(40)
+    (blogs | notes).sort_by{|x| x.created_at}.reverse!
+  end  
 end

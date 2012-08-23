@@ -182,6 +182,7 @@ class BlogsController < ApplicationController
     unless params[:column].nil?
       params[:column].each do |k|
         blog.columns << Column.find(k)
+        expire_fragment("portal_column_#{k}")
       end
     end
     expire_fragment('columns_articles')
@@ -196,17 +197,17 @@ class BlogsController < ApplicationController
   #  end
 
   def latest
-    @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
-    notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("created_at desc")
-    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
-    render layout: 'column'
+#    blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
+#    notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(25)
+#    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
+    render layout: 'portal'
   end
 
   def hotest
-    @blogs = Blog.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
-    notes = Note.where(:is_draft => false).includes(:user).page(params[:page]).order("comments_count DESC")
-    @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
-    render layout: 'column'
+#    @blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
+#    notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
+#    @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
+    render layout: 'portal'
   end
 
   private

@@ -18,7 +18,10 @@ class NotecommentsController < ApplicationController
       @notecomment.user_id = session[:id]
       @notecomment.save
       Note.update_all("comments_count = #{@note.comments_count + 1}", "id = #{@note.id}")
+      Note.update_all(["replied_at = ?", Time.now], "id = #{@note.id}")
       flash[:notice] = t'comment_succ'
+      expire_fragment("portal_body")
+      expire_fragment("portal_hotest")
     end
     redirect_to note_path(@note) + "#notice"
   end
