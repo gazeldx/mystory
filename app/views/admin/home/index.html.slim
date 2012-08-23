@@ -7,20 +7,23 @@
     br
     br
   = link_to t('my_info'), edit_profile_path
-  br
+  | &nbsp;&nbsp;&nbsp;
   a href=signature_path
     | 签名档
+  | &nbsp;&nbsp;&nbsp;
+  a href=edit_password_path
+    | 修改密码
   br
   a href=hobbies_path
     | 爱好
-  br
+  | &nbsp;&nbsp;&nbsp;
   a href=idols_path
     | 偶像
   br
   - if mystory?
     a href=weibo_account_path
       | 新浪微博绑定
-    br
+    | &nbsp;&nbsp;&nbsp;
     a href=qq_account_path
       | QQ绑定
     br

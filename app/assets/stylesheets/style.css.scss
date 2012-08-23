@@ -580,7 +580,7 @@ pre.content {
   padding:5px 0;
   min-height:55px;
   overflow:hidden;
-  margin:5px 0 5px 0
+  margin:5px 0 5px 0;
 }
 .mbtr2 {
   margin-bottom:20px;
@@ -757,6 +757,9 @@ body .note {
   display:block;
   clear:both;
   text-align:center
+}
+.npad .ll {
+  padding:0 $b 0 0
 }
 .note .ll {
   padding:0 $b $b 0

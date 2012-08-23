@@ -102,7 +102,7 @@ class HomeController < ApplicationController
         @all = (@blogs | notes).sort_by{|x| x.replied_at}.reverse!
         render layout: 'portal'
       else
-        @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
+#        @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
 #        @user_timeline = user_timeline({count: 1, feature: 1})
 
         t = params[:t]
@@ -137,8 +137,8 @@ class HomeController < ApplicationController
           @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
         end
 
-        ids = @user.blogs.where(:is_draft => false).select('id')
-        @rblogs = @user.r_blogs.where(id: ids).limit(7)
+#        ids = @user.blogs.where(:is_draft => false).select('id')
+#        @rblogs = @user.r_blogs.where(id: ids).limit(7)
 
         render :user
       end

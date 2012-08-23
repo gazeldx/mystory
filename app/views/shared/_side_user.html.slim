@@ -10,7 +10,7 @@
       span.rr.mi
         = show_weibo
   .text
-    - @memoir = @user.memoir if @memoir.nil?
+    - @memoir = @user.memoir if @memoir.nil? and params[:t]!=nil
     - if @memoir.nil?
       | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
       br
@@ -30,7 +30,7 @@
 #event
   h2
     = t('s_blog', w: @user.name)
-  - cache("side_user_categories_#{@user.id}") do
+  - cache "side_user_categories_#{@user.id}" do
     - user_categories
     - @categories_.each do |category|
       = link_to category.name, category, class: 'pl2'
@@ -41,13 +41,15 @@
       = link_to t('category.edit'), categories_path
       | )
     br
-  - unless @rblogs.blank?
-    br
-    h2
-      = t('s_recommend', w: @user.name)
-    - @rblogs.each do |blog|
-      = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
+  - cache "side_user_rblogs_#{@user.id}" do
+    - rblogs = @user.r_blogs.where(id: @user.blogs.where(:is_draft => false).select('id')).limit(7).order('created_at DESC')
+    - unless rblogs.blank?
       br
+      h2
+        = t('s_recommend', w: @user.name)
+      - rblogs.each do |blog|
+        = link_to raw(blog.title), blog, target: '_blank', class: 'pl2'
+        br
 #friend
   - cache "side_user_following_#{@user.id}" do
     h2

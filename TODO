@@ -1,4 +1,7 @@
-keep columns count 7!
+Cache photos in user!
+Show photos like category in left not bottom.
+mobile version memoirs!
+CSS do not 200.304 is best
 post comments_count as a column.
 
 https://github.com/aitorfernandez/af/blob/2a4dec757264f5efae8a55f7b2f6aca32ccb76b5/config/application.rb

@@ -147,9 +147,9 @@ class UsersController < ApplicationController
 
   def top
     if ENV["RAILS_ENV"] == "production"
-      ids = [2, 135, 66, 151, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131]
+      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
     else
-      ids = [1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11]
+      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
     end
     r = User.find(ids)
     @users = ids.map{|id| r.detect{|e| e.id == id}}

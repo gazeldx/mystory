@@ -45,6 +45,7 @@ class PhotosController < ApplicationController
     @photo = @album.photos.build(params[:photo])
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
+      expire_cache
       redirect_to album_path(@album), notice: t('photo_upload_succ')
     else
       render :new
@@ -67,6 +68,7 @@ class PhotosController < ApplicationController
     # Can this be auto updated?
     @photo.album.update_attribute(:photo_id, nil) if (@photo.album.photo_id == @photo.id)
     @photo.destroy
+    expire_cache
     redirect_to album_path(@photo.album), notice: t('delete_succ')
   end
 
@@ -100,6 +102,11 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:photo][:id])
     @photo.update_attributes(params[:photo])
     redirect_to upload_photo_path, notice: t('photo_updated_succ')
+  end
+
+  private
+  def expire_cache
+    expire_fragment("user_home_photos_#{session[:id]}")
   end
 
 end

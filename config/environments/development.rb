@@ -14,6 +14,7 @@ Cms::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
+  #Set false when debug CSS
   config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send

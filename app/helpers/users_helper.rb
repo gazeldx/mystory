@@ -177,19 +177,21 @@ module UsersHelper
   def summary_common_portal(something, size, tmp)
     if something.is_a?(Note)
       path = note_path(something)
-      count = something.notecomments.count
+#      count = something.notecomments.count
     elsif something.is_a?(Blog)
       path = blog_path(something)
-      count = something.blogcomments.count
+#      count = something.blogcomments.count
     end
-    comments = ""
-    if count > 0
-      comments = ' ' + t('comments', w: count)
-    end
+#    comments = ""
+#    if count > 0
+#      comments = ' ' + t('comments', w: count)
+#    end
     if something.content.size > size
-      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
+#      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
+      raw tmp + t('etc') + (link_to t('whole_article'), site(something.user) + path, target: '_blank')
     else
-      raw tmp + (link_to comments, site(something.user) + path, target: '_blank')
+#      raw tmp + (link_to comments, site(something.user) + path, target: '_blank')
+      raw tmp
     end
   end
 

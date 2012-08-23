@@ -3,7 +3,7 @@
 .num.guset-br
   | #{t'letters_box'}&nbsp;&nbsp;
   a href=send_a_letter_path
-    input type="button" value=t('send_letter') class="sub-bg"
+    = t'send_letter'
 - @letters.each do |letter|
   .cont-list
     - if letter.user.id==session[:id]

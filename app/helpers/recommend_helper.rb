@@ -25,4 +25,10 @@ module RecommendHelper
     end
     raw r += "&nbsp;"
   end
+
+  def rblogs_cache
+    cache "side_rblogs_#{@user.id}" do
+      @rblogs = @user.r_blogs.where(id: @user.blogs.where(:is_draft => false).select('id')).limit(7).order('created_at DESC')
+    end
+  end
 end

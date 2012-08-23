@@ -30,7 +30,7 @@
           span.pl
             | &nbsp;#{guy.maxim.to_s=='' ? "" : "("+guy.maxim+")"}
           br
-          | #{t'followers'}#{guy.followers_num}
+          | #{t'followers'}#{guy.followers_num}&nbsp;
           - guy.hobbies.each_with_index do |hobby, i|
             - if i==0
               span.pl

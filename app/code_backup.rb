@@ -100,3 +100,18 @@ _side_user.html.slim
 /coffee:
 /  if screen.width>1024
 /    $('#weibo_signature').html("<img border='0' src='http://service.t.sina.com.cn/widget/qmd/" + $('#weiboid').val() + "/1/1.png'/>")
+
+views/like/index.html.slim
+/- if @assortments.size > 0
+/  br
+/  - url = link_to '全部分组', like_path
+/  - if params[:g].nil?
+/    li.on= url
+/  - else
+/    li= url
+/  - @assortments.each do |assortment|
+/    - url = link_to assortment.name, like_path + "?z=#{assortment.id}"
+/    - if params[:z] == assortment.name
+/      li.on= url
+/    - else
+/      li= url

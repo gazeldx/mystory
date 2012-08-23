@@ -14,17 +14,17 @@
   br
   h2
     = t('s_new_blog', w: @user.name)
-  - cache("side_note_latest_#{@user.id}") do
+  - cache "side_blog_latest_#{@user.id}" do
     - @new_blogs.each do |blog|
       = link_to raw(blog.title), blog
       br
-  - unless @rblogs.blank?
-    br
-    /= render 'shared/ad/blog_side'
-    h2
-      = t('s_recommend', w: @user.name)
-    - @rblogs.each do |blog|
-      = link_to raw(blog.title), blog
+  - cache "side_blog_rblogs_#{@user.id}" do
+    - rblogs = @user.r_blogs.where(id: @user.blogs.where(:is_draft => false).select('id')).limit(7).order('created_at DESC')
+    - unless rblogs.blank?
       br
+      h2
+        = t('s_recommend', w: @user.name)
+      - rblogs.each do |blog|
+        = link_to raw(blog.title), blog
+        br
   = render 'shared/archives_side'
-  /= render 'shared/ad/blog_side_2'

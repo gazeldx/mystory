@@ -41,7 +41,7 @@
       | &nbsp;|&nbsp;
       = link_to "#{t('_blog')}#{@user.blogs_count}", blogs_path
   ul
-    - follow_flag = session[:id].nil? || (!myself.following?(@user) && myself != @user)
+    - follow_flag = session[:id].nil? || (@user.id != session[:id] && !myself.following?(@user))
     - if follow_flag
       a href=follow_me_path
         = image_tag('/images/follow.png')
@@ -52,7 +52,7 @@
     = @user.jobs
     - unless @user.jobs.to_s==''
       | &nbsp;
-    - if !follow_flag and myself.following?(@user)
+    - if !follow_flag and @user.id != session[:id] and myself.following?(@user)
       = link_to t('unfollow'), unfollow_path
       | &nbsp;
     - unless session[:id].nil?

@@ -5,13 +5,17 @@ class RecommendController < ApplicationController
     blog = Blog.find(params[:id])
     if _r.nil?
       rblog = Rblog.new
-      rblog.user_id = session[:id]      
+      rblog.user_id = session[:id]
       rblog.blog = blog
       rblog.save
       Blog.update_all("recommend_count = #{blog.recommend_count + 1}", "id = #{blog.id}")
     else
       _r.destroy
       Blog.update_all("recommend_count = #{blog.recommend_count - 1}", "id = #{blog.id}")
+    end
+    if blog.user.id == session[:id]
+      expire_fragment("side_user_rblogs_#{session[:id]}")
+      expire_fragment("side_blog_rblogs_#{session[:id]}")
     end
     render json: rblog.as_json
   end
@@ -28,6 +32,9 @@ class RecommendController < ApplicationController
     else
       _r.destroy
       Note.update_all("recommend_count = #{note.recommend_count - 1}", "id = #{note.id}")
+    end
+    if note.user.id == session[:id]
+      expire_fragment("side_note_rnotes_#{session[:id]}")
     end
     render json: rnote.as_json
   end

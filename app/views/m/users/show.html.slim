@@ -49,15 +49,15 @@
   - unless @enjoy_books.blank?
     | #{t'e_book'}:
     - @enjoy_books.each do |enjoy|
-      = enjoy.name
+      = enjoy.enjoy.name
       | &nbsp;&nbsp;&nbsp;
   - unless @enjoy_musics.blank?
     | #{t'e_music'}:
     - @enjoy_musics.each do |enjoy|
-      = enjoy.name
+      = enjoy.enjoy.name
       | &nbsp;&nbsp;&nbsp;
   - unless @enjoy_movies.blank?
     | #{t'e_movie'}:
     - @enjoy_movies.each do |enjoy|
-      = enjoy.name
+      = enjoy.enjoy.name
       | &nbsp;&nbsp;&nbsp;
