@@ -22,7 +22,7 @@
                 a href=site(guy)+follow_me_path
                   = t'follow_him'
             | &nbsp;
-            = link_to t('_letter'), m(site_url+"/send_a_letter_to_#{guy.domain}")
+            = link_to t('_letter'), m("#{my_site}/send_a_letter_to_#{guy.domain}")
             | &nbsp;
           = guy.city
           | &nbsp;

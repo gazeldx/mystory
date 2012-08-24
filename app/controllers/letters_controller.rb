@@ -21,6 +21,7 @@ class LettersController < ApplicationController
   def create
     @letter = Letter.create(params[:letter])
     @letter.user_id = session[:id]
+    puts "create"
     if @letter.save
       flash[:notice] = t'letter_sent'
       redirect_to letters_path
@@ -36,6 +37,7 @@ class LettersController < ApplicationController
     @letter.user_id = session[:id]
     @recipient = User.find_by_domain(params[:domain])
     @letter.recipient_id = @recipient.id
+    puts "create_letter"
     if @letter.save
       flash[:notice] = t'letter_sent'
       redirect_to letters_path

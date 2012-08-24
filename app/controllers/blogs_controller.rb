@@ -100,7 +100,6 @@ class BlogsController < ApplicationController
       send_weibo
       send_qq
       redirect_to blog_path(@blog)
-      puts "end create_proc"
     else
       _render :new
     end
@@ -136,7 +135,8 @@ class BlogsController < ApplicationController
   def destroy
     @blog = Blog.find(params[:id])
     user = @blog.user
-    @blog.destroy    
+#    expire_fragment('columns_articles') if @blog.columns.size > 0
+    @blog.destroy
     user.update_attribute('blogs_count', user.blogs_count - 1)
     flash[:notice] = t'delete_succ'
     if @m
@@ -178,9 +178,13 @@ class BlogsController < ApplicationController
 
   def do_assign_columns
     blog = Blog.find(params[:id])
-    blog.columns.destroy_all
+    columns = blog.columns
+    columns.each do |column|
+      expire_fragment("portal_column_#{column.id}")
+    end
+    columns.destroy_all
     unless params[:column].nil?
-      params[:column].each do |k|
+      params[:column].each do |k, v|
         blog.columns << Column.find(k)
         expire_fragment("portal_column_#{k}")
       end

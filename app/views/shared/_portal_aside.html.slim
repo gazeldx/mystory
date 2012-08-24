@@ -12,8 +12,8 @@
               = column.name
           ul.lis
             li.c
-              - blogs = column.blogs.includes(:user).where(:is_draft => false).order("created_at desc").limit(6)
-              - notes = column.notes.includes(:user).where(:is_draft => false).order("created_at desc").limit(6-blogs.size)
+              - blogs = column.blogs.includes(:user).where(:is_draft => false).order("created_at desc").limit(5)
+              - notes = column.notes.includes(:user).where(:is_draft => false).order("created_at desc").limit(2)
               - all = (blogs + notes).sort_by{|x| x.created_at}.reverse!
               - all.each_with_index do |item, i|
                 - user = item.user

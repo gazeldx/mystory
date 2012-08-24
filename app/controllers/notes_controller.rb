@@ -172,10 +172,15 @@ class NotesController < ApplicationController
 
   def do_assign_columns
     note = Note.find(params[:id])
-    note.columns.destroy_all
+    columns = note.columns
+    columns.each do |column|
+      expire_fragment("portal_column_#{column.id}")
+    end
+    columns.destroy_all
     unless params[:column].nil?
-      params[:column].each do |k|
+      params[:column].each do |k, v|
         note.columns << Column.find(k)
+        expire_fragment("portal_column_#{k}")
       end
     end
     expire_fragment('columns_articles')

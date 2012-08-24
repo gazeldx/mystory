@@ -10,8 +10,8 @@
         = t'writer'
       th
         = t'title'
-      th
-        | 已归类到
+      /th
+      /  | 已归类到
       th width=75
         = t'assign_columns'
     - @blogs.each_with_index do |blog, i|
@@ -24,8 +24,8 @@
           -if cc>0
             span.red
               | &nbsp;#{cc}
-        td
-          = blog.columns.order('created_at DESC').map{|t| t.name}.join(", ")
+        /td
+        /  = blog.columns.order('created_at DESC').map{|t| t.name}.join(", ")
         td
           = link_to t('assign_columns'), assign_columns_blog_path(blog)
   = will_paginate @blogs
