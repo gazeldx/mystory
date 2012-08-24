@@ -15,7 +15,7 @@ br
         | :
         span.pl1
           | 《
-          = link_to blog.title, blog
+          = link_to blog.title, blog, target: '_blank'
           | 》
         br
         span.inq
@@ -38,7 +38,7 @@ br
         - if note.title.to_s==''
           - note.title = t('s_note', w: note.created_at.strftime(t'date_format'))
         span.pl1
-          = link_to note.title, note
+          = link_to note.title, note, target: '_blank'
           | &nbsp;
         br
         span.inq

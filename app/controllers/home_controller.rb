@@ -106,9 +106,9 @@ class HomeController < ApplicationController
 
         t = params[:t]
         if t.nil?
-          notes = @user.notes.where(:is_draft => false).limit(30).order("created_at desc")
-          blogs = @user.blogs.where(:is_draft => false).limit(20).order("created_at desc")
-          photos = Photo.where(album_id: @user.albums).includes(:album).limit(15)
+          notes = @user.notes.where(:is_draft => false).limit(20).order("created_at desc")
+          blogs = @user.blogs.where(:is_draft => false).limit(15).order("created_at desc")
+          photos = Photo.where(album_id: @user.albums).includes(:album).limit(8)
           all_ = notes | blogs | photos
           @memoir = @user.memoir
           unless @memoir.nil?
@@ -121,18 +121,18 @@ class HomeController < ApplicationController
         elsif t == 'blog'
           @all = @user.blogs.where(:is_draft => false).limit(40).order('created_at desc')
         elsif t == 'photo'
-          @all = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
+          @all = Photo.where(album_id: @user.albums).includes(:album).limit(40).order('id desc')
         elsif t == 'updated'
-          notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(30)
-          blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(30)
+          notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(20)
+          blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(15)
           all_ = notes | blogs
           @memoir = @user.memoir
           all_ << @memoir unless @memoir.nil?
           @all = all_.sort_by{|x| x.updated_at}.reverse!
         elsif t == 'recommend'
-          rnotes = @user.rnotes.includes(:note => :user).limit(30)
-          rblogs = @user.rblogs.includes(:blog => :user).limit(15)
-          rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(10)
+          rnotes = @user.rnotes.includes(:note => :user).limit(15)
+          rblogs = @user.rblogs.includes(:blog => :user).limit(20)
+          rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(8)
           @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
         end
 

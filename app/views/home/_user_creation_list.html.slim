@@ -41,15 +41,17 @@
       - if item.is_a?(Note)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
           - user = @user
-          li.mbtr
-            = link_to user.name, site(user)
-            span.gray
+          li.mbtr            
+            span.gray.b
+              = link_to user.name, site(user)
               |  发日记 #{link_to item.title, note_path(item), target: '_blank'}&nbsp;
             - n = photos_count item.content
             - if n==1
               .npad
                 .ll
                   = thumb_here item
+            - elsif item.title.to_s!=''
+              br
             span.inq
               = summary_comment(item, 140)
               - if n>1

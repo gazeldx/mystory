@@ -1,6 +1,5 @@
 class HobbiesController < ApplicationController
-
-  layout 'memoir'
+  layout 'help'
   before_filter :url_authorize
   
   def index

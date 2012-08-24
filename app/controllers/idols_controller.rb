@@ -1,6 +1,5 @@
 class IdolsController < ApplicationController
-
-  layout 'memoir'
+  layout 'help'
   before_filter :url_authorize, :except=> [:show]
   
   def index

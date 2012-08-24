@@ -1,5 +1,4 @@
 User-Agent: *
-Disallow: /
 Disallow: /admin/
 Disallow: /my/
 Crawl-delay: 20

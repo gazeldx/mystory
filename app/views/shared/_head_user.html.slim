@@ -29,10 +29,11 @@
       = link_to t('view_as_him'), like_path, title:t('view_as_him_desc')
       | &nbsp;
       = link_to t('he_editor'), editor_path, title:t('see_what_he_edit')
-      .rr
-        = text_field_tag :title, params[:title], size: 6
-        | &nbsp;
-        input type='button' value='搜' onclick='goSearch()'
+      - if @user.blogs_count+@user.notes_count>30
+        .rr
+          = text_field_tag :title, params[:title], size: 6
+          | &nbsp;
+          input type='button' value='搜' onclick='goSearch()'
   ul
     li
       = link_to "#{t('following')}#{@user.following_num}", following_path
