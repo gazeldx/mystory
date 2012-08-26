@@ -4,7 +4,19 @@
   </div>
   <p class="topP rr">
     日记 自传 作品 影集，尽情分享自己的故事&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <%=  link_to "日记、作品可同步到微博。支持微博、QQ登录", site_url + login_path, title: "点出进入登录页面", target: '_blank'%>
-    <%=  link_to t('mobile_version'), m(site_url), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.#{request.domain}/", target: '_blank'%>
+    <%= link_to "日记、作品可同步到微博", site_url + login_path, title: "支持微博、QQ登录，点出进入登录页面", target: '_blank'%>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to t('mobile_version'), m(site_url), title: "手机访问本站时，将自动定位为手机版，不必特意访问http://m.#{request.domain}/", target: '_blank'%>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <% if session[:atoken].nil? %>
+      <a href=<%= weibo_connect_path %> title='使用微博帐号免注册登录'>
+        <%= image_tag('http://www.sinaimg.cn/blog/developer/wiki/240.png', width: 126, height: 24) %>
+      </a>
+    <% end %>
+    <% if session[:token].nil? %>
+      <a href=<%= qq_connect_path %> title='使用QQ帐号免注册登录'>
+        <%= image_tag('http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png', width: 63, height: 24) %>
+      </a>
+    <% end %>
   </p>
 </div>

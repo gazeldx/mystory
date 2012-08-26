@@ -191,10 +191,9 @@ class NotesController < ApplicationController
   def send_weibo
     if session[:atoken] and @note.is_draft==false and Rails.env.production?
       begin
-        oauth = weibo_auth
         str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
         data = "#{str}#{text_it_pure(@note.content)[0..130-str.size]}#{site(@user) + note_path(@note)}"
-        Weibo::Base.new(oauth).update(data)
+        weibo_auth.statuses.update(data)
       rescue
         logger.warn("---Send_note_to_weibo note.id=#{@note.id} failed.Data is #{data} #{session[:atoken]} ")
       end

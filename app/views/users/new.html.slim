@@ -48,5 +48,14 @@
       label
         | &nbsp;
       = f.submit "注 册", class: "btn-submit disabled enabled"
+    br
+    br
+    span.b.gray
+      | 第三方合作网站免注册登录：
+    a href=qq_connect_path
+      = image_tag('http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_3.png', title: '使用QQ号免注册登录', width: 120, height: 24)
+    | &nbsp;&nbsp;
+    a href=weibo_connect_path
+      = image_tag('/images/sina.png', title: '使用微博帐号免注册登录', width: 126, height: 24)
 - else
   | 您已经注册过了，而且已经登录。

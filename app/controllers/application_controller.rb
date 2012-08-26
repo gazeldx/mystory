@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
     session[:id] = @user.id
     session[:name] = @user.name
     session[:domain] = @user.domain
-    session[:atoken], session[:asecret] = @user.atoken, @user.asecret
+    session[:atoken], session[:expires_at] = @user.atoken, @user.asecret
     session[:token], session[:openid] = @user.token, @user.openid
   end
 
@@ -314,9 +314,11 @@ class ApplicationController < ActionController::Base
   end
 
   def weibo_auth
-    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-    oauth.authorize_from_access(session[:atoken], session[:asecret])
-    oauth
+    #    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
+    #    oauth.authorize_from_access(session[:atoken], session[:asecret])
+    client = WeiboOAuth2::Client.new
+    client.get_token_from_hash({:access_token => session[:atoken], :expires_at => session[:expires_at]})
+    client
   end
 
   #  def verify_credentials
@@ -380,9 +382,9 @@ class ApplicationController < ActionController::Base
     end
   end  
   
-#  module Archives
-#
-#  end
+  #  module Archives
+  #
+  #  end
 
   module Sina
     #    130 => 1300112204 letter is so little

@@ -219,10 +219,10 @@ class BlogsController < ApplicationController
     #TODO  UPDATE FROM IS_DRAFT TO FALSE HAVN'T DO SEND.
     if session[:atoken] and @blog.is_draft==false and Rails.env.production?
       begin
-        oauth = weibo_auth
         str = "#{@blog.title} - "
         data = "#{str}#{text_it_pure(@blog.content)[0..130-str.size]}#{site(@user) + blog_path(@blog)}"
-        Weibo::Base.new(oauth).update(data)
+        weibo_auth.statuses.update(data)
+        #        Weibo::Base.new(oauth).update(data)
       rescue
         logger.warn("---Send_blog_to_weibo blog.id=#{@blog.id} failed.Data is #{data} #{session[:atoken]}")
       end
