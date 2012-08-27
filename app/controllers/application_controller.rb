@@ -279,11 +279,11 @@ class ApplicationController < ActionController::Base
   end
 
   def super_admin?
-    ['zhangjian', 'caidingchuang'].include? session[:domain]
+    ['zhangjian'].include? session[:domain]
   end
   
   def super_admin
-    unless ['zhangjian', 'caidingchuang'].include? session[:domain]
+    unless ['zhangjian'].include? session[:domain]
       redirect_to root_path
     end
   end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout 'portal_others'
   #TODO :index need control key it not super_admin
-  before_filter :manager?, :only => [:index, :assign_roles, :do_assign_roles]
+  before_filter :manager?, :only => [:index, :assign_roles, :do_assign_roles, :destroy]
   before_filter :url_authorize, :only => [:edit, :edit_password, :signature]
   
   def index
@@ -99,8 +99,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    @_user = User.find(params[:id])
+    @_user.destroy
+    flash[:notice] = t'delete_succ'
     redirect_to users_url
   end
 

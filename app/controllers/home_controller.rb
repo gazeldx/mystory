@@ -14,16 +14,16 @@ class HomeController < ApplicationController
       elsif @user.nil?
         t = params[:t]
         if t.nil?
-          blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(30)
-          notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(20)
-          photos = Photo.includes(:album).limit(10).order('photos.id desc')
-          @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 10)
+          blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
+          notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
+          photos = Photo.includes(:album).limit(6).order('photos.id desc')
+          @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
         elsif t == 'note'
-          @all = Note.where(:is_draft => false).includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
+          @all = Note.where(:is_draft => false).includes(:user).order("id desc").limit(80).paginate(:page => params[:page], :per_page => 15)
         elsif t == 'blog'
-          @all = Blog.where(:is_draft => false).includes(:user).order("id desc").limit(60).paginate(:page => params[:page], :per_page => 20)
+          @all = Blog.where(:is_draft => false).includes(:user).order("id desc").limit(80).paginate(:page => params[:page], :per_page => 15)
         elsif t == 'photo'
-          @all = Photo.includes(:album).limit(45).order('photos.id desc').paginate(:page => params[:page], :per_page => 15)
+          @all = Photo.includes(:album).limit(40).order('photos.id desc').paginate(:page => params[:page], :per_page => 10)
         end
         render mr, layout: 'm/portal'
       else
@@ -40,24 +40,24 @@ class HomeController < ApplicationController
           end
           @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
         elsif t == 'note'
-          @all = @user.notes.where(:is_draft => false).limit(50).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
+          @all = @user.notes.where(:is_draft => false).limit(60).order('created_at desc').paginate(:page => params[:page], :per_page => 15)
         elsif t == 'blog'
-          @all = @user.blogs.where(:is_draft => false).limit(40).order('created_at desc').paginate(:page => params[:page], :per_page => 20)
+          @all = @user.blogs.where(:is_draft => false).limit(60).order('created_at desc').paginate(:page => params[:page], :per_page => 15)
         elsif t == 'photo'
-          @all = Photo.where(album_id: @user.albums).includes(:album).limit(20).order('id desc').paginate(:page => params[:page], :per_page => 20)
+          @all = Photo.where(album_id: @user.albums).includes(:album).limit(20).order('id desc').paginate(:page => params[:page], :per_page => 15)
         elsif t == 'updated'
           notes = @user.notes.where("updated_at > created_at and is_draft = false").limit(30)
           blogs = @user.blogs.where("updated_at > created_at and is_draft = false").limit(30)
           all_ = notes | blogs
           @memoir = @user.memoir
           all_ << @memoir unless @memoir.nil?
-          @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
+          @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
         elsif t == 'recommend'
           #TODO .where(:is_draft => false) not do,maybe in view proc it is best.
           rnotes = @user.rnotes.includes(:note => :user).limit(30)
-          rblogs = @user.rblogs.includes(:blog => :user).limit(15)
+          rblogs = @user.rblogs.includes(:blog => :user).limit(20)
           rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(5)
-          @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 20)
+          @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
         end
         render mn(:user), layout: 'm/portal'
       end

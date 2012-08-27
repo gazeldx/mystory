@@ -12,8 +12,8 @@
         = t'real_name'
       th
         | 照片
-      th
-        | 已授权角色
+      /th
+      /  | 已授权角色
       th
         = t'domain'
       th
@@ -30,9 +30,11 @@
         | Email
       th
         | 注册时间
-      - if manage? 'assign_roles'
-        th
-          = t'assign_roles'
+      /- if manage? 'assign_roles'
+      /  th
+      /    = t'assign_roles'
+      th
+        | 删除
     - @users.each_with_index do |user, i|
       tr
         td
@@ -41,8 +43,8 @@
           = user.name
         td
           = image_tag(user.avatar.thumb.url)
-        td
-          = user.roles.order('created_at DESC').map{|t| t.name}.join(", ")
+        /td
+        /  = user.roles.order('created_at DESC').map{|t| t.name}.join(", ")
         td
           = link_to user.domain, site(user), target: '_blank'
         td
@@ -59,7 +61,10 @@
           = user.email
         td
           = user.created_at.strftime t('date_format')
-        - if manage? 'assign_roles'
-          td
-            = link_to t('assign_roles'), assign_roles_user_path(user)
+        /- if manage? 'assign_roles'
+        /  td
+        /    = link_to t('assign_roles'), assign_roles_user_path(user)
+        td
+          - if user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num == 0
+            = link_to t(:delete), user_path(user), confirm:t('confirm.delete'), method: :delete
   = will_paginate @users

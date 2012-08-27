@@ -151,7 +151,7 @@ class BlogsController < ApplicationController
     add_view_count
     @blog.content = summary_comment_style(@blog, 4000)
     render json: @blog.as_json()
-  end  
+  end
 
   def archives
     #ISSUE to_char maybe only work in postgresql
