@@ -24,6 +24,7 @@ zh:
   delete_succ1: "%{w}删除成功！"
   comment_succ: "评论发表成功！"
   reply_succ: "回复发表成功！"
+  somebody_comment: "%{w}评论："
   upload_at: "上传"
   source_from: "来自"
   latest_updated: "最近更新"

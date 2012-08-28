@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822071826) do
+ActiveRecord::Schema.define(:version => 20120828082717) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -428,12 +428,16 @@ ActiveRecord::Schema.define(:version => 20120822071826) do
     t.string   "asecret"
     t.string   "openid"
     t.string   "token"
-    t.integer  "source",        :default => 0
-    t.integer  "followers_num", :default => 0
-    t.integer  "following_num", :default => 0
-    t.integer  "blogs_count",   :default => 0
-    t.integer  "notes_count",   :default => 0
-    t.integer  "photos_count",  :default => 0
+    t.integer  "source",                 :default => 0
+    t.integer  "followers_num",          :default => 0
+    t.integer  "following_num",          :default => 0
+    t.integer  "blogs_count",            :default => 0
+    t.integer  "notes_count",            :default => 0
+    t.integer  "photos_count",           :default => 0
+    t.datetime "view_comments_at"
+    t.datetime "view_commented_at"
+    t.integer  "unread_comments_count",  :default => 0
+    t.integer  "unread_commented_count", :default => 0
   end
 
 end

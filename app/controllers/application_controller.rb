@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
     session[:name] = @user.name
     session[:domain] = @user.domain
     session[:atoken], session[:expires_at] = @user.atoken, @user.asecret
-    session[:token], session[:openid] = @user.token, @user.openid
+    session[:token], session[:openid] = @user.token, @user.openid    
   end
 
   def summary_common(something, size, tmp)

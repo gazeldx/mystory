@@ -40,10 +40,6 @@ class UsersController < ApplicationController
   def update
     @_user = User.find(session[:id])
     @_user.avatar = params[:file]
-    puts "params[:date]=#{params[:date].inspect}"
-    puts "params[:user]=#{params[:user].inspect}"
-    puts "params[:user][:domain]=#{params[:user][:domain].inspect}"
-    puts "params[:date][:year]=#{params[:date][:year].inspect}"
     @_user.birthday = params[:date][:year]
     if @_user.update_attributes(params[:user])
       @_user.reload

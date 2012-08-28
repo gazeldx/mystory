@@ -26,6 +26,20 @@ class NotecommentsController < ApplicationController
     redirect_to note_path(@note) + "#notice"
   end
 
+  def m_reply
+    @comment = Notecomment.find(params[:comment_id])
+    puts @comment.inspect
+    render 'm/shared/m_reply', layout: 'm/portal'
+  end
+
+  def do_m_notecomments_reply
+    comment = Notecomment.find(params[:notecomment][:id])
+    body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:body]
+    comment.update_attribute('body', body)
+    flash[:notice] = t'reply_succ'
+    render 'm/shared/notice', layout: 'm/portal'
+  end
+
   def destroy
     @note = Note.find(params[:note_id])
     @comment = @note.notecomments.find(params[:id])

@@ -21,3 +21,5 @@ a=[2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145]
 a.each_with_index do |x, i|
   puts i
 end
+
+/do_m_reply_blogcomment/#{@comment.id}

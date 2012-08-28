@@ -9,3 +9,5 @@
       - if comment.is_a?(Rnote)
         = t'recommend_reason'
       = comment_info comment.body
+      - if @user.id==session[:id]
+        | &nbsp;#{link_to t('reply'), "/m_reply_#{@clazz}comment/#{comment.id}"}

@@ -1,16 +1,17 @@
 #event
+  - @memoir = @user.memoir if @memoir.nil? and params[:t]!=nil
   h2
     = t('s_memoir', w: @user.name, c: '')
-    | &nbsp;·&nbsp;·&nbsp;·
-    span.pl
-      | &nbsp;(
-      = link_to t('whole_article'), memoirs_path
-      | )
+    - unless @memoir.nil?
+      | &nbsp;·&nbsp;·&nbsp;·
+      span.pl
+        | &nbsp;(
+        = link_to t('whole_article'), memoirs_path
+        | )
     - unless @user.atoken.nil?
       span.rr.mi
         = show_weibo
   .text
-    - @memoir = @user.memoir if @memoir.nil? and params[:t]!=nil
     - if @memoir.nil?
       | 我还没写自传呢。既然大家如此期待，我会考虑在未来的某个时刻，写起来。
       br

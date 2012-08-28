@@ -137,7 +137,24 @@ module CommentsHelper
     rui + _body + _submit
   end
 
+  def m_comment_form(f)
+    body = text_area_tag :body, nil, size: "64x3", class: 'required'
+    _body = content_tag(:div, body + raw('<br/>'))
+    submit = content_tag(:span, f.submit(t('submit')))
+    _submit = content_tag(:div, submit)
+    _body + _submit
+  end
+
   def validate_comment_form
     raw "<script type=\"text/javascript\">$(document).ready(function(){$('#new_#{@clazz}comment').validate();});</script>"
   end
+
+#  def m_reply(user)
+#    if @user.id == session[:id]
+#      link = content_tag(:a, t('reply'), href: 'javascript:;', onclick: "$('##{@clazz}comment_body').focus();$('#who').html('#{t('reply_who', w:user.name)}');$('#reply_user_id').val('#{user.id}')")
+#    else
+#      link = content_tag(:a, t('add_comment'), href: 'javascript:;', onclick: "$('##{@clazz}comment_body').focus()")
+#    end
+#    raw ('&gt;' + link + '&nbsp;&nbsp;&gt;')
+#  end
 end

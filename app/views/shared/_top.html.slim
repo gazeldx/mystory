@@ -13,6 +13,14 @@
           - if session[:token].nil?
             a href=qq_connect_path
               = image_tag('/images/qq_login_2.png', title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说、朋友网', width: 120, height: 24)
+        - if @user.id==session[:id]
+          - all_count = @user.unread_commented_count + @user.unread_comments_count
+          - if all_count > 0
+            span id='all_count' title="#{all_count}条评论"
+              - if @user.unread_commented_count == 0
+                = link_to all_count, comments_path
+              - else
+                = link_to all_count, commented_path
         = link_to t('_active'), my_site + like_path
         = link_to session[:name], my_site
         = link_to t('_setting'), my_site + admin_path, title: t('_admin_title')
