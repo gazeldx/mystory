@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   def show
     @enjoy_books = @user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
     @enjoy_musics = @user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
-    puts @enjoy_musics.inspect
     @enjoy_movies = @user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
     if @m
       render mr, layout: 'm/portal'
@@ -41,6 +40,10 @@ class UsersController < ApplicationController
   def update
     @_user = User.find(session[:id])
     @_user.avatar = params[:file]
+    puts "params[:date]=#{params[:date].inspect}"
+    puts "params[:user]=#{params[:user].inspect}"
+    puts "params[:user][:domain]=#{params[:user][:domain].inspect}"
+    puts "params[:date][:year]=#{params[:date][:year].inspect}"
     @_user.birthday = params[:date][:year]
     if @_user.update_attributes(params[:user])
       @_user.reload
@@ -168,7 +171,6 @@ class UsersController < ApplicationController
   def build_item(item, enjoy_name, stype)
     unless params[enjoy_name].to_s == ''
       _a = params[enjoy_name].split ' '
-      puts _a.inspect
       _a.uniq.each do |x|
         enjoy = Enjoy.find_by_name_and_stype(x, stype)
         if enjoy.nil?

@@ -107,6 +107,8 @@ class BlogsController < ApplicationController
 
   def update
     @blog = Blog.find(params[:id])
+    puts "params[:blog]=#{params[:blog].inspect}"
+    puts "params[:blog][:title]=#{params[:blog][:title].inspect}"
     if @blog.update_attributes(params[:blog])
       @blog.tags.destroy_all
       build_tags @blog

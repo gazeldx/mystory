@@ -57,7 +57,7 @@
   | ：
   - if @user.birthday.nil?
     - @user.birthday = 1990
-  = select_year(@user.birthday, start_year: 1920, end_year: Time.now.year-5)
+  = select_year(@user.birthday, start_year: 1950, end_year: Time.now.year-5, :field_name => 'ddddd')
   br
   = t'company'
   | ：

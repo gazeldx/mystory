@@ -58,4 +58,4 @@
                   span style='color:red'
                     = s_link_name "评论(#{cc})", item
                 | &nbsp;&nbsp;&nbsp;
-                = item.created_at.strftime t'date_without_year'
+                = fresh_time item.created_at

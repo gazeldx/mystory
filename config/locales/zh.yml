@@ -451,7 +451,9 @@ zh:
   _profile: "查看详细资料"
   article_source: "原文"
 
-
+  
+  yesterday: "昨天"
+  qian_day: "前天"
   _time: "时间"
   time_format: "%Y年%m月%d日 %H:%M"
   date_format: "%Y年%m月%d日"

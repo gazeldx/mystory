@@ -165,4 +165,16 @@ module ApplicationHelper
     notes = @column.notes.includes(:user).order("created_at DESC").limit(40)
     (blogs | notes).sort_by{|x| x.created_at}.reverse!
   end
+
+  def fresh_time(time)
+    if time.strftime(t'date_without_year') == Time.now.strftime(t'date_without_year')
+      time.strftime(t'h_m')
+    elsif time.strftime(t'date_without_year') == (Time.now - 1.day).strftime(t'date_without_year')
+      t'yesterday'
+    elsif time.strftime(t'date_without_year') == (Time.now - 2.days).strftime(t'date_without_year')
+      t'qian_day'
+    else
+      time.strftime(t'date_without_year')
+    end
+  end
 end

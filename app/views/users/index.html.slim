@@ -56,7 +56,10 @@
         td
           = user.school
         td
-          | #{user.weiboid.to_s[0..2]},#{user.openid.to_s[0..2]}
+          span title=user.weiboid
+            | #{user.weiboid.to_s[0..2]},
+          span title=user.openid
+            | #{user.openid.to_s[0..2]}
         td
           = user.email
         td
