@@ -57,13 +57,13 @@
           = user.school
         td
           span title=user.weiboid
-            | #{user.weiboid.to_s[0..2]},
+            | #{link_to user.weiboid.to_s[0..2], "http://weibo.com/u/#{user.weiboid}",target: '_blank'},
           span title=user.openid
             | #{user.openid.to_s[0..2]}
         td
           = user.email
-        td
-          = user.created_at.strftime t('date_format')
+        td title=user.created_at.strftime(t('time_format'))
+          = user.created_at.strftime t('date_without_year')
         /- if manage? 'assign_roles'
         /  td
         /    = link_to t('assign_roles'), assign_roles_user_path(user)

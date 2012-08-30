@@ -47,7 +47,7 @@
             a href=site(user)
               = image_tag(user.avatar.thumb.url)
           li.mbtr
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             span.pl1
               |  #{t'post_note'} #{link_to item.title, site(user) + note_path(item), target: '_blank'}&nbsp;
             span.inq
@@ -67,7 +67,7 @@
             a href=site(user)
               = image_tag(user.avatar.thumb.url)
           li.mbtr
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             span.pl1
               |  #{t'blog.add'}《#{link_to item.title, site(user) + blog_path(item), target: '_blank'}》
             span.inq
@@ -85,7 +85,7 @@
           a href=site(user)
             = image_tag(user.avatar.thumb.url)
         li.mbtr
-          = link_to item.user.name, site(item.user)
+          = link_to item.user.name, site(item.user), target: '_blank'
           span.pl1
             |  #{t'recommend_note'}
           | :
@@ -106,7 +106,7 @@
           a href=site(user)
             = image_tag(user.avatar.thumb.url)
         li.mbtr
-          = link_to item.user.name, site(item.user)
+          = link_to item.user.name, site(item.user), target: '_blank'
           span.pl1
             |  #{t'recommend_blog'}
           | :
@@ -114,7 +114,7 @@
           br
           span.inq
             | &nbsp;&nbsp;#{t'article_source'} 
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             span.pl1
               |  #{t'blog.add'}
             | 《#{link_to blog.title, site(user) + blog_path(blog), target: '_blank'}》
@@ -131,14 +131,14 @@
           a href=site(item.user)
             = image_tag(item.user.avatar.thumb.url)
         li.mbtr
-          = link_to item.user.name, site(item.user)
+          = link_to item.user.name, site(item.user), target: '_blank'
           span.pl1
             |  #{t'recommend_photo'}
           | :
           = item.body
           br
           span.inq
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             span.pl1
               |  #{t'upload_photo_to'}&nbsp;
             = link_to album.name, site(user) + album_path(album), target: '_blank'
@@ -160,7 +160,7 @@
             = image_tag(user.avatar.thumb.url)
         li.mbtr
           span.inq
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             span.pl1
               |  #{t'upload_photo_to'}&nbsp;
             = link_to album.name, site(user) + album_path(album), target: '_blank'
@@ -180,7 +180,7 @@
           a href=site(item.user)
             = image_tag(user.avatar.thumb.url)
         li.mbtr
-          = link_to user.name, site(user)
+          = link_to user.name, site(user), target: '_blank'
           span.pl1
             |  #{t'update_memoir'} #{link_to item.title, site(user) + memoirs_path, target: '_blank'}&nbsp;
           span.inq

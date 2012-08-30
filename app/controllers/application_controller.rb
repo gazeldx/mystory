@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
 
   
   module Tags
-    def tagsIndex
+    def tags_index
       tags = @user.tags.map {|x| x.name}
       notetags = @user.notetags.map {|x| x.name}
       a = tags + notetags
@@ -361,6 +361,26 @@ class ApplicationController < ActionController::Base
         @tags[v] += 1
       end
       @tags = @tags.sort_by{|k, v| v}.reverse!
+    end
+  end
+
+  module Recommend
+    def save_rblog(blog)
+      rblog = Rblog.new
+      rblog.user_id = session[:id]
+      rblog.blog = blog
+      rblog.save
+      Blog.update_all("recommend_count = #{blog.recommend_count + 1}", "id = #{blog.id}")
+      rblog
+    end
+
+    def save_rnote(note)
+      rnote = Rnote.new
+      rnote.user_id = session[:id]
+      rnote.note = note
+      rnote.save
+      Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
+      rnote
     end
   end
 

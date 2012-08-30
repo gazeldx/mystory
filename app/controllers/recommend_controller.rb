@@ -1,14 +1,10 @@
 class RecommendController < ApplicationController
-  
+  include Recommend
   def blog
     _r = Rblog.find_by_user_id_and_blog_id(session[:id], params[:id])
     blog = Blog.find(params[:id])
     if _r.nil?
-      rblog = Rblog.new
-      rblog.user_id = session[:id]
-      rblog.blog = blog
-      rblog.save
-      Blog.update_all("recommend_count = #{blog.recommend_count + 1}", "id = #{blog.id}")
+      rblog = save_rblog(blog)
     else
       _r.destroy
       Blog.update_all("recommend_count = #{blog.recommend_count - 1}", "id = #{blog.id}")

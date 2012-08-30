@@ -1,5 +1,6 @@
 class NotecommentsController < ApplicationController
 
+  include Recommend
   def create
     @note = Note.find(params[:note_id])
     comments = @note.notecomments
@@ -8,20 +9,31 @@ class NotecommentsController < ApplicationController
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
       comment.update_attribute('body', body)
       flash[:notice] = t'reply_succ'
-    elsif comments.collect{|c| c.user_id}.include?(session[:id])
-      comment = comments.find_by_user_id(session[:id])
-      body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
-      comment.update_attribute('body', body)
-      flash[:notice] = t'add_comment_succ'
+
+      reply_user = User.find(params[:reply_user_id])
+      reply_user.update_attribute('unread_comments_count', reply_user.unread_comments_count + 1)
     else
-      @notecomment = comments.new(params[:notecomment])
-      @notecomment.user_id = session[:id]
-      @notecomment.save
-      Note.update_all("comments_count = #{@note.comments_count + 1}", "id = #{@note.id}")
-      Note.update_all(["replied_at = ?", Time.now], "id = #{@note.id}")
-      flash[:notice] = t'comment_succ'
-      expire_fragment("portal_body")
-      expire_fragment("portal_hotest")
+      if comments.collect{|c| c.user_id}.include?(session[:id])
+        comment = comments.find_by_user_id(session[:id])
+        body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
+        comment.update_attribute('body', body)
+        flash[:notice] = t'add_comment_succ'
+      else
+        @notecomment = comments.new(params[:notecomment])
+        @notecomment.user_id = session[:id]
+        @notecomment.save
+        Note.update_all("comments_count = #{@note.comments_count + 1}", "id = #{@note.id}")
+        Note.update_all(["replied_at = ?", Time.now], "id = #{@note.id}")
+        flash[:notice] = t'comment_succ'
+        expire_fragment("portal_body")
+        expire_fragment("portal_hotest")
+      end
+      writer = @note.user
+      writer.update_attribute('unread_commented_count', writer.unread_commented_count + 1) if writer.id != session[:id]
+    end
+    if params[:recommend_flag] == "true"
+      _r = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
+      save_rnote(@note) if _r.nil?
     end
     redirect_to note_path(@note) + "#notice"
   end
@@ -37,6 +49,9 @@ class NotecommentsController < ApplicationController
     body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:body]
     comment.update_attribute('body', body)
     flash[:notice] = t'reply_succ'
+
+    user = comment.user
+    user.update_attribute('unread_comments_count', user.unread_comments_count + 1)
     render 'm/shared/notice', layout: 'm/portal'
   end
 

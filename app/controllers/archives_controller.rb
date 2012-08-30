@@ -5,7 +5,7 @@ class ArchivesController < ApplicationController
   
   def index
     @items = archives_months_count
-    tagsIndex
+    tags_index
   end
 
   def month

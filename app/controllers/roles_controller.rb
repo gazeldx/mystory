@@ -52,7 +52,6 @@ class RolesController < ApplicationController
   def assign_menus
     @role = Role.find(params[:id])
     @menus = @role.menus
-    puts @menus.inspect
     @all_menus = Menu.order("created_at DESC")
   end
 

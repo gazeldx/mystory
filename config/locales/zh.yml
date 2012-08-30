@@ -41,6 +41,7 @@ zh:
   comments_count: "评论(%{w})"
   recommend_count: "推荐(%{w})"
   recommend_count2: "%{w}人推荐"
+  comment_and_recommend: "评论并推荐"
   same_idol: "喜爱“%{w}”的人"
   same_hobby: "同道中人"
   _board: "讨论版"

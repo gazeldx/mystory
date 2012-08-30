@@ -146,14 +146,15 @@ class UsersController < ApplicationController
   end
 
   def top
-    if ENV["RAILS_ENV"] == "production"
-      ids = [2, 135, 44, 66, 154, 28, 157, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-    else
-      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-    end
-    r = User.find(ids)
-    @users = ids.map{|id| r.detect{|e| e.id == id}}
-    @columns = Column.order('created_at')
+#    if ENV["RAILS_ENV"] == "production"
+#      ids = [2, 135, 44, 66, 154, 28, 157, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
+#    else
+#      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
+#    end
+#    r = User.find(ids)
+#    @users = ids.map{|id| r.detect{|e| e.id == id}}
+#    @columns = Column.order('created_at')
+    @users = User.order('followers_num DESC').limit(50)
     render layout: 'help'
   end
 
