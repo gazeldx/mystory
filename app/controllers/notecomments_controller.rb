@@ -34,6 +34,7 @@ class NotecommentsController < ApplicationController
     if params[:recommend_flag] == "true"
       _r = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
       save_rnote(@note) if _r.nil?
+      flash[:notice] = flash[:notice] + t('article_recommended')
     end
     redirect_to note_path(@note) + "#notice"
   end

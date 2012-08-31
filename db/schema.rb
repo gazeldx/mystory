@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120828082717) do
+ActiveRecord::Schema.define(:version => 20120831035305) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -423,7 +423,7 @@ ActiveRecord::Schema.define(:version => 20120828082717) do
     t.datetime "updated_at"
     t.string   "snslinks"
     t.text     "signature"
-    t.integer  "weiboid"
+    t.string   "weiboid"
     t.string   "atoken"
     t.string   "asecret"
     t.string   "openid"

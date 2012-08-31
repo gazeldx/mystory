@@ -26,6 +26,7 @@ div id='note-#{@blog.id}'
       br
       - unless @user.atoken.nil?
         = show_weibo
+        | &nbsp;&nbsp;
       = style_it @user.signature.to_s
 .note-ft id='note_#{@blog.id}_footer'
   .note_upper_footer

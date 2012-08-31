@@ -58,7 +58,7 @@ class WeiboController < ApplicationController
 
   def weibo_account
     @_user = User.find(session[:id])
-    if @_user.weiboid.to_i > 0
+    unless @_user.weiboid.nil?
       client = WeiboOAuth2::Client.new
       client.get_token_from_hash({:access_token => @_user.atoken, :expires_at => @_user.asecret})
       @weibo_user = client.users.show_by_uid(@_user.weiboid)

@@ -31,8 +31,9 @@ class BlogcommentsController < ApplicationController
       writer.update_attribute('unread_commented_count', writer.unread_commented_count + 1) if writer.id != session[:id]
     end
     if params[:recommend_flag] == "true"
-      _r = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
+      _r = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)      
       save_rblog(@blog) if _r.nil?
+      flash[:notice] = flash[:notice] + t('article_recommended')
     end
     redirect_to blog_path(@blog) + "#notice"
   end
