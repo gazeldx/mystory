@@ -4,7 +4,7 @@ class NotecommentsController < ApplicationController
   def create
     @note = Note.find(params[:note_id])
     comments = @note.notecomments
-    if params[:reply_user_id] != ''
+    if params[:reply_user_id].to_s != ''
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
       comment.update_attribute('body', body)
@@ -31,7 +31,7 @@ class NotecommentsController < ApplicationController
       writer = @note.user
       writer.update_attribute('unread_commented_count', writer.unread_commented_count + 1) if writer.id != session[:id]
     end
-    if params[:recommend_flag] == "true"
+    if params[:comment_and_recommend]
       _r = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
       save_rnote(@note) if _r.nil?
       flash[:notice] = flash[:notice] + t('article_recommended')

@@ -23,7 +23,7 @@ class WeiboController < ApplicationController
 #    oauth.authorize_from_access(session[:atoken], session[:asecret])
 #    @weibo_user = Weibo::Base.new(oauth).verify_credentials
     if session[:id].nil?
-      @user = User.find_by_weiboid(@weibo_user.id)
+      @user = User.find_by_weiboid(@weibo_user.id.to_s)
       if @user.nil?
         render 'login_or_new', layout: 'help'
       else
@@ -33,10 +33,10 @@ class WeiboController < ApplicationController
         redirect_to my_site + like_path
       end
     else
-      user = User.find_by_weiboid(@weibo_user.id)
+      user = User.find_by_weiboid(@weibo_user.id.to_s)
       if user.nil?
         me = User.find(session[:id])
-        me.update_attributes(:weiboid => @weibo_user.id, :atoken => session[:atoken], :asecret => session[:expires_at])
+        me.update_attributes(:weiboid => @weibo_user.id.to_s, :atoken => session[:atoken], :asecret => session[:expires_at])
       else
         session[:atoken], session[:expires_at] = nil, nil
         flash[:error] = t'weibo_bound_by_others'

@@ -3,7 +3,7 @@ class BlogcommentsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     comments = @blog.blogcomments
-    if params[:reply_user_id] != ''
+    if params[:reply_user_id].to_s != ''
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
       comment.update_attribute('body', body)
@@ -30,8 +30,8 @@ class BlogcommentsController < ApplicationController
       writer = @blog.user
       writer.update_attribute('unread_commented_count', writer.unread_commented_count + 1) if writer.id != session[:id]
     end
-    if params[:recommend_flag] == "true"
-      _r = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)      
+    if params[:comment_and_recommend]
+      _r = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
       save_rblog(@blog) if _r.nil?
       flash[:notice] = flash[:notice] + t('article_recommended')
     end

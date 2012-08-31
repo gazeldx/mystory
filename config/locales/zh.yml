@@ -43,6 +43,7 @@ zh:
   recommend_count2: "%{w}人推荐"
   comment_and_recommend: "评论并推荐"
   article_recommended: "文章已推荐！"
+  photo_recommended: "照片已推荐！"
   same_idol: "喜爱“%{w}”的人"
   same_hobby: "同道中人"
   _board: "讨论版"

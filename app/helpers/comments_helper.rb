@@ -130,13 +130,21 @@ module CommentsHelper
 
   def comment_form(f)
     rui = hidden_field_tag(:reply_user_id)
-    rcf = hidden_field_tag(:recommend_flag)
     body = f.text_area :body, size: "64x4", class: 'comment'
     _body = content_tag(:div, body + raw('<br/>'), class: 'item')
-    comment_and_recommend = submit_tag(t('comment_and_recommend'), onclick: "javascript:$('#recommend_flag').val(true)")
-    submit = raw("#{f.submit(t('comment'), onclick: "javascript:$('#recommend_flag').val(false)")}&nbsp;#{comment_and_recommend}")
+    comment_and_recommend = f.submit(t('comment_and_recommend'), name: 'comment_and_recommend')
+    submit = raw("#{f.submit(t('comment'))}&nbsp;#{comment_and_recommend}")
     _submit = content_tag(:div, submit, class: 'item')
-    rui + rcf + _body + _submit
+    rui + _body + _submit
+  end
+
+  def m0_comment_form(f)
+    body = f.text_area :body, size: "64x3"
+    _body = content_tag(:div, body + raw('<br/>'))
+    comment_and_recommend = f.submit(t('comment_and_recommend'), name: 'comment_and_recommend')
+    submit = raw("#{f.submit(t('comment'))}&nbsp;#{comment_and_recommend}")
+    _submit = content_tag(:div, submit)
+    _body + _submit
   end
 
   def m_comment_form(f)

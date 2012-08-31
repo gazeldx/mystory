@@ -1,9 +1,10 @@
 class PhotocommentsController < ApplicationController
 
+  include Recommend
   def create
     @photo = Photo.find(params[:photo_id])
     comments = @photo.photocomments
-    if params[:reply_user_id] != ''
+    if params[:reply_user_id].to_s != ''
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:photocomment][:body]
       comment.update_attribute('body', body)
@@ -18,6 +19,11 @@ class PhotocommentsController < ApplicationController
       @photocomment.user_id = session[:id]
       @photocomment.save
       flash[:notice] = t'comment_succ'
+    end
+    if params[:comment_and_recommend]
+      _r = Rphoto.find_by_user_id_and_photo_id(session[:id], @photo.id)
+      save_rphoto(@photo) if _r.nil?
+      flash[:notice] = flash[:notice] + t('photo_recommended')
     end
     redirect_to album_photo_path(@photo.album, @photo) + "#notice"
   end

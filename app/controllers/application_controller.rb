@@ -382,6 +382,15 @@ class ApplicationController < ActionController::Base
       Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
       rnote
     end
+
+    def save_rphoto(photo)
+      rphoto = Rphoto.new
+      rphoto.user_id = session[:id]
+      rphoto.photo = photo
+      rphoto.save
+#      Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
+      rphoto
+    end
   end
 
   module AutoCreatedUserInfo

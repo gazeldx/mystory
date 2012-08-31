@@ -1,8 +1,8 @@
 .b
-  | 作品标题:
+  | 标题：
   = text_field_tag :title, params[:title]
   | &nbsp;
   input type='button' value=t'_search' onclick='goSearch()'
 coffee:
   this.goSearch = ->
-    window.location.href = "/s/blogs/" + $('#title').val()
+    window.location.href = "/s/" + $('#title').val()
