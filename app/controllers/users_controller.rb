@@ -22,7 +22,6 @@ class UsersController < ApplicationController
 
   def edit
     @_user = User.find(session[:id])
-    puts @_user.inspect
     if @_user.email.match(/.*@mystory\.cc/)
       render :edit_bind, layout: 'like'
     else

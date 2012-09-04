@@ -7,7 +7,7 @@
 h2
   = setting_nav
   = t'edit_profile'
-= form_for @_user, url: {action: "update_bind"} do |f|
+= form_for @_user, url: {action: "update_bind"}, html: {autocomplete: "off"} do |f|
   = error_msg @_user
   table align='center' cellpadding='5'
     tbody
