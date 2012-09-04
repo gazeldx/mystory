@@ -10,7 +10,7 @@ class PostcommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     comments = @post.postcomments
-    if params[:reply_user_id] != '' and @post.user_id == session[:id]
+    if params[:reply_user_id].to_s != '' and @post.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:postcomment][:body]
       comment.update_attribute('body', body)
@@ -18,7 +18,7 @@ class PostcommentsController < ApplicationController
     elsif comments.collect{|c| c.user_id}.include?(session[:id])
       comment = comments.find_by_user_id(session[:id])
       body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' '
-      if params[:reply_user_id] != ''
+      if params[:reply_user_id].to_s != ''
         body = body + "repU#{params[:reply_user_id]} " + params[:postcomment][:body]
         flash[:notice] = t'reply_succ'
       else
@@ -29,7 +29,7 @@ class PostcommentsController < ApplicationController
     else
       @postcomment = comments.new(params[:postcomment])
       @postcomment.user_id = session[:id]
-      if params[:reply_user_id] != ''
+      if params[:reply_user_id].to_s != ''
         @postcomment.body = "repU#{params[:reply_user_id]} " + @postcomment.body
       end
       @postcomment.save

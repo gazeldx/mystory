@@ -6,8 +6,6 @@
     span.pl
       = comment.created_at.strftime(t'no_year')
     p
-      - if comment.is_a?(Rnote)
-        = t'recommend_reason'
-      = comment_info comment.body
+      = comment_info comment
       - if @user.id==session[:id]
         | &nbsp;#{link_to t('reply'), "/m_reply_#{@clazz}comment/#{comment.id}"}

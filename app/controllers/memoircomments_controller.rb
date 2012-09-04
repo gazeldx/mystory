@@ -13,7 +13,7 @@ class MemoircommentsController < ApplicationController
       if comments.collect{|c| c.user_id}.include?(session[:id])
         comment = comments.find_by_user_id(session[:id])
         body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' '
-        if params[:reply_user_id] != ''
+        if params[:reply_user_id].to_s != ''
           body = body + "repU#{params[:reply_user_id]} " + params[:memoircomment][:body]
           flash[:notice] = t'reply_succ'
         else
@@ -24,7 +24,7 @@ class MemoircommentsController < ApplicationController
       else
         @memoircomment = comments.new(params[:memoircomment])
         @memoircomment.user_id = session[:id]
-        if params[:reply_user_id] != ''
+        if params[:reply_user_id].to_s != ''
           @memoircomment.body = "repU#{params[:reply_user_id]} " + @memoircomment.body
         end
         @memoircomment.save

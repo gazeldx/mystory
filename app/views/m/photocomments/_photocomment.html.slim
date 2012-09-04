@@ -6,6 +6,4 @@
     span.pl
       = comment.created_at.strftime(t'time_format')
     p
-      - if comment.is_a?(Rphoto)
-        = t'recommend_reason'
-      = comment_info comment.body
+      = comment_info comment
