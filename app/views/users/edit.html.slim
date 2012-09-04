@@ -22,7 +22,7 @@ h2
         td
           = @_user.username
           | &nbsp;
-          span.pl
+          span.gray
             = t'can_login'
       tr
         td class='mr'
@@ -30,7 +30,7 @@ h2
         td
           = @_user.email
           | &nbsp;
-          span.pl
+          span.gray
             = t'can_login'
       tr
         td class='mr'
@@ -39,7 +39,7 @@ h2
           = f.text_field :domain, size: 10
           span.m
             | .#{request.domain}
-          span.pl
+          span.gray
             | &nbsp;可用于登录，建议用姓名拼音
       tr
         td class='mr'
@@ -51,7 +51,7 @@ h2
           = t'real_name'
         td
           = f.text_field :name, size: 10
-          span.pl
+          span.gray
             = t('name_desc', w: site_name)
       tr
         td class='mr'

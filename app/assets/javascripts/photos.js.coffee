@@ -38,3 +38,16 @@ this.switchPhoto = (id, img_url, img_thumb_url) ->
   else
     $('#'+id+' img').attr('src', img_thumb_url)
     $('#'+id).attr 'title', "点击放大"
+
+this.like_photo_comment = (id) ->
+  $.ajax
+    url: '/like_photo_comment'
+    data: "id=" + id
+    type: "POST"
+    dataType: "json"
+    success: (d) ->
+      if $('#like'+id).html()=='赞'
+        $('#like'+id).html '已赞'
+      else
+        $('#like'+id).html '赞'
+      $('#like_count'+id).html d['likecount']

@@ -2,15 +2,16 @@
   div id='note-#{blog.id}'
     div
       span.wrap
-        h3
+        h3.b
           = link_to raw(blog.title), blog, target: '_blank'
           | &nbsp;
           = blog_info2 blog
-          - if blog.user_id == session[:id]
-            | &nbsp;
-            = link_to t('edit'), edit_blog_path(blog)
-            | &nbsp;
-            = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
+          span.mi
+            - if blog.user_id == session[:id]
+              | &nbsp;
+              = link_to t('edit'), edit_blog_path(blog)
+              | &nbsp;
+              = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
           a.rr id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title=t('open_article')
             img src="/images/arrow2.gif"
     .note id='note_#{blog.id}_short'

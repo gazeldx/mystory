@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831035305) do
+ActiveRecord::Schema.define(:version => 20120904064419) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20120831035305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "likecount",  :default => 0
+    t.text     "likeusers"
   end
 
   add_index "blogcomments", ["blog_id"], :name => "index_blogcomments_on_blog_id"
@@ -169,6 +171,8 @@ ActiveRecord::Schema.define(:version => 20120831035305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "likecount",  :default => 0
+    t.text     "likeusers"
   end
 
   add_index "memoircomments", ["memoir_id"], :name => "index_memoircomments_on_memoir_id"
@@ -213,6 +217,8 @@ ActiveRecord::Schema.define(:version => 20120831035305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "likecount",  :default => 0
+    t.text     "likeusers"
   end
 
   add_index "notecomments", ["note_id"], :name => "index_notecomments_on_note_id"
@@ -249,6 +255,8 @@ ActiveRecord::Schema.define(:version => 20120831035305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "likecount",  :default => 0
+    t.text     "likeusers"
   end
 
   add_index "photocomments", ["photo_id"], :name => "index_photocomments_on_photo_id"

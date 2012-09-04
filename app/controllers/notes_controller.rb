@@ -87,9 +87,9 @@ class NotesController < ApplicationController
 #        @new_notes = @user.notes.where(:is_draft => false).order('created_at DESC').limit(6)
         @note_pre = @user.notes.where(["notecate_id = ? AND created_at > ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at').first
         @note_next = @user.notes.where(["notecate_id = ? AND created_at < ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at DESC').first
-        comments = @note.notecomments
-        @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-        @comments_uids = comments.collect{|c| c.user_id}
+        @all_comments = @note.notecomments.order('likecount DESC, created_at')
+#        @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+        @comments_uids = @all_comments.collect{|c| c.user_id}
         ids = @user.notes.select('id')
         @rnotes = @user.r_notes.where(id: ids).limit(6)
         cate_ids = @user.notes.where(:is_draft => false).where(["notecate_id = ?", @note.notecate_id]).select('id')

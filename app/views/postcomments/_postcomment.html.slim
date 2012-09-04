@@ -13,9 +13,9 @@
           | >
           a id="like#{comment.id}" href='javascript:;' onclick="like_post_comment(#{comment.id})"
             - if / #{session[:id]}/=~comment.likeusers
-              | 已赞
+              = t'have_liked'
             - else
-              | 赞
+              = t'like'
           span id="like_count#{comment.id}"
             - unless comment.likecount==0
               | #{comment.likecount}

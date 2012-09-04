@@ -11,7 +11,11 @@
   a href=signature_path
     = t'_signature'
   | &nbsp;&nbsp;&nbsp;
-  a href=edit_password_path
+  - if @user.email.match(/.*@mystory\.cc/)
+    - modify_password = edit_profile_path
+  - else
+    - modify_password = edit_password_path
+  a href=modify_password
     = t'edit_password'
   br
   a href=hobbies_path

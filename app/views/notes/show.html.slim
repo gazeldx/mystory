@@ -37,31 +37,15 @@ div.note-ft id='note_#{@note.id}_footer'
   .sns-bar
     = render 'shared/share'
     .sns-bar-fav
+      | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
       - if session[:id].nil?
         = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
-        - if ri.nil?
-          = hidden_field_tag :ri_id
-          span#ri_body
-          span#edit
-          | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
+        - if ri.nil?          
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
-          = hidden_field_tag :ri_id, ri.id
-          span#ri_body= ri.body
-          span#edit
-            - if ri.body.nil? 
-              = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
-            - else
-              = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
-          | &nbsp;#{t('recommend_count2', w: @note.recommend_count)}
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
-    #bodydiv style='text-align:right;display:none' 
-      span
-        = t'recommend_reason'
-      = text_area_tag :body
-      = button_tag t('submit'), onclick: 'modify_ri("note")'
 .ll.pl2 style='width:50%'
   - unless @note.notetags.blank?
     = join_notetags(@note)

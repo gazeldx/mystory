@@ -44,6 +44,8 @@ zh:
   comment_and_recommend: "评论并推荐"
   article_recommended: "文章已推荐！"
   photo_recommended: "照片已推荐！"
+  memoir_recommended: "自传已推荐！"
+
   same_idol: "喜爱“%{w}”的人"
   same_hobby: "同道中人"
   _board: "讨论版"
@@ -73,6 +75,9 @@ zh:
   qq_login_succ: "QQ登录成功!"
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
   show_weibo_title: "访问ta的新浪微博"
+
+  like: "赞"
+  have_liked: "已赞"
 
   follow_succ: "关注成功！"
   unfollow_succ: "取消关注成功！"
@@ -522,8 +527,8 @@ zh:
   _register: "注册"
   forgot_password: "忘记密码"
   regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。网站才刚起步，希望你能常来看看。"
-  weibo_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。目前您只能通过微博账号登录，修改邮箱和密码功能还在研发中，所以请不要取消与微博的绑定。"
-  qq_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。目前您只能通过QQ账号登录，修改邮箱和密码功能还在研发中，所以请不要取消与QQ的绑定。"
+  weibo_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。"
+  qq_regiter_succ_memo: "您的帐号已经创建成功。您现在可以修改个人资料。请发布原创文章。我们将努力保护您的版权和收益。"
   new_user: "最近加入会员"
   user_name: "帐号"
   user_name_desc: "仅用于登录，不显示。英文字母、数字和_"

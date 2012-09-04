@@ -1,13 +1,9 @@
 class PostcommentsController < ApplicationController
-
+  include Comment
+  
   def like
     comment = Postcomment.find(params[:id])
-    _reg = / #{session[:id]}/
-    if _reg =~ comment.likeusers
-      comment.update_attributes(:likecount => comment.likecount.to_i - 1, :likeusers => comment.likeusers.sub(_reg, ""))
-    else
-      comment.update_attributes(:likecount => comment.likecount.to_i + 1, :likeusers => comment.likeusers.to_s + " #{session[:id]}" )
-    end
+    like_it comment
     render json: comment.as_json
   end
   

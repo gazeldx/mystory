@@ -388,8 +388,28 @@ class ApplicationController < ActionController::Base
       rphoto.user_id = session[:id]
       rphoto.photo = photo
       rphoto.save
-#      Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
+      #      Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
       rphoto
+    end
+
+    def save_rmemoir(memoir)
+      rmemoir = Rmemoir.new
+      rmemoir.user_id = session[:id]
+      rmemoir.memoir = memoir
+      rmemoir.save
+#      Note.update_all("recommend_count = #{memoir.recommend_count + 1}", "id = #{memoir.id}")
+      rmemoir
+    end
+  end
+
+  module Comment
+    def like_it comment
+      _reg = / #{session[:id]}/
+      if _reg =~ comment.likeusers
+        comment.update_attributes(:likecount => comment.likecount - 1, :likeusers => comment.likeusers.sub(_reg, ""))
+      else
+        comment.update_attributes(:likecount => comment.likecount + 1, :likeusers => comment.likeusers.to_s + " #{session[:id]}" )
+      end
     end
   end
 

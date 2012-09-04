@@ -3,11 +3,7 @@ module PostcommentsHelper
   def p_reply_add
     link = content_tag(:a, t('add_reply'), href: 'javascript:;', onclick: "$('##{@clazz}comment_body').focus();$('#who').html('#{t'add_reply'}');$('#reply_user_id').val('')")
     raw ('&gt;' + link + '&nbsp;&nbsp;')
-  end
-
-  def comment_no_html(str)
-    str.gsub(/<br\/>/, " >>").gsub(/<span.*?>/, " ").gsub(/<\/span>/, " ")
-  end
+  end  
 
   def p_comment_info(body)
     s = body.scan(/repU(\d{1,}) /)

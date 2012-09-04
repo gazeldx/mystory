@@ -5,11 +5,10 @@
     .content
       = c_author(user, comment)
       p
-        - if comment.is_a?(Rmemoir)
-          = t'recommend_reason'
-        = comment_info comment.body
-      - if [user.id, @user.id].include?(session[:id])        
-        .admin-lnks style="#{line_style(user, ci)}"
-          - if comment.is_a?(Memoircomment)
-            = reply_add user
-            = link_to t('delete'), [@memoir, comment], method: :delete
+        = comment_info comment
+      .admin-lnks style="#{line_style(user, ci)}"
+        - if !session[:id].nil? && user.id!=session[:id]
+          = like_it comment
+        = reply_add user
+        - if [user.id, @user.id].include?(session[:id])
+          | &nbsp;&nbsp;>#{link_to t('delete'), [@memoir, comment], method: :delete}

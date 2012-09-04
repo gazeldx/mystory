@@ -49,3 +49,42 @@ this.switchView = ->
     $('.note').css 'display', ''
     $('.note_full').css 'display', 'none'
     $('#view').val '1'
+
+this.like_blog_comment = (id) ->
+  $.ajax
+    url: '/like_blog_comment'
+    data: "id=" + id
+    type: "POST"
+    dataType: "json"
+    success: (d) ->
+      if $('#like'+id).html()=='赞'
+        $('#like'+id).html '已赞'
+      else
+        $('#like'+id).html '赞'
+      $('#like_count'+id).html d['likecount']
+
+this.like_note_comment = (id) ->
+  $.ajax
+    url: '/like_note_comment'
+    data: "id=" + id
+    type: "POST"
+    dataType: "json"
+    success: (d) ->
+      if $('#like'+id).html()=='赞'
+        $('#like'+id).html '已赞'
+      else
+        $('#like'+id).html '赞'
+      $('#like_count'+id).html d['likecount']
+
+this.like_memoir_comment = (id) ->
+  $.ajax
+    url: '/like_memoir_comment'
+    data: "id=" + id
+    type: "POST"
+    dataType: "json"
+    success: (d) ->
+      if $('#like'+id).html()=='赞'
+        $('#like'+id).html '已赞'
+      else
+        $('#like'+id).html '赞'
+      $('#like_count'+id).html d['likecount']

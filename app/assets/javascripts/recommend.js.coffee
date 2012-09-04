@@ -3,13 +3,13 @@ changeInButton = ->
     $('#recommend').html('推荐')
     $('#recommend').attr('title', '')
     $('#recommend').attr('class', 'fav-add btn-fav')
-    $('#ri_body').html('')
-    $('#edit').html('')
+    #$('#ri_body').html('')
+    #$('#edit').html('')
   else
     $('#recommend').html('已推荐')
     $('#recommend').attr('title', '点击可取消推荐')
     $('#recommend').attr('class', 'fav-cancel btn-fav')
-    showBodyEtc()
+    #showBodyEtc()
 
 this.showBodyEtc = ->
   $('#bodydiv').css 'display', ''
@@ -40,7 +40,7 @@ this.recommend_blog = ->
     type: "POST"
     success: (data) ->
       changeInButton()
-      $('#ri_id').val(data['id'])
+      #$('#ri_id').val(data['id'])
 
 this.cancel_recommend_blog = (id) ->
   $.ajax

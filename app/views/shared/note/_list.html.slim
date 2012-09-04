@@ -2,21 +2,21 @@
   div id='note-#{note.id}'
     div
       span.wrap
-        h3
+        h3.b
           - if note.title.to_s == ''
             = link_to note.created_at.strftime(t'date_format'), note, target: '_blank', class: 'll'
           - else
             = link_to note.title, note, target: '_blank', class: 'll'
             | &nbsp;
             = note.created_at.strftime(t'date_without_year')
-          a.rr id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title=t('open_article')
-            img src="/images/arrow2.gif"
-          span.pl
+          span.mi
             - if note.user_id == session[:id]
               | &nbsp;
               = link_to t('edit'), edit_note_path(note)
               | &nbsp;
               = link_to t('delete'), note, confirm: t('confirm.delete'), method: :delete
+          a.rr id="#{note.id}" onclick="javascript:showNote('#{note.id}')" title=t('open_article')
+            img src="/images/arrow2.gif"
     .note id='note_#{note.id}_short'
       - n = photos_count note.content
       .ll

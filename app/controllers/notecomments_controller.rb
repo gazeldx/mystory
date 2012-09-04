@@ -1,10 +1,10 @@
 class NotecommentsController < ApplicationController
+  include Recommend, Comment
 
-  include Recommend
   def create
     @note = Note.find(params[:note_id])
     comments = @note.notecomments
-    if params[:reply_user_id].to_s != ''
+    if params[:reply_user_id].to_s != '' and @note.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
       comment.update_attribute('body', body)
@@ -15,12 +15,21 @@ class NotecommentsController < ApplicationController
     else
       if comments.collect{|c| c.user_id}.include?(session[:id])
         comment = comments.find_by_user_id(session[:id])
-        body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
+        body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' '
+        if params[:reply_user_id] != ''
+          body = body + "repU#{params[:reply_user_id]} " + params[:notecomment][:body]
+          flash[:notice] = t'reply_succ'
+        else
+          body += params[:notecomment][:body]
+          flash[:notice] = t'add_comment_succ'
+        end
         comment.update_attribute('body', body)
-        flash[:notice] = t'add_comment_succ'
       else
         @notecomment = comments.new(params[:notecomment])
         @notecomment.user_id = session[:id]
+        if params[:reply_user_id] != ''
+          @notecomment.body = "repU#{params[:reply_user_id]} " + @notecomment.body
+        end
         @notecomment.save
         Note.update_all("comments_count = #{@note.comments_count + 1}", "id = #{@note.id}")
         Note.update_all(["replied_at = ?", Time.now], "id = #{@note.id}")
@@ -63,6 +72,12 @@ class NotecommentsController < ApplicationController
     Note.update_all("comments_count = #{@note.comments_count - 1}", "id = #{@note.id}")
     flash[:notice] = t('delete_succ1', w: t('comment'))
     redirect_to note_path(@note) + "#notice"
+  end
+
+  def like
+    comment = Notecomment.find(params[:id])
+    like_it comment
+    render json: comment.as_json
   end
   
 end

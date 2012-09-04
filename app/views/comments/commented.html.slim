@@ -41,7 +41,7 @@ table.b.olt
         td width='50%'
           = link_to comment.user.name, site(comment.user), target: '_blank'
           | ：
-          = comment_info comment.body
+          = comment_info comment
           | &nbsp;
           = link_to t('reply'), "#{reply_url}#comments", target: '_blank'          
         td.pl title=comment.created_at.strftime(t'time_format')

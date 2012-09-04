@@ -1,9 +1,10 @@
 class BlogcommentsController < ApplicationController
-  include Recommend
+  include Recommend, Comment
+
   def create
     @blog = Blog.find(params[:blog_id])
     comments = @blog.blogcomments
-    if params[:reply_user_id].to_s != ''
+    if params[:reply_user_id].to_s != '' and @blog.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
       comment.update_attribute('body', body)
@@ -14,12 +15,21 @@ class BlogcommentsController < ApplicationController
     else
       if comments.collect{|c| c.user_id}.include?(session[:id])
         comment = comments.find_by_user_id(session[:id])
-        body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
+        body = comment.body + 'ReplyFRomU' + Time.now.to_i.to_s + ' '
+        if params[:reply_user_id] != ''
+          body = body + "repU#{params[:reply_user_id]} " + params[:blogcomment][:body]
+          flash[:notice] = t'reply_succ'
+        else
+          body += params[:blogcomment][:body]
+          flash[:notice] = t'add_comment_succ'
+        end
         comment.update_attribute('body', body)
-        flash[:notice] = t'add_comment_succ'
       else
         @blogcomment = comments.new(params[:blogcomment])
         @blogcomment.user_id = session[:id]
+        if params[:reply_user_id] != ''
+          @blogcomment.body = "repU#{params[:reply_user_id]} " + @blogcomment.body
+        end
         @blogcomment.save
         Blog.update_all("comments_count = #{@blog.comments_count + 1}", "id = #{@blog.id}")
         Blog.update_all(["replied_at = ?", Time.now], "id = #{@blog.id}")      
@@ -62,6 +72,12 @@ class BlogcommentsController < ApplicationController
     Blog.update_all("comments_count = #{@blog.comments_count - 1}", "id = #{@blog.id}")
     flash[:notice] = t('delete_succ1', w: t('comment'))
     redirect_to blog_path(@blog) + "#notice"
+  end
+
+  def like
+    comment = Blogcomment.find(params[:id])
+    like_it comment
+    render json: comment.as_json
   end
 
 end

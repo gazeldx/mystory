@@ -11,7 +11,7 @@ class SearchController < ApplicationController
     else
       blogs = @user.blogs
     end
-    @blogs = blogs.where("title like ?", "%#{params[:title]}%").order('created_at DESC')
+    @blogs = blogs.where("title like ?", "%#{params[:title]}%").order('created_at DESC').limit(100)
   end
 
   def all
@@ -22,8 +22,8 @@ class SearchController < ApplicationController
       blogs = @user.blogs
       notes = @user.notes
     end
-    blogs = blogs.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC')
-    notes = notes.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC')
-    @all = blogs | notes
+    blogs = blogs.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(100)
+    notes = notes.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(80)
+    @all = (blogs | notes).sort_by{|x| x.comments_count}.reverse!
   end
 end

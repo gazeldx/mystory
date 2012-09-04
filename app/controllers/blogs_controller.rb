@@ -23,9 +23,9 @@ class BlogsController < ApplicationController
         @new_blogs = @user.blogs.where(:is_draft => false).order('created_at DESC').limit(6)
         @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ? AND is_draft = false", @blog.category_id, @blog.created_at]).order('created_at').first
         @blog_next = @user.blogs.where(["category_id = ? AND created_at < ? AND is_draft = false", @blog.category_id, @blog.created_at]).order('created_at DESC').first
-        comments = @blog.blogcomments
-        @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-        @comments_uids = comments.collect{|c| c.user_id}
+        @all_comments = @blog.blogcomments.order('likecount DESC, created_at')
+#        @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
+        @comments_uids = @all_comments.collect{|c| c.user_id}
         ids = @user.blogs.select('id')
         @rblogs = @user.r_blogs.where(id: ids).limit(6)
         cate_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')

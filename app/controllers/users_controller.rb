@@ -22,14 +22,19 @@ class UsersController < ApplicationController
 
   def edit
     @_user = User.find(session[:id])
-    @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
-    @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
-    @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
-    if @m
-      render mr, layout: 'm/portal'
+    puts @_user.inspect
+    if @_user.email.match(/.*@mystory\.cc/)
+      render :edit_bind, layout: 'like'
     else
-      render layout: 'like'
-    end
+      @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
+      @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
+      @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
+      if @m
+        render mr, layout: 'm/portal'
+      else
+        render layout: 'like'
+      end
+    end    
   end
 
   def edit_password
@@ -53,6 +58,19 @@ class UsersController < ApplicationController
       redirect_to m_or(my_site + profile_path), notice: t('update_succ')
     else
       _render :edit
+    end
+  end
+
+  def update_bind
+    @_user = User.find(session[:id])
+    params[:user][:passwd] = Digest::SHA1.hexdigest(params[:user][:passwd])
+    if @_user.update_attributes(params[:user])
+      @_user.reload
+      session[:name] = @_user.name
+      session[:domain] = @_user.domain
+      redirect_to m_or(my_site + edit_profile_path), notice: t('update_succ')
+    else
+      _render :edit_bind
     end
   end
 
@@ -146,14 +164,14 @@ class UsersController < ApplicationController
   end
 
   def top
-#    if ENV["RAILS_ENV"] == "production"
-#      ids = [2, 135, 44, 66, 154, 28, 157, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-#    else
-#      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-#    end
-#    r = User.find(ids)
-#    @users = ids.map{|id| r.detect{|e| e.id == id}}
-#    @columns = Column.order('created_at')
+    #    if ENV["RAILS_ENV"] == "production"
+    #      ids = [2, 135, 44, 66, 154, 28, 157, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
+    #    else
+    #      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
+    #    end
+    #    r = User.find(ids)
+    #    @users = ids.map{|id| r.detect{|e| e.id == id}}
+    #    @columns = Column.order('created_at')
     @users = User.order('followers_num DESC').limit(50)
     render layout: 'help'
   end
