@@ -51,7 +51,7 @@ div id='note-#{note.id}_full'
 
 = hidden_field_tag :reply_user_id
 .item
-  = f.text_area :body, size: "64x4", class: 'comment'
+  = f.text_area :body, size: "64x4", :class => 'comment'
   br
 .item
   span.bn-flat-hot

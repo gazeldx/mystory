@@ -276,6 +276,7 @@ zh:
 
   reply_who: "回复%{w}"
   _reply_who: "回复%{w}："
+  _reply_somebody_comment: "回复网友："
   reply_succ: "回复评论成功！"
   who_reply: "%{w}回复：%{r}"
   building_who_reply: "楼主%{w}回复：%{r}"
