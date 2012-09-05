@@ -7,7 +7,8 @@ class MemoircommentsController < ApplicationController
     if params[:reply_user_id] != '' and @memoir.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:memoircomment][:body]
-      Memoircomment.update_all({:body => body}, {:id => comment.id})
+#      Memoircomment.update_all({:body => body}, {:id => comment.id})
+      comment.update_attribute('body', body)
       flash[:notice] = t'reply_succ'
     else
       if comments.collect{|c| c.user_id}.include?(session[:id])

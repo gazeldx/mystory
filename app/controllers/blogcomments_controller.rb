@@ -7,8 +7,8 @@ class BlogcommentsController < ApplicationController
     if params[:reply_user_id].to_s != '' and @blog.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
-      Blogcomment.update_all({:body => body}, {:id => comment.id})
-      #      comment.update_attribute('body', body)
+#      Blogcomment.update_all({:body => body}, {:id => comment.id})
+      comment.update_attribute('body', body)
       #      Blogcomment.update(comment.id, :body => body)
       #Blogcomment.update will auto update updated_at,But update_all will not.
       flash[:notice] = t'reply_succ'

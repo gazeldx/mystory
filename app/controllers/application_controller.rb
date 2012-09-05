@@ -397,7 +397,7 @@ class ApplicationController < ActionController::Base
       rmemoir.user_id = session[:id]
       rmemoir.memoir = memoir
       rmemoir.save
-#      Note.update_all("recommend_count = #{memoir.recommend_count + 1}", "id = #{memoir.id}")
+      #      Note.update_all("recommend_count = #{memoir.recommend_count + 1}", "id = #{memoir.id}")
       rmemoir
     end
   end
@@ -410,6 +410,28 @@ class ApplicationController < ActionController::Base
       else
         comment.update_attributes(:likecount => comment.likecount + 1, :likeusers => comment.likeusers.to_s + " #{session[:id]}" )
       end
+    end   
+
+    def commenter_last_comment_time comment
+      m = comment.body.split(/repLyFromM/m)
+      time = comment.updated_at
+      m.each_with_index do |e, i|
+        if i > 0 and i == (m.size - 1)
+          unless e.match(/.*ReplyFRomU.*$/m)
+            rus = comment.body.split(/ReplyFRomU/m)
+            if rus.size > 1
+              rus.each_with_index do |u, j|
+                if j > 0 and j == (rus.size - 1)
+                  time = Time.at(u.match(/(\d{10}).*$/)[1].to_i)
+                end
+              end
+            else
+              time = comment.created_at
+            end
+          end
+        end
+      end
+      time
     end
   end
 

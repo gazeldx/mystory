@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   layout 'memoir'
+  include Comment
 
   def comments
-    #TODO recemended not show as comment
     blogcomments = @user.blogcomments.includes(:blog => :user).order('updated_at DESC').limit(30)
     notecomments = @user.notecomments.includes(:note => :user).order('updated_at DESC').limit(30)
     photocomments = @user.photocomments.includes(:photo => [:album => :user]).order('updated_at DESC').limit(10)
@@ -24,7 +24,6 @@ class CommentsController < ApplicationController
   end
 
   def commented
-    #TODO recemended not show as comment
     blog_ids = Blog.select("id").where("user_id = ?", @user.id)
     note_ids = Note.select("id").where("user_id = ?", @user.id)
     photo_ids = Photo.select("id").where(album_id: @user.albums)
@@ -38,7 +37,10 @@ class CommentsController < ApplicationController
       memoir_comments = memoir.memoircomments
       comments = comments | memoir_comments
     end
-
+    
+    comments.each do |x|
+      x.updated_at = commenter_last_comment_time(x)
+    end
     @comments = comments.sort_by{|x| x.updated_at}.reverse!
 
     @view_commented_at = @user.view_commented_at

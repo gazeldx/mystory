@@ -1,8 +1,22 @@
-str = 'u1133'
-if "u11-333-4".match(/^u\d{4}.*$/)
-  puts "haha"
+str = '好人不一定有好结局，聪明repLyFromM4446413120 人会有好结局。repLyFromM1346413120 好的结ReplyFRo3mU局需要自己创造。。。。'
+#m = str.match(/(repLyFromM(\d{10}) (?!^\d).*)?$/m)
+#puts m.inspect
+m = str.split(/repLyFromM/m)
+puts m.inspect
+puts m.size
+m.each_with_index do |e, i|
+  if i == (m.size - 1)
+    puts e.inspect
+    unless e.match(/.*ReplyFRomU.*$/m)
+      time = Time.at(e.match(/(\d{10}).*$/)[1].to_i)
+      puts time
+    end
+  end
 end
+time
 
+
+#m = str.match(/.*(repLyFromM(\d{10}) [^(\d{10})]*)$/m)
 #m = str.match(/.*@mystory\.cc/)
 #puts m.inspect
 #m_links = m[1].scan(/http:\/\/.*[^ html].*\.html/m)
@@ -13,7 +27,7 @@ end
 #end
 #i = 0
 #puts i=i+1
-#puts "bacd".include? "acc"
+#puts "bacd".include? "cb"
 #
 #str = "
  #".gsub(/^[ \n]{1,150}/m, " ").gsub(/[ \r\n]{1,150}$/m, "")

@@ -7,7 +7,8 @@ class NotecommentsController < ApplicationController
     if params[:reply_user_id].to_s != '' and @note.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
-      Notecomment.update_all({:body => body}, {:id => comment.id})
+#      Notecomment.update_all({:body => body}, {:id => comment.id})
+      comment.update_attribute('body', body)
       flash[:notice] = t'reply_succ'
 
       reply_user = User.find(params[:reply_user_id])
