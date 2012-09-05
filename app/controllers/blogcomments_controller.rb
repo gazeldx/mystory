@@ -7,7 +7,10 @@ class BlogcommentsController < ApplicationController
     if params[:reply_user_id].to_s != '' and @blog.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:blogcomment][:body]
-      comment.update_attribute('body', body)
+      Blogcomment.update_all({:body => body}, {:id => comment.id})
+      #      comment.update_attribute('body', body)
+      #      Blogcomment.update(comment.id, :body => body)
+      #Blogcomment.update will auto update updated_at,But update_all will not.
       flash[:notice] = t'reply_succ'
       
       reply_user = User.find(params[:reply_user_id])
@@ -31,8 +34,9 @@ class BlogcommentsController < ApplicationController
           @blogcomment.body = "repU#{params[:reply_user_id]} " + @blogcomment.body
         end
         @blogcomment.save
-        Blog.update_all("comments_count = #{@blog.comments_count + 1}", "id = #{@blog.id}")
-        Blog.update_all(["replied_at = ?", Time.now], "id = #{@blog.id}")      
+        Blog.update_all({:comments_count => @blog.comments_count + 1, :replied_at => Time.now}, {:id => @blog.id})
+        #        Blog.update(@blog.id, :comments_count => @blog.comments_count + 1, :replied_at => Time.now)
+        #        Blog.update_all(["replied_at = ?", Time.now], "id = #{@blog.id}")
         flash[:notice] = t'comment_succ'
         expire_fragment("portal_body")
         expire_fragment("portal_hotest")

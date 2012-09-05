@@ -7,7 +7,7 @@ class PhotocommentsController < ApplicationController
     if params[:reply_user_id].to_s != '' and @photo.album.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:photocomment][:body]
-      comment.update_attribute('body', body)
+      Photocomment.update_all({:body => body}, {:id => comment.id})
       flash[:notice] = t'reply_succ'
     else
       if comments.collect{|c| c.user_id}.include?(session[:id])

@@ -7,7 +7,7 @@ class NotecommentsController < ApplicationController
     if params[:reply_user_id].to_s != '' and @note.user_id == session[:id]
       comment = comments.find_by_user_id(params[:reply_user_id])
       body = comment.body + 'repLyFromM'+ Time.now.to_i.to_s + ' ' + params[:notecomment][:body]
-      comment.update_attribute('body', body)
+      Notecomment.update_all({:body => body}, {:id => comment.id})
       flash[:notice] = t'reply_succ'
 
       reply_user = User.find(params[:reply_user_id])
@@ -31,8 +31,7 @@ class NotecommentsController < ApplicationController
           @notecomment.body = "repU#{params[:reply_user_id]} " + @notecomment.body
         end
         @notecomment.save
-        Note.update_all("comments_count = #{@note.comments_count + 1}", "id = #{@note.id}")
-        Note.update_all(["replied_at = ?", Time.now], "id = #{@note.id}")
+        Note.update_all({:comments_count => @note.comments_count + 1, :replied_at => Time.now}, {:id => @note.id})
         flash[:notice] = t'comment_succ'
         expire_fragment("portal_body")
         expire_fragment("portal_hotest")
