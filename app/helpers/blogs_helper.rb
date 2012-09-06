@@ -19,11 +19,11 @@ module BlogsHelper
     info + ' ' + join_tags(blog)
   end
 
-  def blog_info2(blog)
-    info = blog.created_at.strftime t('date_without_year') + ' '
-    info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
-    raw info
-  end
+#  def blog_info2(blog)
+#    info = blog.created_at.strftime t('date_without_year') + ' '
+#    info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
+#    raw info
+#  end
 
   def article_time(item)
     r = ""
@@ -45,10 +45,28 @@ module BlogsHelper
     end
   end
 
+  def join_tags_blank(item)
+    unless item.tags.blank?
+      _tags = item.tags.map { |t|
+        link_to t.name, "/tags/" + t.name, target: '_blank'
+      }.join(", ")
+      raw (t('_tag_') + _tags)
+    end
+  end
+
   def join_notetags(item)
     unless item.notetags.blank?
       _tags = item.notetags.map { |t|
         link_to t.name, "/tags/" + t.name
+      }.join(", ")
+      raw (t('_tag_') + _tags)
+    end
+  end
+
+  def join_notetags_blank(item)
+    unless item.notetags.blank?
+      _tags = item.notetags.map { |t|
+        link_to t.name, "/tags/" + t.name, target: '_blank'
       }.join(", ")
       raw (t('_tag_') + _tags)
     end
@@ -198,4 +216,33 @@ module BlogsHelper
     end
   end
 
+  def blog_list_item_bottom blog
+    str = "<br/>"
+    span_c = article_time blog
+    unless controller.action_name == 'show'
+      span_c = raw("#{span_c}&nbsp;#{t'at'}&nbsp;[#{link_to blog.category.name, blog.category, title: t('view_blogs_in_category')}]")
+    end
+    span_c = raw("#{span_c}&nbsp;&nbsp;")
+    unless blog.tags.blank?
+      span_c += join_tags_blank blog
+    end
+    str += content_tag(:span, span_c, :class => 'gray')
+    str += blog_read_comment_recommend blog
+    raw str
+  end
+
+  def note_list_item_bottom note
+    str = "<br/>"
+    span_c = article_time note
+    unless controller.action_name == 'show'
+      span_c = raw("#{span_c}&nbsp;#{t'at'}&nbsp;[#{link_to note.notecate.name, note.notecate, title: t('view_notes_in_notecate')}]")
+    end
+    span_c = raw("#{span_c}&nbsp;&nbsp;")
+    unless note.notetags.blank?
+      span_c += join_notetags_blank note
+    end
+    str += content_tag(:span, span_c, :class => 'gray')
+    str += note_read_comment_recommend note
+    raw str
+  end
 end

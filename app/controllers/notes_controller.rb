@@ -6,7 +6,7 @@ class NotesController < ApplicationController
 #  include Archives
   
   def index
-    @notes = @user.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
+    @notes = @user.notes.includes([:notetags, :notecate]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
     #    default_category = Notecate.new
     #    default_category.id = 0
@@ -149,7 +149,7 @@ class NotesController < ApplicationController
   def click_show_note
     @note = Note.find(params[:id])
     add_view_count
-    @note.content = summary_comment_style(@note, 3000)
+    @note.content = summary_style(@note, 3000)
     render json: @note.as_json()
   end
 
@@ -159,7 +159,7 @@ class NotesController < ApplicationController
   end
 
   def month
-    @notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
+    @notes = @user.notes.includes([:notetags, :notecate]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
     archives
   end
 

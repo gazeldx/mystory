@@ -2,7 +2,7 @@
 h1
   = t('he_followers', w: @user.name, r: @user.followers_num)
 ul.user-list
-  - @user.followers.each do |guy|
+  - @user.followers.sort_by{|x| x.followers_num}.reverse!.each do |guy|
     li.clearfix id='u#{guy.id}'
       a href=site(guy) title=guy.name
         = image_tag(guy.avatar.thumb.url, class: 'face')

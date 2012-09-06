@@ -8,7 +8,7 @@ class BlogsController < ApplicationController
   #  include Archives
   
   def index
-    @blogs = @user.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
+    @blogs = @user.blogs.includes([:tags, :category]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
   end
 
@@ -149,7 +149,7 @@ class BlogsController < ApplicationController
   def click_show_blog
     @blog = Blog.find(params[:id])
     add_view_count
-    @blog.content = summary_comment_style(@blog, 4000)
+    @blog.content = summary_style(@blog, 4000)
     render json: @blog.as_json()
   end
 
@@ -159,7 +159,7 @@ class BlogsController < ApplicationController
   end
 
   def month
-    @blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
+    @blogs = @user.blogs.includes([:tags, :category]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
     archives
   end
 

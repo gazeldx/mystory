@@ -102,9 +102,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def summary_common_no_comment(something, size, tmp)
+    if something.is_a?(Note)
+      si = note_path(something)
+      count = something.notecomments.size
+    elsif something.is_a?(Blog)
+      si = blog_path(something)
+      count = something.blogcomments.size
+    end
+    if something.content.size > size
+      tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + "</a>"
+    else
+      tmp
+    end
+  end
+
+  #May not used
   def summary_comment_style(something, size)
     _style = style_it(something.content[0, size])
     summary_common(something, size, _style)
+  end
+
+  def summary_style(something, size)
+    _style = style_it(something.content[0, size])
+    summary_common_no_comment(something, size, _style)
   end
 
   def style_it(something)

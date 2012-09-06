@@ -12,11 +12,13 @@ this.showBlog = (id) ->
         success: (d) ->
           $('#note_'+id+'_full').html(d['content'])
     $('#note_'+id+'_full').css 'display', ''
+    $('#note_'+id+'_full2').css 'display', ''
   else
     $('#'+id+' img').attr('src', '/images/arrow2.gif')
     $('#'+id).attr('title', '展开文章')
     $('#note_'+id+'_short').css 'display', ''
     $('#note_'+id+'_full').css 'display', 'none'
+    $('#note_'+id+'_full2').css 'display', 'none'
 
 this.showNote = (id) ->
   src = $('#'+id+' img').attr('src')

@@ -163,16 +163,19 @@ class UsersController < ApplicationController
   end
 
   def top
-    #    if ENV["RAILS_ENV"] == "production"
-    #      ids = [2, 135, 44, 66, 154, 28, 157, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-    #    else
-    #      ids = [2, 135, 44, 66, 154, 28, 151, 4, 11, 26, 3, 70, 18, 48, 22, 39, 75, 110, 101, 131]
-    #    end
-    #    r = User.find(ids)
-    #    @users = ids.map{|id| r.detect{|e| e.id == id}}
-    #    @columns = Column.order('created_at')
     @users = User.order('followers_num DESC').limit(50)
     render layout: 'help'
+  end
+
+  def recommended
+    if Rails.env.production?
+      ids = [172, 186, 180, 188, 154, 171, 157, 167, 41, 147, 170, 162, 4, 185]
+    else
+      ids = [172, 186, 180, 188, 154, 171, 157, 167, 147, 170, 162, 4, 185]
+    end
+    r = User.find(ids)
+    @users = ids.map{|id| r.detect{|e| e.id == id}}
+    render :top, layout: 'help'
   end
 
   private

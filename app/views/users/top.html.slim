@@ -1,6 +1,11 @@
-= title '活跃会员'
 h1
-  | 活跃会员
+  - case controller.action_name
+  - when 'top'
+    = title '活跃会员'
+    | 活跃会员 | #{link_to "站长推荐", recommended_users_path}
+  - else
+    = title '站长推荐'
+    | #{link_to "活跃会员", top_users_path} | 站长推荐
 ul.user-list
   - @users.each do |guy|
     li.clearfix id='u#{guy.id}'

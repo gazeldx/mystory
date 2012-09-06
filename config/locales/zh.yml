@@ -461,7 +461,8 @@ zh:
   _profile: "查看详细资料"
   article_source: "原文"
 
-  
+  at: "在"
+
   yesterday: "昨天"
   qian_day: "前天"
   _time: "时间"
@@ -475,6 +476,7 @@ zh:
   posted_in: "发表在"
 
   view_blogs_in_category: "查看该分类下的作品"
+  view_notes_in_notecate: "查看该分类下的日记"
 
   user_meta_desc_c: "%{w}自传、日记、作品、影集——%{s}原创社区"
   user_meta_album_c: "%{w}影集——%{s}原创社区"

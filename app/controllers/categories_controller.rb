@@ -46,7 +46,7 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     if @category.user == @user
-      @blogs = @category.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
+      @blogs = @category.blogs.includes(:tags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
       @categories = @user.categories.order('created_at')
       if @m
         render mr, layout: 'm/portal'

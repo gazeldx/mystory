@@ -4,12 +4,10 @@
       span.wrap
         h3.b
           = link_to raw(blog.title), blog, target: '_blank'
-          | &nbsp;
-          = blog_info2 blog
           span.mi
             - if blog.user_id == session[:id]
               | &nbsp;
-              = link_to t('edit'), edit_blog_path(blog)
+              = link_to t('edit'), edit_blog_path(blog), target: '_blank'
               | &nbsp;
               = link_to t('delete'), blog, confirm: t('confirm.delete'), method: :delete
           a.rr id="#{blog.id}" onclick="javascript:showBlog('#{blog.id}')" title=t('open_article')
@@ -23,5 +21,8 @@
       - if n>1
         br
         = thumbs_here(blog, 5)
+      = blog_list_item_bottom blog
     .note_full id='note_#{blog.id}_full' style="display: none;"
+    .note_full id='note_#{blog.id}_full2' style="display: none;"
+      = blog_list_item_bottom blog
 = will_paginate @blogs

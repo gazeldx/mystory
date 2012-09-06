@@ -1,7 +1,7 @@
 = title t('s_followers', w: @user.name)
 .num
   | #{link_to @user.name, m(site(@user))} 关注(#{@user.following_num}人)
-- @user.all_following.each do |guy|
+- @user.all_following.sort_by{|x| x.followers_num}.reverse!.each do |guy|
   .cont-lists
     table
       tr
