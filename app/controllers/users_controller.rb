@@ -169,7 +169,7 @@ class UsersController < ApplicationController
 
   def recommended
     if Rails.env.production?
-      ids = [172, 186, 180, 188, 154, 171, 157, 167, 41, 147, 170, 162, 4, 185]
+      ids = [172, 186, 180, 188, 154, 171, 157, 167, 44, 147, 170, 162, 4, 185]
     else
       ids = [172, 186, 180, 188, 154, 171, 157, 167, 147, 170, 162, 4, 185]
     end
