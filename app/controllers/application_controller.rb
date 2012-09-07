@@ -453,7 +453,7 @@ class ApplicationController < ActionController::Base
         end
       end
       time
-    end
+    end    
   end
 
   module AutoCreatedUserInfo

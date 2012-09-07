@@ -50,30 +50,31 @@ div.note-ft id='note_#{@note.id}_footer'
   - unless @note.notetags.blank?
     = join_notetags(@note)
     br
-  = t'_notecate_'
+  | 分类：
   - @notecates.each do |category|
     - link_css = 'selected' if category==@note.notecate and @notecates.size>1
     | [
     = link_to category.name, category, class: link_css
-    | ]&nbsp;&nbsp;
+    | ]&nbsp;
   br
   = t'a_new'
   - if @note_pre.nil?
     = t'none'
   - else
     = link_to_note @note_pre
+    = recommended_char if @all_cate_rnotes.include? @note_pre
   br
   = t'an_old'
   - if @note_next.nil?
     = t'none'
   - else
     = link_to_note @note_next
-- unless @rnotes.blank? and @cate_rnotes.blank?
+    = recommended_char if @all_cate_rnotes.include? @note_next
+- unless @rnotes.blank? and @cate_rnotes.nil?
   .ll.pl2 style='width:50%'
-    = t('s_cate_recommend', w: @note.notecate.name)
-    br
     - @cate_rnotes.each do |note|
       = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title[0..25]), note
+      = recommended_char
       br
     - unless @cate_notes.nil?
       - @cate_notes.each do |note|

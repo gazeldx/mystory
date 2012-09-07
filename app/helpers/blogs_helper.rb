@@ -245,4 +245,8 @@ module BlogsHelper
     str += note_read_comment_recommend note
     raw str
   end
+
+  def recommended_char
+    content_tag(:span, " #{t('recommended_char')}", :class => 'red')
+  end
 end

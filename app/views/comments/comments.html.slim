@@ -50,6 +50,6 @@ table.b.olt
           = link_to t('reply'), "#{reply_url}#comments", target: '_blank'
         td.pl title=comment.created_at.strftime(t'time_format')
           = comment.updated_at.strftime(t'no_year')
-          /- if comment.updated_at > @view_comments_at
-          /  span.red
-          /    | 新
+          - if comment.updated_at > @view_comments_at and comment.updated_at > comment.created_at and last_replied_by_writer?(comment)
+            span.red
+              | 新

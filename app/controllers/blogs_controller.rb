@@ -20,21 +20,25 @@ class BlogsController < ApplicationController
       if @blog.user == @user
         add_view_count
         @categories = @user.categories.order('created_at')
-        @new_blogs = @user.blogs.where(:is_draft => false).order('created_at DESC').limit(6)
+
         @blog_pre = @user.blogs.where(["category_id = ? AND created_at > ? AND is_draft = false", @blog.category_id, @blog.created_at]).order('created_at').first
         @blog_next = @user.blogs.where(["category_id = ? AND created_at < ? AND is_draft = false", @blog.category_id, @blog.created_at]).order('created_at DESC').first
+
         @all_comments = @blog.blogcomments.order('likecount DESC, created_at')
-#        @all_comments = (comments | @blog.rblogs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
         @comments_uids = @all_comments.collect{|c| c.user_id}
+
         ids = @user.blogs.select('id')
         @rblogs = @user.r_blogs.where(id: ids).limit(6)
-        cate_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
-        @cate_rblogs = @user.r_blogs.where(id: cate_ids).limit(5)
-        if @cate_rblogs.size < 5
-          @cate_blogs = @user.blogs.where(["category_id = ? AND is_draft = false", @blog.category_id]).order('created_at DESC').limit(5 - @cate_rblogs.size)
+        cate_blogs_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
+        @all_cate_rblogs = @user.r_blogs.where(id: cate_blogs_ids).order('created_at DESC').limit(4)
+        @cate_rblogs = @all_cate_rblogs - [@blog_pre, @blog_next, @blog]
+        not_in_blogs_ids = @cate_rblogs.collect{|c| c.id} << @blog.id
+        not_in_blogs_ids = not_in_blogs_ids << @blog_pre.id unless @blog_pre.nil?
+        not_in_blogs_ids = not_in_blogs_ids << @blog_next.id unless @blog_next.nil?
+        if @cate_rblogs.size < 4
+          @cate_blogs = @user.blogs.where(["category_id = ? AND is_draft = false AND id not in (?)", @blog.category_id, not_in_blogs_ids]).order('created_at DESC').limit(4 - @cate_rblogs.size)
         end
-        #        archives_months_count
-        #TODO UNIQUE @cate_blogs AND @cate_rblogs
+        
         if @m
           render mr, layout: 'm/portal'
         else

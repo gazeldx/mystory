@@ -35,12 +35,12 @@ h2
       tr
         td class='mr'
           = t'domain'
-        td
-          = f.text_field :domain, size: 10
+        td          
           span.m
-            | .#{request.domain}
+            | #{@_user.domain}
+          | .#{request.domain}
           span.gray
-            | &nbsp;可用于登录，建议用姓名拼音
+            | &nbsp;#{t('domain_setted_desc', w: @_user.domain)}
       tr
         td class='mr'
           | 登录密码

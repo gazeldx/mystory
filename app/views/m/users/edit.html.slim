@@ -15,10 +15,9 @@
   br
   = t'domain'
   | ：
-  = f.text_field :domain, size: 10
-  | .#{request.domain}
+  | #{@_user.domain}.#{request.domain}
   span.pl
-    | 可用于登录，建议用姓名拼音
+    | #{t('domain_setted_desc', w: @_user.domain)}
   br
   | 登录密码
   | ：

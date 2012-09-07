@@ -34,7 +34,7 @@
       /  th
       /    = t'assign_roles'
       th
-        | 删除
+        | 删
     - @users.each_with_index do |user, i|
       tr
         td
@@ -69,5 +69,7 @@
         /    = link_to t('assign_roles'), assign_roles_user_path(user)
         td
           - if user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num == 0
-            = link_to t(:delete), user_path(user), confirm:t('confirm.delete'), method: :delete
+            = link_to '删', user_path(user), confirm:t('confirm.delete'), method: :delete
+          - elsif user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num < 3 and user.email.match(/.*@mystory\.cc/) and user.weiboid.to_s=='' and user.openid.to_s==''
+            = link_to '-', user_path(user), confirm:t('confirm.delete'), method: :delete
   = will_paginate @users

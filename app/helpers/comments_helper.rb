@@ -255,6 +255,16 @@ module CommentsHelper
     raw "<script type=\"text/javascript\">$(document).ready(function(){$('#new_#{@clazz}comment').validate();});</script>"
   end
 
+  def last_replied_by_writer? comment
+    m = comment.body.split(/repLyFromM/m)
+    m.each_with_index do |e, i|
+      if i > 0 and i == (m.size - 1)
+        return !e.match(/.*ReplyFRomU.*$/m)
+      end
+    end
+    false
+  end
+
   #  def m_reply(user)
   #    if @user.id == session[:id]
   #      link = content_tag(:a, t('reply'), href: 'javascript:;', onclick: "$('##{@clazz}comment_body').focus();$('#who').html('#{t('reply_who', w:user.name)}');$('#reply_user_id').val('#{user.id}')")

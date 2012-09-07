@@ -84,20 +84,25 @@ class NotesController < ApplicationController
       if @note.user == @user
         add_view_count
         @notecates = @user.notecates.order('created_at')
-#        @new_notes = @user.notes.where(:is_draft => false).order('created_at DESC').limit(6)
+        
         @note_pre = @user.notes.where(["notecate_id = ? AND created_at > ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at').first
         @note_next = @user.notes.where(["notecate_id = ? AND created_at < ? AND is_draft = false", @note.notecate_id, @note.created_at]).order('created_at DESC').first
+        
         @all_comments = @note.notecomments.order('likecount DESC, created_at')
-#        @all_comments = (comments | @note.rnotes.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
         @comments_uids = @all_comments.collect{|c| c.user_id}
+        
         ids = @user.notes.select('id')
         @rnotes = @user.r_notes.where(id: ids).limit(6)
-        cate_ids = @user.notes.where(:is_draft => false).where(["notecate_id = ?", @note.notecate_id]).select('id')
-        @cate_rnotes = @user.r_notes.where(id: cate_ids).limit(5)
-        if @cate_rnotes.size < 5
-          @cate_notes = @user.notes.where(["notecate_id = ? AND is_draft = false", @note.notecate_id]).order('created_at DESC').limit(5 - @cate_rnotes.size)
+        cate_notes_ids = @user.notes.where(:is_draft => false).where(["notecate_id = ?", @note.notecate_id]).select('id')
+        @all_cate_rnotes = @user.r_notes.where(id: cate_notes_ids).order('created_at DESC').limit(4)
+        @cate_rnotes = @all_cate_rnotes - [@note_pre, @note_next, @note]
+        not_in_notes_ids = @cate_rnotes.collect{|c| c.id} << @note.id
+        not_in_notes_ids = not_in_notes_ids << @note_pre.id unless @note_pre.nil?
+        not_in_notes_ids = not_in_notes_ids << @note_next.id unless @note_next.nil?
+        if @cate_rnotes.size < 4
+          @cate_notes = @user.notes.where(["notecate_id = ? AND is_draft = false AND id not in (?)", @note.notecate_id, not_in_notes_ids]).order('created_at DESC').limit(4 - @cate_rnotes.size)
         end
-#        archives_months_count
+        
         if @m
           render mr, layout: 'm/portal'
         else

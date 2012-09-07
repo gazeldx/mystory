@@ -36,6 +36,8 @@ zh:
   a_new: "新一篇 "
   an_old: "旧一篇 "
   none: "无"
+  recommended_char: "荐"
+
   views_count: "阅读(%{w})"
   #views_count2: "共%{w}次阅读"
   comments_count: "评论(%{w})"
@@ -403,7 +405,7 @@ zh:
   s_notecates: "%{w}日记分类"
   s_recommend: "%{w}推荐作品"
   s_recommend_note: "%{w}推荐日记"
-  s_cate_recommend: "“%{w}”下的文章推荐"
+#  s_cate_recommend: "“%{w}”下的文章推荐"
   s_idol: "%{w}的偶像"
   s_hobby: "%{w}的爱好"
   s_editor: "%{w}推荐"
@@ -537,7 +539,8 @@ zh:
   user_name_desc: "仅用于登录，不显示。英文字母、数字和_"
   can_login: "可用于登录"
   domain: "个性域名"
-  domain_desc: " 可用于登录，建议用姓名拼音"
+  domain_desc: " 可用于登录，建议用姓名拼音。设定后不可更改，如需更改，请私信站长"
+  domain_setted_desc: " 可用“%{w}”登录，如需更改，请私信站长"
   real_name: "真实姓名"
   name_desc: "会显示在主页。“%{w}”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
 
