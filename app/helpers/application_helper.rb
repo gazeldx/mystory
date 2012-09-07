@@ -8,13 +8,13 @@ module ApplicationHelper
 
   def metadesc(_metadesc)
     content_for :metadesc do
-      _metadesc
+      _metadesc.gsub(/\r\n/,' ').gsub(/['"]/," ")
     end
   end
 
   def summary(_summary)
     content_for :summary do
-      _summary.gsub(/\r\n/,' ')
+      _summary.gsub(/\r\n/,' ').gsub(/['"]/," ")
     end
   end
 
