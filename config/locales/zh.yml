@@ -427,6 +427,7 @@ zh:
   s_album_add: "添加照片 - %{w}影集"
   s_album_title: "%{a}_%{w}影集"
   _recommend: "推荐阅读："
+  _relative_articles: "相关文章："
   _my_boards: "我的讨论版："
   all_boards: "所有讨论版"
 

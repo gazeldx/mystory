@@ -45,11 +45,13 @@ class NotecatesController < ApplicationController
   def show
     @notecate = Notecate.find(params[:id])
     if @notecate.user == @user
-      @notes = @notecate.notes.includes(:notetags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
+      @rids = @user.rnotes.select('note_id').map{|x| x.note_id}
       @notecates = @user.notecates.order('created_at')
       if @m
+        @notes = @notecate.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
         render mr, layout: 'm/portal'
       else
+        @notes = @notecate.notes.includes(:notetags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
         render layout: 'memoir'
       end
     else

@@ -41,18 +41,25 @@ br
   = t'none'
 - else
   = m_link_to_user_note @note_pre
+  = recommended_char if @all_cate_rnotes.include? @note_pre
 br
 = t'an_old'
 - if @note_next.nil?
   = t'none'
 - else
   = m_link_to_user_note @note_next
+  = recommended_char if @all_cate_rnotes.include? @note_next
 br
-- unless @rnotes.blank?
-  = t'_recommend'
+- unless @rnotes.blank? and @cate_rnotes.nil?
+  = t'_relative_articles'
   br
-  - @rnotes.each do |note|
+  - @cate_rnotes.each do |note|
     = m_link_to_user_note note
+    = recommended_char
     br
+  - unless @cate_notes.nil?
+    - @cate_notes.each do |note|
+      = m_link_to_user_note note
+      br
 - @clazz = 'note'
 = render 'm/shared/comments'

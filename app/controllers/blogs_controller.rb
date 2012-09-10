@@ -8,6 +8,7 @@ class BlogsController < ApplicationController
   #  include Archives
   
   def index
+    @rids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
     @blogs = @user.blogs.includes([:tags, :category]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
   end
@@ -27,8 +28,8 @@ class BlogsController < ApplicationController
         @all_comments = @blog.blogcomments.order('likecount DESC, created_at')
         @comments_uids = @all_comments.collect{|c| c.user_id}
 
-        ids = @user.blogs.select('id')
-        @rblogs = @user.r_blogs.where(id: ids).limit(6)
+#        ids = @user.blogs.select('id')
+#        @rblogs = @user.r_blogs.where(id: ids).limit(6)
         cate_blogs_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
         @all_cate_rblogs = @user.r_blogs.where(id: cate_blogs_ids).order('created_at DESC').limit(4)
         @cate_rblogs = @all_cate_rblogs - [@blog_pre, @blog_next, @blog]

@@ -1,9 +1,12 @@
 br
 - @blogs.each do |blog|
   = link_to blog.title, blog
+  - if blog.comments_count > 0
+    | &nbsp;(评论#{blog.comments_count})
+  = recommended_char if @rids.include? blog.id
   | &nbsp;
-  span.pl
-    = blog.created_at.strftime t('date_without_year')
+  span.gray
+    = fresh_time blog.created_at
   - if blog.user_id==session[:id]
     | &nbsp;
     = link_to t('edit'), edit_blog_path(blog)

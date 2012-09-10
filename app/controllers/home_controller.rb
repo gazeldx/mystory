@@ -103,7 +103,8 @@ class HomeController < ApplicationController
       else
 #        @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
 #        @user_timeline = user_timeline({count: 1, feature: 1})
-
+        @rnids = @user.rnotes.select('note_id').map{|x| x.note_id}
+        @rbids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
         t = params[:t]
         if t.nil?
           notes = @user.notes.where(:is_draft => false).limit(20).order("created_at desc")

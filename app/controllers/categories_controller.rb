@@ -46,11 +46,13 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
     if @category.user == @user
-      @blogs = @category.blogs.includes(:tags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
+      @rids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
       @categories = @user.categories.order('created_at')
       if @m
+        @blogs = @category.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
         render mr, layout: 'm/portal'
       else
+        @blogs = @category.blogs.includes(:tags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
         render layout: 'memoir'
       end
     else

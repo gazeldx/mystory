@@ -21,30 +21,27 @@ class LettersController < ApplicationController
   def create
     @letter = Letter.create(params[:letter])
     @letter.user_id = session[:id]
-    puts "create"
+    @recipient = User.find(params[:letter][:recipient_id])
     if @letter.save
-      flash[:notice] = t'letter_sent'
-      redirect_to letters_path
-    else
-      @recipient = User.find(params[:letter][:recipient_id])
+      letter_saved
+    else      
       couple_letters
       _render :new
     end
   end
 
+  #send a letter via mobile 
   def create_letter
     @letter = Letter.create(params[:letter])
     @letter.user_id = session[:id]
     @recipient = User.find_by_domain(params[:domain])
     @letter.recipient_id = @recipient.id
-    puts "create_letter"
     if @letter.save
-      flash[:notice] = t'letter_sent'
-      redirect_to letters_path
+      letter_saved
     else
       _render :new_simple
     end
-  end
+  end  
 
   def letters_count
     @sent_count = Letter.where("user_id = ?", session[:id]).count
@@ -53,10 +50,14 @@ class LettersController < ApplicationController
 
   def index
     # like weibo.com is best
-    user = User.find(session[:id])
-    sent = user.letters.order("created_at DESC").includes(:recipient).limit(50)
+    @user = User.find(session[:id])
+    sent = @user.letters.order("created_at DESC").includes(:recipient).limit(50)
     received = Letter.where("recipient_id = ?", session[:id]).includes(:user).order("created_at DESC").limit(50)
     @letters = (sent | received).sort_by{|x| x.created_at}.reverse!
+
+    @view_letters_at = @user.view_letters_at
+    @user.update_attribute('view_letters_at', Time.now)
+    @user.update_attribute('unread_letters_count', 0)
     render mr, layout: 'm/portal' if @m
   end
 
@@ -136,5 +137,11 @@ class LettersController < ApplicationController
   private
   def couple_letters
     @letters = Letter.where("(user_id = ? and recipient_id = ?) or (recipient_id = ? and user_id = ?)", session[:id], @recipient.id, session[:id], @recipient.id).order("created_at DESC")
+  end
+
+  def letter_saved
+    @recipient.update_attribute('unread_letters_count', @recipient.unread_letters_count + 1)
+    flash[:notice] = t'letter_sent'
+    redirect_to letters_path
   end
 end

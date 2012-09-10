@@ -41,10 +41,10 @@
       - if item.is_a?(Note)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
           - user = @user
-          li.mbtr            
+          li.mbtr
             span.gray.b
               = link_to user.name, site(user)
-              |  发日记 #{link_to item.title, note_path(item), target: '_blank'}&nbsp;
+              |  发日记 #{link_to item.title, note_path(item), target: '_blank'}#{recommended_char if @rnids.include? item.id}&nbsp;
             - n = photos_count item.content
             - if n==1
               .npad
@@ -73,7 +73,7 @@
           li.mbtr
             span.gray.b
               = link_to user.name, site(user)
-              |  发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》
+              |  发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》#{recommended_char if @rbids.include? item.id}
             br
             - n = photos_count item.content
             - if n==1

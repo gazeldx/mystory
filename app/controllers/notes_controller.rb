@@ -3,9 +3,10 @@ class NotesController < ApplicationController
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
   cache_sweeper :note_sweeper
-#  include Archives
+  #  include Archives
   
   def index
+    @rids = @user.rnotes.select('note_id').map{|x| x.note_id}
     @notes = @user.notes.includes([:notetags, :notecate]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
     #    default_category = Notecate.new
@@ -91,8 +92,6 @@ class NotesController < ApplicationController
         @all_comments = @note.notecomments.order('likecount DESC, created_at')
         @comments_uids = @all_comments.collect{|c| c.user_id}
         
-        ids = @user.notes.select('id')
-        @rnotes = @user.r_notes.where(id: ids).limit(6)
         cate_notes_ids = @user.notes.where(:is_draft => false).where(["notecate_id = ?", @note.notecate_id]).select('id')
         @all_cate_rnotes = @user.r_notes.where(id: cate_notes_ids).order('created_at DESC').limit(4)
         @cate_rnotes = @all_cate_rnotes - [@note_pre, @note_next, @note]

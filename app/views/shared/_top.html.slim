@@ -15,11 +15,14 @@
         - if !@user.nil? and @user.id==session[:id]
           - all_count = @user.unread_commented_count + @user.unread_comments_count
           - if all_count > 0
-            span id='all_count' title="#{all_count}条评论"
+            span id='all_unread_comments' title="#{all_count}条评论"
               - if @user.unread_commented_count == 0
                 = link_to all_count, comments_path
               - else
                 = link_to all_count, commented_path
+          - if @user.unread_letters_count > 0
+            span id='all_unread_letters' title="#{@user.unread_letters_count}封私信"
+              = link_to @user.unread_letters_count, letters_path
         = link_to t('_active'), my_site + like_path
         = link_to session[:name], my_site
         = link_to t('_setting'), my_site + admin_path, title: t('_admin_title')

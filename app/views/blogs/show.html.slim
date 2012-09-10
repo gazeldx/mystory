@@ -81,7 +81,7 @@ div id='note-#{@blog.id}'
   - else
     = link_to raw(@blog_next.title)[0..25], @blog_next
     = recommended_char if @all_cate_rblogs.include? @blog_next
-- unless @rblogs.blank? and @cate_rblogs.nil?
+- unless @cate_rblogs.blank? and @cate_rblogs.nil?
   .ll.pl2 style='width:50%'
     - @cate_rblogs.each do |blog|
       = link_to raw(blog.title)[0..25], blog

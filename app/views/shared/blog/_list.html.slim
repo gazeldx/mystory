@@ -4,6 +4,7 @@
       span.wrap
         h3.b
           = link_to raw(blog.title), blog, target: '_blank'
+          = recommended_char if @rids.include? blog.id
           span.mi
             - if blog.user_id == session[:id]
               | &nbsp;

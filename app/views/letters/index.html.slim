@@ -41,4 +41,7 @@ table.b.olt
             = link_to letter.recipient.name, site(letter.recipient)
         td.pl title=letter.created_at.strftime(t'time_format')
           = letter.created_at.strftime(t'no_year')
+          - if letter.created_at > @view_letters_at and letter.recipient.id==session[:id]
+            span.red
+              | 新
 /= will_paginate @letters

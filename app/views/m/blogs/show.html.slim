@@ -33,18 +33,25 @@ br
   = t'none'
 - else
   = m_link_to @blog_pre.title, @blog_pre
+  = recommended_char if @all_cate_rblogs.include? @blog_pre
 br
 = t'an_old'
 - if @blog_next.nil?
   = t'none'
 - else
   = m_link_to @blog_next.title, @blog_next
+  = recommended_char if @all_cate_rblogs.include? @blog_next
 br
-- unless @rblogs.blank?
-  = t'_recommend'
+- unless @cate_rblogs.blank? and @cate_rblogs.nil?
+  = t'_relative_articles'
   br
-  - @rblogs.each do |blog|
-    = m_link_to blog.title, blog
+  - @cate_rblogs.each do |blog|
+    = m_link_to raw(blog.title)[0..25], blog
+    = recommended_char
     br
+  - unless @cate_blogs.nil?
+    - @cate_blogs.each do |blog|
+      = m_link_to raw(blog.title)[0..25], blog
+      br
 - @clazz = 'blog'
 = render 'm/shared/comments'

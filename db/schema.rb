@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904064419) do
+ActiveRecord::Schema.define(:version => 20120910083916) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -446,6 +446,8 @@ ActiveRecord::Schema.define(:version => 20120904064419) do
     t.datetime "view_commented_at"
     t.integer  "unread_comments_count",  :default => 0
     t.integer  "unread_commented_count", :default => 0
+    t.datetime "view_letters_at"
+    t.integer  "unread_letters_count",   :default => 0
   end
 
 end

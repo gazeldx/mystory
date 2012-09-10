@@ -1262,7 +1262,5 @@ a.btn-fav:hover,a.btn-fav:active {
     line-height: 25px;
   }
 }
-
-#all_count{
-  a {color: red}
-}
+#all_unread_comments{a {color: red}}
+#all_unread_letters{a {color: purple}}

@@ -4,9 +4,10 @@
       span.wrap
         h3.b
           - if note.title.to_s == ''
-            = link_to note.created_at.strftime(t'date_format'), note, target: '_blank', class: 'll'
+            = link_to note.created_at.strftime(t'date_format'), note, target: '_blank'
           - else
-            = link_to note.title, note, target: '_blank', class: 'll'
+            = link_to note.title, note, target: '_blank'
+          = recommended_char if @rids.include? note.id
           span.mi
             - if note.user_id == session[:id]
               | &nbsp;
