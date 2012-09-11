@@ -499,6 +499,7 @@ zh:
     modify: "修改影集属性"
     return_home: "返回影集首页"
     return: "返回上级"
+    has_photos_when_delete: "该影集下有照片，不可以删除。你可以将该影集中的所有照片转移到其它影集或删除后再进行删除。"
   a_new_photo: "新一张"
   a_old_photo: "旧一张"
   click_show_old: "点击查看旧一张"
@@ -577,7 +578,7 @@ zh:
   letter_sent: "私信已发送！"
   hot_note: "热门日记"
   new_note: "最新日记"
-  view_as_him: "他在看"
+  view_as_him: "Ta在看"
   view_as_him_desc: "切换到他的视角，看他每天都看些什么"
 
   unfinished: "正在研发中，敬请期待……"

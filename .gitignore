@@ -14,4 +14,3 @@ config/initializers/session_store.rb
 config/initializers/carrierwave.rb
 Gemfile
 Gemfile.lock
-vendor/plugins/mobile-fu/

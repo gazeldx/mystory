@@ -69,6 +69,7 @@ class BlogcommentsController < ApplicationController
     render 'm/shared/notice', layout: 'm/portal'
   end
 
+  #A little bug: not update unread_comments_count.It is hard to do so.
   def destroy
     @blog = Blog.find(params[:blog_id])
     @comment = @blog.blogcomments.find(params[:id])

@@ -35,15 +35,22 @@ br
         = link_to m, 'javascript:;', onclick: 'showDescEtc()'
       span#notice2 style="color:green"
       div#editDiv style='display:none'
-        = text_area_tag :description, @photo.description
-        = button_tag t('save'), onclick: 'modify_photo(' + @photo.id.to_s + ')'
-        = radio_button_tag :setascover, '1'
-        = label_tag(:setascover_1, '设为封面')
+        table
+          tr
+            td
+              = text_area_tag :description, @photo.description
+            td
+              = collection_select :photo, :album_id, @album.user.albums, :id, :name
+              br
+              = radio_button_tag :setascover, '1'
+              = label_tag(:setascover_1, '设为封面')
+        = button_tag t('save'), onclick: "modify_photo(#{@photo.id})"
     div style='color:#999;margin-bottom:5px;'
       = t('_upload_at', w: @photo.created_at.strftime(t'date_format'))
+      | ，#{@photo.views_count}人看过
       - if @user.id == session[:id]
         span.gact
-          | &gt;&nbsp;
+          | &nbsp;&nbsp;&gt;&nbsp;
           = link_to '删除照片', album_photo_path(@album, @photo), confirm: t('confirm.delete'), method: :delete
   - if @photos.size>1
     .aside
@@ -55,11 +62,12 @@ br
   .sns-bar
     = render 'shared/share'
     .sns-bar-fav
+      | #{t('recommend_count2', w: @photo.recommend_count) if @photo.recommend_count > 0}
       - if session[:id].nil?
         = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rphoto.find_by_user_id_and_photo_id(session[:id], @photo.id)
-        - if ri.nil?          
+        - if ri.nil?
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')

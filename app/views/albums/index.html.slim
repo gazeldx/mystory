@@ -3,6 +3,8 @@
 br
 - if flash[:notice]
   #notice= flash[:notice]
+- if flash[:error]
+  #error= flash[:error]
 - if @user.id == session[:id]
   h2
     = link_to t('album.add'), new_album_path

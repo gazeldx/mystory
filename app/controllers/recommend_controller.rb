@@ -37,13 +37,17 @@ class RecommendController < ApplicationController
 
   def photo
     _r = Rphoto.find_by_user_id_and_photo_id(session[:id], params[:id])
+    photo = Photo.find(params[:id])
     if _r.nil?
       rphoto = Rphoto.new
       rphoto.user_id = session[:id]
-      rphoto.photo_id = params[:id]
+      rphoto.photo = photo
       rphoto.save
+      #TODO if can add one ,I will need not query photo
+      Photo.update_all({:recommend_count => photo.recommend_count + 1}, {:id => photo.id})
     else
       _r.destroy
+      Photo.update_all({:recommend_count => photo.recommend_count - 1}, {:id => photo.id})
     end
     render json: rphoto.as_json
   end

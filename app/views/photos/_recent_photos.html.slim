@@ -21,7 +21,14 @@
           span.pl
             = photo.created_at.strftime t'no_year'
           | &nbsp;
-          = link_to album.name, album_path(album)
+          = link_to album.name, album_path(album), target: '_blank', title: '进入该影集查看照片'
           | &nbsp;
           - unless photo.description.nil?
             = photo.description
+          /- hot = photo.comments_count + photo.recommend_count
+          /- if hot > 0
+          /  span.red title='热度'
+          /    | &nbsp;#{hot}℃
+          | &nbsp;#{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}&nbsp;#{recommend_etc photo}
+          /| &nbsp;#{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}&nbsp;#{link_to "#{t('recommend')}#{photo.recommend_count==0 ? '' : '(' + photo.recommend_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#recommend", target: '_blank'}
+          /= link_to "查看", album_photo_path(photo.album, photo), target: '_blank', title: '查看该照片，还可以评论和推荐'

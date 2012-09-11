@@ -5,6 +5,7 @@ class PhotosController < ApplicationController
     if @user.nil?
       photos = Photo.includes(:album => :user).limit(30).order('id desc')
       rphotos = Rphoto.includes(:photo => [:album => :user]).limit(50).order('id desc').uniq {|s| s.photo_id}
+      @intersection = rphotos.map{|x| x.photo_id} & photos.map{|x| x.id}
       all = photos | rphotos
       @all = all.sort_by{|x| x.created_at}.reverse!
       render 'portal' , layout: 'help'
@@ -17,6 +18,7 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @album = @photo.album
     if @album.user == @user
+      add_view_count
       @photo_new = Photo.where(["album_id = ? AND created_at > ?", @album.id, @photo.created_at]).order('created_at').first
       @photo_old = Photo.where(["album_id = ? AND created_at < ?", @album.id, @photo.created_at]).order('created_at DESC').first
       @photos = @album.photos
@@ -107,6 +109,11 @@ class PhotosController < ApplicationController
   private
   def expire_cache
     expire_fragment("user_home_photos_#{session[:id]}")
+  end
+
+  def add_view_count
+    @photo.views_count = @photo.views_count + 1
+    Photo.update_all({:views_count => @photo.views_count}, {:id => @photo.id})
   end
 
 end

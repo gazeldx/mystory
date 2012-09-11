@@ -68,14 +68,30 @@ this.recommend_note = (id) ->
     data: "id=" + id
     type: "POST"
     success: ->
-      if $('#recommend'+id).html() == '推荐'
-        $('#recommend'+id).html('取消推荐')
-      else
-        $('#recommend'+id).html('推荐')
+      change_show_content(id)
 
 this.cancel_recommend_note = (id) ->
   $.ajax
     url: '/recommend_note'
+    data: "id=" + id
+    type: "POST"
+    success: ->
+      _li = $('#recommend'+id).closest('li')
+      p_li = $('#recommend'+id).closest('li').prev()
+      _li.css 'display', 'none'
+      p_li.css 'display', 'none'
+
+this.recommend_photo = (id) ->
+  $.ajax
+    url: '/recommend_photo'
+    data: "id=" + id
+    type: "POST"
+    success: ->
+      change_show_content(id)
+
+this.cancel_recommend_photo = (id) ->
+  $.ajax
+    url: '/recommend_photo'
     data: "id=" + id
     type: "POST"
     success: ->
@@ -101,3 +117,9 @@ this.recommend_memoir_in = (id) ->
     success: (data) ->
       changeInButton()
       $('#ri_id').val(data['id'])
+
+change_show_content = (id) ->
+  if $('#recommend'+id).html() == '取消推荐'
+    $('#recommend'+id).html('推荐')
+  else
+    $('#recommend'+id).html('取消推荐')

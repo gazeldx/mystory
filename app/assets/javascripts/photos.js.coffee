@@ -10,7 +10,7 @@ successProc = ->
 this.modify_photo = (photo_id) ->
   $.ajax
     url: '/photos/modify'
-    data: "id=" + photo_id + "&photo[description]=" + $('#description').val() + "&setascover=" + $(':radio:checked').val()
+    data: "id=" + photo_id + "&photo[description]=" + $('#description').val() + "&photo[album_id]=" + $('#photo_album_id').val() + "&setascover=" + $(':radio:checked').val()
     type: "POST"
     success: ->
       successProc()

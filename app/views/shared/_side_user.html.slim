@@ -59,7 +59,7 @@
       span.pl
         | &nbsp;(
         = link_to "#{t('all')}#{@user.following_num}#{t('ren')}", following_path
-        |  ·
+        | &nbsp;·&nbsp;
         = link_to t('view_as_him'), site(@user) + like_path, title: t('view_as_him_desc')
         | )
     - @user.all_following.sort_by{|x| x.followers_num}.reverse!.take(20).each do |guy|

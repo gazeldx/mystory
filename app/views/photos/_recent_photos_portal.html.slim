@@ -1,23 +1,28 @@
 .photolst.clearfix
   - @all.each_with_index do |item, i|
     - if item.is_a?(Photo)
-      - photo = item
-      - album = photo.album
-      - user = album.user
-      .photo_wrap
-        a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
-          = image_tag(photo.avatar.thumb.url)
-        br
-        = link_to user.name, site(user), target: '_blank'
-        | :
-        = link_to album.name, site(user)+album_path(album), target: '_blank'
-        - unless photo.description.nil?
-          | &nbsp;
-          = photo.description[0..40]
-          - if photo.description.size>40
-            | ...
-      - if i%5 == 4
-        .clear
+      - unless @intersection.include? item.id
+        - photo = item
+        - album = photo.album
+        - user = album.user
+        .photo_wrap
+          a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
+            = image_tag(photo.avatar.thumb.url)
+          br
+          = link_to user.name, site(user), target: '_blank'
+          | :
+          = link_to album.name, site(user)+album_path(album), target: '_blank'
+          - unless photo.description.nil?
+            | &nbsp;
+            = photo.description[0..40]
+            - if photo.description.size>40
+              | ...
+          - hot = photo.comments_count + photo.recommend_count
+          - if hot > 0
+            span.red title='热度'
+              | &nbsp;#{hot}℃
+        - if i%5 == 4
+          .clear
     - elsif item.is_a?(Rphoto)
       - photo = item.photo
       - album = photo.album
@@ -37,5 +42,9 @@
           = photo.description[0..40]
           - if photo.description.size>40
             | ...
+        - hot = photo.comments_count + photo.recommend_count
+        - if hot > 1
+          span.red title='热度'
+            | &nbsp;#{hot}℃
       - if i%5 == 4
         .clear

@@ -47,12 +47,13 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album = Album.find(params[:id])
-    @album.destroy
-
-    respond_to do |format|
-      format.html { redirect_to albums_url }
-      format.json { head :ok }
+    if @album.photos.exists?
+      flash[:error] = t'album.has_photos_when_delete'
+    else
+      @album.destroy
+      flash[:notice] = t'delete_succ'
     end
+    redirect_to albums_path
   end
 
   def select_albums
