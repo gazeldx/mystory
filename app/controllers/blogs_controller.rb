@@ -31,6 +31,7 @@ class BlogsController < ApplicationController
 #        ids = @user.blogs.select('id')
 #        @rblogs = @user.r_blogs.where(id: ids).limit(6)
         cate_blogs_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
+        #TODO limit 4 make @all_cate_rblogs became a bug because view @blog.title may not shown as jian!
         @all_cate_rblogs = @user.r_blogs.where(id: cate_blogs_ids).order('created_at DESC').limit(4)
         @cate_rblogs = @all_cate_rblogs - [@blog_pre, @blog_next, @blog]
         not_in_blogs_ids = @cate_rblogs.collect{|c| c.id} << @blog.id

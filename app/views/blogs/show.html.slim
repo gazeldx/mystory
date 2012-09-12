@@ -9,6 +9,7 @@ div id='note-#{@blog.id}'
   .note-header
     h2
       == @blog.title
+      = recommended_char if @all_cate_rblogs.include? @blog
       = t'draft_desc' if @blog.is_draft
       - if @blog.user_id == session[:id]
         | &nbsp;

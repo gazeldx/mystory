@@ -33,15 +33,6 @@ modify_ri_succ = ->
   $('#edit').css 'display', ''
   $('#edit').html('<a onclick="showBodyEtc()" href="javascript:;">修改</a>')
 
-this.recommend_blog = ->
-  $.ajax
-    url: '/recommend_blog'
-    data: "id=" + id
-    type: "POST"
-    success: (data) ->
-      changeInButton()
-      #$('#ri_id').val(data['id'])
-
 this.cancel_recommend_blog = (id) ->
   $.ajax
     url: '/recommend_blog'
@@ -67,8 +58,16 @@ this.recommend_note = (id) ->
     url: '/recommend_note'
     data: "id=" + id
     type: "POST"
-    success: ->
-      change_show_content(id)
+    success: (data) ->
+      change_show_content(id, data, 'note')
+
+this.recommend_blog = (id) ->
+  $.ajax
+    url: '/recommend_blog'
+    data: "id=" + id
+    type: "POST"
+    success: (data) ->
+      change_show_content(id, data, 'blog')
 
 this.cancel_recommend_note = (id) ->
   $.ajax
@@ -86,8 +85,8 @@ this.recommend_photo = (id) ->
     url: '/recommend_photo'
     data: "id=" + id
     type: "POST"
-    success: ->
-      change_show_content(id)
+    success: (data) ->
+      change_show_content(id, data, 'photo')
 
 this.cancel_recommend_photo = (id) ->
   $.ajax
@@ -107,7 +106,6 @@ this.recommend_photo_in = (id) ->
     type: "POST"
     success: (data) ->
       changeInButton()
-      $('#ri_id').val(data['id'])
 
 this.recommend_memoir_in = (id) ->
   $.ajax
@@ -116,10 +114,6 @@ this.recommend_memoir_in = (id) ->
     type: "POST"
     success: (data) ->
       changeInButton()
-      $('#ri_id').val(data['id'])
 
-change_show_content = (id) ->
-  if $('#recommend'+id).html() == '取消推荐'
-    $('#recommend'+id).html('推荐')
-  else
-    $('#recommend'+id).html('取消推荐')
+change_show_content = (id, data, type) ->
+  $("#recommend_#{type}_"+id).html "推荐(#{data['recommend_count']})"

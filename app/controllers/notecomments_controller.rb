@@ -42,7 +42,7 @@ class NotecommentsController < ApplicationController
     end
     if params[:comment_and_recommend]
       _r = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
-      save_rnote(@note) if _r.nil?
+      save_rnote(@note, params[:notecomment][:body]) if _r.nil?
       flash[:notice] = flash[:notice] + t('article_recommended')
     end
     redirect_to note_path(@note) + "#notice"
@@ -50,7 +50,6 @@ class NotecommentsController < ApplicationController
 
   def m_reply
     @comment = Notecomment.find(params[:comment_id])
-    puts @comment.inspect
     render 'm/shared/m_reply', layout: 'm/portal'
   end
 

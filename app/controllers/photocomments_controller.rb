@@ -40,7 +40,7 @@ class PhotocommentsController < ApplicationController
     end
     if params[:comment_and_recommend]
       _r = Rphoto.find_by_user_id_and_photo_id(session[:id], @photo.id)
-      save_rphoto(@photo) if _r.nil?
+      save_rphoto(@photo, params[:photocomment][:body]) if _r.nil?
       flash[:notice] = flash[:notice] + t('photo_recommended')
     end
     redirect_to album_photo_path(@photo.album, @photo) + "#notice"

@@ -94,6 +94,7 @@ class NotesController < ApplicationController
         @comments_uids = @all_comments.collect{|c| c.user_id}
         
         cate_notes_ids = @user.notes.where(:is_draft => false).where(["notecate_id = ?", @note.notecate_id]).select('id')
+        #TODO limit 4 make it a bug
         @all_cate_rnotes = @user.r_notes.where(id: cate_notes_ids).order('created_at DESC').limit(4)
         @cate_rnotes = @all_cate_rnotes - [@note_pre, @note_next, @note]
         not_in_notes_ids = @cate_rnotes.collect{|c| c.id} << @note.id

@@ -124,16 +124,16 @@ class HomeController < ApplicationController
         elsif t == 'photo'
           @all = Photo.where(album_id: @user.albums).includes(:album).limit(40).order('id desc')
         elsif t == 'updated'
-          notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(20)
-          blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(15)
+          notes = @user.notes.where(:is_draft => false).where("updated_at > created_at").limit(20).order('updated_at desc')
+          blogs = @user.blogs.where(:is_draft => false).where("updated_at > created_at").limit(15).order('updated_at desc')
           all_ = notes | blogs
           @memoir = @user.memoir
           all_ << @memoir unless @memoir.nil?
           @all = all_.sort_by{|x| x.updated_at}.reverse!
         elsif t == 'recommend'
-          rnotes = @user.rnotes.includes(:note => :user).limit(15)
-          rblogs = @user.rblogs.includes(:blog => :user).limit(20)
-          rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(8)
+          rnotes = @user.rnotes.includes(:note => :user).limit(15).order('id desc')
+          rblogs = @user.rblogs.includes(:blog => :user).limit(20).order('id desc')
+          rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(8).order('id desc')
           @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
         end
 

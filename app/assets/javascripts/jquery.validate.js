@@ -997,7 +997,7 @@ $.extend($.validator, {
 
                 comment: function(value, element) {
                         var length = this.getLength($.trim(value), element);
-			return length >= 10 && length <= 500;
+			return length >= 7 && length <= 500;
 		},
 
 		// http://docs.jquery.com/Plugins/Validation/Methods/minlength

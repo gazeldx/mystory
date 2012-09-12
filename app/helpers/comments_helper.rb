@@ -265,6 +265,12 @@ module CommentsHelper
     false
   end
 
+  def user_said body
+    unless body.nil?
+      raw "<br/>#{@user.name}&nbsp;#{content_tag(:span, t("talked_about"), :class => 'gray')}#{content_tag(:span, body, :class => 'green')}"
+    end
+  end
+
   #  def m_reply(user)
   #    if @user.id == session[:id]
   #      link = content_tag(:a, t('reply'), href: 'javascript:;', onclick: "$('##{@clazz}comment_body').focus();$('#who').html('#{t('reply_who', w:user.name)}');$('#reply_user_id').val('#{user.id}')")

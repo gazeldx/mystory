@@ -386,30 +386,33 @@ class ApplicationController < ActionController::Base
   end
 
   module Recommend
-    def save_rblog(blog)
+    def save_rblog(blog, body)
       rblog = Rblog.new
       rblog.user_id = session[:id]
       rblog.blog = blog
+      rblog.body = body
       rblog.save
       Blog.update_all("recommend_count = #{blog.recommend_count + 1}", "id = #{blog.id}")
       rblog
-    end
+    end   
 
-    def save_rnote(note)
+    def save_rnote(note, body)
       rnote = Rnote.new
       rnote.user_id = session[:id]
       rnote.note = note
+      rnote.body = body
       rnote.save
       Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
       rnote
     end
 
-    def save_rphoto(photo)
+    def save_rphoto(photo, body)
       rphoto = Rphoto.new
       rphoto.user_id = session[:id]
       rphoto.photo = photo
+      rphoto.body = body
       rphoto.save
-      #      Note.update_all("recommend_count = #{note.recommend_count + 1}", "id = #{note.id}")
+      Photo.update_all({:recommend_count => photo.recommend_count + 1}, {:id => photo.id})
       rphoto
     end
 

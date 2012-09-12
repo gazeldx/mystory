@@ -43,8 +43,7 @@
           - user = @user
           li.mbtr
             span.gray.b
-              = link_to user.name, site(user)
-              |  发日记 #{link_to item.title, note_path(item), target: '_blank'}#{recommended_char if @rnids.include? item.id}&nbsp;
+              | 发日记 #{link_to item.title, note_path(item), target: '_blank'}#{recommended_char if @rnids.include? item.id}&nbsp;
             - n = photos_count item.content
             - if n==1
               .npad
@@ -60,7 +59,6 @@
                 br
             span.gray
               = article_time item
-              /= recommend_etc item
             - if item.user_id == session[:id]
               | &nbsp;
               = link_to t('edit'), edit_note_path(item), target: '_blank'
@@ -72,8 +70,7 @@
           - user = @user
           li.mbtr
             span.gray.b
-              = link_to user.name, site(user)
-              |  发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》#{recommended_char if @rbids.include? item.id}
+              | 发表作品《#{link_to item.title, blog_path(item), target: '_blank'}》#{recommended_char if @rbids.include? item.id}
             br
             - n = photos_count item.content
             - if n==1
@@ -97,95 +94,102 @@
         - user = @user
         - avatar = item.avatar
         li.mbtr
+          .npad
+            .ll
+              a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
+                = image_tag(avatar.thumb.url)
           span.inq
-            = link_to user.name, site(user)
-            span.gray  上传照片到&nbsp;
+            span.gray 上传照片到&nbsp;
             = link_to album.name, album_path(album), target: '_blank'
+            br
             - unless item.description.nil?
-              br
               = item.description
+              | &nbsp;
+            span.gray
+              = fresh_time item.created_at
             br
-            a id='photo_#{item.id}' href='javascript:;' onclick="switchPhoto('photo_#{item.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
-              = image_tag(avatar.thumb.url)
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
+            | #{recommend_etc item}&nbsp;#{link_to "#{t('comment')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "#{album_photo_path(item.album, item)}#comments", target: '_blank'}
       - elsif item.is_a?(Rnote)
         - note = item.note
+        - user = note.user
         li.mbtl
-          a href=site(note.user)
-            = image_tag(note.user.avatar.thumb.url)
+          = user_pic user
         li.mbtr
-          = link_to @user.name, site(@user)
-          span.gray
-            |  推荐日记
-          | :
-          = item.body
-          br
+          span.gray.b
+            = link_to user.name, site(user)
+            |  发日记 #{link_to note.title, site(user) + note_path(note), target: '_blank'}&nbsp;
+          - n = photos_count note.content
+          - if n==1
+            .npad
+              .ll
+                = thumb_here note
+          - elsif note.title.to_s!=''
+            br
           span.inq
-            | &nbsp;&nbsp;原文
-            = link_to note.user.name, site(note.user)
-            | :#{link_to note.title, site(note.user) + note_path(note), target: '_blank'}&nbsp;
-            = summary_comment_portal(note, 140)
-            = thumbs_here(note, 3)
-            span.gray
-              = item.created_at.strftime t'no_year'
-            = note_read_comment_recommend_user note
+            = summary_comment_portal(note, 150)
+            = user_said item.body
+            - if n>1
+              = thumbs_here(note, 3)
+            - else
+              br
+          span.gray
+            = fresh_time item.created_at
+          = note_read_comment_recommend_user note
       - elsif item.is_a?(Rblog)
         - blog = item.blog
+        - user = blog.user
         li.mbtl
-          a href=site(blog.user)
-            = image_tag(blog.user.avatar.thumb.url)
-        li.mbtr
-          = link_to @user.name, site(@user)
-          span.gray
-            |  推荐作品
-          | :
-          = item.body
+          = user_pic user
+        li.mbtr          
+          span.gray.b
+            = link_to user.name, site(user)
+            |  发表作品 《#{link_to blog.title, site(blog.user) + blog_path(blog), target: '_blank'}》
           br
+          - n = photos_count blog.content
+          - if n==1
+            .npad
+              .ll
+                = thumb_here blog
           span.inq
-            | &nbsp;&nbsp;原文
-            = link_to blog.user.name, site(blog.user)
-            span.gray  发表作品
-            | 《#{link_to blog.title, site(blog.user) + blog_path(blog), target: '_blank'}》
-            = summary_comment_portal(blog, 180)
-            = thumbs_here(blog, 3)
-            span.gray
-              = item.created_at.strftime t'no_year'
-            = blog_read_comment_recommend_user blog
+            = summary_comment_portal(blog, 190)
+            = user_said item.body
+            - if n>1
+              = thumbs_here(blog, 3)
+            - else
+              br
+          span.gray
+            = fresh_time item.created_at
+          = blog_read_comment_recommend_user blog
       - elsif item.is_a?(Rphoto)
         - photo = item.photo
         - album = photo.album
         - user = album.user
         - avatar = photo.avatar
         li.mbtl
-          a href=site(user)
-            = image_tag(user.avatar.thumb.url)
+          = user_pic user
         li.mbtr
-          = link_to @user.name, site(@user)
-          span.gray
-            |  推荐照片
-          | :
-          = item.body
-          br
+          .npad
+            .ll
+              a id='rphoto_#{photo.id}' href='javascript:;' onclick="switchPhoto('rphoto_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
+                = image_tag(avatar.thumb.url)
           span.inq
-            = link_to user.name, site(user)
-            span.gray  上传照片到&nbsp;
-            = link_to album.name, site(user) + album_path(album), target: '_blank'
+            span.gray
+              = link_to user.name, site(user)
+              span.gray  上传照片到&nbsp;
+              = link_to album.name, site(user) + album_path(album), target: '_blank', title: '进入该影集查看照片'
+            br
             - unless photo.description.nil?
-              br
               = photo.description
+              | &nbsp;
+            span.gray
+              = fresh_time item.created_at
+            = user_said item.body
             br
-            a id='rphoto_#{photo.id}' href='javascript:;' onclick="switchPhoto('rphoto_#{photo.id}', '#{avatar.url}', '#{avatar.thumb.url}')" title='点击放大'
-              = image_tag(avatar.thumb.url)
-            br
-            span.pl
-              = item.created_at.strftime t'no_year'
+            | #{recommend_etc photo}&nbsp;#{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}
       - elsif item.is_a?(Memoir)
         li.mbtr
-          = link_to item.user.name, site(item.user)
           span.gray
-            |  更新自传 #{link_to item.title, memoirs_path}&nbsp;
+            | 更新自传 #{link_to item.title, memoirs_path}&nbsp;
           span.inq
             = summary_no_comments(item, 200)
             = thumbs_here(item, 3)

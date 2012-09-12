@@ -37,6 +37,7 @@ zh:
   an_old: "旧一篇 "
   none: "无"
   recommended_char: "荐"
+  talked_about: "评价："
 
   views_count: "阅读(%{w})"
   #views_count2: "共%{w}次阅读"

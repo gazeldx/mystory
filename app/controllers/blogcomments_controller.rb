@@ -46,7 +46,7 @@ class BlogcommentsController < ApplicationController
     end
     if params[:comment_and_recommend]
       _r = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
-      save_rblog(@blog) if _r.nil?
+      save_rblog(@blog, params[:blogcomment][:body]) if _r.nil?
       flash[:notice] = flash[:notice] + t('article_recommended')
     end
     redirect_to blog_path(@blog) + "#notice"
@@ -54,7 +54,6 @@ class BlogcommentsController < ApplicationController
 
   def m_reply
     @comment = Blogcomment.find(params[:comment_id])
-    puts @comment.inspect
     render 'm/shared/m_reply', layout: 'm/portal'
   end
 

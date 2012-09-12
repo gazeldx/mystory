@@ -12,6 +12,7 @@ div id='note-#{@note.id}'
         == @note.title
       - else
         = t('s_note', w: @note.created_at.strftime(t'date_format'))
+      = recommended_char if @all_cate_rnotes.include? @note
       = t'draft_desc' if @note.is_draft
       = edit_delete_note
     .mi

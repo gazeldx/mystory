@@ -38,8 +38,7 @@
                 = thumb_here item
           .twiT
             p class="avt "
-              a href=site(user) target='_blank'
-                = image_tag(user.avatar.thumb.url)
+              = user_pic user
             b.b class="pd jsNickBox_176181993" data-wrap="false"
               b class="nm"
                 = link_to user.name, site(user), target: '_blank'
