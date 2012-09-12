@@ -65,7 +65,7 @@
     - @user.all_following.sort_by{|x| x.followers_num}.reverse!.take(20).each do |guy|
       dl.obu
         dt
-          a.nbg href=site(guy) target='_blank'
+          a.nbg href=site(guy) target='_blank' title="#{guy.city} #{guy.jobs} #{guy.maxim} #{guy.memo}"
             = image_tag(guy.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
         dd
           = link_to guy.name, site(guy), target: '_blank'

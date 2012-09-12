@@ -71,6 +71,7 @@ class BlogsController < ApplicationController
     @blog = Blog.create(params[:blog])
     @blog.user_id = session[:id]
     @blog.replied_at = Time.now
+    @blog.is_draft = true if params[:save_as_draft]
     if params[:category_name].nil?
       create_proc
     else
@@ -112,6 +113,7 @@ class BlogsController < ApplicationController
 
   def update
     @blog = Blog.find(params[:id])
+    @blog.is_draft = params[:save_as_draft] ? true : false
     if @blog.update_attributes(params[:blog])
       @blog.tags.destroy_all
       build_tags @blog

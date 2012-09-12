@@ -28,6 +28,7 @@ class NotesController < ApplicationController
     @note = Note.new(params[:note])
     @note.user_id = session[:id]
     @note.replied_at = Time.now
+    @note.is_draft = true if params[:save_as_draft]
     if params[:category_name].nil?
       create_proc
     else
@@ -122,6 +123,7 @@ class NotesController < ApplicationController
 
   def update
     @note = Note.find(params[:id])
+    @note.is_draft = params[:save_as_draft] ? true : false
     if @note.update_attributes(params[:note])
       @note.notetags.destroy_all
       build_tags @note
@@ -135,7 +137,7 @@ class NotesController < ApplicationController
     else
       _render :edit
     end
-  end  
+  end
 
   def destroy
     @note = Note.find(params[:id])

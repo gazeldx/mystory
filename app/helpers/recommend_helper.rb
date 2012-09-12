@@ -20,13 +20,13 @@ module RecommendHelper
     else
       if item.is_a? Note
         if Rnote.find_by_user_id_and_note_id(session[:id], item.id).nil?
-          r += link_to "#{t('recommend')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", '#' + item.id.to_s, :id => 'recommend' + item.id.to_s, :onclick => onclick
+          r += link_to "#{t('recommend')}#{item.recommend_count==0 ? '' : '(' + item.recommend_count.to_s + ')' }", '#' + item.id.to_s, :id => 'recommend' + item.id.to_s, :onclick => onclick
         else
           r += link_to t('cancel_recommend'), '#' + item.id.to_s, :id => 'recommend' + item.id.to_s, :onclick => onclick
         end
       elsif item.is_a? Photo
         if Rphoto.find_by_user_id_and_photo_id(session[:id], item.id).nil?
-          r += link_to "#{t('recommend')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "##{item.id}", :id => "recommend#{item.id}", :onclick => onclick
+          r += link_to "#{t('recommend')}#{item.recommend_count==0 ? '' : '(' + item.recommend_count.to_s + ')' }", "##{item.id}", :id => "recommend#{item.id}", :onclick => onclick
         else
           r += link_to t('cancel_recommend'), "##{item.id}", :id => "recommend#{item.id}", :onclick => onclick
         end

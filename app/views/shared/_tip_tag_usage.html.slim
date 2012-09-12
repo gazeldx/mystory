@@ -1,14 +1,14 @@
 .pl2
   - if mystory?
     - if session[:atoken].nil?
-      a href=weibo_connect_path
+      a href=weibo_connect_path target='_blank'
         | 绑定新浪微博
       | 后，自动同步到微博。
     - else
       | 新浪微博自动同步已开启。
     | &nbsp;
     - if session[:token].nil?
-      a href=qq_connect_path
+      a href=qq_connect_path target='_blank'
         | 绑定QQ
       | 后，自动同步到腾讯微博、QQ空间。
     - else
