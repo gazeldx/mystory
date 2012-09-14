@@ -126,7 +126,6 @@ module ApplicationHelper
   end
 
   def m_photo_a(item)
-    album = item.album
     avatar = item.avatar
     i = ""
     i = "#{item.description}<br/>" unless item.description.to_s==''
@@ -177,4 +176,20 @@ module ApplicationHelper
       time.strftime(t'date_without_year')
     end
   end
+
+  def recommended_char
+    content_tag(:span, " #{t('recommended_char')}", :class => 'red')
+  end
+
+  def insert_emotion
+    image_tag("http://mystory.b0.upaiyun.com/images/emotions/209.gif", onclick: 'initEmotions()', id: 'emotions_link', style: 'vertical-align: middle;cursor: pointer;', title: t('insert_emotion'))
+  end
+#  def all_emotions
+#    e_hash = emotions_hash
+#    r_emotions = ""
+#    e_hash.each do |id, v|
+#      r_emotions += content_tag(:li, image_tag(emotion_image_url(id), :alt => nil, :onclick => "emotionClicked('#{v}')"), :title => v)
+#    end
+#    raw r_emotions
+#  end
 end

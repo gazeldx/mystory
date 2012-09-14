@@ -7,13 +7,16 @@ module CommentsHelper
     if session[:id].nil?
       _form = t'comment_login_first'
     else
+      content_for :stylesheet do
+        stylesheet_link_tag "emotions"
+      end
       if @comments_uids.include?(session[:id])
         _span_content = t'add_comment'
       else
         _span_content = t'post_comment'
       end
-      _span = content_tag(:span, _span_content, id: 'who')
-      _h2 = content_tag(:h2, _span + raw(t('_comment_dot')), :class => 'pic')
+      _span = raw "#{content_tag(:span, _span_content, id: 'who')}#{raw(t('_comment_dot'))}&nbsp;#{insert_emotion}#{render 'shared/emotions'}"
+      _h2 = content_tag(:h2, _span, :class => 'pic')
       _form_ = render "#{@clazz}comments/form"
       _form = _h2 + _form_
     end
@@ -141,7 +144,7 @@ module CommentsHelper
         end
       end
     end
-    raw c_info
+    raw auto_emotion(c_info)
   end
 
   #Difference with comment_info is user and @user
@@ -226,7 +229,7 @@ module CommentsHelper
 
   def comment_form(f)
     rui = hidden_field_tag(:reply_user_id)
-    body = f.text_area :body, size: "64x4", :class => 'comment'
+    body = f.text_area :body, size: "64x4", :class => 'comment', :id => 'note_text'
     _body = content_tag(:div, body + raw('<br/>'), :class => 'item')
     comment_and_recommend = f.submit(t('comment_and_recommend'), name: 'comment_and_recommend')
     submit = raw("#{f.submit(t('comment'))}&nbsp;#{comment_and_recommend}")
@@ -252,7 +255,7 @@ module CommentsHelper
   end
 
   def validate_comment_form
-    raw "<script type=\"text/javascript\">$(document).ready(function(){$('#new_#{@clazz}comment').validate();});</script>"
+    raw "<script type=\"text/javascript\">$(document).ready(function(){$('#new_#{@clazz}comment').validate();});showOrHiddenEmotions();</script>"
   end
 
   def last_replied_by_writer? comment

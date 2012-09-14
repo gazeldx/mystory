@@ -57,5 +57,7 @@ module Cms
 
 #    require "#{Rails.root}/lib/custom_domain_cookie.rb"
 #    config.middleware.use CustomDomainCookie
+
+
   end
 end

@@ -48,7 +48,7 @@
             p.wid
               b
             p.ugc
-              = text_it_pure(item.content)[0..98]
+              == auto_emotion(text_it_pure(item.content)[0..98])
               | ......#{s_link_name(t('whole_article'), item)}
             .twiB
               b.tm.mi

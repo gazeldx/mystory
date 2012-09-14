@@ -1,7 +1,7 @@
 module RecommendHelper
   #Low efficiency process in Rnote.find_by_user_id_and_note_id.A pay may query so many times!
   def recommend_etc(item)
-    r = "&nbsp;"
+    r = ""
     #    if controller_path == 'editor'
     #      if item.is_a?(Note)
     #        onclick = "javascript:cancel_recommend_note(#{item.id})"

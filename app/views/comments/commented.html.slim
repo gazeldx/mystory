@@ -43,9 +43,9 @@ table.b.olt
           | ：
           = comment_info comment
           | &nbsp;
-          = link_to t('reply'), "#{reply_url}#comments", target: '_blank'          
+          = link_to t('reply'), "#{reply_url}#comments", target: '_blank'
         td.pl title=comment.created_at.strftime(t'time_format')
           = comment.updated_at.strftime(t'no_year')
-          - if comment.updated_at > @view_commented_at
+          - if comment.updated_at > @view_commented_at and comment.user != @user
             span.red
               | 新

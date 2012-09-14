@@ -256,7 +256,7 @@ textarea {
   overflow:auto
 }
 input {
-  font-size:$s
+  font-size:$m
 }
 a {
   cursor:pointer  
@@ -418,7 +418,7 @@ h2 {
 textarea {
   border:1px solid #ccc;
   padding:3px;
-  font-size:$m
+  font-size:$c
 }
 .xbar {
   float:right;
@@ -923,8 +923,8 @@ body {
   font-size:$m
 }
 
-#notice {color: green}
-#error {color: red}
+#notice {color: green;font-size:$b}
+#error {color: red;font-size:$b}
 
 .field_with_errors {
   padding: 2px;

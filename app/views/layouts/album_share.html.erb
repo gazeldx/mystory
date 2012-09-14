@@ -4,6 +4,7 @@
     <title><%= yield :title %></title>
     <meta name="description" content="<%= yield :metadesc %>" />
     <%= stylesheet_link_tag "style", "form" %>
+    <%= yield :stylesheet %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>

@@ -27,7 +27,7 @@ this.selectPhoto = (photo_id, albums_url) ->
   p = window.parent.document
   n_t = $('#note_text', p)
   n_t.val(n_t.val() + '+photo' + photo_id + '+\n')
-
+  n_t.focus()
   $('#i_s_a', p).attr 'src', albums_url
   $('#dui-dialog0', p).css 'display', 'none'
 

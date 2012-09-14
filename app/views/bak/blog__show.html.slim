@@ -19,6 +19,7 @@ div id='note-#{@blog.id}'
     .mi
       = blog_info @blog
       = read_comment_recommend_show @blog
+  /= render 'shared/ad/blog_link'
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content
@@ -39,9 +40,24 @@ div id='note-#{@blog.id}'
       - else
         - ri = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
         - if ri.nil?
+          /= hidden_field_tag :ri_id
+          /span#ri_body
+          /span#edit          
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
+          /= hidden_field_tag :ri_id, ri.id
+          /span#ri_body= ri.body
+          /span#edit
+          /  - if ri.body.nil?
+          /    = link_to t('modify_recommend_reason'), 'javascript:;', onclick: 'showBodyEtc()'
+          /  - else
+          /    = link_to t('modify'), 'javascript:;', onclick: 'showBodyEtc()'
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')
+    /#bodydiv style='text-align:right;display:none'
+    /  span
+    /    = t'recommend_reason'
+    /  = text_area_tag :body
+    /  = button_tag t('submit'), onclick: 'modify_ri("blog")'
 .ll.pl2 style='width:50%'
   - unless @blog.tags.blank?
     = join_tags(@blog)
@@ -81,5 +97,6 @@ div id='note-#{@blog.id}'
 = comments
 javascript:
   $('#recommend').live('click', function() {
-    recommend_blog_in(#{@blog.id});
+    recommend_blog();
   });
+  id = '#{@blog.id}';

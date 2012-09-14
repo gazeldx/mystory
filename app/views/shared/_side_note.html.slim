@@ -16,7 +16,7 @@
     = t('s_new_note', w: @user.name)
   - cache "side_note_latest_#{@user.id}" do
     - @user.notes.where(:is_draft => false).order('created_at DESC').limit(6).each do |note|
-      = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
+      = note.title.to_s=='' ? (link_to t('s_note', w: note.created_at.strftime(t'date_format')), note) : (link_to raw(note.title)[0..12], note, title: note.title.size>13 ? raw(note.title) : nil)
       br
   - cache "side_note_rnotes_#{@user.id}" do
     - rnotes = @user.r_notes.where(id: @user.notes.where(:is_draft => false).select('id')).limit(7).order('created_at DESC')
@@ -25,6 +25,6 @@
       h2
         = t('s_recommend_note', w: @user.name)
       - rnotes.each do |note|
-        = link_to note.title.to_s=='' ? t('s_note', w: note.created_at.strftime(t'date_format')) : raw(note.title), note
+        = note.title.to_s=='' ? (link_to t('s_note', w: note.created_at.strftime(t'date_format')), note) : (link_to raw(note.title)[0..12], note, title: note.title.size>13 ? raw(note.title) : nil)
         br
   = render 'shared/archives_side'

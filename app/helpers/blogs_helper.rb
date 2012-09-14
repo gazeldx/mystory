@@ -19,11 +19,11 @@ module BlogsHelper
     info + ' ' + join_tags(blog)
   end
 
-#  def blog_info2(blog)
-#    info = blog.created_at.strftime t('date_without_year') + ' '
-#    info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
-#    raw info
-#  end
+  #  def blog_info2(blog)
+  #    info = blog.created_at.strftime t('date_without_year') + ' '
+  #    info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
+  #    raw info
+  #  end
 
   def article_time(item)
     r = ""
@@ -143,10 +143,10 @@ module BlogsHelper
 
   def meta_desc_user
     r = "#{@user.name} #{@user.city} #{@user.jobs} #{@user.maxim.to_s=='' ? "": "#{t'maxim'}:#{@user.maxim}"} "
-#    @user.hobbies.each_with_index do |hobby, i|
-#      r += t'_hobby_' if i==0
-#      r += "#{hobby.name} "
-#    end
+    #    @user.hobbies.each_with_index do |hobby, i|
+    #      r += t'_hobby_' if i==0
+    #      r += "#{hobby.name} "
+    #    end
     r += @user.memo.to_s=='' ? "": " #{t'_simple_desc'}#{@user.memo}"
     r += " " + t('user_meta_desc_c', w: @user.name, s: site_name)
     raw r
@@ -155,7 +155,7 @@ module BlogsHelper
   def blog_read_comment_recommend item
     views_link = link_to t('views_count', w: item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
     comments_link = "#{link_to t('comments_count', w: item.comments_count), blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
-#    recommend_link = "#{link_to t('recommend_count', w: item.recommend_count), blog_path(item) + '#recommend', target: '_blank'}&nbsp;&nbsp;" if item.recommend_count > 0
+    #    recommend_link = "#{link_to t('recommend_count', w: item.recommend_count), blog_path(item) + '#recommend', target: '_blank'}&nbsp;&nbsp;" if item.recommend_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views_link}"
     content_tag(:span, _content, :class => 'rr')
   end
@@ -241,9 +241,5 @@ module BlogsHelper
     str += content_tag(:span, span_c, :class => 'gray')
     str += note_read_comment_recommend note
     raw str
-  end
-
-  def recommended_char
-    content_tag(:span, " #{t('recommended_char')}", :class => 'red')
   end
 end

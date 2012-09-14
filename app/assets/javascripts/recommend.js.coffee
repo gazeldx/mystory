@@ -51,7 +51,14 @@ this.recommend_note_in = (id) ->
     type: "POST"
     success: (data) ->
       changeInButton()
-      $('#ri_id').val(data['id'])
+
+this.recommend_blog_in = (id) ->
+  $.ajax
+    url: '/recommend_blog'
+    data: "id=" + id
+    type: "POST"
+    success: (data) ->
+      changeInButton()
 
 this.recommend_note = (id) ->
   $.ajax

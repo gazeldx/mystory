@@ -22,10 +22,10 @@
           span.gray
             | #{t'_album'}:[#{link_to album.name, album_path(album), target: '_blank', title: '进入该影集查看照片'}]
           br
-          - unless photo.description.nil?
+          - unless photo.description.to_s==''
             = photo.description
             | &nbsp;
           span.gray
             = fresh_time photo.created_at
           br
-          | #{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}&nbsp;#{recommend_etc photo}
+          | #{recommend_etc photo}&nbsp;#{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}

@@ -152,6 +152,7 @@ module UsersHelper
   def summary_comment_c(something, size)
     tmp = text_it(something.content[0, size])
     tmp = text_it(something.content)[0, size] if tmp.match(/##/m)
+    tmp = auto_emotion tmp
     tmp
   end
 
@@ -219,7 +220,7 @@ module UsersHelper
     s = ignore_image_tag(s)
     raw ignore_style_tag(s)
   end
-  
+    
   def text_it(something)
     s = auto_draft(something.gsub(/\r\n/,'&nbsp;'))
     s = auto_link(s)
@@ -237,6 +238,7 @@ module UsersHelper
     s = auto_draft(something)
     s = auto_link(s)
     s = auto_img(s)
+    s = auto_emotion(s)
     raw auto_style(auto_photo(s))
   end  
   

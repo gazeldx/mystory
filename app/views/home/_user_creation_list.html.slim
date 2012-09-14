@@ -116,7 +116,7 @@
           = user_pic user
         li.mbtr
           span.gray.b
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             |  发日记 #{link_to note.title, site(user) + note_path(note), target: '_blank'}&nbsp;
           - n = photos_count note.content
           - if n==1
@@ -142,7 +142,7 @@
           = user_pic user
         li.mbtr          
           span.gray.b
-            = link_to user.name, site(user)
+            = link_to user.name, site(user), target: '_blank'
             |  发表作品 《#{link_to blog.title, site(blog.user) + blog_path(blog), target: '_blank'}》
           br
           - n = photos_count blog.content
@@ -174,7 +174,7 @@
                 = image_tag(avatar.thumb.url)
           span.inq
             span.gray
-              = link_to user.name, site(user)
+              = link_to user.name, site(user), target: '_blank'
               span.gray  上传照片到&nbsp;
               = link_to album.name, site(user) + album_path(album), target: '_blank', title: '进入该影集查看照片'
             br

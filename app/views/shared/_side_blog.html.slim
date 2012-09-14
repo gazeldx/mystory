@@ -16,7 +16,7 @@
     = t('s_new_blog', w: @user.name)
   - cache "side_blog_latest_#{@user.id}" do
     - @user.blogs.where(:is_draft => false).order('created_at DESC').limit(6).each do |blog|
-      = link_to raw(blog.title), blog
+      = link_to raw(blog.title)[0..12], blog, title: blog.title.size>13 ? raw(blog.title) : nil
       br
   - cache "side_blog_rblogs_#{@user.id}" do
     - rblogs = @user.r_blogs.where(id: @user.blogs.where(:is_draft => false).select('id')).limit(7).order('created_at DESC')
@@ -25,6 +25,6 @@
       h2
         = t('s_recommend', w: @user.name)
       - rblogs.each do |blog|
-        = link_to raw(blog.title), blog
+        = link_to raw(blog.title)[0..12], blog, title: blog.title.size>13 ? raw(blog.title) : nil
         br
   = render 'shared/archives_side'

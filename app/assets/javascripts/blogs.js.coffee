@@ -13,12 +13,14 @@ this.showBlog = (id) ->
           $('#note_'+id+'_full').html(d['content'])
     $('#note_'+id+'_full').css 'display', ''
     $('#note_'+id+'_full2').css 'display', ''
+    $('#recommend_blog_'+id).attr("id", "temp_id_#{id}")
   else
     $('#'+id+' img').attr('src', '/images/arrow2.gif')
     $('#'+id).attr('title', '展开文章')
     $('#note_'+id+'_short').css 'display', ''
     $('#note_'+id+'_full').css 'display', 'none'
     $('#note_'+id+'_full2').css 'display', 'none'
+    $('#temp_id_'+id).attr("id", "recommend_blog_#{id}")
 
 this.showNote = (id) ->
   src = $('#'+id+' img').attr('src')
@@ -35,12 +37,14 @@ this.showNote = (id) ->
           $('#note_'+id+'_full').html(d['content'])
     $('#note_'+id+'_full').css 'display', ''
     $('#note_'+id+'_full2').css 'display', ''
+    $('#recommend_note_'+id).attr("id", "temp_id_#{id}")
   else
     $('#'+id+' img').attr('src', '/images/arrow2.gif')
     $('#'+id).attr('title', '展开文章')
     $('#note_'+id+'_short').css 'display', ''
     $('#note_'+id+'_full').css 'display', 'none'
     $('#note_'+id+'_full2').css 'display', 'none'
+    $('#temp_id_'+id).attr("id", "recommend_note_#{id}")
 
 this.switchView = ->
   if $('#view').val() != '0'
