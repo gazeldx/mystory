@@ -24,7 +24,7 @@ def auto_emotion(mystr)
   mystr
 end
 auto_emotion "sfsdf"
-#puts "最近的一些'事件，让我对\"名人们有了些新认识。事情还是".gsub(/['"]/," ")"\吃饭\谄笑你\谄笑\谄笑\谄笑/谄笑/吃饭/调皮"
+
 
 #str = '好人不一定有好结局，聪明repLyFromM4446413120 人会有好结局。repLyFromM1346413120 好的结ReplyFRo3mU局需要自己创造。。。。'
 ##m = str.match(/(repLyFromM(\d{10}) (?!^\d).*)?$/m)
