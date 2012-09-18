@@ -196,7 +196,7 @@ class NotesController < ApplicationController
 
   private
   def send_weibo
-    if session[:atoken] and @note.is_draft==false and Rails.env.production?
+    if session[:atoken] and @note.is_draft==false and Rails.env.production? and params[:sync_weibo] != "false"
       begin
         str = "#{@note.title.to_s=='' ? '' : @note.title + ' - '}"
         data = "#{str}#{text_it_pure(@note.content)[0..130-str.size]}#{site(@user) + note_path(@note)}"
@@ -208,7 +208,7 @@ class NotesController < ApplicationController
   end
 
   def send_qq
-    if session[:token] and @note.is_draft==false and Rails.env.production?
+    if session[:token] and @note.is_draft==false and Rails.env.production? and params[:sync_qq] != "false"
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

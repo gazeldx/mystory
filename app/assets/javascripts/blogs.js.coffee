@@ -94,3 +94,25 @@ this.like_memoir_comment = (id) ->
       else
         $('#like'+id).html '赞'
       $('#like_count'+id).html d['likecount']
+
+this.switchWeiboSync = ->
+  weibo = $('#weibo_sync')
+  if weibo.attr('src') == '/images/weibo16_16_gray.png'
+    $('#sync_weibo').val true
+    weibo.attr('src', '/images/weibo16_16.png')
+    weibo.attr('title', "同步到微博已开启，点击此图标可取消同步")
+  else
+    $('#sync_weibo').val false
+    weibo.attr('src', '/images/weibo16_16_gray.png')
+    weibo.attr('title', "同步到微博已关闭，点击此图标可开启同步")
+
+this.switchQqSync = ->
+  qq = $('#qq_sync')
+  if qq.attr('src') == '/images/qq16_16_gray.png'
+    $('#sync_qq').val true
+    qq.attr('src', '/images/qq16_16.png')
+    qq.attr('title', "同步到Qzone已开启，点击此图标可取消同步")
+  else
+    $('#sync_qq').val false
+    qq.attr('src', '/images/qq16_16_gray.png')
+    qq.attr('title', "同步到Qzone已关闭，点击此图标可开启同步")

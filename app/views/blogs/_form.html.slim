@@ -34,8 +34,17 @@
     label.field
       | &nbsp;&nbsp;#{t'_tag'}
       = text_field_tag :tags, @tags, title: t('m_split_with_blank')
-      span.pl
+      span.gray
         = t'split_with_blank'
+    - if controller.action_name == 'new'
+      - unless session[:atoken].nil? and session[:token].nil?
+        label.field
+          span.gray
+            | &nbsp;&nbsp;#{t'sync_to'}
+            - unless session[:atoken].nil?
+              | #{hidden_field_tag :sync_weibo, true}#{image_tag('/images/weibo16_16.png', width: 16, height: 16, onclick: 'switchWeiboSync()', id: 'weibo_sync', style: 'cursor: pointer;', title: t('sync_weibo_open'))}&nbsp;
+            - unless session[:token].nil?
+              | #{hidden_field_tag :sync_qq, true}#{image_tag('/images/qq16_16.png', width: 16, height: 16, onclick: 'switchQqSync()', id: 'qq_sync', style: 'cursor: pointer;', title: t('sync_qq_open'))}
     span.rr
       a href='javascript:;' onclick="moreOption()"
         | >更多选项
@@ -44,7 +53,6 @@
     = datetime_select :blog, :created_at
     span.pl
       = t'blog.memo'
-  /= render partial: 'tags/form', locals: {form: f} , name: 'save_as_draft'
   - if @blog.is_draft
     = f.submit t('save_as_draft'), name: 'save_as_draft', class: 'btn'
     | &nbsp;&nbsp;

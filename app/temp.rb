@@ -1,30 +1,31 @@
-def auto_emotion(mystr)
-  m = mystr.scan(/(\/([#{t('emotions.t2')}]))/m)
-  puts m.inspect
-  m.each do |e|
-    
-#    photo = Photo.find_by_id(e[1])
-#    unless photo.nil?
-#      ta = ""
-#      unless photo.description.nil?
-#        ta = ":"
-#      end
-#      album = photo.album
-#      user = album.user
-#      source_from = " [<a href='#{m_or(site(user) + album_path(album))}' target='_blank'>#{album.name}</a>]"
-#      if @user.nil? or user.id!=@user.id
-#        source_from = "#{t('source_from')}<a href='#{m_or(site(user))}' target='_blank'>#{user.name}</a>#{t('his_album')}" + source_from
-#      else
-#        source_from = "#{t('source_from')}#{t('_album')}" + source_from
-#      end
-#      g = "<div style='text-align:center'><img src='#{@m ? photo.avatar.thumb.url : photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{source_from} #{ta} #{photo.description}</span></div>"
-#      mystr = mystr.sub(e[0], g)
-#    end
-  end
-  mystr
-end
-auto_emotion "sfsdf"
-
+#def auto_emotion(mystr)
+#  m = mystr.scan(/(\/([#{t('emotions.t2')}]))/m)
+#  puts m.inspect
+#  m.each do |e|
+#
+##    photo = Photo.find_by_id(e[1])
+##    unless photo.nil?
+##      ta = ""
+##      unless photo.description.nil?
+##        ta = ":"
+##      end
+##      album = photo.album
+##      user = album.user
+##      source_from = " [<a href='#{m_or(site(user) + album_path(album))}' target='_blank'>#{album.name}</a>]"
+##      if @user.nil? or user.id!=@user.id
+##        source_from = "#{t('source_from')}<a href='#{m_or(site(user))}' target='_blank'>#{user.name}</a>#{t('his_album')}" + source_from
+##      else
+##        source_from = "#{t('source_from')}#{t('_album')}" + source_from
+##      end
+##      g = "<div style='text-align:center'><img src='#{@m ? photo.avatar.thumb.url : photo.avatar.url}' alt='#{photo.description}'/><br/><span class='pl'>#{source_from} #{ta} #{photo.description}</span></div>"
+##      mystr = mystr.sub(e[0], g)
+##    end
+#  end
+#  mystr
+#end
+#auto_emotion "sfsdf"
+puts "true".to_b==true
+puts "false"==true
 
 #str = '好人不一定有好结局，聪明repLyFromM4446413120 人会有好结局。repLyFromM1346413120 好的结ReplyFRo3mU局需要自己创造。。。。'
 ##m = str.match(/(repLyFromM(\d{10}) (?!^\d).*)?$/m)

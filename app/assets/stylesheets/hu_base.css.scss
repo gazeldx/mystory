@@ -2,6 +2,7 @@ $left_main: 730px;
 $left_length: 620px;
 $padd_left: 68px;
 $right_main: 226px;
+$portal_image_forder: "//mystory.b0.upaiyun.com/images/portal/";
 $s: 13px;
 $m: 14px;
 $c: 15px;
@@ -169,7 +170,7 @@ body {
   z-index: 99;
 }
 .Tray .Png {
-  background: url("//s4.cr.itc.cn/i/3/204_93feb325f7.png") repeat-x scroll 0 -360px transparent;
+  background: url($portal_image_forder + "204_93feb325f7.png") repeat-x scroll 0 -360px transparent;
   box-shadow: 0 0 5px #000000;
   height: 35px;
   margin: 0 0 -35px;
@@ -195,7 +196,7 @@ body {
   width: 190px;
 }
 .logo .png {
-  background: url("//s4.cr.itc.cn/i/1/196_ab3867a4fd.png") no-repeat scroll 0 0 transparent;
+/*  background: url("//s4.cr.itc.cn/i/1/196_ab3867a4fd.png") no-repeat scroll 0 0 transparent;*/
   height: 100%;
   margin: 0 0 -35px;
 }
@@ -225,7 +226,7 @@ body {
   top: 5px;
 }
 .jumper .txt {
-  background: url("//s4.cr.itc.cn/i/3/204_93feb325f7.png") repeat-x scroll 0 -240px #FFFFFF;
+  background: url($portal_image_forder + "204_93feb325f7.png") repeat-x scroll 0 -240px #FFFFFF;
   border-radius: 3px 3px 3px 3px;
   display: inline-block;
   height: 25px;
@@ -257,7 +258,7 @@ body {
   box-shadow: none;
 }
 .jumper a {
-  background: url("//s4.cr.itc.cn/i/3/204_93feb325f7.png") no-repeat scroll 0 -330px transparent;
+  background: url($portal_image_forder + "204_93feb325f7.png") no-repeat scroll 0 -330px transparent;
   display: inline-block;
   height: 24px;
   position: relative;
@@ -286,7 +287,7 @@ body {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  background: url("//s4.cr.itc.cn/i/3/204_93feb325f7.png") repeat-x scroll 0 -240px transparent;
+  background: url($portal_image_forder + "204_93feb325f7.png") repeat-x scroll 0 -240px transparent;
   border-color: transparent;
   border-radius: 5px 5px 5px 5px;
   border-style: solid;
@@ -338,7 +339,7 @@ body {
   margin: 2px 0 1px;
 }
 .nav2 .navG {
-  background: url("//s6.cr.itc.cn/i/1/010_8ac25eeef7.gif") no-repeat scroll 0 50% transparent;
+  background: url($portal_image_forder + "010_8ac25eeef7.gif") no-repeat scroll 0 50% transparent;
   margin-left: -1px;
 }
 .nav2 .navG:first-child {
@@ -380,7 +381,7 @@ body {
   border: medium solid transparent;
 }
 .mainT {
-  -moz-border-image: url("//s4.cr.itc.cn/i/1/063_cc3bbaf12c.png") 10 10 10 10;
+/*  -moz-border-image: url("//s4.cr.itc.cn/i/1/063_cc3bbaf12c.png") 10 10 10 10;*/
   border-width: 10px;
   min-height: 30px;
   padding: 10px 33px 0;
@@ -389,7 +390,7 @@ body {
   position: relative;
 }
 .mainC {
-  -moz-border-image: url("//s5.cr.itc.cn/i/1/061_c1f14947b5.png") 10 10 10 10 repeat;
+/*  -moz-border-image: url("//s5.cr.itc.cn/i/1/061_c1f14947b5.png") 10 10 10 10 repeat;*/
   border-width: 0 10px 10px;
   margin-bottom: -23px;
   min-height: 1200px;
@@ -434,7 +435,7 @@ h4 .opt {
 }
 
 .aside .ap, .aside .aps, .aside dl {
-  background: url("//s6.cr.itc.cn/i/1/093_2df3c97a36.gif") repeat-x scroll 0 0 transparent;
+  background: url($portal_image_forder + "093_2df3c97a36.gif") repeat-x scroll 0 0 transparent;
   border-top: 1px solid #EAEBEC;
   margin-top: -2px;
   padding: 12px 0 13px;
@@ -559,7 +560,7 @@ a.fuc:hover b, a.fuc:focus b {
   vertical-align: top;
 }
 
-/*  hu_portal.css*/
+/* hu_portal.css*/
 .twi {
   padding:35px 0 9px
 }
@@ -665,7 +666,7 @@ a,a.fuc {
 }
 .LANDBG {
   padding-top:0;
-  background:url(//s6.cr.itc.cn/i/6/82_5ec5bfb022.jpg) no-repeat center 0;
+  background:url($portal_image_forder + "82_5ec5bfb022.jpg") no-repeat center 0;
   *zoom:1
 }
 .Head {
@@ -680,15 +681,15 @@ a,a.fuc {
   *display:inline;
   *zoom:1;
   margin:0;
-  /*  margin-bottom:-1px\9;*/
-  /*  *margin-bottom:5px;*/
+  /* margin-bottom:-1px\9;*/
+  /* *margin-bottom:5px;*/
   left:0
 }
 .selectLogo .png {
   background:url(/images/logo_name.png) no-repeat;
-  /*  margin-bottom:-28px;*/
+  /* margin-bottom:-28px;*/
   _background:none!important;
-  /*  _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s5.cr.itc.cn/i/6/83_e9ca13225e.png',sizingMethod='crop')*/
+  /* _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://s5.cr.itc.cn/i/6/83_e9ca13225e.png',sizingMethod='crop')*/
 }
 .Head .topP {
   color:#565859;
@@ -696,7 +697,7 @@ a,a.fuc {
   display:block;
   position:relative;
   margin:-48px 0 5px 160px
-    /*  *margin:-36px 0 -7px 109px*/
+    /* *margin:-36px 0 -7px 109px*/
 }
 .Main {
   margin:0
@@ -765,7 +766,7 @@ a,a.fuc {
   background-color:#fff
 }
 .aside h4 {
-  background:url(//s5.cr.itc.cn/i/6/84_9433ddd0ef.jpg) repeat-x;
+  background:url($portal_image_forder + "84_9433ddd0ef.jpg") repeat-x;
   padding:0 18px 0;
   border-top:1px solid #ddd;
   border-bottom:1px solid #ddd;
