@@ -23,7 +23,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     if version_name == :bigpic
       pic_type = "gif"
     end
-    "/images/fallback/" + [version_name, "default." + pic_type].compact.join('_')
+    "#{YUN_IMAGES}fallback/" + [version_name, "default." + pic_type].compact.join('_')
   end
 
   #Maybe means max width is 800 and max height is 1000

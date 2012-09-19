@@ -7,14 +7,13 @@
           td
             br
             | &nbsp;&nbsp;&nbsp;&nbsp;
-            = image_tag("/images/#{mystory?? '' : 'cy_'}logo.png", title: "#{site_name}原创社区")
+            = image_tag("/images/logo.png", title: "#{site_name}原创社区")
           td
             br
             b#{t_t'desc'}
             br
             | #{t_t'detail'}
             br
-            /| #{link_to '《广告分享计划》', as_a_writer_path, target: '_blank'} 让您写博客还有钱赚。
             br
             span.item2
               = text_field_tag :title, params[:title], size: 6
@@ -39,18 +38,11 @@
             label
               = t'password'
             = password_field_tag :passwd
-            /!忘记密码
           .item1
-            /label
-              /input type='checkbox'
-              /| 记住我
-            - if mystory?
-              a href=weibo_connect_path
-                = image_tag('/images/sina.png', title: '使用微博帐号免注册登录', width: 126, height: 24)
-              | &nbsp;&nbsp;
-              a href=qq_connect_path
-                = image_tag('/images/qq_login.png', title: '使用QQ号免注册登录', width: 63, height: 24)
-              | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            a href=weibo_connect_path
+              = image_tag("#{YUN_IMAGES}weibo_login.png", title: '使用微博帐号免注册登录', width: 126, height: 24)
+            | &nbsp;&nbsp;
+            a href=qq_connect_path
+              = image_tag("#{YUN_IMAGES}qq_login.png", title: '使用QQ号免注册登录', width: 63, height: 24)
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             input type='submit' value='登  录' class='bn-submit'
-            - unless mystory?
-              | &nbsp;&nbsp;&nbsp;&nbsp;我们在持续改进网站，请您关注！

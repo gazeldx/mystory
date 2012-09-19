@@ -393,6 +393,10 @@ module UsersHelper
     content_tag(:a, image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE), href: site(user), title: "#{user.city} #{user.jobs} #{user.maxim} #{user.memo}", target: '_blank')
   end
 
+  def user_pic_2 user
+    content_tag(:a, image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE), href: site(user), title: "#{user.city} #{user.jobs} #{user.maxim} #{user.memo}")
+  end
+
   private
   def thumb_id(something, photo)
     if something.is_a?(Note)

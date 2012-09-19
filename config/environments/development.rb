@@ -1,5 +1,5 @@
 Cms::Application.configure do
-  DOMAINS = ['mystory2.cc', 'cy22.org']
+  DOMAINS = ['mystory2.cc']
   REDURL = '&redirect_uri=mystory2.cc/qq_callback'
   WeiboOAuth2::Config.redirect_uri = "http://mystory2.cc/weibo_callback"
 #  site_url = "http://" + DOMAIN_NAME + ":8080"

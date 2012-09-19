@@ -8,7 +8,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
   
   def default_url
-    "/images/fallback/photos/" + [version_name, "default.png"].compact.join('_')
+    "#{YUN_IMAGES}fallback/photos/" + [version_name, "default.png"].compact.join('_')
   end
 
   process :resize_to_limit => [690, nil]

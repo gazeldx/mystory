@@ -25,9 +25,10 @@ this.hiddenAlbums = (albums_url) ->
 
 this.selectPhoto = (photo_id, albums_url) ->
   p = window.parent.document
-  n_t = $('#note_text', p)
-  n_t.val(n_t.val() + '+photo' + photo_id + '+\n')
-  n_t.focus()
+  #n_t = $('#note_text', p)
+  #n_t.val(n_t.val() + '+photo' + photo_id + '+\n')
+  #n_t.focus()
+  $('#note_text', p).insertAtCaret "+photo#{photo_id}+"
   $('#i_s_a', p).attr 'src', albums_url
   $('#dui-dialog0', p).css 'display', 'none'
 

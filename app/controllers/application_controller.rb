@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :mystory?, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -13,9 +13,9 @@ class ApplicationController < ActionController::Base
 
   def site_url
     if request.port==80
-      "http://#{request.domain}"
+      "http://mystory.cc"
     else
-      "http://#{request.domain}:#{request.port.to_s}"
+      "http://mystory2.cc:#{request.port.to_s}"
     end
   end
   
@@ -31,16 +31,16 @@ class ApplicationController < ActionController::Base
     site_url.sub(/\:\/\//, "://" + str + ".")
   end
 
-  def mystory?
-    ["mystory.cc", "mystory2.cc"].include? request.domain
-  end
+#  def mystory?
+#    ["mystory.cc", "mystory2.cc"].include? request.domain
+#  end
 
   def site_name
-    if mystory?
-      t'site.name'
-    else
-      t'cy.name'
-    end
+#    if mystory?
+    t'site.name'
+#    else
+#      t'cy.name'
+#    end
   end
 
   def authorize(item)
@@ -321,11 +321,11 @@ class ApplicationController < ActionController::Base
   #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
   #redirect_to default is 302
   def r_to code
-    if mystory?
-      redirect_to site_url, :status => code
-    else
-      redirect_to sub_site('blog'), :status => code
-    end
+#    if mystory?
+    redirect_to site_url, :status => code
+#    else
+#      redirect_to sub_site('blog'), :status => code
+#    end
   end
 
   def _render(str)
@@ -481,12 +481,12 @@ class ApplicationController < ActionController::Base
       id = User.last.id + 1001
       @user.username = "u#{id}"
       @user.domain = "u#{id}"
-      @user.email = "u#{id}@#{request.domain}"
+      @user.email = "u#{id}@mystory.cc"
       unless @user.save
         num = Random.rand(9999)
         @user.username = "u#{id}-#{num}"
         @user.domain = "u#{id}-#{num}"
-        @user.email = "u#{id}-#{num}@#{request.domain}"
+        @user.email = "u#{id}-#{num}@mystory.cc"
         @user.save
       end
     end

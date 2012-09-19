@@ -13,7 +13,7 @@ br
     .albumlst
       a.album_photo href=album_path(album)
         - if album.photo_id.nil?
-          = image_tag('/images/fallback/photos/cover_default.png', class: 'album')
+          = image_tag("#{YUN_IMAGES}fallback/photos/cover_default.png", class: 'album')
         - else
           = image_tag(album.photo.avatar.cover.url, class: 'album')
       .albumlst_r

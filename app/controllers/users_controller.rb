@@ -96,11 +96,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.avatar = params[:file]
     @user.passwd = Digest::SHA1.hexdigest(params[:user][:passwd])
-    if mystory?
-      @user.source = 0
-    else
-      @user.source = 1
-    end
+#    @user.source = 0 # source is not use now.
     #TODO change file name
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")

@@ -190,8 +190,9 @@ module CommentsHelper
   end
 
   def c_pic(user)
-    link = content_tag(:a, image_tag(user.avatar.thumb.url, alt: user.name), href: site(user))
-    content_tag(:div, link, :class => 'pic')
+    #user_pic user
+    #link = content_tag(:a, image_tag(user.avatar.thumb.url, alt: user.name), href: site(user))
+    content_tag(:div, user_pic_2(user), :class => 'pic')
   end
 
   def c_author(user, comment)

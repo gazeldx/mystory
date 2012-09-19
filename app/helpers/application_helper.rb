@@ -29,19 +29,19 @@ module ApplicationHelper
   end
 
   def t_t(str)
-    if mystory?
-      t("site.#{str}")
-    else
-      t("cy.#{str}")
-    end
+#    if mystory?
+    t("site.#{str}")
+#    else
+#      t("cy.#{str}")
+#    end
   end
 
   def s_site_root
-    if mystory?
-      site_url
-    else
-      sub_site('blog')
-    end
+#    if mystory?
+    site_url
+#    else
+#      sub_site('blog')
+#    end
   end
 
 
