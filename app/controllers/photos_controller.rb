@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
       add_view_count
       @photo_new = Photo.where(["album_id = ? AND created_at > ?", @album.id, @photo.created_at]).order('created_at').first
       @photo_old = Photo.where(["album_id = ? AND created_at < ?", @album.id, @photo.created_at]).order('created_at DESC').first
-      @photos = @album.photos
+      @photos = @album.photos.order('id DESC')
       @photos.each_with_index { |x, i|
         if x == @photo
           @photo_position = i + 1

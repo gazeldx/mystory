@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def site_url
-    if request.port==80
+    if [80, 8080].include? request.port
       "http://mystory.cc"
     else
       "http://mystory2.cc:#{request.port.to_s}"
