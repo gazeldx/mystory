@@ -17,3 +17,4 @@ Gemfile.lock
 !tmp/
 tmp/*
 !tmp/pids/
+tmp/pids/*.*
