@@ -1,6 +1,5 @@
 .bundle
 log/*.log
-tmp/
 .sass-cache/
 nbproject/
 public/photos
@@ -14,3 +13,8 @@ config/initializers/session_store.rb
 config/initializers/carrierwave.rb
 Gemfile
 Gemfile.lock
+
+!tmp/
+tmp/*
+!tmp/pids/
+tmp/pids/*

@@ -33,3 +33,8 @@ before_fork do |server, worker|
     end
   end
 end
+
+#Resove the problem: PGError: ERROR:  prepared statement "a3" already exists
+after_fork do |server, worker|
+  ActiveRecord::Base.establish_connection
+end
