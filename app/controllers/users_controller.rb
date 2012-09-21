@@ -163,6 +163,11 @@ class UsersController < ApplicationController
     render layout: 'help'
   end
 
+  def comments
+    @users = User.order('comments_count DESC').limit(50)
+    render :top, layout: 'help'
+  end
+
   def recommended
     if Rails.env.production?
       ids = [172, 186, 180, 188, 154, 171, 157, 167, 44, 147, 170, 162, 4, 185]

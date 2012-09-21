@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :super_admin, :only => :update_user_comments_count
+  
   layout 'memoir'
   include Comment
 
@@ -47,6 +49,13 @@ class CommentsController < ApplicationController
     if @user.id == session[:id]
       @user.update_attribute('view_commented_at', Time.now)
       @user.update_attribute('unread_commented_count', 0)
+    end
+  end
+
+  def update_user_comments_count
+    users = User.all
+    users.each do |user|
+      user.update_attribute('comments_count', user.blogcomments.count + user.notecomments.count + user.photocomments.count)
     end
   end
 

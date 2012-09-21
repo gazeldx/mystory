@@ -1,11 +1,14 @@
 h1
   - case controller.action_name
   - when 'top'
-    = title '活跃会员'
-    | 活跃会员 | #{link_to "站长推荐", recommended_users_path}
+    = title t'most_fans'
+    | #{t'most_fans'} | #{link_to t('best_comments'), users_comments_path} | #{link_to t('admin_recommend'), users_recommended_path}
+  - when 'comments'
+    = title t'best_comments'
+    | #{link_to t('most_fans'), users_top_path} | #{t'best_comments'} | #{link_to t('admin_recommend'), users_recommended_path}
   - else
-    = title '站长推荐'
-    | #{link_to "活跃会员", top_users_path} | 站长推荐
+    = title t'admin_recommend'
+    | #{link_to t('most_fans'), users_top_path} | #{link_to t('best_comments'), users_comments_path} | #{t'admin_recommend'}
 ul.user-list
   - @users.each do |guy|
     li.clearfix id='u#{guy.id}'
@@ -46,6 +49,8 @@ ul.user-list
           = link_to t('_note') + guy.notes_count.to_s, site(guy) + notes_path, target: '_blank'
           | &nbsp;|&nbsp;
           = link_to t('_blog') + guy.blogs_count.to_s, site(guy) + blogs_path, target: '_blank'
+          - if controller.action_name == 'comments'
+            | &nbsp;|&nbsp;#{link_to "#{t'_comment'}#{guy.comments_count}", site(guy) + comments_path, target: '_blank'}
         br
         span.pl
           - guy.hobbies.each_with_index do |hobby, i|

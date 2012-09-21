@@ -186,7 +186,7 @@ module CommentsHelper
         end
       end
     end
-    raw c_info
+    raw auto_emotion(c_info)
   end
 
   def c_pic(user)

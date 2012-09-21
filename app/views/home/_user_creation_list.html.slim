@@ -60,10 +60,7 @@
             span.gray
               = article_time item
             - if item.user_id == session[:id]
-              | &nbsp;
-              = link_to t('edit'), edit_note_path(item), target: '_blank'
-              | &nbsp;
-              = link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete
+              | &nbsp;#{link_to t('edit'), edit_note_path(item), target: '_blank'}&nbsp;#{link_to t('delete'), item, confirm: t('confirm.delete'), method: :delete}
             = note_read_comment_recommend item
       - elsif item.is_a?(Blog)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
@@ -86,8 +83,7 @@
             span.gray
               = article_time item
             - if item.user_id == session[:id]
-              | &nbsp;
-              = link_to t('edit'), edit_blog_path(item), target: '_blank'
+              | &nbsp;#{link_to t('edit'), edit_blog_path(item), target: '_blank'}
             = blog_read_comment_recommend item
       - elsif item.is_a?(Photo)
         - album = item.album
@@ -188,12 +184,13 @@
             | #{recommend_etc photo}&nbsp;#{link_to "#{t('comment')}#{photo.comments_count==0 ? '' : '(' + photo.comments_count.to_s + ')' }", "#{album_photo_path(photo.album, photo)}#comments", target: '_blank'}
       - elsif item.is_a?(Memoir)
         li.mbtr
-          span.gray
-            | 更新自传 #{link_to item.title, memoirs_path}&nbsp;
+          span.gray.b
+            | 更新自传 #{link_to item.title, memoirs_path, target: '_blank'}&nbsp;
+          br
           span.inq
             = summary_no_comments(item, 200)
             = thumbs_here(item, 3)
-            span.pl
+            span.gray
               = article_time item
             - if item.user_id == session[:id]
-              = link_to t('edit'), edit_memoirs_path, target: '_blank'
+              | &nbsp;#{link_to t('edit'), edit_memoirs_path, target: '_blank'}

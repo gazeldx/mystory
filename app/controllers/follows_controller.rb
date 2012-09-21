@@ -1,4 +1,5 @@
 class FollowsController < ApplicationController
+  before_filter :super_admin, :only => :update_follow_count
   layout 'memoir'
   
   def follow_me

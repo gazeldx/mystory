@@ -3,12 +3,14 @@ changeInButton = ->
     $('#recommend').html('推荐')
     $('#recommend').attr('title', '')
     $('#recommend').attr('class', 'fav-add btn-fav')
+    $('#r_count').html("#{$('#r_count').html().match(/\d+/)-1}人推荐")
     #$('#ri_body').html('')
     #$('#edit').html('')
   else
     $('#recommend').html('已推荐')
     $('#recommend').attr('title', '点击可取消推荐')
     $('#recommend').attr('class', 'fav-cancel btn-fav')
+    $('#r_count').html("#{(parseInt($('#r_count').html().match(/\d+/))||0) + 1}人推荐")
     #showBodyEtc()
 
 this.showBodyEtc = ->

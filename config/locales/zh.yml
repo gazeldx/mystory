@@ -94,7 +94,8 @@ zh:
   latest_attention: "最新关注"
   most_comments_articles: "热评"
   top_commentators: "评论排行"
-  top_users: "博客排行"
+  #top_users: "博客排行"
+
 
   send_again: "再发一封"
   _archive: "归档"
@@ -209,6 +210,10 @@ zh:
   s_assign_columns: "将博文“%{w}”归类到："
 
   blog_master: "博主"
+  most_fans: "最多粉丝"
+  admin_recommend: "站长推荐"
+  best_comments: "评论达人"
+  
   user:
     edit: "用户管理"
   assign_roles: "授予角色"

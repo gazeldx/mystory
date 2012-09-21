@@ -38,7 +38,8 @@ div.note-ft id='note_#{@note.id}_footer'
   .sns-bar
     = render 'shared/share'
     .sns-bar-fav
-      | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
+      span#r_count
+        | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
       - if session[:id].nil?
         = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
