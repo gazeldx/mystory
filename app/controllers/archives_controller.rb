@@ -9,6 +9,8 @@ class ArchivesController < ApplicationController
   end
 
   def month
+    @rnids = @user.rnotes.select('note_id').map{|x| x.note_id}
+    @rbids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
     case params[:t]
     when 'note'
       @all = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).order('created_at desc')

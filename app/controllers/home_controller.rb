@@ -61,6 +61,9 @@ class HomeController < ApplicationController
         end
         render mn(:user), layout: 'm/portal'
       end
+    elsif @group != nil
+      #album_ids = @group.users
+      render 'groups/show', layout: 'group'
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
@@ -101,8 +104,7 @@ class HomeController < ApplicationController
         
         render layout: 'portal'
       else
-#        @photos = Photo.where(album_id: @user.albums).limit(5).order('id desc')
-#        @user_timeline = user_timeline({count: 1, feature: 1})
+        #TODO MODULIZE TWO LINE NEXT.
         @rnids = @user.rnotes.select('note_id').map{|x| x.note_id}
         @rbids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
         t = params[:t]
@@ -136,10 +138,6 @@ class HomeController < ApplicationController
           rphotos = @user.rphotos.includes(:photo => [:album => :user]).limit(8).order('id desc')
           @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!
         end
-
-#        ids = @user.blogs.where(:is_draft => false).select('id')
-#        @rblogs = @user.r_blogs.where(id: ids).limit(7)
-
         render :user
       end
     end

@@ -66,7 +66,10 @@ class ApplicationController < ActionController::Base
       else
         unless ['', 'blog'].include? request.subdomain
           @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'
-          r_to 302 if @user.nil?
+          if @user.nil?
+            @group = Group.find_by_domain(request.subdomain)
+            r_to 302 if @group.nil?
+          end
         end
       end
     end

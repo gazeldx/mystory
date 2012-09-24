@@ -27,7 +27,7 @@
       = link_to t('_comment'), comments_path
       - if @user.blogs_count+@user.notes_count>30         
         .rr
-          = text_field_tag :title, '搜', size: 6, title: "按回车键搜#{@user.name}的文章", style: "border: 1px solid #A6D098;color: gray;", onfocus: "if (this.value=='搜') {this.value=''}", onkeypress: 'goSearch()'
+          = text_field_tag :title, '搜', size: 6, title: "按回车键搜#{@user.name}的文章", style: "border: 1px solid #A6D098;color: gray;", onfocus: "if (this.value=='搜') {this.value=''}"
   ul
     li
       = link_to "#{t('following')}#{@user.following_num}", following_path
@@ -77,5 +77,6 @@
     .info style="font-size:16px"
       = render 'shared/user_navigation'
 coffee:
-  this.goSearch = ->
-    window.location.href = "/s/" + $('#title').val()
+  $('#title').live 'keypress', (e) ->
+    if e.keyCode == 13
+      window.location.href = "/s/" + $('#title').val()
