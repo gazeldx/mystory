@@ -9,6 +9,16 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+#require "action_controller/railtie"
+#require "action_mailer/railtie"
+#require "active_resource/railtie"
+#require "rails/test_unit/railtie"
+#require "sprockets/railtie"
+#
+#if defined?(Bundler)
+#  Bundler.require *Rails.groups(:assets => %w(production development test))
+#end
+
 module Cms
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
