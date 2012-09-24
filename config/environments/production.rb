@@ -5,11 +5,11 @@ Cms::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
-  config.cache_classes = true
+  config.cache_classes = false
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
+  config.action_controller.perform_caching = false
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
@@ -62,7 +62,7 @@ Cms::Application.configure do
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
   
-#  config.assets.js_compressor  = :uglifier
-#  config.assets.css_compressor = :scss
-#  config.assets.precompile += %w(application.css application.js style.css form.css create_note.css dialog.css)
+  config.assets.js_compressor  = :uglifier
+  config.assets.css_compressor = :scss
+  config.assets.precompile += %w(application.css application.js blogs.js emotions.js idols.js photos.js post.js recommend.js style.css form.css create_note.css dialog.css emotion.css hu_base.css)
 end

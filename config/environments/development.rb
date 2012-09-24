@@ -2,7 +2,7 @@ Cms::Application.configure do
   DOMAINS = ['mystory2.cc']
   REDURL = '&redirect_uri=mystory2.cc/qq_callback'
   WeiboOAuth2::Config.redirect_uri = "http://mystory2.cc/weibo_callback"
-#  site_url = "http://" + DOMAIN_NAME + ":8080"
+  #  site_url = "http://" + DOMAIN_NAME + ":8080"
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -36,4 +36,12 @@ Cms::Application.configure do
 
   config.log_level = :debug
   #  config.logger = Logger.new(STDOUT)
+
+  # update to 3.2.x below
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
