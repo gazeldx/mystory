@@ -13,6 +13,9 @@ h1
         | (
         = link_to t('unfollow'), follow_board_path
         | )
+    - unless @group.nil?
+      | &nbsp;
+      = link_to t('_group'), site(@group)
     | &nbsp;
     = link_to t('board.member'), "#{@board.id}/members"
     - unless session[:id].nil?

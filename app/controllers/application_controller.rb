@@ -63,6 +63,8 @@ class ApplicationController < ActionController::Base
         @m = true
       elsif request.subdomain == 'bbs'
         @bbs_flag = true
+      elsif request.subdomain == 'group'
+        @group_flag = true
       else
         unless ['', 'blog'].include? request.subdomain
           @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'
@@ -361,6 +363,12 @@ class ApplicationController < ActionController::Base
     end
     redirect_to root_path unless super_admin? or user.menus.any?{|x| x.code==code}
   end
+
+#  def production_mode
+#    unless Rails.env.production?
+#      redirect_to root_path
+#    end
+#  end
 
   def archives_months_count
     _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")

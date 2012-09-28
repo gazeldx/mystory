@@ -6,7 +6,7 @@ class BoardsController < ApplicationController
     if not_bbs
       r404
     else
-      #TODO How to eager loading count?
+      @group = @board.group
       @posts = @board.posts.includes([:user, :postcomments]).page(params[:page]).order('replied_at DESC')
       render mr, layout: 'm/portal' if @m
     end

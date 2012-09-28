@@ -1,6 +1,6 @@
 = title t('send_letters_to', w: @recipient.name)
 - content_for :stylesheet do
-  = stylesheet_link_tag "create_note", "dialog"
+  = stylesheet_link_tag 'emotions'
 h1
   | 发私信
 = form_for @letter do |f|
@@ -11,13 +11,15 @@ h1
       td
         | 发给:
       td
-        = link_to @recipient.name, site(@recipient)
+        = link_to @recipient.name, site(@recipient), target: '_blank'
+        | &nbsp;&nbsp;#{insert_emotion}
+        = render 'shared/emotions'
     tr
       td
         span valign="top"
         | 内容:
       td
-        = f.text_area :body, size: "50x4", class: 'comment'
+        = f.text_area :body, size: "50x4", id: 'note_text'
     tr
       td
       td
@@ -30,10 +32,13 @@ table.b.olt
           - if letter.user.id==session[:id]
             = letter.user.name
           - else
-            = link_to letter.user.name, site(letter.user)
+            = link_to letter.user.name, site(letter.user), target: '_blank'
           | 说：
-          = letter.body
+          = letter_body letter.body
           | &nbsp;
           .pl2
             = letter.created_at.strftime(t'time_format')
 = validate_form 'new_letter'
+coffee:
+  $('#note_text').focus()
+  showOrHiddenEmotions()

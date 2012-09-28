@@ -18,7 +18,11 @@ class NotesController < ApplicationController
   def new
     if session[:id] == @user.id
       @note = Note.new
-      render mr, layout: 'm/portal' if @m
+      if @m
+        render mr, layout: 'm/portal'
+      else
+        render layout: 'new'
+      end
     else
       r404
     end
@@ -119,7 +123,11 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @tags = @note.notetags.map { |t| t.name }.join(" ")
     authorize @note
-    render mr, layout: 'm/portal' if @m
+    if @m
+      render mr, layout: 'm/portal'
+    else
+      render layout: 'new'
+    end
   end
 
   def update

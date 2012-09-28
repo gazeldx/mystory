@@ -2,8 +2,8 @@
 = metadesc meta_desc_notecate_show
 = hidden_field_tag :view, params[:view]
 h2
-  = link_to t('_archive'), notes_archives_path
-  | &nbsp;&nbsp;&nbsp;
+  /= link_to t('_archive'), notes_archives_path
+  /| &nbsp;&nbsp;&nbsp;
   = t'_notecate_'
   - @notecates.each do |category|
     | [

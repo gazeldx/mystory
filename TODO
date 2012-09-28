@@ -37,3 +37,13 @@ Bu
 
 作者联系方式加到个人资料中?
 QQ：12824901， E-mail：ling288@tom.com
+
+
+update_user_comments_count
+update_group_users_count
+
+first create a group
+then
+toinit_users_schools_groups
+then
+update_group_users_count

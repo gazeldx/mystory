@@ -230,7 +230,7 @@ module CommentsHelper
 
   def comment_form(f)
     rui = hidden_field_tag(:reply_user_id)
-    body = f.text_area :body, size: "64x4", :class => 'comment', :id => 'note_text'
+    body = f.text_area :body, size: "64x4", :id => 'note_text'
     _body = content_tag(:div, body + raw('<br/>'), :class => 'item')
     comment_and_recommend = f.submit(t('comment_and_recommend'), name: 'comment_and_recommend')
     submit = raw("#{f.submit(t('comment'))}&nbsp;#{comment_and_recommend}")

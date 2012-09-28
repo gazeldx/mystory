@@ -42,7 +42,7 @@ module UsersHelper
     else
       link_url = site(something.user) + something
     end
-    p = tmp + t('etc') + (link_to t('whole_article') , link_url)
+    p = tmp + t('etc') + (link_to t('whole_article') , link_url, target: '_blank')
     raw p
   end
 

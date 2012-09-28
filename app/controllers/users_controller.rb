@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @school_groups = @user.groups.where("stype = 1").order('groups_users.created_at')
     @enjoy_books = @user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
     @enjoy_musics = @user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
     @enjoy_movies = @user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
@@ -25,6 +26,8 @@ class UsersController < ApplicationController
     if @_user.email.match(/.*@mystory\.cc/)
       render :edit_bind, layout: 'like'
     else
+      @schools = @_user.groups.where("stype = 1").select('name').order('groups_users.created_at').map { |t| t.name }.join(" ")
+      puts @schools.inspect
       @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
@@ -33,7 +36,7 @@ class UsersController < ApplicationController
       else
         render layout: 'like'
       end
-    end    
+    end
   end
 
   def edit_password
@@ -53,7 +56,9 @@ class UsersController < ApplicationController
       #TODO rubbish data may stay in enjoys table because some not used have not been deleted.
       @_user.renjoys.destroy_all
       build_enjoys @_user
+      build_school_groups(@_user, params[:user][:school])
       @_user.update_attributes(params[:user])
+      expire_fragment("head_user_schools_#{session[:id]}")
       redirect_to m_or(my_site + profile_path), notice: t('update_succ')
     else
       _render :edit
@@ -96,13 +101,13 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.avatar = params[:file]
     @user.passwd = Digest::SHA1.hexdigest(params[:user][:passwd])
-#    @user.source = 0 # source is not use now.
+    #    @user.source = 0 # source is not use now.
     #TODO change file name
     #@user.avatar = File.open('somewhere')
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
       proc_session
-      UserMailer.welcome_new_user(@user).deliver
+      UserMailer.welcome_new_user(@user).deliver if Rails.env.production?
       flash[:notice] = t'regiter_succ_memo'
       redirect_to m_or(my_site + edit_profile_path)
     else
@@ -179,6 +184,14 @@ class UsersController < ApplicationController
     render :top, layout: 'help'
   end
 
+  #Will never been use after initialized.Can delete
+  def init_users_schools_groups
+    users = User.all
+    users.each do |user|
+      build_school_groups(user, user.school)
+    end
+  end
+
   private
   def build_enjoys(item)
     build_item(item, 'enjoy_books', 1)
@@ -202,4 +215,33 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def build_school_groups(user, schools_str)
+    user.groups.destroy_all
+    schools = schools_str.to_s
+    unless schools == ''
+      _a = schools.split ' '
+      _a.uniq.each do |x|
+        puts x
+        schoolname = Schoolname.find_by_name x
+        if schoolname.nil?
+          group = Group.find_by_name x
+        else
+          group = schoolname.group
+        end
+        if group.nil?
+          id = Group.last.id + 1001
+          group = Group.new(:name => x, :stype => 1, :domain => "g#{id}")
+          unless group.save
+            num = Random.rand(9999)
+            group.domain = "g#{id}-#{num}"
+            group.save!
+          end
+        end
+#        user.groups << group #created_at not assignd if do as this
+        GroupsUsers.create(group: group, user: user, created_at: Time.now)
+      end
+    end
+  end
+  
 end

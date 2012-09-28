@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923071512) do
+ActiveRecord::Schema.define(:version => 20120928060949) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -145,10 +145,23 @@ ActiveRecord::Schema.define(:version => 20120923071512) do
     t.string   "name"
     t.string   "domain"
     t.string   "memo"
+    t.string   "maxim"
     t.string   "avatar"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "member_count", :default => 0
+    t.integer  "stype"
+    t.integer  "board_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+  end
+
+  add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"
+  add_index "groups_users", ["user_id"], :name => "index_groups_users_on_user_id"
 
   create_table "hobbies", :force => true do |t|
     t.string   "name"
@@ -395,6 +408,13 @@ ActiveRecord::Schema.define(:version => 20120923071512) do
 
   add_index "rphotos", ["photo_id"], :name => "index_rphotos_on_photo_id"
   add_index "rphotos", ["user_id"], :name => "index_rphotos_on_user_id"
+
+  create_table "schoolnames", :force => true do |t|
+    t.string   "name",       :null => false
+    t.integer  "group_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

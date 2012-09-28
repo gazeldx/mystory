@@ -19,18 +19,23 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'birthdate_year'}:
         td
           = @user.birthday
+    - unless @school_groups.blank?
+      tr
+        td class='mrw'
+          | #{t'college'}:
+        td
+          - @school_groups.each do |group|
+            - if group.member_count >= MIN_COLLEGE_MEMBER
+              = link_to group.name, site(group), target: '_blank'
+            - else
+              = group.name
+            | &nbsp;&nbsp;&nbsp;
     - unless @user.company.to_s==''
       tr
         td class='mrw'
           | #{t'company'}:
         td
           = @user.company
-    - unless @user.school.to_s==''
-      tr
-        td class='mrw'
-          | #{t'college'}:
-        td
-          = @user.school
     - unless @enjoys.blank?
       tr
         td class='mrw'

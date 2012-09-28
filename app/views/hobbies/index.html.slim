@@ -11,7 +11,7 @@ h2
     | &nbsp;&nbsp;&nbsp;
   = form_for @hobby do |f|
     | 爱好:
-    = f.text_field :name, size: 12, class: 'required'
+    = f.text_field :name, size: 6, class: 'required'
     = f.submit t'new'
 javascript:
   $('#hobby_name').focus()

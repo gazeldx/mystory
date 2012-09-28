@@ -55,7 +55,11 @@ class BlogsController < ApplicationController
   def new
     if session[:id] == @user.id
       @blog = Blog.new
-      render mr, layout: 'm/portal' if @m
+      if @m
+        render mr, layout: 'm/portal'
+      else
+        render layout: 'new'
+      end
     else
       r404
     end
@@ -65,7 +69,11 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @tags = @blog.tags.map { |t| t.name }.join(" ")
     authorize @blog
-    render mr, layout: 'm/portal' if @m
+    if @m
+      render mr, layout: 'm/portal'
+    else
+      render layout: 'new'
+    end
   end
 
   def create

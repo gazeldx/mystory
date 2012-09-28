@@ -1,7 +1,8 @@
-- photos = Photo.where(album_id: @user.albums).includes(:album).limit(5).order('id desc')
-- photos.each do |photo|
+- @photos.each do |photo|
   .photo_user
-    a.photolst_photo href=album_photo_path(photo.album, photo)
-      = image_tag(photo.avatar.square.url, title: photo.description.to_s[0..43], width: PHOTO_SQUARE_SIZE, height: PHOTO_SQUARE_SIZE)
-- unless photos.blank?
+    - album = photo.album
+    - user = album.user
+    a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
+      = image_tag(photo.avatar.square.url, title: "#{user.name} [#{album.name}] #{photo.description.to_s[0..43]}", width: PHOTO_SQUARE_SIZE, height: PHOTO_SQUARE_SIZE)
+- unless @photos.blank?
   .clear

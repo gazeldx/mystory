@@ -17,6 +17,7 @@ end
 class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :groups
   has_many :menus, :through => :roles, :source => :menus
   has_many :categories, :dependent => :destroy
   has_many :notecates, :dependent => :destroy
@@ -65,4 +66,17 @@ class User < ActiveRecord::Base
   validates :memo, :length => { :in => 0..100 }
   validates :signature, :length => { :in => 0..300 }
   validates :source, :presence => true
+  validate :domain_not_used
+  
+  def domain_not_used
+    errors.add(:domain, "has been used! Please change it.") unless Group.find_by_domain(domain).nil?
+  end
+
+  # Just fix the little bug which no default view_letters_at when send letter.If not see letters will see the bug.
+  #http://stackoverflow.com/questions/1580805/how-to-set-the-default-value-for-a-datetime-column-in-migration-script
+  #  t.datetime :starts_at, :null => false, :default => Time.now
+  before_create :set_default_time_to_now
+  def set_default_time_to_now
+    self.view_letters_at = Time.now
+  end
 end

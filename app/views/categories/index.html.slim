@@ -28,7 +28,7 @@ h2
           - if i > 0
             = link_to t(:up), up_category_path(category)
           - else
-            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           - if i < @categories.length-1
             = link_to t(:down), down_category_path(category)
 = validate_form 'new_category'

@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-#  default from: "mail_zlj@163.com"
+  #  default from: "mail_zlj@163.com"
   default from: "zjloveztt@gmail.com"
 
   def note_21days(user)

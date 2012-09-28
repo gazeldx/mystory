@@ -17,14 +17,7 @@ span.txt-bold
   | &nbsp;
   = link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete
 br
-span
-  | #{link_to @user.name, m(site(@user))}&nbsp;
-  = @note.created_at.strftime t'time_format'
-  = t'write'
-  | &nbsp;
-  = update_info @note
-  | &nbsp;#{t'_cate'}
-  = link_to @note.notecate.name, @note.notecate
+= m_article_info @note
 br
 = style_it @note.content
 br

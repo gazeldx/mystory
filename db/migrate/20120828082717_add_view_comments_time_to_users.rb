@@ -1,4 +1,5 @@
 class AddViewCommentsTimeToUsers < ActiveRecord::Migration
+  
   def change
     add_column :users, :view_comments_at, :timestamp
     add_column :users, :view_commented_at, :timestamp

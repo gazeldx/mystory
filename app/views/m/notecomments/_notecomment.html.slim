@@ -4,7 +4,7 @@
     - user = comment.user
     = link_to user.name, m(site(user))
     span.pl
-      = comment.created_at.strftime(t'no_year')
+      |  #{comment.created_at.strftime(t'no_year')}
     p
       = comment_info comment
       - if @user.id==session[:id]

@@ -20,7 +20,7 @@ table.b.olt
             - etc = "...(共#{letter.body.size}字)"
             - _title = letter.body
           span title=_title
-            = letter.body[0..140]+etc.to_s
+            = letter_body letter.body[0..140]+etc.to_s
           | &nbsp;
           - if letter.user.id==session[:id]
             - show = t'send_again'

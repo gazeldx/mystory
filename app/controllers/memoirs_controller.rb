@@ -1,5 +1,5 @@
 class MemoirsController < ApplicationController
-  layout 'memoir'
+  layout 'new'
   
   def index
     @memoir = Memoir.find_by_user_id(@user.id)

@@ -1,0 +1,28 @@
+#event
+  h2
+    = t('s_bbs', w: @group.name)
+    | &nbsp;·&nbsp;·&nbsp;·
+    span.mi
+      | &nbsp;
+      = link_to '进入', sub_site('bbs') + "/#{@board.id}", target: '_blank'
+  span.mi
+    - @board.posts.limit(15).each do |post|
+      - etc = t('all_characters', w: post.content.size) if post.content.size>100
+      = link_to post.title[0..18], "#{sub_site('bbs')}/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+      .rr
+        = link_to post.user.name, site(post.user), target: '_blank'
+      br
+br
+#friend
+    h2
+      = t('member_of_group', w: @group.name)
+      | &nbsp;·&nbsp;·&nbsp;·
+      span.mi
+        | &nbsp;共#{@group.member_count}#{t('ren')}
+        /= link_to "共#{@group.member_count}#{t('ren')}", following_path
+    - @group.users.sort_by{|x| x.followers_num}.reverse!.take(20).each do |guy|
+      dl.obu
+        dt
+          = user_pic guy
+        dd
+          = link_to guy.name, site(guy), target: '_blank'

@@ -11,14 +11,15 @@ span.b
   a href=users_top_path target='_blank'
     = t'_user'
   span style='float:right'
-    a href=root_path
-      | 最后回复
-    | &nbsp;|&nbsp;
+    - unless controller.action_name=='index'
+      a href=root_path
+        | 默认
+      | &nbsp;|&nbsp;
     a href=hotest_path
-      | 最热文章
+      | 最热
     | &nbsp;|&nbsp;
     a href=latest_path
-      | 最新文章
+      | 最新
 .b.red
   | 公告：
   a href=sub_site('zhangjian')+"/notes/117" target='_blank'

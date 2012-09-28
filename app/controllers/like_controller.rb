@@ -8,9 +8,9 @@ class LikeController < ApplicationController
     t = params[:t]
     require 'will_paginate/array'
     if t.nil?
-      @assortments = @user.assortments
+#      @assortments = @user.assortments
       notes = Note.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(15).order('id desc')
-      blogs = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(10).order('created_at desc')
+      blogs = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(10).order('id desc')
       album_ids = Album.where(user_id: following_ids)
       photos = Photo.where(album_id: album_ids).includes(:album => :user).limit(6).order('photos.id desc')
       #TODO why so many rnotes query sql?
@@ -29,7 +29,7 @@ class LikeController < ApplicationController
     elsif t == 'note'
       @all = Note.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('id desc')
     elsif t == 'blog'
-      @all = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('created_at desc')
+      @all = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('id desc')
     elsif t == 'photo'
       album_ids = Album.where(user_id: following_ids)
       @all = Photo.where(album_id: album_ids).includes(:album => :user).limit(50).page(params[:page]).order('photos.id desc')

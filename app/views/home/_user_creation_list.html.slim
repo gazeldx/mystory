@@ -98,13 +98,13 @@
             span.gray 上传照片到&nbsp;
             = link_to album.name, album_path(album), target: '_blank'
             br
-            - unless item.description.nil?
+            - unless item.description.to_s==''
               = item.description
               | &nbsp;
             span.gray
               = fresh_time item.created_at
             br
-            | #{recommend_etc item}&nbsp;#{link_to "#{t('comment')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "#{album_photo_path(item.album, item)}#comments", target: '_blank'}
+            | #{recommend_etc item}&nbsp;#{link_to "#{t('comment')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "#{album_photo_path(album, item)}#comments", target: '_blank'}
       - elsif item.is_a?(Rnote)
         - note = item.note
         - user = note.user

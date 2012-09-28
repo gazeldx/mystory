@@ -4,8 +4,8 @@
 - if flash[:notice]
   #notice= flash[:notice]
 h2
-  = link_to t('_archive'), blogs_archives_path
-  | &nbsp;&nbsp;&nbsp;
+  /= link_to t('_archive'), blogs_archives_path
+  /| &nbsp;&nbsp;&nbsp;
   = t'_category_'
   - @categories.each do |category|
     | [

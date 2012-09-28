@@ -1,0 +1,12 @@
+.pic
+  a href="/" title="返回#{@group.name}的首页"
+    = image_tag(@group.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE)
+.desc
+  h1
+    = group_banner_text
+  - if controller_path == 'home'
+    span#display.pl
+      | #{@group.maxim}
+  /ul
+  /  .info style="font-size:16px"
+  /    = render 'shared/group/navigation'

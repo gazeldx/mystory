@@ -5,6 +5,7 @@
         - photo = item
         - album = photo.album
         - user = album.user
+        - title = photo.description.to_s.size>40 ? photo.description[0..200] : nil
         .photo_wrap
           a.photolst_photo href=site(user)+album_photo_path(album, photo) target='_blank'
             = image_tag(photo.avatar.thumb.url)
@@ -14,9 +15,10 @@
           = link_to album.name, site(user)+album_path(album), target: '_blank'
           - unless photo.description.nil?
             | &nbsp;
-            = photo.description[0..40]
-            - if photo.description.size>40
-              | ...
+            span title=title
+              = photo.description[0..40]
+              - if photo.description.size>40
+                | ...
           - hot = photo.comments_count + photo.recommend_count
           - if hot > 0
             span.red title='热度'

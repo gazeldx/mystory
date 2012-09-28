@@ -8,10 +8,10 @@
       - else
         - if session[:atoken].nil?
           a href=weibo_connect_path
-            = image_tag("#{YUN_IMAGES}bind_weibo.png", title: '绑定后，可用微博帐号登录，可展示您的微博，日记、作品同步到微博', width: 98, height: 20)
+            = image_tag("#{YUN_IMAGES}weibo_login.png", title: '绑定后，可用微博帐号登录，可展示您的微博，日记、作品同步到微博', width: 126, height: 24)
         - if session[:token].nil?
           a href=qq_connect_path
-            = image_tag("#{YUN_IMAGES}qq_login_2.png", title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说、朋友网', width: 120, height: 24)
+            = image_tag("#{YUN_IMAGES}qq_login_2.png", title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说', width: 120, height: 24)
         - if !@user.nil? and @user.id==session[:id]
           - all_count = @user.unread_commented_count + @user.unread_comments_count
           - if all_count > 0
@@ -31,5 +31,7 @@
       ul
         li.on
           = link_to site_name, site_url, title: t('return_root', w: site_name)
+        li.on
+          = link_to t('_group'), sub_site('group')
         li.on
           = link_to t('_forum'), sub_site('bbs')

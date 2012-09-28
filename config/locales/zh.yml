@@ -39,6 +39,8 @@ zh:
   recommended_char: "荐"
   talked_about: "评价："
 
+  university: "大学"
+  _college: "学院"
   views_count: "阅读(%{w})"
   #views_count2: "共%{w}次阅读"
   comments_count: "评论(%{w})"
@@ -57,6 +59,7 @@ zh:
   whose_board: "%{w}的讨论版："
   none_board: "还没关注任何讨论版"
   s_board: "%{w}_%{s}论坛"
+  s_bbs: "%{w}的讨论版"
   _letter: "私信"
   #my_letters: "我的私信"
   all_my_letters: "我的所有私信"
@@ -148,9 +151,9 @@ zh:
 
   writer: "作者"
   board:
-    member: "成员"
-    _member: " - 成员"
-    member_of: "成员_%{w}_%{s}论坛"
+    member: "粉丝"
+    _member: " - 粉丝"
+    member_of: "粉丝_%{w}_%{s}论坛"
     #_member_of: "%{w}成员"
   post:
     new: "发表新帖"
@@ -159,6 +162,7 @@ zh:
   post_reply: "发表回复"
   #sub_site: "%{w} - %{s}原创社区"
   bbs_title: "%{w}论坛"
+  group_title: "团体_我的故事"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"
   
 #  delete_failed: "删除失败！%{w}"
@@ -219,6 +223,12 @@ zh:
   assign_roles: "授予角色"
   s_assign_roles: "授予用户“%{w}”角色"
 
+  group:
+    name: "团体名称"
+    memo: "描述"
+    member: "成员"
+  member_of_group: "%{w}的成员"
+    
   column:
     name: "栏目名称"
     edit: "栏目管理"
@@ -442,7 +452,7 @@ zh:
   _relative_articles: "相关文章："
   _my_boards: "我的讨论版："
   all_boards: "所有讨论版"
-
+  all_groups: "所有团体"
 
   r_note: "%{w}推荐的日记"
   r_blog: "%{w}推荐的作品"
@@ -872,7 +882,9 @@ zh:
         title: "标题"
       letter:
         body: "私信内容"
-
+      group:
+        name: "团体名称"
+        domain: "个性域名：应由小写字母、数字和“-”组成，以小写字母打头，至少3位"
   helpers:
     select:
       prompt: "请选择"

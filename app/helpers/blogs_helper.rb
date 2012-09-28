@@ -11,6 +11,18 @@ module BlogsHelper
     raw info
   end
 
+  def update_info(item)
+    info = ""
+    if item.created_at.strftime(t('date_format')) != item.updated_at.strftime(t('date_format'))
+      info += item.updated_at.strftime(t('time_format')) + t('update')
+    end
+    info
+  end
+
+  def m_article_info(item)
+    raw "#{item.created_at.strftime t('time_format')}#{t'write'}&nbsp;#{update_info item}"
+  end
+
   def updated_tag_info(blog)
     info = ""
     if blog.created_at.strftime(t('date_format')) != blog.updated_at.strftime(t('date_format'))
@@ -211,6 +223,15 @@ module BlogsHelper
     else
       link_to t('edit'), edit_note_path(item), target: '_blank'
     end
+  end
+
+  def s_delete_link(item)
+    if item.is_a? Blog
+      path = blog_path(item)
+    else
+      path = note_path(item)
+    end
+    link_to t(:delete), path, confirm:t('confirm.delete'), method: :delete
   end
 
   def blog_list_item_bottom blog

@@ -7,7 +7,6 @@ class HomeController < ApplicationController
       if @bbs_flag
         @boards = Board.order("created_at DESC")
         unless session[:id].nil?
-          #@board = Board.new
           @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
         end
         render 'm/boards/index', layout: 'm/portal'
@@ -16,7 +15,7 @@ class HomeController < ApplicationController
         if t.nil?
           blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
           notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
-          photos = Photo.includes(:album).limit(6).order('photos.id desc')
+          photos = Photo.includes(:album).order('photos.id desc').limit(6)
           @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
         elsif t == 'note'
           @all = Note.where(:is_draft => false).includes(:user).order("id desc").limit(80).paginate(:page => params[:page], :per_page => 15)
@@ -62,8 +61,53 @@ class HomeController < ApplicationController
         render mn(:user), layout: 'm/portal'
       end
     elsif @group != nil
-      #album_ids = @group.users
+      #      user_ids = @group.users.select('users.id')
+      user_ids = GroupsUsers.select('user_id').where(group_id: @group.id)
+      album_ids = Album.select('albums.id').where(user_id: user_ids)
+      @photos = Photo.where(album_id: album_ids).includes(:album).order('photos.id desc').limit(5)
+      @board = @group.board
+
+      t = params[:t]
+      require 'will_paginate/array'
+      if t.nil?
+        notes = Note.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(15).order('notes.id desc')
+        blogs = Blog.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(10).order('blogs.id desc')
+        album_ids = Album.where(user_id: user_ids)
+        photos = Photo.where(album_id: album_ids).includes(:album => :user).limit(6).order('photos.id desc')
+        all_ = notes | blogs | photos
+        memoirs = Memoir.where(user_id: user_ids).includes(:user)
+        unless memoirs.blank?
+          memoirs.each do |memoir|
+            memoir.created_at = memoir.updated_at
+          end
+          all_ = all_ | memoirs
+        end
+        @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
+      elsif t == 'note'
+        @all = Note.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('notes.id desc')
+      elsif t == 'blog'
+        @all = Blog.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('blogs.id desc')
+      elsif t == 'photo'
+        @all = Photo.where(album_id: album_ids).includes(:album => :user).limit(50).page(params[:page]).order('photos.id desc')
+      elsif t == 'updated'
+        notes = Note.where(user_id: user_ids).where("notes.updated_at > notes.created_at AND is_draft = false").includes(:user).limit(20).order('notes.updated_at desc')
+        blogs = Blog.where(user_id: user_ids).where("blogs.updated_at > blogs.created_at AND is_draft = false").includes(:user).limit(20).order('blogs.updated_at desc')
+        all_ = notes | blogs
+        memoirs = Memoir.where(user_id: user_ids).includes(:user)
+        unless memoirs.blank?
+          all_ = all_ | memoirs
+        end
+        #TODO paginate BUG? NOT SHOW 30 per page
+        @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
+      elsif t == 'memoir'
+        memoirs = Memoir.where(user_id: user_ids).includes(:user)
+        @all = memoirs.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 50)
+      end
+      
       render 'groups/show', layout: 'group'
+    elsif @group_flag
+      @groups = Group.where("member_count >= #{MIN_COLLEGE_MEMBER}").order("member_count DESC")
+      render 'groups/index', layout: 'help'
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
@@ -74,32 +118,32 @@ class HomeController < ApplicationController
         end
         render 'boards/index', layout: 'help'
       elsif @user.nil?
-#        if ENV["RAILS_ENV"] == "production"
-#          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
-#          admin_id = 2
-#        else
-#          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
-#          admin_id = 14
-#        end
+        #        if ENV["RAILS_ENV"] == "production"
+        #          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
+        #          admin_id = 2
+        #        else
+        #          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
+        #          admin_id = 14
+        #        end
         #TODO DIFFERENT COLOR
-#        admin = User.find(admin_id)
-#        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
-#        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
-#        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
-#        #TODO includes postcomments need to delete
-#        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
-#        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
-#
-#        rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
-#        new_photo_count = 8 - rphotos.size
-#        new_photo_count = 2 if new_photo_count < 2
-#        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
-#        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
+        #        admin = User.find(admin_id)
+        #        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
+        #        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
+        #        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
+        #        #TODO includes postcomments need to delete
+        #        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
+        #        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
+        #
+        #        rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
+        #        new_photo_count = 8 - rphotos.size
+        #        new_photo_count = 2 if new_photo_count < 2
+        #        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
+        #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
 
         #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
-#        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
-#        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
-#        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
+        #        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
+        #        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
+        #        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
         #.page(params[:page])
         
         render layout: 'portal'
@@ -111,7 +155,7 @@ class HomeController < ApplicationController
         if t.nil?
           notes = @user.notes.where(:is_draft => false).limit(20).order("created_at desc")
           blogs = @user.blogs.where(:is_draft => false).limit(15).order("created_at desc")
-          photos = Photo.where(album_id: @user.albums).includes(:album).limit(8)
+          photos = Photo.where(album_id: @user.albums).includes(:album).order("id desc").limit(8)
           all_ = notes | blogs | photos
           @memoir = @user.memoir
           unless @memoir.nil?
