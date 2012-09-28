@@ -1,0 +1,11 @@
+= title t'group_title'
+= render 'shared/notice_error'
+.b
+  = t'all_groups'
+  br
+  - @groups.each do |group|
+    | #{link_to group.name, site(group), target: '_blank'}(#{group.member_count})
+    - if super_admin?
+      = link_to 'edit', edit_group_path(group)
+    | &nbsp;&nbsp;
+  br

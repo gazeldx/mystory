@@ -1,7 +1,12 @@
 class GroupsController < ApplicationController
   layout 'help'
   skip_before_filter :url_authorize
-  before_filter :super_admin, :only => [:new, :create, :edit, :update, :update_group_users_count]
+  before_filter :super_admin, :only => [:new, :create, :edit, :update, :update_group_users_count, :group_index]
+
+  def group_index
+    @groups = Group.order('member_count')
+    puts @groups.inspect
+  end
 
   def new
     @_group = Group.new
@@ -19,7 +24,7 @@ class GroupsController < ApplicationController
     else
 #      flash[:error] = t'taken', w: @group.name
       render :new
-    end    
+    end
   end
 
   def update

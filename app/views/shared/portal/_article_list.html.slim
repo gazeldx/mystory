@@ -29,6 +29,6 @@
           - cc = item.comments_count
           -if cc>0
             span style='color:red'
-              = s_link_name "评论(#{cc})", item
+              = s_link_to_comments "评论(#{cc})", item
           | &nbsp;&nbsp;&nbsp;
           = fresh_time item.created_at

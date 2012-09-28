@@ -217,6 +217,14 @@ module BlogsHelper
     end
   end
 
+  def s_link_to_comments(name, item)
+    if item.is_a? Blog
+      link_to name, "#{site(item.user) + blog_path(item)}#comments", target: '_blank'
+    else
+      link_to name, "#{site(item.user) + note_path(item)}#comments", target: '_blank'
+    end
+  end
+
   def s_edit_link(item)
     if item.is_a? Blog
       link_to t('edit'), edit_blog_path(item), target: '_blank'
