@@ -1,4 +1,4 @@
-span.b
+.b
   a href=photos_path target='_blank'
     = t'_photo'
   | &nbsp;|&nbsp;
@@ -21,6 +21,11 @@ span.b
     a href=latest_path
       | 最新
 .b.red
-  | 公告：
-  a href=sub_site('zhangjian')+"/notes/117" target='_blank'
-    | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
+  a href=site_url+"/columns/5"
+    | 故事&nbsp;|&nbsp;
+  a href=site_url+"/columns/7"
+    | 创富
+  span style='float:right'
+    | 公告：
+    a href=sub_site('zhangjian')+"/notes/117" target='_blank'
+      | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
