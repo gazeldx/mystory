@@ -4,7 +4,7 @@ class SchoolnamesController < ApplicationController
   before_filter :super_admin
   
   def index
-    @schoolnames = Schoolname.includes(:group).order('created_at DESC')
+    @schoolnames = Schoolname.includes(:group).order('group_id, created_at')
     @schoolname = Schoolname.new
   end
 

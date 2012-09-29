@@ -6,4 +6,17 @@ module GroupsHelper
   def college? name
     name.match(/.*(#{t'university'}|#{t'_college'}).*/)
   end
+
+  def show_schools
+    s = ""
+    @school_groups.each do |group|
+      if group.member_count >= MIN_COLLEGE_MEMBER
+         s += link_to group.name, site(group), target: '_blank'
+      else
+         s += group.name
+      end
+      s += "&nbsp;&nbsp;&nbsp;"
+    end
+    raw s
+  end
 end

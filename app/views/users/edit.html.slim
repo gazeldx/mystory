@@ -91,6 +91,13 @@ h2
           = select_year(@user.birthday, start_year: 1920, end_year: Time.now.year-5)
       tr
         td class='mr'
+          = t'college'
+        td
+          = f.text_field :school, value: @schools
+          span.pl
+            = t'split_with_blank_time'
+      tr
+        td class='mr'
           = t'company'
         td
           = f.text_field :company
@@ -98,11 +105,11 @@ h2
             = t'split_with_blank_time'
       tr
         td class='mr'
-          = t'college'
+          = t'contact_info'
         td
-          = f.text_field :school, value: @schools
+          = f.text_field :contact
           span.pl
-            = t'split_with_blank_time'
+            = t'contact_info_tip'
       tr
         td class='mr'
           = t'sns_links'

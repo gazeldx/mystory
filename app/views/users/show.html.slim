@@ -13,6 +13,12 @@ table.b align='center' width='100%' cellpadding='5'
           | #{t'sns_links'}:
         td
           == auto_link " "+@user.snslinks
+    - unless @user.contact.to_s==''
+      tr
+        td class='mrw'
+          | #{t'contact_info'}:
+        td
+          = @user.contact
     - unless @user.birthday.to_s==''
       tr
         td class='mrw'
@@ -24,18 +30,13 @@ table.b align='center' width='100%' cellpadding='5'
         td class='mrw'
           | #{t'college'}:
         td
-          - @school_groups.each do |group|
-            - if group.member_count >= MIN_COLLEGE_MEMBER
-              = link_to group.name, site(group), target: '_blank'
-            - else
-              = group.name
-            | &nbsp;&nbsp;&nbsp;
+          = show_schools
     - unless @user.company.to_s==''
       tr
         td class='mrw'
           | #{t'company'}:
         td
-          = @user.company
+          = @user.company    
     - unless @enjoys.blank?
       tr
         td class='mrw'
@@ -68,3 +69,11 @@ table.b align='center' width='100%' cellpadding='5'
           - @enjoy_movies.each do |enjoy|
             = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;
+    tr
+      td
+      td
+        span
+          | 第
+        |  #{@user.id}
+        span
+          |  位会员，#{@user.created_at.strftime(t'date_format')}加入

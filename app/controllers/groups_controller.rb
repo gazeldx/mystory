@@ -4,8 +4,7 @@ class GroupsController < ApplicationController
   before_filter :super_admin, :only => [:new, :create, :edit, :update, :update_group_users_count, :group_index]
 
   def group_index
-    @groups = Group.order('member_count')
-    puts @groups.inspect
+    @groups = Group.order('member_count DESC')
   end
 
   def new

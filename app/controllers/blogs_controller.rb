@@ -169,15 +169,15 @@ class BlogsController < ApplicationController
     render json: @blog.as_json()
   end
 
-  def archives
-    #ISSUE to_char maybe only work in postgresql
-    @items = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
-  end
+#  def archives
+#    #ISSUE to_char maybe only work in postgresql
+#    @items = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+#  end
 
-  def month
-    @blogs = @user.blogs.includes([:tags, :category]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
-    archives
-  end
+#  def month
+#    @blogs = @user.blogs.includes([:tags, :category]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
+#    archives
+#  end
 
   def lovezhangtingting
     params[:id] = 2

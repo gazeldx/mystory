@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   layout 'portal_others'
-  #TODO :index need control key it not super_admin
-  before_filter :manager?, :only => [:index, :assign_roles, :do_assign_roles, :destroy]
+  before_filter :super_admin, :only => [:index, :assign_roles, :do_assign_roles, :destroy, :update_users_clicks_count]
   before_filter :url_authorize, :only => [:edit, :edit_password, :signature]
   
   def index
@@ -27,7 +26,6 @@ class UsersController < ApplicationController
       render :edit_bind, layout: 'like'
     else
       @schools = @_user.groups.where("stype = 1").select('name').order('groups_users.created_at').map { |t| t.name }.join(" ")
-      puts @schools.inspect
       @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
@@ -184,11 +182,22 @@ class UsersController < ApplicationController
     render :top, layout: 'help'
   end
 
-  #Will never been use after initialized.Can delete
-  def init_users_schools_groups
+  #Will never been use after initialized. Can delete
+#  def init_users_schools_groups
+#    users = User.all
+#    users.each do |user|
+#      build_school_groups(user, user.school)
+#    end
+#  end
+
+  def update_users_clicks_count
     users = User.all
     users.each do |user|
-      build_school_groups(user, user.school)
+      notes_clicks = user.notes.sum("views_count")
+      blogs_clicks = user.blogs.sum("views_count")
+      photos_clicks = user.photos.sum("views_count")
+      all_clicks = notes_clicks + blogs_clicks + photos_clicks
+      user.update_attribute(:clicks_count, all_clicks) if all_clicks > 0
     end
   end
 
@@ -222,7 +231,6 @@ class UsersController < ApplicationController
     unless schools == ''
       _a = schools.split ' '
       _a.uniq.each do |x|
-        puts x
         schoolname = Schoolname.find_by_name x
         if schoolname.nil?
           group = Group.find_by_name x

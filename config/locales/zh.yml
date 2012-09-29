@@ -136,6 +136,8 @@ zh:
   job: "职业"
   company: "公司"
   college: "就读院校"
+  contact_info: "联系方式"
+  contact_info_tip: "留下QQ号、手机号或者Email等，让人找到你吧"
   sns_links: "SNS主页"
   sns_links_tip: "如微博、Qzone地址，以“http://”开头。多个以空格分隔"
 
@@ -297,6 +299,7 @@ zh:
   _reply_who: "回复%{w}："
   _reply_somebody_comment: "回复网友："
   reply_succ: "回复评论成功！"
+  reply_comment: "回复评论"
   who_reply: "%{w}回复：%{r}"
   building_who_reply: "楼主%{w}回复：%{r}"
   _tag: "标签"

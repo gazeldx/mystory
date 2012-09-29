@@ -18,10 +18,10 @@
     br
     | #{t'company'}:
     = @user.company
-  - unless @user.school.to_s==''
+  - unless @school_groups.blank?
     br
     | #{t'college'}:
-    = @user.school
+    = show_schools
   - unless @user.snslinks.to_s==''
     br
     | #{t'sns_links'}:

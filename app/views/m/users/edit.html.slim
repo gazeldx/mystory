@@ -58,17 +58,23 @@
     - @user.birthday = 1990
   = select_year(@user.birthday, start_year: 1950, end_year: Time.now.year-5)
   br
+  = t'college'
+  | ：
+  = f.text_field :school, value: @schools
+  span.pl
+    = t'split_with_blank_time'
+  br
   = t'company'
   | ：
   = f.text_field :company
   span.pl
     = t'split_with_blank_time'
   br
-  = t'college'
+  = t'contact_info'
   | ：
-  = f.text_field :school
+  = f.text_field :contact
   span.pl
-    = t'split_with_blank_time'
+    = t'contact_info_tip'
   br
   = t'sns_links'
   | ：
