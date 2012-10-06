@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -141,7 +141,12 @@ class ApplicationController < ActionController::Base
     s = auto_link(s)
     s = auto_img(s)
     s = auto_emotion(s)
-    auto_style(auto_photo(s))
+    s = auto_photo(s)
+    auto_style(auto_two_blank_start(s))
+  end
+
+  def auto_two_blank_start mystr
+    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{mystr}".gsub(/\r\n/, "\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
   end
 
   def auto_style(mystr)

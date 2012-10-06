@@ -131,22 +131,22 @@ module UsersHelper
 
   def summary_comment_portal(something, size)
     tmp = summary_comment_c(something, size)
-#    n = m.size
-#    if n > 1
-#      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
-#    else
+    #    n = m.size
+    #    if n > 1
+    #      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
+    #    else
     summary_common_portal(something, size, tmp)
-#    end
+    #    end
   end
 
   def m_summary_comment_portal(something, size)
     tmp = summary_comment_c(something, size)
-#    n = m.size
-#    if n > 1
-#      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
-#    else
+    #    n = m.size
+    #    if n > 1
+    #      raw "(#{n}#{t('pic')})&nbsp;&nbsp;" + summary_common_portal(something, size, tmp)
+    #    else
     m_summary_common_portal(something, size, tmp)
-#    end
+    #    end
   end
 
   def summary_comment_c(something, size)
@@ -157,20 +157,20 @@ module UsersHelper
   end
 
   def summary_common(something, size, tmp)
-#    if something.is_a?(Note)
-#      count = something.notecomments.count
-#    elsif something.is_a?(Blog)
-#      count = something.blogcomments.count
-#    end
-#    comments = ""
-#    if count > 0
-#      comments = ' ' + t('comments', w: count)
-#    end
+    #    if something.is_a?(Note)
+    #      count = something.notecomments.count
+    #    elsif something.is_a?(Blog)
+    #      count = something.blogcomments.count
+    #    end
+    #    comments = ""
+    #    if count > 0
+    #      comments = ' ' + t('comments', w: count)
+    #    end
     if something.content.size > size
       raw tmp + t('etc') + (link_to t('whole_article'), something, target: '_blank')
-#      raw tmp + t('etc') + (link_to t('whole_article') + comments, something, target: '_blank')
+      #      raw tmp + t('etc') + (link_to t('whole_article') + comments, something, target: '_blank')
     else
-#      raw tmp + (link_to comments, something, target: '_blank')
+      #      raw tmp + (link_to comments, something, target: '_blank')
       raw tmp
     end
   end
@@ -178,20 +178,20 @@ module UsersHelper
   def summary_common_portal(something, size, tmp)
     if something.is_a?(Note)
       path = note_path(something)
-#      count = something.notecomments.count
+      #      count = something.notecomments.count
     elsif something.is_a?(Blog)
       path = blog_path(something)
-#      count = something.blogcomments.count
+      #      count = something.blogcomments.count
     end
-#    comments = ""
-#    if count > 0
-#      comments = ' ' + t('comments', w: count)
-#    end
+    #    comments = ""
+    #    if count > 0
+    #      comments = ' ' + t('comments', w: count)
+    #    end
     if something.content.size > size
-#      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
+      #      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
       raw tmp + t('etc') + (link_to t('whole_article'), site(something.user) + path, target: '_blank')
     else
-#      raw tmp + (link_to comments, site(something.user) + path, target: '_blank')
+      #      raw tmp + (link_to comments, site(something.user) + path, target: '_blank')
       raw tmp
     end
   end
@@ -239,7 +239,8 @@ module UsersHelper
     s = auto_link(s)
     s = auto_img(s)
     s = auto_emotion(s)
-    raw auto_style(auto_photo(s))
+    s = auto_photo(s)
+    raw auto_style(auto_two_blank_start(s))
   end  
   
   def photos_count(mystr)
@@ -395,6 +396,64 @@ module UsersHelper
 
   def user_pic_2 user
     content_tag(:a, image_tag(user.avatar.thumb.url, width: USER_THUMB_SIZE, height: USER_THUMB_SIZE), href: site(user), title: "#{user.city} #{user.jobs} #{user.maxim} #{user.memo}")
+  end
+
+  def guy_info_photo guy
+    link_to image_tag(guy.avatar.thumb.url, class: 'face'), site(guy), target: '_blank'
+  end
+
+  def guy_info_h3 guy
+    guy_link = link_to guy.name, site(guy), target: '_blank'
+    follow_link = ''
+    unless session[:id].nil?
+      if myself.following?(guy)
+        if guy.following?(myself)
+          follow_link = "#{t'fans_each_other'}&nbsp;"
+        end
+        follow_link += link_to t('unfollow'), site(guy) + unfollow_path
+      else
+        unless myself==guy
+          follow_link = link_to image_tag("#{YUN_IMAGES}follow.png"), site(guy) + follow_me_path
+        end
+      end
+      unless session[:id]==guy.id
+        letter_link = "&nbsp;#{link_to t('_letter'), my_site + "/send_a_letter_to_#{guy.domain}", title: t('send_letter_to'), target: '_blank'}"
+      end
+    end
+    links_c = raw "&nbsp;#{follow_link}#{letter_link}"
+    links = content_tag(:span, links_c, :class => 's gray')
+    maxin = content_tag(:span, guy.maxim, :class => 'gray')
+    span = content_tag(:span, raw("#{guy.city}&nbsp;#{guy.jobs}&nbsp;#{maxin}"), :class => 's')
+    h3_c = raw "#{guy_link}#{links}&nbsp;#{span}"
+    content_tag(:h3, h3_c)
+    #    div_c = content_tag(:h3, h3_c)
+    #    content_tag(:div, div_c, :class => 'info')
+  end
+
+  def guy_info_count guy
+    span_c =  "#{link_to t('following') + guy.following_num.to_s, site(guy) + following_path, target: '_blank'}&nbsp;|&nbsp;#{link_to t('followers') + guy.followers_num.to_s, site(guy) + followers_path, target: '_blank'}&nbsp;|&nbsp;#{link_to t('_note') + guy.notes_count.to_s, site(guy) + notes_path, target: '_blank'}&nbsp;|&nbsp;#{link_to t('_blog') + guy.blogs_count.to_s, site(guy) + blogs_path, target: '_blank'}"
+    span_c += "&nbsp;|&nbsp;#{link_to "#{t'_comment'}#{guy.comments_count}", site(guy) + comments_path, target: '_blank'}" if controller.action_name == 'comments'
+    content_tag(:span, raw("#{span_c}<br/>"), :class => 'gray')
+  end
+
+  def guy_info_hobbies guy
+    _hobbies = ''
+    unless guy.hobbies.blank?
+      guy.hobbies.each_with_index do |hobby, i|
+        _hobbies = content_tag(:span, t('_hobby_'), :class => 'gray') if i==0
+        _hobbies += raw "#{hobby.name}&nbsp;"
+      end
+      _hobbies += raw "<br/>"
+    end
+    _hobbies
+  end
+
+  def guy_info_memo guy
+    if guy.memo.to_s.size > 61
+      content_tag(:span, "#{guy.memo.to_s[0..60]}...", :class => 'gray', title: guy.memo.to_s)
+    else
+      content_tag(:span, guy.memo, :class => 'gray')
+    end
   end
 
   private

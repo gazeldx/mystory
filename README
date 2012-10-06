@@ -1,3 +1,3 @@
+我的故事网站 http://mystory.cc/
 Based on Ruby on Rails Web framework!
-目前只有两个文件没有提交到版本库：Gemfile和routes.rb，其他功能代码是完备的。原因是我的故事网站http://mystory.cc/才刚刚上线，还没有能力抵御模仿者的冲击。等到注册用户数达到1000后，我将把mystory的源代码彻底开源。谢谢理解。欢迎各位注册！
-
+目前有几个文件没有提交到版本库：Gemfile和routes.rb等，其他功能代码是完备的。原因是mystory.cc才刚刚上线，还没有能力抵御模仿者的冲击。等到注册用户足够多时，我将把mystory的源代码彻底开源。谢谢理解。欢迎各位注册！

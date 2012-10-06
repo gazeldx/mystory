@@ -141,7 +141,7 @@ class BlogsController < ApplicationController
   def build_tags(item)
     unless params[:tags].to_s == ''
       tags_a = params[:tags].split ' '
-      tags_a.uniq.reverse.each do |tag|
+      tags_a.uniq.each do |tag|
         _tag = item.tags.build
         _tag.name = tag
       end
