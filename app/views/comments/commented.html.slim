@@ -17,7 +17,7 @@ table.b.olt
         = t'comment_time'
     - @comments.each do |comment|
       tr
-        td.pl width='30%'
+        td.pl width='27%'
           - if comment.is_a?Blogcomment
             - reply_url = blog_path(comment.blog)
             | #{t'_blog'}&nbsp;
@@ -38,13 +38,13 @@ table.b.olt
             - if photo.description.to_s==''
               - photo.description = t'photo_no_name'
             = link_to photo.description, reply_url, target: '_blank'
-        td width='50%'
+        td
           = link_to comment.user.name, site(comment.user), target: '_blank'
           | ：
           = comment_info comment
           | &nbsp;
           = link_to t('reply'), "#{reply_url}#comments", target: '_blank'
-        td.pl title=comment.created_at.strftime(t'time_format')
+        td.pl width='112' title=comment.created_at.strftime(t'time_format')
           = comment.updated_at.strftime(t'no_year')
           - if comment.updated_at > @view_commented_at and comment.user != @user
             span.red

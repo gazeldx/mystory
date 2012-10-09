@@ -222,8 +222,8 @@ module UsersHelper
   end
     
   def text_it(something)
-    s = auto_draft(something.gsub(/\r\n/,'&nbsp;'))
-    s = auto_link(s)
+    s = auto_link(something)
+    s = auto_draft(s.gsub(/\r\n/,' '))
     s = ignore_img(s)
     s = ignore_image_tag(s)
     raw ignore_style_tag(s)

@@ -113,10 +113,10 @@ class ApplicationController < ActionController::Base
   def summary_common_no_comment(something, size, tmp)
     if something.is_a?(Note)
       si = note_path(something)
-      count = something.notecomments.size
+#      count = something.notecomments.size
     elsif something.is_a?(Blog)
       si = blog_path(something)
-      count = something.blogcomments.size
+#      count = something.blogcomments.size
     end
     if something.content.size > size
       tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + "</a>"

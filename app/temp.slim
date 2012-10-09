@@ -8,7 +8,9 @@ shared/_side_blog
     - rblogs.each do |blog|
       = link_to raw(blog.title)[0..12], blog, title: blog.title.size>13 ? raw(blog.title) : nil
       br
-
+shared/_portal_body
+.b style='float:right'
+  = will_paginate @portal_list
 
 li.navL
             a.nava href=hotest_path
