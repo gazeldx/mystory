@@ -144,7 +144,7 @@ module CommentsHelper
         end
       end
     end
-    raw auto_emotion(c_info)
+    raw auto_emotion(auto_link(c_info))
   end
 
   #Difference with comment_info is user and @user
@@ -186,7 +186,7 @@ module CommentsHelper
         end
       end
     end
-    raw auto_emotion(c_info)
+    raw auto_emotion(auto_link(c_info))
   end
 
   def c_pic(user)

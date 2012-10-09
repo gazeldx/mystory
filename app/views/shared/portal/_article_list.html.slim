@@ -23,11 +23,12 @@
         b
       p.ugc
         == auto_emotion(text_it_pure(item.content)[0..98])
-        | ......#{s_link_name(t('whole_article'), item)}
+        - if item.content.size > 98
+          | ......#{s_link_name(t('whole_article'), item)}
       .twiB
         b.tm.mi
           - cc = item.comments_count
-          -if cc>0
+          - if cc>0
             span style='color:red'
               = s_link_to_comments "评论(#{cc})", item
           | &nbsp;&nbsp;&nbsp;

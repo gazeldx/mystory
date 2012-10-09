@@ -6,6 +6,7 @@ class HomeController < ApplicationController
       require 'will_paginate/array'
       if @bbs_flag
         @boards = Board.order("created_at DESC")
+        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(15)
         unless session[:id].nil?
           @fboards = Fboard.where("user_id = ?", session[:id]).includes(:board).order('created_at')
         end

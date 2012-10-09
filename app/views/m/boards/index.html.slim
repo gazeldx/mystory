@@ -14,3 +14,17 @@ br
 - @boards.each do |board|
   = link_to "#{board.name}", "#{board.id}"
   | (#{board.posts.size})&nbsp;&nbsp;
+br
+= t'latest_posts'
+br
+- @posts.each do |post|
+  - cs = post.postcomments.size if post.postcomments.size>0
+  - if post.title.size > 30
+    - more = '..'
+  = link_to "#{post.title[0..30]}#{more}", m("#{sub_site('bbs')}/p/#{post.id}")
+  - unless cs.nil?
+    span.red
+      |  #{cs}
+  | &nbsp;&nbsp;[#{link_to post.board.name, "#{post.board.id}"}]&nbsp;&nbsp;
+  = link_to post.user.name, m(site(post.user))
+  br

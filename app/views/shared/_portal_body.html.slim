@@ -4,3 +4,5 @@
       = render 'shared/portal/nav_2'
       - @portal_list = portal_body_query
       = render 'shared/portal/article_list'
+    .b style='float:right'
+      = will_paginate @portal_list

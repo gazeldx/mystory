@@ -11,7 +11,7 @@ class RecommendController < ApplicationController
     end
     if blog.user.id == session[:id]
       expire_fragment("side_user_rblogs_#{session[:id]}")
-      expire_fragment("side_blog_rblogs_#{session[:id]}")
+#      expire_fragment("side_blog_rblogs_#{session[:id]}")
     end
     render json: blog.reload.as_json
   end
@@ -25,9 +25,9 @@ class RecommendController < ApplicationController
       _r.destroy
       Note.update_all("recommend_count = #{note.recommend_count - 1}", "id = #{note.id}")
     end
-    if note.user.id == session[:id]
-      expire_fragment("side_note_rnotes_#{session[:id]}")
-    end
+#    if note.user.id == session[:id]
+#      expire_fragment("side_note_rnotes_#{session[:id]}")
+#    end
     render json: note.reload.as_json
   end
 

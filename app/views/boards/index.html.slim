@@ -23,12 +23,15 @@
     | (#{board.posts.size})&nbsp;&nbsp;
   br
   br
-  | 论坛新贴
+  = t'latest_posts'
   br
   - @posts.each do |post|
     - etc = t('all_characters', w: post.content.size) if post.content.size>100
-    - cs = "(#{post.postcomments.size})" if post.postcomments.size>0
-    = link_to "#{post.title[0..40]}#{cs.to_s}", sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+    - cs = post.postcomments.size if post.postcomments.size>0
+    = link_to "#{post.title[0..40]}", sub_site('bbs')+"/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
+    - unless cs.nil?
+      span.red title="评论(#{cs})"
+        |  #{cs}
     | &nbsp;&nbsp;[#{link_to post.board.name, "#{post.board.id}"}]&nbsp;&nbsp;
     = link_to post.user.name, site(post.user), target: '_blank'
     br

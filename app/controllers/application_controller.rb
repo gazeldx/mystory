@@ -31,16 +31,16 @@ class ApplicationController < ActionController::Base
     site_url.sub(/\:\/\//, "://" + str + ".")
   end
 
-#  def mystory?
-#    ["mystory.cc", "mystory2.cc"].include? request.domain
-#  end
+  #  def mystory?
+  #    ["mystory.cc", "mystory2.cc"].include? request.domain
+  #  end
 
   def site_name
-#    if mystory?
+    #    if mystory?
     t'site.name'
-#    else
-#      t'cy.name'
-#    end
+    #    else
+    #      t'cy.name'
+    #    end
   end
 
   def authorize(item)
@@ -186,14 +186,14 @@ class ApplicationController < ActionController::Base
     x = URI.extract(mystr, ['http', 'https', 'ftp'])
     x.each do |e|
       #Because parenthesis will be treated as url ,but no one use it.So it gsub all ().If I do not do it, this method will exception:unmatched close parenthesis
-      m = mystr.match(/([ \n][^ \n]*)#{e.gsub(/[()]/, '')}/)
+      m = mystr.match(/( [^ \n]*)#{e.gsub(/[()]/, '')}/)
       e_pic = e.match(/.*.(png|jpg|jpeg|gif)/i)
-      unless m.nil? or e_pic
-        if m[1] != " "
-          g = "<a href='#{e}' target='_blank'>" + m[1] + "</a>"
+      unless e_pic
+        if !m.nil? and m[1].to_s.strip != ""
+          g = "<a href='#{e}' target='_blank'>#{m[1]}</a>"
           mystr = mystr.sub(m[0], g)
-        else
-          g = "<a href='#{e}' target='_blank'>" + e + "</a>"
+        else         
+          g = " <a href='#{e}' target='_blank'>#{e}</a>"
           mystr = mystr.sub(e, g)
         end
       end
@@ -220,7 +220,7 @@ class ApplicationController < ActionController::Base
       mystr = mystr.sub(e[0], t('has_draft'))
     end
     mystr
-  end  
+  end
 
   def auto_photo(mystr)
     m = mystr.scan(/(\+photo(\d{2,})\+)/m)
@@ -282,9 +282,9 @@ class ApplicationController < ActionController::Base
     s = ignore_draft(something.gsub(/\r\n/,' '))
     s = ignore_img(s)
     s = ignore_image_tag(s)
-#    auto_emotion(s)
+    #    auto_emotion(s)
     ignore_style_tag(s)
-  end  
+  end
 
   def ignore_draft(mystr)
     m = mystr.scan(/(##(.*?)##)/m)
@@ -331,11 +331,11 @@ class ApplicationController < ActionController::Base
   #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
   #redirect_to default is 302
   def r_to code
-#    if mystory?
+    #    if mystory?
     redirect_to site_url, :status => code
-#    else
-#      redirect_to sub_site('blog'), :status => code
-#    end
+    #    else
+    #      redirect_to sub_site('blog'), :status => code
+    #    end
   end
 
   def _render(str)
@@ -369,11 +369,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless super_admin? or user.menus.any?{|x| x.code==code}
   end
 
-#  def production_mode
-#    unless Rails.env.production?
-#      redirect_to root_path
-#    end
-#  end
+  #  def production_mode
+  #    unless Rails.env.production?
+  #      redirect_to root_path
+  #    end
+  #  end
 
   def archives_months_count
     _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
@@ -425,7 +425,7 @@ class ApplicationController < ActionController::Base
       rblog.save
       Blog.update_all("recommend_count = #{blog.recommend_count + 1}", "id = #{blog.id}")
       rblog
-    end   
+    end
 
     def save_rnote(note, body)
       rnote = Rnote.new
@@ -465,7 +465,7 @@ class ApplicationController < ActionController::Base
       else
         comment.update_attributes(:likecount => comment.likecount + 1, :likeusers => comment.likeusers.to_s + " #{session[:id]}" )
       end
-    end   
+    end
 
     def commenter_last_comment_time comment
       m = comment.body.split(/repLyFromM/m)
@@ -487,7 +487,7 @@ class ApplicationController < ActionController::Base
         end
       end
       time
-    end    
+    end
   end
 
   module AutoCreatedUserInfo
@@ -506,7 +506,7 @@ class ApplicationController < ActionController::Base
         @user.save
       end
     end
-  end  
+  end
   
   #  module Archives
   #
@@ -520,7 +520,7 @@ class ApplicationController < ActionController::Base
     else
       USER_HASH_OLD = { 131 => 1447497337, 127 => 1163218074, 144 => 1410248531 }
       USER_HASH = { 131 => 1447497337, 127 => 1163218074, 144 => 1410248531 }
-    end    
+    end
     #    CODE_HASH= { 127 => "MASSd53c41267bf6", 141 => "MASSb2a806bf5bfa" }
   end
 

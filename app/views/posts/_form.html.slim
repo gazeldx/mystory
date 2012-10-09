@@ -1,5 +1,5 @@
 - content_for :stylesheet do
-  = stylesheet_link_tag "create_note", "dialog"
+  = stylesheet_link_tag "create_note", "dialog", "emotions"
 - content_for :select_photos do
   = render 'shared/select_photos'
 = render 'shared/notice_error'
@@ -18,6 +18,8 @@
     label.field
       = t'body'
       = render 'shared/insert_photo'
+      | &nbsp;&nbsp;#{insert_emotion}
+      = render 'shared/emotions'
     br
     = f.text_area :content, id: "note_text"
   = f.submit t('_post'), class: 'btn'
@@ -25,3 +27,5 @@ br
 = render 'shared/tip_tag_usage'
 javascript:
   $('#note_title').focus()
+  showOrHiddenEmotions()
+  

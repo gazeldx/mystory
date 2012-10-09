@@ -141,28 +141,28 @@ module ApplicationHelper
   end
 
   def portal_body_query
-    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(25)
-    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(15)
-    (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!
+    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(60)
+    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(60)
+    (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!.paginate(:page => params[:page], :per_page => 40)
   end
 
   def portal_hotest_query
-    blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
-    notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
-    (blogs | notes).sort_by{|x| x.comments_count}.reverse!
+    blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(60)
+    notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(60)
+    (blogs | notes).sort_by{|x| x.comments_count}.reverse!.paginate(:page => params[:page], :per_page => 40)
   end
 
   def portal_latest_query
-    blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
-    notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(25)
-    (blogs | notes).sort_by{|x| x.created_at}.reverse!
+    blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(60)
+    notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(60)
+    (blogs | notes).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 40)
   end
   
   def portal_column_query
     @column = Column.find(params[:id])
-    blogs = @column.blogs.includes(:user).order("created_at DESC").limit(40)
-    notes = @column.notes.includes(:user).order("created_at DESC").limit(40)
-    (blogs | notes).sort_by{|x| x.created_at}.reverse!
+    blogs = @column.blogs.includes(:user).order("created_at DESC").limit(60)
+    notes = @column.notes.includes(:user).order("created_at DESC").limit(60)
+    (blogs | notes).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 40)
   end
 
   def fresh_time(time)

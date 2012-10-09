@@ -162,6 +162,8 @@ zh:
     new_of_board: "发表新帖 - %{w}"
     _new_of_board: " - 发表新帖"
   post_reply: "发表回复"
+  latest_posts: "论坛新贴"
+
   #sub_site: "%{w} - %{s}原创社区"
   bbs_title: "%{w}论坛"
   group_title: "团体_我的故事"

@@ -20,7 +20,7 @@ h1
     = link_to t('board.member'), "#{@board.id}/members"
     - unless session[:id].nil?
       .rr.b
-        = link_to t('post.new'), site_url + new_post_path
+        = link_to t('post.new'), my_site + new_post_path
 table.b.olt
   tbody
     tr
