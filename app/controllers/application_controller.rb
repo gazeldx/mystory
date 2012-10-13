@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -113,10 +113,10 @@ class ApplicationController < ActionController::Base
   def summary_common_no_comment(something, size, tmp)
     if something.is_a?(Note)
       si = note_path(something)
-#      count = something.notecomments.size
+      #      count = something.notecomments.size
     elsif something.is_a?(Blog)
       si = blog_path(something)
-#      count = something.blogcomments.size
+      #      count = something.blogcomments.size
     end
     if something.content.size > size
       tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + "</a>"
@@ -322,6 +322,15 @@ class ApplicationController < ActionController::Base
       end
     end
     s
+  end
+
+  def photos_count(mystr)
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.size
+  end
+
+  def user_pic user
+    '<a href="#{site(user)}" title="#{user.city} #{user.jobs} #{user.maxim} #{user.memo}" target="_blank"><img width="48" height="48" src="#{user.avatar.thumb.url}" width="#{USER_THUMB_SIZE}" height="#{USER_THUMB_SIZE}"></a>'    
   end
 
   def r404

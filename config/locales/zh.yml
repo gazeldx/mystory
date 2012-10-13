@@ -110,7 +110,9 @@ zh:
   right_book: "》"
   left_square: "【"
   right_square: "】"
+  douhao: "，"
   dunhao: "、"
+  maohao: "："
 
   can_empty: "(可不填)"
   body: "正文"
@@ -261,6 +263,7 @@ zh:
   #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
   comments: "(评论%{w})"
+  comments_2: "评论(%{w})"
   comments_: "评论%{w}"
   comment: "评论"
   commented_by_friend: "网友评论ta"

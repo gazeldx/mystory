@@ -142,9 +142,9 @@ module ApplicationHelper
 
   def portal_body_query
 #    require 'will_paginate/array'
-    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(25)
-    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(25)
-    (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!
+    blogs = Blog.where("is_draft = false AND comments_count > 0").includes(:user).order("replied_at DESC").limit(20)
+    notes = Note.where("is_draft = false AND comments_count > 0").includes(:user).order("replied_at DESC").limit(20)
+    (blogs | notes).select{|x| x.content.size > 40}.sort_by{|x| x.replied_at}.reverse!
   end
 
   def portal_hotest_query

@@ -28,3 +28,8 @@ li.navL
             a.nava href=top_users_path, target: '_blank'
               b
                 = t'_user'
+
+
+        /'<div id="#{i['id']}" class="twi"><div class="twiT"><p class="avt "><a target="_blank" href="http://#{i.user['domain']}.mystory.cc"><img width="48" height="48" src="http://mystory.b0.upaiyun.com/images/fallback/thumb_default.jpg" alt="Thumb_default"></a></p><b data-wrap="false" class="b pd jsNickBox_176181993"><b class="nm"><a target="_blank" href="http://tkfkdgo.mystory2.cc:3000">乔小殒</a></b>：<a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406">想写个故事3</a></b></div><div class="twiC"><p class="wid"><b></b></p><p class="ugc">让我打起精神，开始也D小姐的片段吧。好困。好累。 今天微博上发了条，关于给我一罐喝不完的红牛的，结果被红牛官方回复了，朋友各种说亮瞎了。 好吧。其实，我还有被感动到啊。不知道为什么。 我想说，最近压......<a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406">全文</a></p><div class="twiB"><b class="tm mi"><span style="color:red"><a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406#comments">评论(1)</a></span>&nbsp;&nbsp;&nbsp;09月24日</b></div></div></div>'
+        /$('div.twi:last').after("aa#{i['title']}") for i in v
+        /$('div.twi:last').after(v)

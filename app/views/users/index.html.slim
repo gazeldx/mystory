@@ -48,7 +48,7 @@
         td
           = link_to user.domain, site(user), target: '_blank'
         td
-          | #{user.blogs_count>0 ? "作品#{user.blogs_count} " : ""}#{user.notes_count>0 ? "日记#{user.notes_count} " : ""}#{user.photos_count>0 ? "相片#{user.photos_count} " : ""}
+          | #{user.blogs_count>0 ? "作#{user.blogs_count} " : ""}#{user.notes_count>0 ? "日#{user.notes_count} " : ""}#{user.photos_count>0 ? "影#{user.photos_count} " : ""}
         td
           = user.city
         td

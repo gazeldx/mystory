@@ -201,6 +201,12 @@ class UsersController < ApplicationController
     end
   end
 
+  #Temp used, will never used.Can delete.
+  def update_user_schools_split
+    user = User.find(params[:id])
+    build_school_groups(user, params[:schools])
+  end
+
   private
   def build_enjoys(item)
     build_item(item, 'enjoy_books', 1)
@@ -229,7 +235,7 @@ class UsersController < ApplicationController
     user.groups.destroy_all
     schools = schools_str.to_s
     unless schools == ''
-      _a = schools.split ' '
+      _a = schools.split /[\s,#{t('douhao')}#{t('dunhao')}]+/
       _a.uniq.each do |x|
         schoolname = Schoolname.find_by_name x
         if schoolname.nil?

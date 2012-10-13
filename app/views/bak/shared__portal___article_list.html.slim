@@ -1,0 +1,46 @@
+- @portal_list.each do |item|
+  - user = item.user
+  - n = photos_count item.content
+  - if n>0
+    - t_class = "twi twiHasPic"
+  - else
+    - t_class = "twi"
+  div id="#{item.id}" class=t_class
+    - if n>0
+      .twiM
+        p.pics id="prev_{item.id}_0"
+          = thumb_here item
+    .twiT
+      p class="avt "
+        = user_pic user
+      b.b class="pd jsNickBox_176181993" data-wrap="false"
+        b class="nm"
+          = link_to user.name, site(user), target: '_blank'
+        | ：
+        = s_link_to item
+    .twiC
+      p.wid
+        b
+      p.ugc
+        == auto_emotion(text_it_pure(item.content)[0..98])
+        - if item.content.size > 98
+          | ......#{s_link_name(t('whole_article'), item)}
+      .twiB
+        b.tm.mi
+          - cc = item.comments_count
+          - if cc>0
+            span style='color:red'
+              = s_link_to_comments "评论(#{cc})", item
+          | &nbsp;&nbsp;&nbsp;
+          = fresh_time item.created_at
+.x style='text-align: center;'
+  a href='javascript:;' onclick='show_more_articles(11888)'
+    | 查看更多>>
+coffee:
+  this.show_more_articles = (id) ->
+    $.ajax
+      url: '/portal_body_show_more'
+      data: "id=" + id
+      success: (v) ->
+        '<div id="#{i['id']}" class="twi"><div class="twiT"><p class="avt "><a target="_blank" href="http://#{i.user['domain']}.mystory.cc"><img width="48" height="48" src="http://mystory.b0.upaiyun.com/images/fallback/thumb_default.jpg" alt="Thumb_default"></a></p><b data-wrap="false" class="b pd jsNickBox_176181993"><b class="nm"><a target="_blank" href="http://tkfkdgo.mystory2.cc:3000">乔小殒</a></b>：<a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406">想写个故事3</a></b></div><div class="twiC"><p class="wid"><b></b></p><p class="ugc">让我打起精神，开始也D小姐的片段吧。好困。好累。 今天微博上发了条，关于给我一罐喝不完的红牛的，结果被红牛官方回复了，朋友各种说亮瞎了。 好吧。其实，我还有被感动到啊。不知道为什么。 我想说，最近压......<a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406">全文</a></p><div class="twiB"><b class="tm mi"><span style="color:red"><a target="_blank" href="http://tkfkdgo.mystory2.cc:3000/notes/406#comments">评论(1)</a></span>&nbsp;&nbsp;&nbsp;09月24日</b></div></div></div>'
+        $('div.twi:last').after("aa#{i['title']}") for i in v

@@ -1,3 +1,16 @@
+Now:
+Test QQ login error of TypeError (can't convert nil into String):
+  lib/qq.rb:30:in `+'
+  lib/qq.rb:30:in `gen_auth'
+  app/controllers/qq_controller.rb:52:in `qq_account'
+test school split with , ，、
+
+
+
+
+
+
+
 
 
 Tip when focus in a thumb of user .
@@ -12,7 +25,7 @@ post comments_count as a column.
 https://github.com/aitorfernandez/af/blob/2a4dec757264f5efae8a55f7b2f6aca32ccb76b5/config/application.rb
 see config.active_record.observers = :post_observer, :rating_observer
 send weibo should do as this!
-
+- cache("head_user_schools_#{@user.id}") do not update in head_user
 fragment_cache other place!
 
 谢天笑 NIRVANA BEYOND

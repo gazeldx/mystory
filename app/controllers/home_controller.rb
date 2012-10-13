@@ -1,9 +1,10 @@
+require 'will_paginate/array'
 class HomeController < ApplicationController
 
   include Sina
   def index
     if @m
-      require 'will_paginate/array'
+#      require 'will_paginate/array'
       if @bbs_flag
         @boards = Board.order("created_at DESC")
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(15)
@@ -69,7 +70,7 @@ class HomeController < ApplicationController
       @board = @group.board
 
       t = params[:t]
-      require 'will_paginate/array'
+#      require 'will_paginate/array'
       if t.nil?
         notes = Note.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(15).order('notes.id desc')
         blogs = Blog.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(10).order('blogs.id desc')
@@ -202,7 +203,49 @@ class HomeController < ApplicationController
   def notice
     render layout: 'm/portal'
   end
-  
+
+  def portal_body_show_more
+    blogs = Blog.where(["id < ? AND is_draft = false AND comments_count > 0", params[:id]]).includes(:user).order("replied_at DESC").limit(30)
+    render json: portal_list_html(blogs.select{|x| x.content.size > 40}).as_json
+  end
+
+  private
+  def portal_list_html list
+    html = ''
+    list.each do |item|
+      html += portal_item_html item
+    end
+    html
+  end
+
+  def portal_item_html item
+    user = item.user
+    n = photos_count item.content
+    if n > 0
+      t_class = "twi twiHasPic"
+    else
+      t_class = "twi"
+    end
+      #.pics         id="prev_{item.id}_0"
+    twiM = content_tag(:div, content_tag(:p, thumb_here(item), :class => 'pics'), :class => 'twiM') if n > 0
+
+    p_avt = content_tag(:p, user_pic(user), :class => 'avt ')
+    b_b = content_tag(:b, raw("#{content_tag(:b, (link_to user.name, site(user), target: '_blank'), :class => 'nm')}#{t'maohao'}#{s_link_to item}"), :class => 'b pd')
+    twiT = content_tag(:div, raw("#{p_avt}#{b_b}"), :class => 'twiT')
+
+    ugc_c = auto_emotion(text_it_pure(item.content)[0..98])
+    ugc_c += "......#{s_link_name(t('whole_article'), item)}" if item.content.size > 98
+    p_ugc = content_tag(:p, raw(ugc_c), :class => 'ugc')
+    b_c = ''
+    cc = item.comments_count
+    b_c += content_tag(:span, (s_link_to_comments t('comments_2', w: cc), item)) if cc > 0
+    b_c += "&nbsp;&nbsp;&nbsp;#{fresh_time item.created_at}"
+    b_tm = content_tag(:b, raw(b_c), :class => 'tm mi')
+    twiB = content_tag(:div, b_tm, :class => 'twiB')
+    twiC = content_tag(:div, raw("#{p_ugc}#{twiB}"), :class => 'twiC')
+
+    content_tag(:div, raw("#{twiM}#{twiT}#{twiC}"), :class => t_class, id: item.id)
+  end
 end
 
 class Array

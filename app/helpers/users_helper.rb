@@ -242,11 +242,6 @@ module UsersHelper
     s = auto_photo(s)
     raw auto_style(auto_two_blank_start(s))
   end  
-  
-  def photos_count(mystr)
-    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
-    m.size
-  end
 
   def scan_photo(mystr)
     a_photo = nil
