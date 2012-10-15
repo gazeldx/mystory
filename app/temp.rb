@@ -1,3 +1,8 @@
+n = 0
+n += 1
+puts n
+
+
 #def auto_emotion(mystr)
 #  m = mystr.scan(/(\/([#{t('emotions.t2')}]))/m)
 #  puts m.inspect
@@ -24,9 +29,9 @@
 #  mystr
 #end
 #auto_emotion "sfsdf"
-str = "caadb dd"
+#str = "caadb dd"
 #puts str.match(/.*(aab|abd).*/)
-puts "nil".strip
+#puts "nil".strip
 #str = '好人不一定有好结局，聪明repLyFromM4446413120 人会有好结局。repLyFromM1346413120 好的结ReplyFRo3mU局需要自己创造。。。。'
 ##m = str.match(/(repLyFromM(\d{10}) (?!^\d).*)?$/m)
 ##puts m.inspect

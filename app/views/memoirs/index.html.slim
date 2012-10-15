@@ -20,9 +20,10 @@
       = link_to t('edit'), edit_memoirs_path
   span.mi
     = @memoir.updated_at.strftime t'time_format'
-    |  更新&nbsp;
+    |  更新&nbsp;&nbsp;
     - unless @user.atoken.nil?
       = show_weibo
+    = read_comment_recommend_show @memoir
   div id='note_#{@memoir.id}_full'
     pre.note_full
       = style_it @memoir.content
@@ -31,6 +32,8 @@
     .sns-bar
       = render 'shared/share'
       .sns-bar-fav
+        span#r_count
+          | #{t('recommend_count2', w: @memoir.recommend_count) if @memoir.recommend_count > 0}
         - if session[:id].nil?
           = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
         - else

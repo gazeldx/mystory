@@ -1,14 +1,17 @@
 module PortalHelper
 
   def portal_show_item(item)
+    puts 'ssss'
+    puts item.id
+    puts item.inspect
     user = item.user
+    puts user.inspect
     n = photos_count item.content
     if n > 0
       t_class = "twi twiHasPic"
     else
       t_class = "twi"
     end
-      #.pics         id="prev_{item.id}_0"
     twiM = content_tag(:div, content_tag(:p, thumb_here(item), :class => 'pics'), :class => 'twiM') if n > 0
 
     p_avt = content_tag(:p, user_pic(user), :class => 'avt ')

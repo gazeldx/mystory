@@ -209,24 +209,11 @@ class BlogsController < ApplicationController
     redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
   end
 
-  #not used
-  #  def latest_attention
-  #    @columns = Column.order("created_at").limit(6)
-  #    @blogs = Blog.where('replied_at is not null and is_draft = false').page(params[:page]).order("replied_at DESC")
-  #    render layout: 'column'
-  #  end
-
   def latest
-#    blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
-#    notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(25)
-#    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
     render layout: 'portal'
   end
 
   def hotest
-#    @blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
-#    notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(20)
-#    @all = (@blogs | notes).sort_by{|x| x.comments_count}.reverse!
     render layout: 'portal'
   end
 

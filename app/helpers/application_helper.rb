@@ -141,44 +141,38 @@ module ApplicationHelper
   end
 
   def portal_body_query
-#    require 'will_paginate/array'
-    blogs = Blog.where("is_draft = false AND comments_count > 0").includes(:user).order("replied_at DESC").limit(20)
-    notes = Note.where("is_draft = false AND comments_count > 0").includes(:user).order("replied_at DESC").limit(20)
-    (blogs | notes).select{|x| x.content.size > 40}.sort_by{|x| x.replied_at}.reverse!
+    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
+    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
+    @last_blog_id = blogs.last.id
+    @last_note_id = notes.last.id
+    (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!
   end
 
   def portal_hotest_query
-#    require 'will_paginate/array'
     blogs = Blog.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(30)
     notes = Note.where(:is_draft => false).includes(:user).order("comments_count DESC").limit(30)
     (blogs | notes).sort_by{|x| x.comments_count}.reverse!
   end
 
   def portal_latest_query
-#    require 'will_paginate/array'
     blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
     notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
+    @last_blog_id = blogs.last.id
+    @last_note_id = notes.last.id
     (blogs | notes).sort_by{|x| x.created_at}.reverse!
   end
   
   def portal_column_query
-#    require 'will_paginate/array'
     @column = Column.find(params[:id])
     blogs = @column.blogs.includes(:user).order("created_at DESC").limit(35)
     notes = @column.notes.includes(:user).order("created_at DESC").limit(25)
     (blogs | notes).sort_by{|x| x.created_at}.reverse!
   end
 
-  def fresh_time(time)
-    if time.strftime(t'date_without_year') == Time.now.strftime(t'date_without_year')
-      time.strftime(t'h_m')
-    elsif time.strftime(t'date_without_year') == (Time.now - 1.day).strftime(t'date_without_year')
-      t'yesterday'
-    elsif time.strftime(t'date_without_year') == (Time.now - 2.days).strftime(t'date_without_year')
-      t'qian_day'
-    else
-      time.strftime(t'date_without_year')
-    end
+  def portal_biographies_query
+    puts "enter ..............."
+    @portal_list = Memoir.order('updated_at DESC')
+    puts @portal_list.inspect
   end
 
   def recommended_char

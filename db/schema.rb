@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120929003106) do
+ActiveRecord::Schema.define(:version => 20121015081701) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -206,6 +206,9 @@ ActiveRecord::Schema.define(:version => 20120929003106) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "views_count",     :default => 0
+    t.integer  "comments_count",  :default => 0
+    t.integer  "recommend_count", :default => 0
   end
 
   add_index "memoirs", ["user_id"], :name => "index_memoirs_on_user_id"

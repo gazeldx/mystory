@@ -1,8 +1,14 @@
 class MemoirsController < ApplicationController
   layout 'new'
-  
+
+  def portal
+#    @memoirs = Memoirs.all.order('updated_at DESC')
+    render layout: 'portal'
+  end
+
   def index
     @memoir = Memoir.find_by_user_id(@user.id)
+    add_view_count
     unless @memoir.nil?
       comments = @memoir.memoircomments
       @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
@@ -34,5 +40,11 @@ class MemoirsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  private
+  def add_view_count
+    @memoir.views_count += 1
+    Memoir.update_all("views_count = #{@memoir.views_count}", "id = #{@memoir.id}")
   end
 end

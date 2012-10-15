@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -260,6 +260,20 @@ class ApplicationController < ActionController::Base
     mystr
   end
 
+  def ignore_emotions(mystr)
+    emotions = emotions_hash
+    reg_str = ""
+    emotions.each_with_index do |(id), i|
+      reg_str += t("emotions.t#{id}")
+      reg_str += "|" if i < emotions.size - 1
+    end
+    m = mystr.scan(/\/(#{reg_str})/m)
+    m.uniq.each do |e|
+      mystr = mystr.gsub("/#{e[0]}", "(#{e[0]})")
+    end
+    mystr
+  end
+
   def emotions_hash
     eh = {}
     emotion_ids = [1, 2, 3, 4, 5, 6,7,8,9,10,11,14,15,16,17,18,20,21,23,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,229]
@@ -329,9 +343,78 @@ class ApplicationController < ActionController::Base
     m.size
   end
 
+  #This and bellow methods is used for json html
   def user_pic user
-    '<a href="#{site(user)}" title="#{user.city} #{user.jobs} #{user.maxim} #{user.memo}" target="_blank"><img width="48" height="48" src="#{user.avatar.thumb.url}" width="#{USER_THUMB_SIZE}" height="#{USER_THUMB_SIZE}"></a>'    
+    "<a href='#{site(user)}' title='#{user.city} #{user.jobs} #{user.maxim} #{user.memo}' target='_blank'><img width='48' height='48' src='#{user.avatar.thumb.url}' width='#{USER_THUMB_SIZE}' height='#{USER_THUMB_SIZE}'></a>"
   end
+  
+  def s_link_to item
+    if item.is_a? Blog
+      "<a href='#{site(item.user) + blog_path(item)}' target='_blank'>#{item.title[0..21]}</a>"
+    else
+      "<a href='#{site(item.user) + note_path(item)}' target='_blank'>#{item.title.to_s=='' ? t('s_note', w: item.created_at.strftime(t'date_format')) : item.title[0..21]}</a>"
+    end
+  end
+
+  def s_link_name(name, item)
+    if item.is_a? Blog
+      path = blog_path(item)
+    else
+      path = note_path(item)
+    end
+    "<a href='#{site(item.user) + path}' target='_blank'>#{name}</a>"
+  end
+
+  def s_link_to_comments(name, item)
+    if item.is_a? Blog
+      path = blog_path(item)
+    else
+      path = note_path(item)
+    end
+    "<a href='#{site(item.user) + path}#comments' target='_blank'>#{name}</a>"
+  end
+
+  def thumb_here(something)
+    photo = scan_photo(something.content)
+    unless photo.nil?
+      if something.is_a?(Note)
+        id = "note_photo_#{photo.id}"
+      elsif something.is_a?(Blog)
+        id = "blog_photo_#{photo.id}"
+      end
+      source_from = ""
+      if !@user.nil? && photo.album.user_id!=@user.id
+        source_from = "<span class='pl'><br/>#{t('source_from')}<a href='#{site(photo.album.user)}' target='_blank'>#{photo.album.user.name}</a>[<a href='#{site(photo.album.user)+ album_path(photo.album)}' target='_blank'>#{photo.album.name}</a>]</span>"
+      end
+      "<a href='javascript:;' id=#{id} onclick=\"switchPhoto('#{id}', '#{photo.avatar.url}', '#{photo.avatar.thumb.url}')\" title=\"#{t('click_enlarge')}\"><img src='#{photo.avatar.thumb.url}' alt=#{id} /></a>#{source_from}"
+    end
+  end
+
+  def scan_photo(mystr)
+    a_photo = nil
+    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
+    m.each do |e|
+      photo = Photo.find_by_id(e[1])
+      unless photo.nil?
+        a_photo = photo
+        break
+      end
+    end
+    a_photo
+  end
+
+  def fresh_time(time)
+    if time.strftime(t'date_without_year') == Time.now.strftime(t'date_without_year')
+      time.strftime(t'h_m')
+    elsif time.strftime(t'date_without_year') == (Time.now - 1.day).strftime(t'date_without_year')
+      t'yesterday'
+    elsif time.strftime(t'date_without_year') == (Time.now - 2.days).strftime(t'date_without_year')
+      t'qian_day'
+    else
+      time.strftime(t'date_without_year')
+    end
+  end
+  
 
   def r404
     render text: t('page_not_found', w: site_name), status: 404
@@ -456,12 +539,13 @@ class ApplicationController < ActionController::Base
       rphoto
     end
 
-    def save_rmemoir(memoir)
+    def save_rmemoir(memoir, body)
       rmemoir = Rmemoir.new
       rmemoir.user_id = session[:id]
       rmemoir.memoir = memoir
+      rmemoir.body = body
       rmemoir.save
-      #      Note.update_all("recommend_count = #{memoir.recommend_count + 1}", "id = #{memoir.id}")
+      Memoir.update_all("recommend_count = #{memoir.recommend_count + 1}", "id = #{memoir.id}")
       rmemoir
     end
   end

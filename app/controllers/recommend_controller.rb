@@ -45,15 +45,14 @@ class RecommendController < ApplicationController
 
   def memoir
     _r = Rmemoir.find_by_user_id_and_memoir_id(session[:id], params[:id])
+    memoir = Memoir.find(params[:id])
     if _r.nil?
-      rmemoir = Rmemoir.new
-      rmemoir.user_id = session[:id]
-      rmemoir.memoir_id = params[:id]
-      rmemoir.save
+      save_rmemoir(memoir, nil)
     else
       _r.destroy
+      Memoir.update_all("recommend_count = #{memoir.recommend_count - 1}", "id = #{memoir.id}")
     end
-    render json: rmemoir.as_json
+    render json: memoir.as_json
   end
 
   def modify_blog

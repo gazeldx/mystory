@@ -10,11 +10,11 @@ class CommentsController < ApplicationController
     photocomments = @user.photocomments.includes(:photo => [:album => :user]).order('updated_at DESC').limit(10)
     comments =  blogcomments | notecomments | photocomments
 
-    #    memoir = Memoir.find_by_user_id(@user.id)
-    #    unless memoir.nil?
-    #      memoir_comments = memoir.memoircomments
-    #      comments = comments | memoir_comments
-    #    end
+    memoir = Memoir.find_by_user_id(@user.id)
+    unless memoir.nil?
+      memoir_comments = memoir.memoircomments
+      comments = comments | memoir_comments
+    end
 
     @comments = comments.sort_by{|x| x.updated_at}.reverse!
     

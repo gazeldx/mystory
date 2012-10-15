@@ -1,12 +1,14 @@
 - @portal_list.each do |item|
   = portal_show_item item
-.x style='text-align: center;'
-  a href='javascript:;' onclick='show_more_articles(11888)'
-    | 查看更多>>
-coffee:
-  this.show_more_articles = (id) ->
-    $.ajax
-      url: '/portal_body_show_more'
-      data: "id=" + id
-      success: (v) ->
-        alert v
+- if ['index', 'latest'].include? controller.action_name
+  .x style='text-align: center;'
+    a id='a_show_more' href='javascript:;' onclick="show_more_articles(#{@last_blog_id}, #{@last_note_id})"
+      | 查看更多>
+  coffee:
+    this.show_more_articles = (last_blog_id, last_note_id) ->
+      $.ajax
+        url: '/portal_show_more'
+        data: "last_blog_id=#{last_blog_id}&last_note_id=#{last_note_id}"
+        success: (v) ->
+          $('div.twi:last').after v['html']
+          $('#a_show_more').attr('onclick', "show_more_articles(#{v['last_blog_id']},#{v['last_note_id']})")

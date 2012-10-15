@@ -85,7 +85,7 @@ module CommentsHelper
         end
       end
     end
-    raw c_info
+    raw ignore_emotions c_info
   end
   
   def comment_info(item)
@@ -109,7 +109,7 @@ module CommentsHelper
       rbody = raw t('reply_what', u: user.name, w: _replied_body[0..9] + etc.to_s)
       _replied_body_no_html = comment_no_html(_replied_body)
       t_rbody = content_tag(:span, rbody, title: _replied_body_no_html[0..400])
-      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', w: (user.name + t_rbody))}")
+      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', w: "#{user.name}#{t_rbody}")}")
     end
     
     c_info = ""

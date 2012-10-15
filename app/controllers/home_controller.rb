@@ -1,10 +1,9 @@
 require 'will_paginate/array'
 class HomeController < ApplicationController
-
   include Sina
+  include PortalHelper
   def index
     if @m
-#      require 'will_paginate/array'
       if @bbs_flag
         @boards = Board.order("created_at DESC")
         @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(15)
@@ -15,16 +14,16 @@ class HomeController < ApplicationController
       elsif @user.nil?
         t = params[:t]
         if t.nil?
-          blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
-          notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(15)
-          photos = Photo.includes(:album).order('photos.id desc').limit(6)
+          blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(40)
+          notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(40)
+          photos = Photo.includes(:album).order('photos.id desc').limit(15)
           @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
         elsif t == 'note'
           @all = Note.where(:is_draft => false).includes(:user).order("id desc").limit(80).paginate(:page => params[:page], :per_page => 15)
         elsif t == 'blog'
           @all = Blog.where(:is_draft => false).includes(:user).order("id desc").limit(80).paginate(:page => params[:page], :per_page => 15)
         elsif t == 'photo'
-          @all = Photo.includes(:album).limit(40).order('photos.id desc').paginate(:page => params[:page], :per_page => 10)
+          @all = Photo.includes(:album).limit(50).order('photos.id desc').paginate(:page => params[:page], :per_page => 10)
         end
         render mr, layout: 'm/portal'
       else
@@ -70,7 +69,6 @@ class HomeController < ApplicationController
       @board = @group.board
 
       t = params[:t]
-#      require 'will_paginate/array'
       if t.nil?
         notes = Note.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(15).order('notes.id desc')
         blogs = Blog.where(user_id: user_ids).where(:is_draft => false).includes(:user).limit(10).order('blogs.id desc')
@@ -120,34 +118,6 @@ class HomeController < ApplicationController
         end
         render 'boards/index', layout: 'help'
       elsif @user.nil?
-        #        if ENV["RAILS_ENV"] == "production"
-        #          @users = User.find([2, 135, 11, 26, 3, 70, 18, 48, 22, 147, 39, 28, 44, 75, 110, 101, 131, 145])
-        #          admin_id = 2
-        #        else
-        #          @users = User.find([1, 2, 3, 13, 5, 6, 7, 8, 9, 12, 11])
-        #          admin_id = 14
-        #        end
-        #TODO DIFFERENT COLOR
-        #        admin = User.find(admin_id)
-        #        @r_blogs = admin.r_blogs.includes(:category, :user).order('created_at DESC').limit(9)
-        #        @notes_new = Note.includes(:notecate, :user).order("created_at desc").limit(28)
-        #        @blogs_new = Blog.where("user_id NOT IN (?)", USER_HASH_OLD.map { |k,v| k }).includes(:category, :user).order("created_at desc").limit(50)
-        #        #TODO includes postcomments need to delete
-        #        @posts = Post.includes(:board, :user, :postcomments).order("id desc").limit(8)
-        #        @personage_blogs = Blog.where("user_id IN (?)", USER_HASH.map { |k,v| k }).includes(:category, :user, :blogcomments).order("created_at desc").limit(10)
-        #
-        #        rphotos = Rphoto.includes(:photo => [:album => :user]).limit(8).order('id desc').uniq {|s| s.photo_id}
-        #        new_photo_count = 8 - rphotos.size
-        #        new_photo_count = 2 if new_photo_count < 2
-        #        photos = Photo.includes(:album => :user).limit(new_photo_count).order('id desc')
-        #        @all_photos = (photos | rphotos).sort_by{|x| x.created_at}.reverse!
-
-        #@blogs_side = @columns.includes(:blogs => :user).order("comments_count desc")
-        #        blogs_new = Blog.where(:is_draft => false).includes(:category, :user).order("created_at desc").limit(12)
-        #        notes_new = Note.where(:is_draft => false).includes(:notecate, :user).order("created_at desc").limit(6)
-        #        @all = (blogs_new | notes_new).sort_by{|x| x.created_at}.reverse!
-        #.page(params[:page])
-        
         render layout: 'portal'
       else
         #TODO MODULIZE TWO LINE NEXT.
@@ -204,9 +174,21 @@ class HomeController < ApplicationController
     render layout: 'm/portal'
   end
 
-  def portal_body_show_more
-    blogs = Blog.where(["id < ? AND is_draft = false AND comments_count > 0", params[:id]]).includes(:user).order("replied_at DESC").limit(30)
-    render json: portal_list_html(blogs.select{|x| x.content.size > 40}).as_json
+  def portal_show_more
+    if request.env["HTTP_REFERER"].include?('latest')
+      blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
+      notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
+      html = portal_list_html((blogs | notes).sort_by{|x| x.created_at}.reverse!)
+    else
+      blogs = Blog.where(["replied_at < ? AND is_draft = false", Blog.find(params[:last_blog_id]).replied_at]).includes(:user).order("replied_at DESC").limit(20)
+      notes = Note.where(["replied_at < ? AND is_draft = false", Note.find(params[:last_note_id]).replied_at]).includes(:user).order("replied_at DESC").limit(20)
+      html = portal_list_html((blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!)
+    end
+    _list = PortalListJson.new
+    _list.html = html
+    _list.last_blog_id = blogs.last.id
+    _list.last_note_id = notes.last.id
+    render json: _list.as_json
   end
 
   private
@@ -223,31 +205,28 @@ class HomeController < ApplicationController
     n = photos_count item.content
     if n > 0
       t_class = "twi twiHasPic"
+      twiM = "<div class='twiM'><p class='pics'>#{thumb_here(item)}</p></div>"
     else
       t_class = "twi"
     end
-      #.pics         id="prev_{item.id}_0"
-    twiM = content_tag(:div, content_tag(:p, thumb_here(item), :class => 'pics'), :class => 'twiM') if n > 0
 
-    p_avt = content_tag(:p, user_pic(user), :class => 'avt ')
-    b_b = content_tag(:b, raw("#{content_tag(:b, (link_to user.name, site(user), target: '_blank'), :class => 'nm')}#{t'maohao'}#{s_link_to item}"), :class => 'b pd')
-    twiT = content_tag(:div, raw("#{p_avt}#{b_b}"), :class => 'twiT')
+    twiT = "<div class='twiT'><p class='avt '>#{user_pic(user)}</p><b class='b pd'><b class='nm'><a href='#{site(user)}' target='_blank'>#{user.name}</a></b>#{t'maohao'}#{s_link_to item}</b></div>"
 
     ugc_c = auto_emotion(text_it_pure(item.content)[0..98])
     ugc_c += "......#{s_link_name(t('whole_article'), item)}" if item.content.size > 98
-    p_ugc = content_tag(:p, raw(ugc_c), :class => 'ugc')
+    p_ugc = "<p class='ugc'>#{ugc_c}</p>"
     b_c = ''
     cc = item.comments_count
-    b_c += content_tag(:span, (s_link_to_comments t('comments_2', w: cc), item)) if cc > 0
+    b_c += "<span>#{s_link_to_comments t('comments_2', w: cc), item}</span>" if cc > 0
     b_c += "&nbsp;&nbsp;&nbsp;#{fresh_time item.created_at}"
-    b_tm = content_tag(:b, raw(b_c), :class => 'tm mi')
-    twiB = content_tag(:div, b_tm, :class => 'twiB')
-    twiC = content_tag(:div, raw("#{p_ugc}#{twiB}"), :class => 'twiC')
-
-    content_tag(:div, raw("#{twiM}#{twiT}#{twiC}"), :class => t_class, id: item.id)
+    b_tm = "<b class='tm mi'>#{b_c}</b>"
+    twiB = "<div class='twiB'>#{b_tm}</div>"
+    twiC = "<div class='twiC'>#{p_ugc}#{twiB}</div>"
+    "<div class='#{t_class}' id='#{item.id}'>#{twiM}#{twiT}#{twiC}</div>"
   end
 end
 
+#This is not used
 class Array
   def uniq_by(&blk)
     transforms = []
@@ -257,4 +236,10 @@ class Array
       should_keep
     end
   end
+end
+
+class PortalListJson
+  attr_accessor :last_blog_id
+  attr_accessor :last_note_id
+  attr_accessor :html
 end

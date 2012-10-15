@@ -243,19 +243,6 @@ module UsersHelper
     raw auto_style(auto_two_blank_start(s))
   end  
 
-  def scan_photo(mystr)
-    a_photo = nil
-    m = mystr.scan(/(\+photo(\d{2,})\+)/m)
-    m.each do |e|
-      photo = Photo.find_by_id(e[1])
-      unless photo.nil?
-        a_photo = photo
-        break
-      end
-    end
-    a_photo
-  end
-
   def scan_photos(mystr, n)
     photos = []
     k = 0

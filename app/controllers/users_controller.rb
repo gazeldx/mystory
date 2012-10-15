@@ -202,6 +202,7 @@ class UsersController < ApplicationController
   end
 
   #Temp used, will never used.Can delete.
+  #update_user_schools_split?id=2&schools=河海大学,新海中学,麻省理工学院
   def update_user_schools_split
     user = User.find(params[:id])
     build_school_groups(user, params[:schools])

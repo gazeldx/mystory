@@ -1,16 +1,5 @@
 Now:
-Test QQ login error of TypeError (can't convert nil into String):
-  lib/qq.rb:30:in `+'
-  lib/qq.rb:30:in `gen_auth'
-  app/controllers/qq_controller.rb:52:in `qq_account'
-test school split with , ，、
-
-
-
-
-
-
-
+delete memoir ids :14,17,
 
 
 Tip when focus in a thumb of user .
@@ -47,12 +36,6 @@ ALLOW CHECK ONLY THE TOPIC REPLY OR RECOMMOND > 3
 
 Editor Page!
 @_user.update_attribute('signature', params[:user][:signature]) not validate
-Bu
-
-
-作者联系方式加到个人资料中?
-QQ：12824901， E-mail：ling288@tom.com
-
 
 update_users_clicks_count
 update_user_comments_count

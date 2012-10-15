@@ -47,8 +47,8 @@ class User < ActiveRecord::Base
   has_many :postcomments, :dependent => :destroy
   has_many :fboards, :dependent => :destroy
 #  has_many :f_boards, :through => :fboards, :source => :board
-  has_one :memoir
-  has_one :customize
+  has_one :memoir, :dependent => :destroy
+  has_one :customize, :dependent => :destroy
 
   has_many :letters, :dependent => :destroy#sent letters
   has_many :received_letters, :class_name => 'Letter', :foreign_key => 'recipient_id', :dependent => :destroy
@@ -77,6 +77,8 @@ class User < ActiveRecord::Base
   #  t.datetime :starts_at, :null => false, :default => Time.now
   before_create :set_default_time_to_now
   def set_default_time_to_now
+    self.view_comments_at = Time.now
+    self.view_commented_at = Time.now
     self.view_letters_at = Time.now
   end
 end
