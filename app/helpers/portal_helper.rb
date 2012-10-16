@@ -1,11 +1,7 @@
 module PortalHelper
 
   def portal_show_item(item)
-    puts 'ssss'
-    puts item.id
-    puts item.inspect
     user = item.user
-    puts user.inspect
     n = photos_count item.content
     if n > 0
       t_class = "twi twiHasPic"

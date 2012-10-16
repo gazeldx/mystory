@@ -176,8 +176,8 @@ class HomeController < ApplicationController
 
   def portal_show_more
     if request.env["HTTP_REFERER"].include?('latest')
-      blogs = Blog.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
-      notes = Note.where(:is_draft => false).includes(:user).order("created_at desc").limit(50)
+      blogs = Blog.where(["id < ? AND is_draft = false", params[:last_blog_id]]).includes(:user).order("id DESC").limit(50)
+      notes = Note.where(["id < ? AND is_draft = false", params[:last_note_id]]).includes(:user).order("id DESC").limit(50)
       html = portal_list_html((blogs | notes).sort_by{|x| x.created_at}.reverse!)
     else
       blogs = Blog.where(["replied_at < ? AND is_draft = false", Blog.find(params[:last_blog_id]).replied_at]).includes(:user).order("replied_at DESC").limit(20)

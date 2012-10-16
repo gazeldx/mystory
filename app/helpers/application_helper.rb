@@ -170,9 +170,7 @@ module ApplicationHelper
   end
 
   def portal_biographies_query
-    puts "enter ..............."
     @portal_list = Memoir.order('updated_at DESC')
-    puts @portal_list.inspect
   end
 
   def recommended_char

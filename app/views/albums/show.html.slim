@@ -10,7 +10,7 @@ br
     = link_to t('add_photos'), new_album_photo_path(@album)
   | &nbsp;&gt;&nbsp;
   = link_to t('album.return'), albums_path
-.photolst.clearfix
+#container.photolst.clearfix
   - @photos.each_with_index do |photo, i|
     .photo_wrap
       a.photolst_photo href=album_photo_path(@album, photo)
@@ -30,3 +30,5 @@ br
   span.gact
     | &nbsp;&nbsp;&gt;&nbsp;
     = link_to '删除影集', album_path(@album), confirm: t('confirm.delete'), method: :delete
+javascript:
+  $('#container').isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});

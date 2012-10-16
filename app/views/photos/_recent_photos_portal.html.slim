@@ -1,4 +1,4 @@
-.photolst.clearfix
+#container.photolst.clearfix
   - @all.each_with_index do |item, i|
     - if item.is_a?(Photo)
       - unless @intersection.include? item.id
@@ -35,7 +35,7 @@
         br
         = link_to item.user.name, site(item.user), target: '_blank'
         span.pl
-          |  推荐 
+          |  推荐
         = link_to user.name, site(user), target: '_blank'
         | :
         = link_to album.name, site(user)+album_path(album), target: '_blank'
@@ -48,5 +48,5 @@
         - if hot > 1
           span.red title='热度'
             | &nbsp;#{hot}℃
-      - if i%5 == 4
-        .clear
+javascript:
+  $('#container').isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});
