@@ -25,10 +25,11 @@ br
       .clear
   = will_paginate @photos
   .clear
-.pl style="padding-bottom:30px" 
+.pl style="padding-bottom:30px"
   = @album.description
-  span.gact
-    | &nbsp;&nbsp;&gt;&nbsp;
-    = link_to '删除影集', album_path(@album), confirm: t('confirm.delete'), method: :delete
+  - if @user.id == session[:id]
+    span.gact
+      | &nbsp;&nbsp;&gt;&nbsp;
+      = link_to '删除影集', album_path(@album), confirm: t('confirm.delete'), method: :delete
 javascript:
   $('#container').isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});

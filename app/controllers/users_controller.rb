@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       if @m
         render mr, layout: 'm/portal'
       else
-        render layout: 'like'
+        render layout: 'help'
       end
     end
   end

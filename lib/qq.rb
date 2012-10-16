@@ -27,8 +27,6 @@ class Qq
 	attr_reader :token,:openid,:auth
   
 	def gen_auth(token, openid)
-    #TODO need test 
-    logger.info "access_token=#{token}&oauth_consumer_key=#{APPID}&openid=#{openid}"
     "access_token=#{token}&oauth_consumer_key=#{APPID}&openid=#{openid}"
   end
 

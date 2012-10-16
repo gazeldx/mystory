@@ -264,11 +264,11 @@ module UsersHelper
     photo = scan_photo(something.content)
     unless photo.nil?
       if something.is_a?(Note)
-        #        href = note_path(something)
         id = "note_photo_#{photo.id}"
       elsif something.is_a?(Blog)
-        #        href = blog_path(something)
         id = "blog_photo_#{photo.id}"
+      elsif something.is_a?(Memoir)
+        id = "memoir_photo_#{photo.id}"
       end
       source_from = ""
       if !@user.nil? && photo.album.user_id!=@user.id

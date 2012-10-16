@@ -381,6 +381,8 @@ class ApplicationController < ActionController::Base
         id = "note_photo_#{photo.id}"
       elsif something.is_a?(Blog)
         id = "blog_photo_#{photo.id}"
+      elsif something.is_a?(Memoir)
+        id = "memoir_photo_#{photo.id}"
       end
       source_from = ""
       if !@user.nil? && photo.album.user_id!=@user.id

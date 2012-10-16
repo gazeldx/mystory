@@ -1,7 +1,7 @@
 module CommentsHelper
 
   def comments
-    _comments = content_tag(:div, render("#{@clazz}comments/#{@clazz}comment"), id: 'comments')
+    _comments = content_tag(:div, comments_list, id: 'comments')
     _notice = render 'shared/notice_error'
     _form = nil
     if session[:id].nil?
@@ -21,6 +21,34 @@ module CommentsHelper
       _form = _h2 + _form_
     end
     _comments + _notice + _form
+  end
+
+  def comments_list
+    case controller.controller_name
+    when 'notes'
+      _item = @note
+    when 'blogs'
+      _item = @blog
+    when 'photos'
+      _item = @photo
+    when 'memoirs'
+      _item = @memoir
+    end
+    c_list = ""
+    @all_comments.each_with_index do |comment, ci|
+      user = comment.user
+      unless session[:id].nil?
+        _like = like_it comment if user.id!=session[:id]
+        _delete = "&nbsp;&nbsp;>#{link_to t('delete'), [_item, comment], method: :delete}" if [user.id, @user.id].include?(session[:id])
+        al_c = raw "#{_like}#{reply_add user}#{_delete}"
+        admin_lnks = content_tag(:div, al_c, :class => 'admin-lnks', style: line_style(user, ci))
+      end
+      content_c = raw "#{c_author(user, comment)}#{content_tag(:p, comment_info(comment))}#{admin_lnks}"
+      content = content_tag(:div, content_c, :class => 'content')
+      div_c = raw "#{c_pic user}#{content}"
+      c_list += content_tag(:div, div_c, :class => 'comment-item')
+    end
+    raw c_list
   end
 
   def reply_info(reply)
@@ -230,11 +258,19 @@ module CommentsHelper
 
   def comment_form(f)
     rui = hidden_field_tag(:reply_user_id)
-    body = f.text_area :body, size: "64x4", :id => 'note_text'
-    _body = content_tag(:div, body + raw('<br/>'), :class => 'item')
+    body = f.text_area :body, size: "64x4", :id => 'note_text', :class => 'comment'
+    _body = content_tag(:div, body + raw('<br/>'))
     comment_and_recommend = f.submit(t('comment_and_recommend'), name: 'comment_and_recommend')
     submit = raw("#{f.submit(t('comment'))}&nbsp;#{comment_and_recommend}")
-    _submit = content_tag(:div, submit, :class => 'item')
+    _submit = content_tag(:div, submit)
+    rui + _body + _submit
+  end
+
+  def post_comment_form(f)
+    rui = hidden_field_tag(:reply_user_id)
+    body = f.text_area :body, size: "64x4", :id => 'note_text', :class => 'comment'
+    _body = content_tag(:div, body + raw('<br/>'))
+    _submit = content_tag(:div, f.submit(t('comment')))
     rui + _body + _submit
   end
 

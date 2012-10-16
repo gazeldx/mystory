@@ -3,16 +3,11 @@ class NotesController < ApplicationController
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
   cache_sweeper :note_sweeper
-  #  include Archives
   
   def index
     @rids = @user.rnotes.select('note_id').map{|x| x.note_id}
     @notes = @user.notes.includes([:notetags, :notecate]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @notecates = @user.notecates.order('created_at')
-    #    default_category = Notecate.new
-    #    default_category.id = 0
-    #    default_category.name = t'default_notecate_name'
-    #    @notecates.unshift(default_category)
   end
 
   def new
