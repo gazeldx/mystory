@@ -7,13 +7,13 @@ table.b.olt
     tr
       td
         = t'content'
-      td
+      td width=70
         = t'sender'
-      td
+      td width=112
         = t'_time'
     - @letters.each do |letter|
       tr
-        td width='70%'
+        td
           - if letter.body.size>140
             - etc = "...(共#{letter.body.size}字)"
             - _title = letter.body

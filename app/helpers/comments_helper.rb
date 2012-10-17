@@ -7,9 +7,6 @@ module CommentsHelper
     if session[:id].nil?
       _form = t'comment_login_first'
     else
-      content_for :stylesheet do
-        stylesheet_link_tag "emotions"
-      end
       if @comments_uids.include?(session[:id])
         _span_content = t'add_comment'
       else

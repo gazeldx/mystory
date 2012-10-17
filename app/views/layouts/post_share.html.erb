@@ -2,7 +2,7 @@
 <html class="ua-ff4" lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
-    <%= stylesheet_link_tag "style", "form" %>
+    <%= stylesheet_link_tag "user" %>
     <% if session[:id].nil? %>
       <%= javascript_include_tag "user_blog_no_session" %>
     <% else %>

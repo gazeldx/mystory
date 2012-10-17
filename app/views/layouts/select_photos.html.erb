@@ -2,7 +2,7 @@
 <html class="ua-ff4" lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
-    <%= stylesheet_link_tag "style", "form" %>
+    <%= stylesheet_link_tag "user" %>
     <%= javascript_include_tag "album" %>
     <%= csrf_meta_tags %>
   </head>
@@ -10,8 +10,7 @@
     <div>
       <div>
         <div>
-          <div>
-            <%= yield :subtitle %>
+          <div>            
             <%= yield %>
           </div>
         </div>

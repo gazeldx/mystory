@@ -49,4 +49,4 @@
           span.red title='热度'
             | &nbsp;#{hot}℃
 javascript:
-  $('#container').isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});
+  var $container=$('#container');$container.imagesLoaded(function(){$container.isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});});

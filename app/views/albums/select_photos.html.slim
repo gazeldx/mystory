@@ -1,5 +1,4 @@
-- content_for :subtitle do
-  = link_to t('album.return_home'), select_albums_path
+= link_to t('album.return_home'), select_albums_path
 .photolst.clearfix
   - @photos.each_with_index do |photo, i|
     .photo_wrap

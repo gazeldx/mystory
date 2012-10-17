@@ -5,7 +5,11 @@ class PostsController < ApplicationController
     @post = Post.new
     @post.board_id = request.env["HTTP_REFERER"].match(/.*\/(\d{1,})$/)[1]
     @board = Board.find(@post.board_id)
-    render mr, layout: 'm/portal' if @m
+    if @m
+      render mr, layout: 'm/portal'
+    else
+      render layout: 'post_new'
+    end
   end
 
   def create

@@ -2,7 +2,6 @@
 <html class="ua-ff4" lang="zh-CN">
   <head>
     <title><%= yield :title %></title>
-    <meta name="description" content="<%= yield :metadesc %>" />
     <%= stylesheet_link_tag "user" %>
     <%= javascript_include_tag "album" %>
     <%= csrf_meta_tags %>
@@ -13,15 +12,11 @@
       <div id='content'>
         <div class='grid-24-0 clearfix'>
           <div class='article'>
-            <div id='db-usr-profile'>
-              <%= render 'shared/head_user' %>
-            </div>
-            <div class="clear"></div>
             <%= yield %>
           </div>
         </div>
       </div>
-      <%= render 'shared/footer' %>
+      <%= render 'shared/footer_help' %>
     </div>
   </body>
 </html>

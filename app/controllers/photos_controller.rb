@@ -8,7 +8,7 @@ class PhotosController < ApplicationController
       @intersection = rphotos.map{|x| x.photo_id} & photos.map{|x| x.id}
       all = photos | rphotos
       @all = all.sort_by{|x| x.created_at}.reverse!
-      render 'portal' , layout: 'help'
+      render 'portal' , layout: 'portal_photos'
     else
       @photos = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
     end

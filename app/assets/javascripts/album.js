@@ -5,5 +5,4 @@
 //= require blogs
 //= require jquery_extend
 //= require emotions
-//= require jquery.validate
 //= require jquery.isotope.min
