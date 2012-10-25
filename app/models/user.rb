@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   has_many :fboards, :dependent => :destroy
 #  has_many :f_boards, :through => :fboards, :source => :board
   has_one :memoir, :dependent => :destroy
+  has_many :memoircomments, :dependent => :destroy
   has_one :customize, :dependent => :destroy
 
   has_many :letters, :dependent => :destroy#sent letters

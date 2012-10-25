@@ -8,8 +8,8 @@ class MemoirsController < ApplicationController
 
   def index
     @memoir = Memoir.find_by_user_id(@user.id)
-    add_view_count
     unless @memoir.nil?
+      add_view_count
       comments = @memoir.memoircomments
       @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}

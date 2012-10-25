@@ -19,4 +19,16 @@ module GroupsHelper
     end
     raw s
   end
+
+  def set_as_good_article item
+    if group_admin? @group
+      if item.is_a? Note
+        url = assign_gcolumns_note_path(item)
+      else
+        url = assign_gcolumns_blog_path(item)
+      end
+      span_c = raw " #{link_to t('set_as_good_article'), url, target: '_blank', style: 'color: red; !important'}"
+      content_tag(:span, span_c)
+    end
+  end
 end

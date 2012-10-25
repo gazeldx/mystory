@@ -1,11 +1,10 @@
 class BlogsController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
+  before_filter :group_admin, :only => [:assign_gcolumns, :do_assign_gcolumns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
-  #  caches_action :index
   cache_sweeper :blog_sweeper
   
   layout 'memoir'
-  #  include Archives
   
   def index
     @rids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
@@ -28,8 +27,6 @@ class BlogsController < ApplicationController
         @all_comments = @blog.blogcomments.order('likecount DESC, created_at')
         @comments_uids = @all_comments.collect{|c| c.user_id}
 
-#        ids = @user.blogs.select('id')
-#        @rblogs = @user.r_blogs.where(id: ids).limit(6)
         cate_blogs_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
         #TODO limit 4 make @all_cate_rblogs became a bug because view @blog.title may not shown as jian!
         @all_cate_rblogs = @user.r_blogs.where(id: cate_blogs_ids).order('created_at DESC').limit(4)
@@ -207,6 +204,26 @@ class BlogsController < ApplicationController
     end
     expire_fragment('columns_articles')
     redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
+  end
+
+  def assign_gcolumns
+    @blog = Blog.find(params[:id])
+    @columns = @blog.gcolumns.where(:group_id => @group.id)
+    @all_columns = @group.gcolumns.order("created_at")
+    render layout: 'help'
+  end
+
+  def do_assign_gcolumns
+    blog = Blog.find(params[:id])
+    gcolumn_ids = blog.gcolumns.where(:group_id => @group.id).select('id').map{|x| x.id}
+    BlogsGcolumns.delete_all ["blog_id = ? AND gcolumn_id in (?)", blog.id, gcolumn_ids]
+    unless params[:column].nil?
+      params[:column].each do |k, v|
+#        blog.gcolumns << Gcolumn.find(k) this method no created_at.
+        BlogsGcolumns.create(blog: blog, gcolumn: Gcolumn.find(k), created_at: Time.now)
+      end
+    end
+    redirect_to assign_gcolumns_blog_path(blog), notice: t('succ', w: t('assign_columns'))
   end
 
   def latest

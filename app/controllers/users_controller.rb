@@ -233,7 +233,8 @@ class UsersController < ApplicationController
   end
 
   def build_school_groups(user, schools_str)
-    user.groups.destroy_all
+    group_ids = user.groups.where("stype = ?", GROUPS_STYPE_SCHOOL).select('id').map{|x| x.id}
+    GroupsUsers.delete_all ["user_id = ? AND group_id in (?)", session[:id], group_ids]
     schools = schools_str.to_s
     unless schools == ''
       _a = schools.split /[\s,#{t('douhao')}#{t('dunhao')}]+/
@@ -246,14 +247,13 @@ class UsersController < ApplicationController
         end
         if group.nil?
           id = Group.last.id + 1001
-          group = Group.new(:name => x, :stype => 1, :domain => "g#{id}")
+          group = Group.new(:name => x, :stype => GROUPS_STYPE_SCHOOL, :domain => "g#{id}")
           unless group.save
             num = Random.rand(9999)
             group.domain = "g#{id}-#{num}"
             group.save!
           end
         end
-#        user.groups << group #created_at not assignd if do as this
         GroupsUsers.create(group: group, user: user, created_at: Time.now)
       end
     end

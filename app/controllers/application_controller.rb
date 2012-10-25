@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo, :group_admin?
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -65,6 +65,8 @@ class ApplicationController < ActionController::Base
         @bbs_flag = true
       elsif request.subdomain == 'group'
         @group_flag = true
+      elsif request.subdomain == 'literarysociety'
+        @literarysociety_flag = true
       else
         unless ['', 'blog'].include? request.subdomain
           @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'
@@ -445,7 +447,19 @@ class ApplicationController < ActionController::Base
   end
   
   def super_admin
-    unless ['zhangjian'].include? session[:domain]
+    unless super_admin?
+      redirect_to root_path
+    end
+  end
+
+  def group_admin? group
+    g = group.groups_userss.detect{|i| i.user_id == session[:id]}
+    g.is_admin unless g.nil?
+  end
+
+  def group_admin
+    puts @group.inspect
+    unless group_admin? @group
       redirect_to root_path
     end
   end

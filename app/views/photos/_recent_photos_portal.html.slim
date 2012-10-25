@@ -22,7 +22,7 @@
           - hot = photo.comments_count + photo.recommend_count
           - if hot > 0
             span.red title='热度'
-              | &nbsp;#{hot}℃
+              | &nbsp;#{hot}°
         - if i%5 == 4
           .clear
     - elsif item.is_a?(Rphoto)
@@ -47,6 +47,6 @@
         - hot = photo.comments_count + photo.recommend_count
         - if hot > 1
           span.red title='热度'
-            | &nbsp;#{hot}℃
+            | &nbsp;#{hot}°
 javascript:
   var $container=$('#container');$container.imagesLoaded(function(){$container.isotope({itemSelector:'.photo_wrap',layoutMode:'masonry'});});

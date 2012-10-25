@@ -2,6 +2,7 @@ class Blog < ActiveRecord::Base
   #  acts_as_views_count
   # has_and_belongs_to_many need not use :dependent => :destroy because it will auto do that: delete relation table (blogs_columns)data !
   has_and_belongs_to_many :columns
+  has_and_belongs_to_many :gcolumns
   belongs_to :category
   belongs_to :user
   has_many :blogcomments, :dependent => :destroy

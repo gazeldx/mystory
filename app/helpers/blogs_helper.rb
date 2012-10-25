@@ -196,8 +196,8 @@ module BlogsHelper
   def read_comment_recommend_show item
     views = t('views_count', w: item.views_count)
     comments = "#{link_to t('comments_count', w: item.comments_count), '#comments'}&nbsp;&nbsp;" if item.comments_count > 0
-    recommend = "#{link_to t('recommend_count', w: item.recommend_count), '#recommend'}&nbsp;&nbsp;" if item.recommend_count > 0
-    _content = raw "#{recommend}#{comments}#{views}"
+    #recommend = "#{link_to t('recommend_count', w: item.recommend_count), 'javascript:;', onclick: ''}&nbsp;&nbsp;" if item.recommend_count > 0
+    _content = raw "#{recommend_etc item}&nbsp;&nbsp;#{comments}#{views}"
     content_tag(:span, _content, :class => 'rr')
   end
 

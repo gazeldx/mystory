@@ -40,7 +40,7 @@ class MemoircommentsController < ApplicationController
     end
     if params[:comment_and_recommend]
       _r = Rmemoir.find_by_user_id_and_memoir_id(session[:id], @memoir.id)
-      save_rmemoir(@memoir) if _r.nil?
+      save_rmemoir(@memoir, params[:memoircomment][:body]) if _r.nil?
       flash[:notice] = flash[:notice] + t('memoir_recommended')
     end
     redirect_to memoirs_path + "#notice"

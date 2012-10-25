@@ -1,0 +1,17 @@
+= title t'literary_society_title'
+= render 'shared/notice_error'
+.b
+  = t'all_literary_societies'
+  br
+  - @groups.each do |group|
+    | #{link_to group.name, site(group), target: '_blank'}(#{group.member_count})
+    - if super_admin?
+      = link_to 'edit', edit_group_path(group)
+    | &nbsp;&nbsp;
+  br
+  br
+  span.gray
+    | 文学社实行邀请制，想加入请私信该文学社的管理员。
+    - unless session[:id].nil?
+      br
+      | 想创建文学社请 <a href="#{my_site}/send_a_letter_to_zhangjian" target='_blank'>私信站长</a>。

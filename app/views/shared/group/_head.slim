@@ -4,9 +4,16 @@
 .desc
   h1
     = group_banner_text
-  - if controller_path == 'home'
-    span#display.pl
+    - if @group.stype==GROUPS_STYPE_LITERARY      
+      span#display.pl
+        | &nbsp;#{link_to t('_introduce'), about_path}
+        - if group_admin? @group
+          | &nbsp;&nbsp;#{link_to t('manage'), literary_society_admin_path}
+        | &nbsp;(#{@group.maxim})
+  - if @group.stype==GROUPS_STYPE_LITERARY
+    ul
+      .info.b
+        = render 'shared/group/navigation'
+  - else
+    span#display.gray
       | #{@group.maxim}
-  /ul
-  /  .info style="font-size:16px"
-  /    = render 'shared/group/navigation'

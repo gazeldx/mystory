@@ -56,6 +56,7 @@
             span.gray
               = article_time item
             = note_read_comment_recommend_user item
+            = set_as_good_article item
       - elsif item.is_a?(Blog)
         - unless params[:t] == 'updated' and item.updated_at < item.created_at + 1.day
           - user = item.user
@@ -77,6 +78,7 @@
             span.gray
               = article_time item
             = blog_read_comment_recommend_user item
+            = set_as_good_article item
       - elsif item.is_a?(Photo)
         - album = item.album
         - user = album.user

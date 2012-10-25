@@ -167,8 +167,13 @@ zh:
   latest_posts: "论坛新贴"
 
   #sub_site: "%{w} - %{s}原创社区"
-  bbs_title: "%{w}论坛"
+
+  bbs_title: "讨论版_%{w}"
   group_title: "团体_我的故事"
+  school_title: "校园_我的故事"
+  literary_society_title: "文学社_我的故事"
+  group_about_title: "介绍_%{w}_我的故事"
+  _title: "校园_我的故事"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"
   
 #  delete_failed: "删除失败！%{w}"
@@ -219,10 +224,14 @@ zh:
   assign_columns: "归类"
   s_assign_columns: "将博文“%{w}”归类到："
 
+  set_as_good_article: "设为优质文章"
+
   blog_master: "博主"
   most_fans: "最多粉丝"
   admin_recommend: "站长推荐"
   best_comments: "评论达人"
+
+  _admin: "管理员"
   
   user:
     edit: "用户管理"
@@ -230,8 +239,10 @@ zh:
   s_assign_roles: "授予用户“%{w}”角色"
 
   group:
+    maxim: '宗旨'
     name: "团体名称"
-    memo: "描述"
+    memo: "介绍"
+    memo_memo: "可以填写文学社章程、成员名号等"
     member: "成员"
   member_of_group: "%{w}的成员"
     
@@ -239,7 +250,8 @@ zh:
     name: "栏目名称"
     edit: "栏目管理"
     name_must_notnull: "栏目名称必须填写！"
-  
+    new: "创建新栏目"
+    
   category:
     name: "目录名"
     edit: "编辑作品目录"
@@ -259,6 +271,9 @@ zh:
     name_must_notnull: "分组录必须填写！"
     has_when_delete: "该分组下有你关注的人或你推荐的文章，不可以删除。将关注的人或推荐的文章后转到其它分后，才可以删除。"
   assortment_addtip: "添加分组，请输入分组名称："
+
+  #litsoc:
+  literary_society: "文学社"
   
   #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
@@ -278,8 +293,9 @@ zh:
   fans_each_other: "互相关注"
 
 
-  _forum: "论坛"
+  _forum: "版聊"
   _group: "团体"
+  _school: "校园"
 
   all_characters: "……(共%{w}字)"
   me: "我"
@@ -461,6 +477,8 @@ zh:
   _my_boards: "我的讨论版："
   all_boards: "所有讨论版"
   all_groups: "所有团体"
+  all_schools: "所有校园"
+  all_literary_societies: "所有文学社"
 
   r_note: "%{w}推荐的日记"
   r_blog: "%{w}推荐的作品"
@@ -494,6 +512,8 @@ zh:
   _profile: "查看详细资料"
   article_source: "原文"
 
+  detail_info: "详细资料"
+
   at: "在"
 
   yesterday: "昨天"
@@ -521,7 +541,9 @@ zh:
   account_settings: "帐号设置_%{w}"
   _post: "发布"
   send: "发送"
-
+  _introduce: "介绍"
+  literary_society_settings: "文学社设置"
+  
   album:
     add: "创建新影集"
     name: "影集名称"
@@ -535,7 +557,7 @@ zh:
   click_show_old: "点击查看旧一张"
   user_help: "帮助中心"
   #_account: "帐号"
-  #manage: "管理"
+  manage: "管理"
   _setting: "设置"
   _manage: "后台管理"
   _admin_title: "管理我的帐号"

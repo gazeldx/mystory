@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015081701) do
+ActiveRecord::Schema.define(:version => 20121019021304) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(:version => 20121015081701) do
 
   add_index "blogs_columns", ["blog_id"], :name => "index_blogs_columns_on_blog_id"
   add_index "blogs_columns", ["column_id"], :name => "index_blogs_columns_on_column_id"
+
+  create_table "blogs_gcolumns", :id => false, :force => true do |t|
+    t.integer  "gcolumn_id"
+    t.integer  "blog_id"
+    t.datetime "created_at"
+  end
+
+  add_index "blogs_gcolumns", ["blog_id"], :name => "index_blogs_gcolumns_on_blog_id"
+  add_index "blogs_gcolumns", ["gcolumn_id"], :name => "index_blogs_gcolumns_on_gcolumn_id"
 
   create_table "boards", :force => true do |t|
     t.string   "name"
@@ -141,6 +150,23 @@ ActiveRecord::Schema.define(:version => 20121015081701) do
   add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
+  create_table "gcolumns", :force => true do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.datetime "created_at"
+  end
+
+  add_index "gcolumns", ["group_id"], :name => "index_gcolumns_on_group_id"
+
+  create_table "gcolumns_notes", :id => false, :force => true do |t|
+    t.integer  "gcolumn_id"
+    t.integer  "note_id"
+    t.datetime "created_at"
+  end
+
+  add_index "gcolumns_notes", ["gcolumn_id"], :name => "index_gcolumns_notes_on_gcolumn_id"
+  add_index "gcolumns_notes", ["note_id"], :name => "index_gcolumns_notes_on_note_id"
+
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.string   "domain"
@@ -157,7 +183,8 @@ ActiveRecord::Schema.define(:version => 20121015081701) do
   create_table "groups_users", :id => false, :force => true do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.boolean  "is_admin",   :default => false
   end
 
   add_index "groups_users", ["group_id"], :name => "index_groups_users_on_group_id"

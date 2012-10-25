@@ -102,4 +102,12 @@ module HeadHelper
       link_to title, link
     end
   end
+
+  def navigation_group(title, link)
+    if "/#{controller_path}" == link
+      link_to title, link, :class => "selected"
+    else
+      link_to title, link
+    end
+  end
 end

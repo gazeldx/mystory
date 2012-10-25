@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
+  before_filter :group_admin, :only => [:assign_gcolumns, :do_assign_gcolumns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   layout 'memoir'
   cache_sweeper :note_sweeper
@@ -195,6 +196,25 @@ class NotesController < ApplicationController
     end
     expire_fragment('columns_articles')
     redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
+  end
+
+  def assign_gcolumns
+    @note = Note.find(params[:id])
+    @columns = @note.gcolumns.where(:group_id => @group.id)
+    @all_columns = @group.gcolumns.order("created_at")
+    render layout: 'help'
+  end
+
+  def do_assign_gcolumns
+    note = Note.find(params[:id])
+    gcolumn_ids = note.gcolumns.where(:group_id => @group.id).select('id').map{|x| x.id}
+    GcolumnsNotes.delete_all ["note_id = ? AND gcolumn_id in (?)", note.id, gcolumn_ids]
+    unless params[:column].nil?
+      params[:column].each do |k, v|
+        GcolumnsNotes.create(note: note, gcolumn: Gcolumn.find(k), created_at: Time.now)
+      end
+    end
+    redirect_to assign_gcolumns_note_path(note), notice: t('succ', w: t('assign_columns'))
   end
 
   private

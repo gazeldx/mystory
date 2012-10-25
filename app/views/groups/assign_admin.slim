@@ -1,0 +1,8 @@
+= form_tag '/assign_group_admin' do
+  | admin's user id
+  = text_field_tag :user_id
+  br
+  | group id:
+  = text_field_tag :group_id
+  br
+  input type='submit' value='确认授权'

@@ -25,23 +25,26 @@ module ApplicationHelper
   end
 
   def validate_form(form_id)
+    content_for :javascript do
+      javascript_include_tag "jquery.validate"
+    end
     raw "<script type=\"text/javascript\">$(document).ready(function(){$('##{form_id}').validate();});</script>"
   end
 
   def t_t(str)
-#    if mystory?
+    #    if mystory?
     t("site.#{str}")
-#    else
-#      t("cy.#{str}")
-#    end
+    #    else
+    #      t("cy.#{str}")
+    #    end
   end
 
   def s_site_root
-#    if mystory?
+    #    if mystory?
     site_url
-#    else
-#      sub_site('blog')
-#    end
+    #    else
+    #      sub_site('blog')
+    #    end
   end
 
 
@@ -140,6 +143,10 @@ module ApplicationHelper
     raw "#{link_to t('_setting'), my_site + admin_path} >&nbsp;"
   end
 
+  def group_nav
+    raw "#{link_to t('_setting'), literary_society_admin_path} >&nbsp;"
+  end
+
   def portal_body_query
     blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
     notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
@@ -180,12 +187,12 @@ module ApplicationHelper
   def insert_emotion
     image_tag("http://mystory.b0.upaiyun.com/images/emotions/209.gif", onclick: 'initEmotions()', id: 'emotions_link', style: 'vertical-align: middle;cursor: pointer;', title: t('insert_emotion'))
   end
-#  def all_emotions
-#    e_hash = emotions_hash
-#    r_emotions = ""
-#    e_hash.each do |id, v|
-#      r_emotions += content_tag(:li, image_tag(emotion_image_url(id), :alt => nil, :onclick => "emotionClicked('#{v}')"), :title => v)
-#    end
-#    raw r_emotions
-#  end
+  #  def all_emotions
+  #    e_hash = emotions_hash
+  #    r_emotions = ""
+  #    e_hash.each do |id, v|
+  #      r_emotions += content_tag(:li, image_tag(emotion_image_url(id), :alt => nil, :onclick => "emotionClicked('#{v}')"), :title => v)
+  #    end
+  #    raw r_emotions
+  #  end
 end

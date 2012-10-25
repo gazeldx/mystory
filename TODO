@@ -44,3 +44,5 @@ Editor Page!
 update_users_clicks_count
 update_user_comments_count
 update_group_users_count
+/groups/add_user_by_super
+/groups/assign_admin

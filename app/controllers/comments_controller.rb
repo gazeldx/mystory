@@ -7,15 +7,9 @@ class CommentsController < ApplicationController
   def comments
     blogcomments = @user.blogcomments.includes(:blog => :user).order('updated_at DESC').limit(30)
     notecomments = @user.notecomments.includes(:note => :user).order('updated_at DESC').limit(30)
+    memoircomments = @user.memoircomments.includes(:memoir => :user).order('updated_at DESC').limit(5)
     photocomments = @user.photocomments.includes(:photo => [:album => :user]).order('updated_at DESC').limit(10)
-    comments =  blogcomments | notecomments | photocomments
-
-    memoir = Memoir.find_by_user_id(@user.id)
-    unless memoir.nil?
-      memoir_comments = memoir.memoircomments
-      comments = comments | memoir_comments
-    end
-
+    comments =  blogcomments | notecomments | memoircomments | photocomments
     @comments = comments.sort_by{|x| x.updated_at}.reverse!
     
     @view_comments_at = @user.view_comments_at

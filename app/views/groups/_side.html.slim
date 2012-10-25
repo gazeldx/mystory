@@ -19,10 +19,10 @@ br
       | &nbsp;·&nbsp;·&nbsp;·
       span.mi
         | &nbsp;共#{@group.member_count}#{t('ren')}
-        /= link_to "共#{@group.member_count}#{t('ren')}", following_path
+    - groups_userss = @group.groups_userss
     - @group.users.sort_by{|x| x.followers_num}.reverse!.take(20).each do |guy|
       dl.obu
         dt
           = user_pic guy
         dd
-          = link_to guy.name, site(guy), target: '_blank'
+          | #{link_to guy.name, site(guy), target: '_blank'}#{groups_userss.detect{|i| i.user_id == guy.id}.is_admin ? "(#{t'_admin'})" : nil}

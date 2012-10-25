@@ -106,8 +106,11 @@ class HomeController < ApplicationController
       
       render 'groups/show', layout: 'group'
     elsif @group_flag
-      @groups = Group.where("member_count >= #{MIN_COLLEGE_MEMBER}").order("member_count DESC")
+      @groups = Group.where("member_count >= #{MIN_COLLEGE_MEMBER} AND stype=#{GROUPS_STYPE_SCHOOL}").order("member_count DESC")
       render 'groups/index', layout: 'help'
+    elsif @literarysociety_flag
+      @groups = Group.where("member_count >= #{MIN_COLLEGE_MEMBER} AND stype=#{GROUPS_STYPE_LITERARY}").order("member_count DESC")
+      render 'literarysociety/index', layout: 'help'
     else
       if @bbs_flag
         @boards = Board.order("created_at DESC")
