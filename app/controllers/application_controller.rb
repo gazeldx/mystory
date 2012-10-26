@@ -458,7 +458,6 @@ class ApplicationController < ActionController::Base
   end
 
   def group_admin
-    puts @group.inspect
     unless group_admin? @group
       redirect_to root_path
     end

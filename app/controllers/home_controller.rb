@@ -66,7 +66,6 @@ class HomeController < ApplicationController
       user_ids = GroupsUsers.select('user_id').where(group_id: @group.id)
       album_ids = Album.select('albums.id').where(user_id: user_ids)
       @photos = Photo.where(album_id: album_ids).includes(:album).order('photos.id desc').limit(5)
-      @board = @group.board
 
       t = params[:t]
       if t.nil?

@@ -26,8 +26,13 @@ module GroupsHelper
         url = assign_gcolumns_note_path(item)
       else
         url = assign_gcolumns_blog_path(item)
+      end      
+      if controller.controller_name == 'gcolumns'
+        link_name = t('good_article_manage')
+      else
+        link_name = t('set_as_good_article')
       end
-      span_c = raw " #{link_to t('set_as_good_article'), url, target: '_blank', style: 'color: red; !important'}"
+      span_c = raw " #{link_to link_name, url, target: '_blank', style: 'color: red; !important'}"
       content_tag(:span, span_c)
     end
   end

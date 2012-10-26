@@ -225,6 +225,7 @@ zh:
   s_assign_columns: "将博文“%{w}”归类到："
 
   set_as_good_article: "设为优质文章"
+  good_article_manage: "优质文章管理"
 
   blog_master: "博主"
   most_fans: "最多粉丝"

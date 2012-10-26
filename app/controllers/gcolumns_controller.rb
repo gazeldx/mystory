@@ -1,14 +1,14 @@
 class GcolumnsController < ApplicationController
-  before_filter :group_admin
+  before_filter :group_admin, :except => [:show]
   skip_before_filter :url_authorize
   layout 'help'
 
   def show
     @gcolumn = Gcolumn.find(params[:id])
-#    @blogs = @gcolumn.blogs.includes(:user).page(params[:page]).order("created_at DESC")
-#    notes = @column.notes.includes(:user).page(params[:page]).order("created_at DESC")
-#    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
-    render layout: 'portal'
+    notes = @gcolumn.notes.where(:is_draft => false).limit(30).order("created_at DESC")
+    blogs = @gcolumn.blogs.where(:is_draft => false).limit(20).order("created_at DESC")
+    @all = (notes | blogs).sort_by{|x| x.created_at}.reverse!
+    render 'groups/gcolumn_show', layout: 'group'
   end
 
   def new
@@ -26,8 +26,6 @@ class GcolumnsController < ApplicationController
   def create
     @gcolumn = Gcolumn.new(params[:gcolumn])
     @gcolumn.group = @group
-    puts "------------"
-    puts @gcolumn.inspect
     if @gcolumn.save
       flash[:notice] = t'create_succ'
     else

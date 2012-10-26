@@ -21,13 +21,11 @@ class GroupsController < ApplicationController
 #  end
 
   def create
-    puts params[:group].inspect
     @_group = Group.new(params[:group])
     if @_group.save
       flash[:notice] = t'create_succ'
       redirect_to new_group_path
     else
-      #      flash[:error] = t'taken', w: @group.name
       render :new
     end
   end

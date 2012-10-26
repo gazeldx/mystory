@@ -4,9 +4,9 @@
     | &nbsp;·&nbsp;·&nbsp;·
     span.mi
       | &nbsp;
-      = link_to '进入', sub_site('bbs') + "/#{@board.id}", target: '_blank'
+      = link_to '进入', sub_site('bbs') + "/#{@group.board.id}", target: '_blank'
   span.mi
-    - @board.posts.limit(15).each do |post|
+    - @group.board.posts.limit(15).each do |post|
       - etc = t('all_characters', w: post.content.size) if post.content.size>100
       = link_to post.title[0..18], "#{sub_site('bbs')}/p/#{post.id}", title: post.content[0..100]+etc.to_s, target: '_blank'
       .rr

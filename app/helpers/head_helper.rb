@@ -92,7 +92,19 @@ module HeadHelper
   end
 
   def group_banner_text
-    @group.name
+#    puts controller_path
+#    puts controller.action_name
+    if controller_path == 'gcolumns'
+      if controller.action_name == 'show'
+        t('a_b', a: @gcolumn.name, b: @group.name)
+      end
+    else
+      if controller.action_name == 'about'
+        t('a_b', a: t('_introduce'), b: @group.name)
+      else
+        @group.name
+      end
+    end
   end
 
   def navigation_item(title,link)
