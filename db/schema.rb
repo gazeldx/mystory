@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019021304) do
+ActiveRecord::Schema.define(:version => 20121028084715) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -253,6 +253,17 @@ ActiveRecord::Schema.define(:version => 20121019021304) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "stype",      :default => 0
+    t.text     "body"
+    t.string   "parameters"
+    t.integer  "user_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
 
   create_table "notecates", :force => true do |t|
     t.string   "name"
@@ -513,6 +524,8 @@ ActiveRecord::Schema.define(:version => 20121019021304) do
     t.integer  "comments_count",         :default => 0
     t.string   "contact"
     t.integer  "clicks_count",           :default => 0
+    t.datetime "view_messages_at",       :default => '2012-10-28 08:51:24'
+    t.integer  "unread_messages_count",  :default => 0
   end
 
 end

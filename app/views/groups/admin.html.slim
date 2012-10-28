@@ -3,7 +3,9 @@
   h1
     = link_to @group.name, site(@group)
   = link_to t('detail_info'), edit_about_path
-  | &nbsp;&nbsp;&nbsp;
   br
   a href=gcolumns_path
     = t'column.edit'
+  br
+  a href=send_group_invitation_path
+    = t'invite_somebody_to_group'

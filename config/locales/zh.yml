@@ -14,6 +14,7 @@ zh:
   _search: "搜索"
   up: "上移"
   down: "下移"
+  _send: "发送"
   succ: "%{w}成功！"
   new_succ: "添加成功！"
   create_succ: "创建成功！"
@@ -70,6 +71,9 @@ zh:
   send_letters_to: "给%{w}发私信"
   send_letter: "发私信"
   letters_box: "私信箱"
+
+  all_my_messages: "我的所有消息"
+
   whose_signature: "签名档_%{w}"
   signature_tip: "提示：签名档内容会显示在您发的所有文章结尾。"
   _signature: "签名档"
@@ -275,6 +279,10 @@ zh:
 
   #litsoc:
   literary_society: "文学社"
+  invite_somebody_to_group: "邀请他人入社"
+  _send_invitation: "发送邀请信"
+  _literary_invitation_body: "%{w}邀请你加入，网址：%{url}"
+  _user_in_litsoc: "用户已在社内，不必发送邀请信。"
   
   #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
@@ -544,6 +552,8 @@ zh:
   send: "发送"
   _introduce: "介绍"
   literary_society_settings: "文学社设置"
+  user_not_exist: "用户不存在！"
+  join_group_succ: "加入文学社成功！"
   
   album:
     add: "创建新影集"
@@ -598,6 +608,7 @@ zh:
   domain_setted_desc: " 可用“%{w}”登录，如需更改，请私信站长"
   real_name: "真实姓名"
   name_desc: "会显示在主页。“%{w}”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
+
 
   num_error: "个原因"
   op_error: "使得操作未成功"

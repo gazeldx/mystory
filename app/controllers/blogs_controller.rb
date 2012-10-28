@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_filter :super_admin, :only => [:assign_columns, :do_assign_columns]
-  before_filter :group_admin, :only => [:assign_gcolumns, :do_assign_gcolumns]
+  before_filter :group_admin,  :only => [:assign_gcolumns, :do_assign_gcolumns]
   skip_before_filter :url_authorize, :only => [:assign_columns, :do_assign_columns]
   cache_sweeper :blog_sweeper
   
@@ -37,6 +37,7 @@ class BlogsController < ApplicationController
         if @cate_rblogs.size < 4
           @cate_blogs = @user.blogs.where(["category_id = ? AND is_draft = false AND id not in (?)", @blog.category_id, not_in_blogs_ids]).order('created_at DESC').limit(4 - @cate_rblogs.size)
         end
+#        puts @blog.as_json
         
         if @m
           render mr, layout: 'm/portal'
@@ -148,7 +149,7 @@ class BlogsController < ApplicationController
   def destroy
     @blog = Blog.find(params[:id])
     user = @blog.user
-#    expire_fragment('columns_articles') if @blog.columns.size > 0
+    #    expire_fragment('columns_articles') if @blog.columns.size > 0
     @blog.destroy
     user.update_attribute('blogs_count', user.blogs_count - 1)
     flash[:notice] = t'delete_succ'
@@ -166,15 +167,15 @@ class BlogsController < ApplicationController
     render json: @blog.as_json()
   end
 
-#  def archives
-#    #ISSUE to_char maybe only work in postgresql
-#    @items = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
-#  end
+  #  def archives
+  #    #ISSUE to_char maybe only work in postgresql
+  #    @items = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')").order('t_date DESC')
+  #  end
 
-#  def month
-#    @blogs = @user.blogs.includes([:tags, :category]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
-#    archives
-#  end
+  #  def month
+  #    @blogs = @user.blogs.includes([:tags, :category]).where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).page(params[:page])
+  #    archives
+  #  end
 
   def lovezhangtingting
     params[:id] = 2
@@ -208,9 +209,13 @@ class BlogsController < ApplicationController
 
   def assign_gcolumns
     @blog = Blog.find(params[:id])
-    @columns = @blog.gcolumns.where(:group_id => @group.id)
-    @all_columns = @group.gcolumns.order("created_at")
-    render layout: 'help'
+    if @group.users.include? @blog.user
+      @columns = @blog.gcolumns.where(:group_id => @group.id)
+      @all_columns = @group.gcolumns.order("created_at")
+      render layout: 'help'
+    else
+      r404
+    end
   end
 
   def do_assign_gcolumns
@@ -219,7 +224,7 @@ class BlogsController < ApplicationController
     BlogsGcolumns.delete_all ["blog_id = ? AND gcolumn_id in (?)", blog.id, gcolumn_ids]
     unless params[:column].nil?
       params[:column].each do |k, v|
-#        blog.gcolumns << Gcolumn.find(k) this method no created_at.
+        #        blog.gcolumns << Gcolumn.find(k) this method no created_at.
         BlogsGcolumns.create(blog: blog, gcolumn: Gcolumn.find(k), created_at: Time.now)
       end
     end

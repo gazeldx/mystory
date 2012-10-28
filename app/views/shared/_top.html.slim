@@ -13,6 +13,9 @@
           a href=qq_connect_path
             = image_tag("#{YUN_IMAGES}qq_login_2.png", title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说', width: 120, height: 24)
         - if !@user.nil? and @user.id==session[:id]
+          - if @user.unread_messages_count > 0
+            span id='all_unread_messages' title="#{@user.unread_messages_count}条消息"
+              = link_to "新消息#{@user.unread_messages_count}", messages_path
           - all_count = @user.unread_commented_count + @user.unread_comments_count
           - if all_count > 0
             span id='all_unread_comments' title="#{all_count}条评论"

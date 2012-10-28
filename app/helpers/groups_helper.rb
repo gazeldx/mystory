@@ -36,4 +36,8 @@ module GroupsHelper
       content_tag(:span, span_c)
     end
   end
+
+  def group_good_articles
+    (@group.notes.limit(3) | @group.blogs.limit(4)).sort_by{|x| x.created_at}.reverse!
+  end
 end

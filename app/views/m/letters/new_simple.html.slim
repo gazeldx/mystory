@@ -5,7 +5,7 @@
   = error_msg @letter
   .postmb.bg-c
     | 输入对方个性域名
-    = text_field_tag :domain, params[:domain], class: 'required'
+    = text_field_tag :domain, params[:domain], size: 10, class: 'required'
     | 或从#{link_to "我关注的人", following_path}、#{link_to "我的粉丝", followers_path}中选择
     br
     | 输入私信内容：
@@ -15,6 +15,4 @@
     = f.text_area :body, size: "50x2", class: 'required'
     br
     = f.submit t('send')
-- content_for :javascript do
-  = javascript_include_tag "jquery.validate"
 = validate_form 'new_letter'

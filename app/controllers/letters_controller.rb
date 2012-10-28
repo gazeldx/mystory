@@ -112,27 +112,18 @@ class LettersController < ApplicationController
     end
   end
 
-  def build_tags(item)
-    unless params[:tags].to_s == ''
-      tags_a = params[:tags].split ' '
-      tags_a.uniq.reverse.each do |tag|
-        _tag = item.tags.build
-        _tag.name = tag
-      end
-    end
-  end
-
+  #Not used
   def destroy
     @letter = Letter.find(params[:id])
     @letter.destroy
     redirect_to letters_path, notice: t('delete_succ')
   end
 
-  def click_show_letter
-    @letter = Letter.find(params[:id])
-    @letter.content = summary_comment_style(@letter, 4000)
-    render json: @letter.as_json()
-  end
+#  def click_show_letter
+#    @letter = Letter.find(params[:id])
+#    @letter.content = summary_comment_style(@letter, 4000)
+#    render json: @letter.as_json()
+#  end
 
   private
   def couple_letters

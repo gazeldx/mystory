@@ -144,7 +144,7 @@ module ApplicationHelper
   end
 
   def group_nav
-    raw "#{link_to t('_setting'), literary_society_admin_path} >&nbsp;"
+    raw "#{link_to t('manage'), literary_society_admin_path} >&nbsp;"
   end
 
   def portal_body_query

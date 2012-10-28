@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   layout 'help'
   skip_before_filter :url_authorize
+  before_filter :group_admin, :only => [:send_invitation, :do_send_invitation]
   before_filter :super_admin, :only => [:new, :create, :edit, :update, :update_group_users_count, :group_index, :assign_admin, :do_assign_admin, :do_add_user_by_super]
 
   def group_index
@@ -15,10 +16,10 @@ class GroupsController < ApplicationController
     @_group = Group.find(params[:id])
   end
 
-#  def edit_about
-##    @_group = Group.find_by_domain(@group.domain)
-#    render layout: 'help'
-#  end
+  #  def edit_about
+  ##    @_group = Group.find_by_domain(@group.domain)
+  #    render layout: 'help'
+  #  end
 
   def create
     @_group = Group.new(params[:group])
@@ -52,7 +53,7 @@ class GroupsController < ApplicationController
   def do_add_user_by_super
     group = Group.find(params[:group_id])
     user = User.find(params[:user_id])
-    GroupsUsers.create(group: group, user: user, created_at: Time.now)
+    GroupsUsers.create(group: group, user: user)
   end
 
   def do_assign_admin
@@ -69,5 +70,35 @@ class GroupsController < ApplicationController
 
   def about
     render layout: 'group_about'
+  end
+
+  def send_invitation
+    @message = Message.new
+  end
+
+  def do_send_invitation
+    user = User.find_by_domain(params[:domain])
+    if user.nil?
+      flash[:error] = t'user_not_exist'
+      redirect_to send_group_invitation_path
+    elsif @group.users.include? user
+      flash[:error] = t'_user_in_litsoc'
+      redirect_to send_group_invitation_path
+    else
+      @message = Message.create(:stype => MESSAGES_STYPE_GROUP_INVITATION, :body => t('_literary_invitation_body', w: @group.name, url: site(@group)), :parameters => "{\"group_id\":#{@group.id}}", :user => user)
+      if @message.save
+        user.update_attribute('unread_messages_count', user.unread_messages_count + 1)
+        redirect_to send_group_invitation_path, notice: t('succ', w: t('_send'))
+      else
+        render :send_invitation
+      end
+    end
+  end
+  
+  def accept_invitation
+    group = Group.find(params[:group_id])
+    GroupsUsers.create(group: group, user: @user)
+    expire_fragment("head_user_groups_#{session[:id]}")
+    redirect_to site(group), notice: t('join_group_succ')
   end
 end

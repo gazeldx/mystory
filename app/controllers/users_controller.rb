@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       build_enjoys @_user
       build_school_groups(@_user, params[:user][:school])
       @_user.update_attributes(params[:user])
-      expire_fragment("head_user_schools_#{session[:id]}")
+      expire_fragment("head_user_groups_#{session[:id]}")
       redirect_to m_or(my_site + profile_path), notice: t('update_succ')
     else
       _render :edit
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
 
   def recommended
     if Rails.env.production?
-      ids = [172, 186, 180, 188, 154, 254, 255, 262, 171, 157, 167, 44, 147, 170, 162, 4, 224, 236]
+      ids = [172, 186, 279, 180, 188, 154, 277, 254, 255, 262, 171, 157, 167, 44, 147, 170, 162, 4, 224, 236]
     else
       ids = [172, 186, 180, 188, 154, 171, 157, 167, 147, 170, 162, 4, 185]
     end

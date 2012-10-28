@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
 
   has_many :letters, :dependent => :destroy#sent letters
   has_many :received_letters, :class_name => 'Letter', :foreign_key => 'recipient_id', :dependent => :destroy
+  has_many :messages, :dependent => :destroy
 
   acts_as_followable
   acts_as_follower
@@ -81,5 +82,6 @@ class User < ActiveRecord::Base
     self.view_comments_at = Time.now
     self.view_commented_at = Time.now
     self.view_letters_at = Time.now
+    self.view_messages_at = Time.now
   end
 end

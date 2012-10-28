@@ -13,6 +13,16 @@
         = link_to post.user.name, site(post.user), target: '_blank'
       br
 br
+- if @group.stype==GROUPS_STYPE_LITERARY
+  #event
+    h2
+      | 最近精华文章
+    span.mi
+      - good_articles = group_good_articles
+      - good_articles.each do |item|
+        = s_link_to item
+        br
+  br
 #friend
     h2
       = t('member_of_group', w: @group.name)
