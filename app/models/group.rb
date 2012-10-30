@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :groups_userss, :dependent => :destroy
   has_many :gcolumns, :dependent => :destroy
+  has_many :gads, :dependent => :destroy
   has_many :notes, :through => :gcolumns
   has_many :blogs, :through => :gcolumns
   belongs_to :board

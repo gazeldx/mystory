@@ -62,6 +62,7 @@ class HomeController < ApplicationController
         render mn(:user), layout: 'm/portal'
       end
     elsif @group != nil
+      @gads = @group.gads.order('created_at')
       #      user_ids = @group.users.select('users.id')
       user_ids = GroupsUsers.select('user_id').where(group_id: @group.id)
       album_ids = Album.select('albums.id').where(user_id: user_ids)

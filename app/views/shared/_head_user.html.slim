@@ -56,7 +56,7 @@
       - litsocs = @user.groups.where("stype = #{GROUPS_STYPE_LITERARY}").order('groups_users.created_at')
       - litsocs.each_with_index do |group, i|
         - if group.member_count >= MIN_COLLEGE_MEMBER
-          = link_to group.name, site(group), target: '_blank', title: "#{group.name}成员，点此访问#{group.name}专页"
+          = link_to group.name, site(group), target: '_blank', title: "#{group.name}成员，点此访问“#{group.name}”"
           | &nbsp;
     - if !follow_flag and @user.id != session[:id] and myself.following?(@user)
       = link_to t('unfollow'), unfollow_path

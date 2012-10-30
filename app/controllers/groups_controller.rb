@@ -101,4 +101,5 @@ class GroupsController < ApplicationController
     expire_fragment("head_user_groups_#{session[:id]}")
     redirect_to site(group), notice: t('join_group_succ')
   end
+
 end

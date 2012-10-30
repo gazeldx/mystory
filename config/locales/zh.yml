@@ -250,7 +250,12 @@ zh:
     memo_memo: "可以填写文学社章程、成员名号等"
     member: "成员"
   member_of_group: "%{w}的成员"
-    
+
+  gad:
+    new: "新建广告"
+    edit: "编辑广告"
+    image: "广告图片"
+
   column:
     name: "栏目名称"
     edit: "栏目管理"
@@ -283,6 +288,12 @@ zh:
   _send_invitation: "发送邀请信"
   _literary_invitation_body: "%{w}邀请你加入，网址：%{url}"
   _user_in_litsoc: "用户已在社内，不必发送邀请信。"
+  ad_management: "管理广告位"
+  upload_ad_image: "上传广告图片"
+  update_ad_image: "更改广告信息"
+  delete_ad_image: "删除广告图片"
+  ad_image_not_upload: "图片尚未上传"
+
   
   #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"

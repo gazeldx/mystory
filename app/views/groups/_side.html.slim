@@ -21,8 +21,19 @@ br
       - good_articles = group_good_articles
       - good_articles.each do |item|
         = s_link_to item
+        span.rr
+          = link_to item.user.name, site(item.user), target: '_blank'
         br
   br
+  - ad_side = @gads.select{|ad| ad.stype == GADS_STYPE_SIDE}
+  - unless ad_side.blank?
+    - ad_side.each_with_index do |ad, i|
+      - if ad.url==''
+        - style = 'cursor:default'
+      a href=ad.url target='_blank' style=style
+        = image_tag ad.avatar.side.url
+      br
+    br
 #friend
     h2
       = t('member_of_group', w: @group.name)
