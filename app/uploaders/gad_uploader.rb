@@ -14,7 +14,7 @@ class GadUploader < CarrierWave::Uploader::Base
   process :resize_to_limit => [960, nil]
 
   version :side do
-    process :resize_to_limit => [300, nil]
+    process :resize_to_limit => [310, nil]
   end
 
   def extension_white_list

@@ -8,10 +8,10 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <%= yield :ad_top %>
     <%= render 'shared/top' %>
     <div id='wrapper'>
       <div id='content'>
-        <%= yield :ad_top %>
         <div class='grid-16-8 clearfix'>
           <div class='article'>
             <div id='db-usr-profile' style="height:30px!important;">

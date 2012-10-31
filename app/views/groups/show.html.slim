@@ -11,13 +11,16 @@
   = title t('ss_home_page_recommend', w: @group.name)
 - else
   = title t('ss_home_page', w: @group.name, s: site_name)
+- @gads = @group.gads.order('created_at')
 - content_for :ad_top do
   - ad_top = @gads.select{|ad| ad.stype == GADS_STYPE_TOP}
-  - ad_top.each_with_index do |ad, i|
-    - if ad.url==''
-      - style = 'cursor:default'
-    a href=ad.url target='_blank' style=style
-      = image_tag ad.avatar.url
-    br
+  - unless ad_top.blank?
+    div align='center'
+      - ad_top.each_with_index do |ad, i|
+        - if ad.url==''
+          - style = 'cursor:default'
+        a href=ad.url target='_blank' style=style
+          = image_tag ad.avatar.url
+        br
 = render 'groups/photo_square'
 = render 'groups/creation_list'
