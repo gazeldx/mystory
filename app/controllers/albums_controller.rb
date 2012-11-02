@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.where(["user_id = ?", @user.id]).order("created_at")
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def show
@@ -11,7 +11,7 @@ class AlbumsController < ApplicationController
     @album = Album.find(params[:id])
     if @album.user == @user
       @photos = Photo.where(["album_id = ?", params[:id]]).order("created_at DESC").page(params[:page])
-      render mr, layout: 'm/portal' if @m
+      render mr, :layout => 'm/portal' if @m
     else
       r404
     end
@@ -58,13 +58,13 @@ class AlbumsController < ApplicationController
 
   def select_albums
     @albums = Album.where(["user_id = ?", session[:id]]).order("created_at")
-    render layout: 'select_photos'
+    render :layout => 'select_photos'
   end
 
   def select_photos
     @album = Album.find(params[:album_id])
     @photos = Photo.where(["album_id = ?", params[:album_id]]).page(params[:page]).order("created_at DESC")
-    render layout: 'select_photos'
+    render :layout => 'select_photos'
   end
 
 end
