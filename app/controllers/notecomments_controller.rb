@@ -50,7 +50,7 @@ class NotecommentsController < ApplicationController
 
   def m_reply
     @comment = Notecomment.find(params[:comment_id])
-    render 'm/shared/m_reply', layout: 'm/portal'
+    render 'm/shared/m_reply', :layout => 'm/portal'
   end
 
   def do_m_notecomments_reply
@@ -61,7 +61,7 @@ class NotecommentsController < ApplicationController
 
     user = comment.user
     user.update_attribute('unread_comments_count', user.unread_comments_count + 1)
-    render 'm/shared/notice', layout: 'm/portal'
+    render 'm/shared/notice', :layout => 'm/portal'
   end
 
   def destroy
@@ -69,7 +69,7 @@ class NotecommentsController < ApplicationController
     @comment = @note.notecomments.find(params[:id])
     @comment.destroy
     Note.update_all("comments_count = #{@note.comments_count - 1}", "id = #{@note.id}")
-    flash[:notice] = t('delete_succ1', w: t('comment'))
+    flash[:notice] = t('delete_succ1', :w => t('comment'))
     redirect_to note_path(@note) + "#notice"
   end
 

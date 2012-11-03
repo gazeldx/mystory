@@ -26,7 +26,7 @@ class IdolsController < ApplicationController
       @idol.destroy
     end
     expire_cache
-    redirect_to idols_path, notice: t('delete_succ')
+    redirect_to idols_path, :notice => t('delete_succ')
   end
 
   def show
@@ -40,7 +40,7 @@ class IdolsController < ApplicationController
       @tags = (tags + @tags).uniq
       @notetags = (notetags + @notetags).uniq
     end
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   private
@@ -84,11 +84,11 @@ class IdolsController < ApplicationController
 #
 #    respond_to do |format|
 #      if @idol.update_attributes(params[:idol])
-#        format.html { redirect_to @idol, notice: 'Idol was successfully updated.' }
+#        format.html { redirect_to @idol, :notice => 'Idol was successfully updated.' }
 #        format.json { head :ok }
 #      else
 #        format.html { render action: "edit" }
-#        format.json { render json: @idol.errors, status: :unprocessable_entity }
+#        format.json { render json: @idol.errors, :status => :unprocessable_entity }
 #      end
 #    end
 #  end

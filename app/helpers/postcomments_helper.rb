@@ -13,10 +13,10 @@ module PostcommentsHelper
       if _replied_body.size > 20
         etc = "..."
       end
-      rbody = raw t('reply_what', u: user.name, w: _replied_body[0..20] + etc.to_s)
+      rbody = raw t('reply_what', u: user.name, :w => _replied_body[0..20] + etc.to_s)
       _replied_body_no_html = comment_no_html(_replied_body)
       t_rbody = content_tag(:span, rbody, title: _replied_body_no_html[0..400])
-      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', w: (user.name + t_rbody))}")
+      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', :w => (user.name + t_rbody))}")
     end
     
     c_info = ""
@@ -40,14 +40,14 @@ module PostcommentsHelper
           u_c.each_with_index do |reply, j|
             c_info += "<br/>"
             if j==0
-              c_info += content_tag(:span, raw(t('building_who_reply', w: @post.user.name, r: reply_info(reply))), :class => "writer_reply")
+              c_info += content_tag(:span, raw(t('building_who_reply', :w => @post.user.name, r: reply_info(reply))), :class => "writer_reply")
             else
               c_info += t('_add_reply', r: reply_info(reply))
             end
           end
         else
           c_info += "<br/>"
-          c_info += content_tag(:span, raw(t('building_who_reply', w: @post.user.name, r: reply_info(e))), :class => "writer_reply")
+          c_info += content_tag(:span, raw(t('building_who_reply', :w => @post.user.name, r: reply_info(e))), :class => "writer_reply")
         end
       end
     end
@@ -58,7 +58,7 @@ module PostcommentsHelper
     s = body.scan(/repU(\d{1,}) /)
     s.each do |n|
       user = User.find(n[0])
-      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', w: user.name)}")
+      body = body.sub(/repU#{n[0]} /, "#{t('_reply_who', :w => user.name)}")
     end
 
     c_info = ""
@@ -82,14 +82,14 @@ module PostcommentsHelper
           u_c.each_with_index do |reply, j|
             c_info += "<br/>"
             if j==0
-              c_info += content_tag(:span, raw(t('building_who_reply', w: @post.user.name, r: reply_info(reply))), :class => "writer_reply")
+              c_info += content_tag(:span, raw(t('building_who_reply', :w => @post.user.name, r: reply_info(reply))), :class => "writer_reply")
             else
               c_info += t('_add_reply', r: reply_info(reply))
             end
           end
         else
           c_info += "<br/>"
-          c_info += content_tag(:span, raw(t('building_who_reply', w: @post.user.name, r: reply_info(e))), :class => "writer_reply")
+          c_info += content_tag(:span, raw(t('building_who_reply', :w => @post.user.name, r: reply_info(e))), :class => "writer_reply")
         end
       end
     end

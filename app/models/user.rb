@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   has_many :letters, :dependent => :destroy#sent letters
   has_many :received_letters, :class_name => 'Letter', :foreign_key => 'recipient_id', :dependent => :destroy
   has_many :messages, :dependent => :destroy
+  has_many :columns, :dependent => :destroy
 
   acts_as_followable
   acts_as_follower

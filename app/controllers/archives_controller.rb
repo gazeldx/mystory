@@ -17,7 +17,7 @@ class ArchivesController < ApplicationController
     when 'blog'
       @all = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month]).order('created_at desc')
     when 'photo'
-      @all = Photo.where(album_id: @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album).order('id desc')
+      @all = Photo.where(:album_id => @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album).order('id desc')
     when 'recommend'
       rnotes = @user.rnotes.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:note => :user)
       rblogs = @user.rblogs.where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:blog => :user)
@@ -26,7 +26,7 @@ class ArchivesController < ApplicationController
     else
       notes = @user.notes.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month])
       blogs = @user.blogs.where("to_char(created_at, 'YYYYMM') = ? and is_draft = false", params[:month])
-      photos = Photo.where(album_id: @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album)
+      photos = Photo.where(:album_id => @user.albums).where("to_char(created_at, 'YYYYMM') = ?", params[:month]).includes(:album)
       @all = (notes | blogs | photos).sort_by{|x| x.created_at}.reverse!
     end
     

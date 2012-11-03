@@ -15,9 +15,9 @@ class NotesController < ApplicationController
     if session[:id] == @user.id
       @note = Note.new
       if @m
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
-        render layout: 'new'
+        render :layout => 'new'
       end
     else
       r404
@@ -42,7 +42,7 @@ class NotesController < ApplicationController
         if @category.name == ""
           flash[:error] = t'notecate.name_must_notnull'
         else
-          flash[:error] = t('taken', w: @category.name)
+          flash[:error] = t('taken', :w => @category.name)
         end
         _render :new
       end
@@ -105,9 +105,9 @@ class NotesController < ApplicationController
         end
         
         if @m
-          render mr, layout: 'm/portal'
+          render mr, :layout => 'm/portal'
         else
-          render layout: 'note'
+          render :layout => 'note'
         end
       else
         r404
@@ -120,9 +120,9 @@ class NotesController < ApplicationController
     @tags = @note.notetags.map { |t| t.name }.join(" ")
     authorize @note
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
-      render layout: 'new'
+      render :layout => 'new'
     end
   end
 
@@ -178,7 +178,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
     @columns = @note.columns
     @all_columns = Column.order("created_at")
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def do_assign_columns
@@ -195,7 +195,7 @@ class NotesController < ApplicationController
       end
     end
     expire_fragment('columns_articles')
-    redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
+    redirect_to column_blogs_path, :notice => t('succ', :w => t('assign_columns'))
   end
 
   def assign_gcolumns
@@ -203,7 +203,7 @@ class NotesController < ApplicationController
     if @group.users.include? @note.user
       @columns = @note.gcolumns.where(:group_id => @group.id)
       @all_columns = @group.gcolumns.order("created_at")
-      render layout: 'help'
+      render :layout => 'help'
     else
       r404
     end
@@ -215,10 +215,10 @@ class NotesController < ApplicationController
     GcolumnsNotes.delete_all ["note_id = ? AND gcolumn_id in (?)", note.id, gcolumn_ids]
     unless params[:column].nil?
       params[:column].each do |k, v|
-        GcolumnsNotes.create(note: note, gcolumn: Gcolumn.find(k), created_at: Time.now)
+        GcolumnsNotes.create(note: note, :gcolumn => Gcolumn.find(k), :created_at => Time.now)
       end
     end
-    redirect_to assign_gcolumns_note_path(note), notice: t('succ', w: t('assign_columns'))
+    redirect_to assign_gcolumns_note_path(note), :notice => t('succ', :w => t('assign_columns'))
   end
 
   private

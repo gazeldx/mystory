@@ -51,7 +51,7 @@ class MemoircommentsController < ApplicationController
     @comment = @memoir.memoircomments.find(params[:id])
     @comment.destroy
     Memoir.update_all({:comments_count => @memoir.comments_count - 1}, {:id => @memoir.id})
-    flash[:notice] = t('delete_succ1', w: t('comment'))
+    flash[:notice] = t('delete_succ1', :w => t('comment'))
     redirect_to memoirs_path + "#notice"
   end
 

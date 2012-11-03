@@ -12,7 +12,7 @@ class LikeController < ApplicationController
       notes = Note.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(15).order('id desc')
       blogs = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(10).order('id desc')
       album_ids = Album.where(user_id: following_ids)
-      photos = Photo.where(album_id: album_ids).includes(:album => :user).limit(6).order('photos.id desc')
+      photos = Photo.where(:album_id => album_ids).includes(:album => :user).limit(6).order('photos.id desc')
       #TODO why so many rnotes query sql?
       rnotes = Rnote.where(user_id: following_ids).includes(:note => :user).limit(8).order('id desc')
       rblogs = Rblog.where(user_id: following_ids).includes(:blog => :user).limit(8).order('id desc')      
@@ -32,7 +32,7 @@ class LikeController < ApplicationController
       @all = Blog.where(user_id: following_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('id desc')
     elsif t == 'photo'
       album_ids = Album.where(user_id: following_ids)
-      @all = Photo.where(album_id: album_ids).includes(:album => :user).limit(50).page(params[:page]).order('photos.id desc')
+      @all = Photo.where(:album_id => album_ids).includes(:album => :user).limit(50).page(params[:page]).order('photos.id desc')
     elsif t == 'updated'
       notes = Note.where(user_id: following_ids).where("updated_at > created_at AND is_draft = false").includes(:user).limit(20).order('updated_at desc')
       blogs = Blog.where(user_id: following_ids).where("updated_at > created_at AND is_draft = false").includes(:user).limit(20).order('updated_at desc')
@@ -50,7 +50,7 @@ class LikeController < ApplicationController
       @all = (rnotes | rblogs | rphotos).sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
     end
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     end
   end
 end

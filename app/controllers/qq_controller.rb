@@ -15,7 +15,7 @@ class QqController < ApplicationController
     if session[:id].nil?
       @user = User.find_by_openid(qq.openid)
       if @user.nil?
-        render 'login_or_new', layout: 'help'
+        render 'login_or_new', :layout => 'help'
       else
         @user.update_attributes(:token => session[:token])
         proc_session
@@ -51,7 +51,7 @@ class QqController < ApplicationController
       qq = Qq.new
       @qq_user = qq.get_user_info(qq.gen_auth(session[:token], session[:openid]))
     end
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def cancel_qq_bind

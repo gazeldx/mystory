@@ -9,13 +9,13 @@ class LettersController < ApplicationController
     @recipient = User.find_by_domain(params[:domain])
     @letter.recipient_id = @recipient.id
     couple_letters
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def new_simple
     @letter = Letter.new
     @letter.user_id = session[:id]
-    render mr, layout: 'm/portal'
+    render mr, :layout => 'm/portal'
   end
 
   def create
@@ -58,7 +58,7 @@ class LettersController < ApplicationController
     @view_letters_at = @user.view_letters_at
     @user.update_attribute('view_letters_at', Time.now)
     @user.update_attribute('unread_letters_count', 0)
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def sent
@@ -81,7 +81,7 @@ class LettersController < ApplicationController
       @comments_uids = comments.collect{|c| c.user_id}
       ids = @user.letters.select('id')
       @rletters = @user.r_letters.where(id: ids).limit(5)
-      render layout: 'memoir_share'
+      render :layout => 'memoir_share'
     else
       r404
     end
@@ -116,7 +116,7 @@ class LettersController < ApplicationController
   def destroy
     @letter = Letter.find(params[:id])
     @letter.destroy
-    redirect_to letters_path, notice: t('delete_succ')
+    redirect_to letters_path, :notice => t('delete_succ')
   end
 
 #  def click_show_letter

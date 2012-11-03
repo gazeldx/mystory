@@ -43,7 +43,7 @@ class PostcommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.postcomments.find(params[:id])
     @comment.destroy
-    flash[:notice] = t('delete_succ1', w: t('comment'))
+    flash[:notice] = t('delete_succ1', :w => t('comment'))
     redirect_to post_path(@post) + "#notice"
   end
 

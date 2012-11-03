@@ -84,11 +84,11 @@ class CustomizesController < ApplicationController
   ##
   ##    respond_to do |format|
   ##      if @customize.save
-  ##        format.html { redirect_to @customize, notice: 'Customize was successfully created.' }
-  ##        format.json { render json: @customize, status: :created, location: @customize }
+  ##        format.html { redirect_to @customize, :notice => 'Customize was successfully created.' }
+  ##        format.json { render json: @customize, :status => :created, location: @customize }
   ##      else
   ##        format.html { render action: "new" }
-  ##        format.json { render json: @customize.errors, status: :unprocessable_entity }
+  ##        format.json { render json: @customize.errors, :status => :unprocessable_entity }
   ##      end
   ##    end
   ##  end
@@ -100,11 +100,11 @@ class CustomizesController < ApplicationController
   #
   #    respond_to do |format|
   #      if @customize.update_attributes(params[:customize])
-  #        format.html { redirect_to @customize, notice: 'Customize was successfully updated.' }
+  #        format.html { redirect_to @customize, :notice => 'Customize was successfully updated.' }
   #        format.json { head :ok }
   #      else
   #        format.html { render action: "edit" }
-  #        format.json { render json: @customize.errors, status: :unprocessable_entity }
+  #        format.json { render json: @customize.errors, :status => :unprocessable_entity }
   #      end
   #    end
   #  end

@@ -20,7 +20,7 @@ class MenusController < ApplicationController
     if @menu.save
       flash[:notice] = t'create_succ'
     else
-      flash[:error] = t'taken', w: @menu.name
+      flash[:error] = t'taken', :w => @menu.name
     end
     redirect_to menus_path
   end
@@ -28,7 +28,7 @@ class MenusController < ApplicationController
   def update
     @menu = Menu.find(params[:id])
     if @menu.update_attributes(params[:menu])
-      redirect_to edit_menu_path, notice: t('update_succ')
+      redirect_to edit_menu_path, :notice => t('update_succ')
     else
       render :edit
     end

@@ -8,7 +8,7 @@ class GcolumnsController < ApplicationController
     notes = @gcolumn.notes.where(:is_draft => false).limit(30).order("created_at DESC")
     blogs = @gcolumn.blogs.where(:is_draft => false).limit(20).order("created_at DESC")
     @all = (notes | blogs).sort_by{|x| x.created_at}.reverse!
-    render 'groups/gcolumn_show', layout: 'group'
+    render 'groups/gcolumn_show', :layout => 'group'
   end
 
   def new
@@ -29,7 +29,7 @@ class GcolumnsController < ApplicationController
     if @gcolumn.save
       flash[:notice] = t'create_succ'
     else
-      flash[:error] = t'taken', w: @gcolumn.name
+      flash[:error] = t'taken', :w => @gcolumn.name
     end
     redirect_to gcolumns_path
   end
@@ -37,7 +37,7 @@ class GcolumnsController < ApplicationController
   def update
     @gcolumn = Gcolumn.find(params[:id])
     if @gcolumn.update_attributes(params[:gcolumn])
-      redirect_to edit_gcolumn_path, notice: t('update_succ')
+      redirect_to edit_gcolumn_path, :notice => t('update_succ')
     else
       render :edit
     end

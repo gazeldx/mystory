@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
     end
     comments = ""
     if count > 0
-      comments = ' ' + t('comments', w: count)
+      comments = ' ' + t('comments', :w => count)
     end
     if something.content.size > size
       tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + comments + "</a>"
@@ -251,7 +251,7 @@ class ApplicationController < ActionController::Base
   def auto_emotion(mystr)
     emotions = emotions_hash
     reg_str = ""
-    emotions.each_with_index do |(id), i|
+    emotions.each_with_index do |id, i|
       reg_str += t("emotions.t#{id}")
       reg_str += "|" if i < emotions.size - 1
     end
@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
   def ignore_emotions(mystr)
     emotions = emotions_hash
     reg_str = ""
-    emotions.each_with_index do |(id), i|
+    emotions.each_with_index do |id, i|
       reg_str += t("emotions.t#{id}")
       reg_str += "|" if i < emotions.size - 1
     end
@@ -354,7 +354,7 @@ class ApplicationController < ActionController::Base
     if item.is_a? Blog
       "<a href='#{site(item.user) + blog_path(item)}' target='_blank'>#{item.title[0..21]}</a>"
     else
-      "<a href='#{site(item.user) + note_path(item)}' target='_blank'>#{item.title.to_s=='' ? t('s_note', w: item.created_at.strftime(t'date_format')) : item.title[0..21]}</a>"
+      "<a href='#{site(item.user) + note_path(item)}' target='_blank'>#{item.title.to_s=='' ? t('s_note', :w => item.created_at.strftime(t'date_format')) : item.title[0..21]}</a>"
     end
   end
 
@@ -421,7 +421,7 @@ class ApplicationController < ActionController::Base
   
 
   def r404
-    render text: t('page_not_found', w: site_name), status: 404
+    render :text => t('page_not_found', :w => site_name), :status => 404
   end
 
   #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
@@ -436,7 +436,7 @@ class ApplicationController < ActionController::Base
 
   def _render(str)
     if @m
-      render mn(str), layout: 'm/portal'
+      render mn(str), :layout => 'm/portal'
     else
       render str
     end
@@ -485,7 +485,7 @@ class ApplicationController < ActionController::Base
   def archives_months_count
     _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
     _bs = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
-    _ps = Photo.where(album_id: @user.albums).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
+    _ps = Photo.where(:album_id => @user.albums).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
     a = _ns + _bs + _ps
     h = Hash.new(0)
     a.each do |x|

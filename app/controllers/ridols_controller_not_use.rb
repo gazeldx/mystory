@@ -44,11 +44,11 @@ class RidolsController < ApplicationController
 
     respond_to do |format|
       if @ridol.save
-        format.html { redirect_to @ridol, notice: 'Ridol was successfully created.' }
-        format.json { render json: @ridol, status: :created, location: @ridol }
+        format.html { redirect_to @ridol, :notice => 'Ridol was successfully created.' }
+        format.json { render json: @ridol, :status => :created, location: @ridol }
       else
         format.html { render action: "new" }
-        format.json { render json: @ridol.errors, status: :unprocessable_entity }
+        format.json { render json: @ridol.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class RidolsController < ApplicationController
 
     respond_to do |format|
       if @ridol.update_attributes(params[:ridol])
-        format.html { redirect_to @ridol, notice: 'Ridol was successfully updated.' }
+        format.html { redirect_to @ridol, :notice => 'Ridol was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @ridol.errors, status: :unprocessable_entity }
+        format.json { render json: @ridol.errors, :status => :unprocessable_entity }
       end
     end
   end

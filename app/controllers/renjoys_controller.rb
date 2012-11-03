@@ -44,11 +44,11 @@ class RenjoysController < ApplicationController
 
     respond_to do |format|
       if @renjoy.save
-        format.html { redirect_to @renjoy, notice: 'Renjoy was successfully created.' }
-        format.json { render json: @renjoy, status: :created, location: @renjoy }
+        format.html { redirect_to @renjoy, :notice => 'Renjoy was successfully created.' }
+        format.json { render json: @renjoy, :status => :created, location: @renjoy }
       else
         format.html { render action: "new" }
-        format.json { render json: @renjoy.errors, status: :unprocessable_entity }
+        format.json { render json: @renjoy.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class RenjoysController < ApplicationController
 
     respond_to do |format|
       if @renjoy.update_attributes(params[:renjoy])
-        format.html { redirect_to @renjoy, notice: 'Renjoy was successfully updated.' }
+        format.html { redirect_to @renjoy, :notice => 'Renjoy was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @renjoy.errors, status: :unprocessable_entity }
+        format.json { render json: @renjoy.errors, :status => :unprocessable_entity }
       end
     end
   end

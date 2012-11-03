@@ -29,7 +29,7 @@ class BlogsController < ApplicationController
 
         cate_blogs_ids = @user.blogs.where(:is_draft => false).where(["category_id = ?", @blog.category_id]).select('id')
         #TODO limit 4 make @all_cate_rblogs became a bug because view @blog.title may not shown as jian!
-        @all_cate_rblogs = @user.r_blogs.where(id: cate_blogs_ids).order('created_at DESC').limit(4)
+        @all_cate_rblogs = @user.r_blogs.where(:id => cate_blogs_ids).order('created_at DESC').limit(4)
         @cate_rblogs = @all_cate_rblogs - [@blog_pre, @blog_next, @blog]
         not_in_blogs_ids = @cate_rblogs.collect{|c| c.id} << @blog.id
         not_in_blogs_ids = not_in_blogs_ids << @blog_pre.id unless @blog_pre.nil?
@@ -40,9 +40,9 @@ class BlogsController < ApplicationController
 #        puts @blog.as_json
         
         if @m
-          render mr, layout: 'm/portal'
+          render mr, :layout => 'm/portal'
         else
-          render layout: 'blog'
+          render :layout => 'blog'
         end
       else
         r404
@@ -54,9 +54,9 @@ class BlogsController < ApplicationController
     if session[:id] == @user.id
       @blog = Blog.new
       if @m
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
-        render layout: 'new'
+        render :layout => 'new'
       end
     else
       r404
@@ -68,9 +68,9 @@ class BlogsController < ApplicationController
     @tags = @blog.tags.map { |t| t.name }.join(" ")
     authorize @blog
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
-      render layout: 'new'
+      render :layout => 'new'
     end
   end
 
@@ -92,7 +92,7 @@ class BlogsController < ApplicationController
         if @category.name == ""
           flash[:error] = t'category.name_must_notnull'
         else
-          flash[:error] = t('taken',w: @category.name)
+          flash[:error] = t('taken', :w => @category.name)
         end
         _render :new
       end
@@ -164,7 +164,7 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     add_view_count
     @blog.content = summary_style(@blog, 4000)
-    render json: @blog.as_json()
+    render :json => @blog.as_json()
   end
 
   #  def archives
@@ -187,24 +187,25 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @columns = @blog.columns
     @all_columns = Column.order("created_at")
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def do_assign_columns
     blog = Blog.find(params[:id])
-    columns = blog.columns
-    columns.each do |column|
-      expire_fragment("portal_column_#{column.id}")
+#    columns = blog.columns.where(:user_id => session[:id])
+    column_ids = blog.columns.where(:user_id => session[:id]).select('id').map{|x| x.id}
+    column_ids.each do |id|
+      expire_fragment("portal_column_#{id}")
     end
-    columns.destroy_all
+    BlogsColumns.delete_all ["blog_id = ? AND column_id in (?)", blog.id, column_ids]
     unless params[:column].nil?
       params[:column].each do |k, v|
         blog.columns << Column.find(k)
         expire_fragment("portal_column_#{k}")
       end
     end
-    expire_fragment('columns_articles')
-    redirect_to column_blogs_path, notice: t('succ', w: t('assign_columns'))
+    expire_fragment("columns_articles_#{session[:id]}")
+    redirect_to column_blogs_path, :notice => t('succ', :w => t('assign_columns'))
   end
 
   def assign_gcolumns
@@ -212,7 +213,7 @@ class BlogsController < ApplicationController
     if @group.users.include? @blog.user
       @columns = @blog.gcolumns.where(:group_id => @group.id)
       @all_columns = @group.gcolumns.order("created_at")
-      render layout: 'help'
+      render :layout => 'help'
     else
       r404
     end
@@ -225,18 +226,18 @@ class BlogsController < ApplicationController
     unless params[:column].nil?
       params[:column].each do |k, v|
         #        blog.gcolumns << Gcolumn.find(k) this method no created_at.
-        BlogsGcolumns.create(blog: blog, gcolumn: Gcolumn.find(k), created_at: Time.now)
+        BlogsGcolumns.create(:blog => blog, :gcolumn => Gcolumn.find(k), :created_at => Time.now)
       end
     end
-    redirect_to assign_gcolumns_blog_path(blog), notice: t('succ', w: t('assign_columns'))
+    redirect_to assign_gcolumns_blog_path(blog), :notice => t('succ', :w => t('assign_columns'))
   end
 
   def latest
-    render layout: 'portal'
+    render :layout => 'portal'
   end
 
   def hotest
-    render layout: 'portal'
+    render :layout => 'portal'
   end
 
   private

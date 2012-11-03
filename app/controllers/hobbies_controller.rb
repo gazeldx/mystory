@@ -26,7 +26,7 @@ class HobbiesController < ApplicationController
       @hobby.destroy
     end
     expire_cache
-    redirect_to hobbies_path, notice: t('delete_succ')
+    redirect_to hobbies_path, :notice => t('delete_succ')
   end
 
   private

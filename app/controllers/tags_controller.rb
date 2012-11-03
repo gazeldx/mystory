@@ -14,7 +14,7 @@ class TagsController < ApplicationController
     if @user.nil?
       #      @tags = Tag.where(["name = ?", params[:name]]).includes(:blog => [:user, :tags]).limit(100)
       #      @notetags = Notetag.where(["name = ?", params[:name]]).includes(:note => [:user, :notetags]).limit(100)
-      #      render 'show_portal', layout: 'help'
+      #      render 'show_portal', :layout => 'help'
     else
       tags_index
       @blogtags = @user.tags.where(["name = ?", params[:name]]).includes(:blog => [:user, :tags]).limit(100).order('blog_id DESC')

@@ -135,22 +135,22 @@ module BlogsHelper
     @albums.each_with_index do |album, i|
       r += "[#{album.name}] "
     end
-    r += " " + t('user_meta_album_c', w: @user.name, s: site_name)
+    r += " " + t('user_meta_album_c', :w => @user.name, s: site_name)
     raw r
   end
 
   def meta_desc_album_show
-    r = "#{t('_w_album_of', a: @album.name, w: @user.name)} "
+    r = "#{t('_w_album_of', a: @album.name, :w => @user.name)} "
     unless @photos.blank?
       r += t('_album_desc', n: @photos.size)
     end
-    r += " #{@album.description}#{t('_metadesc_plug', w: site_name)}"
+    r += " #{@album.description}#{t('_metadesc_plug', :w => site_name)}"
     raw r
   end
 
   def meta_desc_photo
-    r = t('_upload_at', w: @photo.created_at.strftime(t'date_format'))
-    r += " " + t('photo_title_desc', p: @photo.description, a: @album.name, w: @user.name, s: site_name)
+    r = t('_upload_at', :w => @photo.created_at.strftime(t'date_format'))
+    r += " " + t('photo_title_desc', p: @photo.description, a: @album.name, :w => @user.name, s: site_name)
   end
 
   def meta_desc_user
@@ -160,43 +160,43 @@ module BlogsHelper
     #      r += "#{hobby.name} "
     #    end
     r += @user.memo.to_s=='' ? "": " #{t'_simple_desc'}#{@user.memo}"
-    r += " " + t('user_meta_desc_c', w: @user.name, s: site_name)
+    r += " " + t('user_meta_desc_c', :w => @user.name, s: site_name)
     raw r
   end
 
   def blog_read_comment_recommend item
-    views_link = link_to t('views_count', w: item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
-    comments_link = "#{link_to t('comments_count', w: item.comments_count), blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
-    #    recommend_link = "#{link_to t('recommend_count', w: item.recommend_count), blog_path(item) + '#recommend', target: '_blank'}&nbsp;&nbsp;" if item.recommend_count > 0
+    views_link = link_to t('views_count', :w => item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
+    comments_link = "#{link_to t('comments_count', :w => item.comments_count), blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
+    #    recommend_link = "#{link_to t('recommend_count', :w => item.recommend_count), blog_path(item) + '#recommend', target: '_blank'}&nbsp;&nbsp;" if item.recommend_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views_link}"
     content_tag(:span, _content, :class => 'rr')
   end
 
   def note_read_comment_recommend item
-    views_link = link_to t('views_count', w: item.views_count), note_path(item), target: '_blank' if item.views_count > 0
-    comments_link = "#{link_to t('comments_count', w: item.comments_count), note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
+    views_link = link_to t('views_count', :w => item.views_count), note_path(item), target: '_blank' if item.views_count > 0
+    comments_link = "#{link_to t('comments_count', :w => item.comments_count), note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views_link}"
     content_tag(:span, _content, :class => 'rr')
   end
 
   def blog_read_comment_recommend_user item
-    views_link = link_to t('views_count', w: item.views_count), site(item.user) + blog_path(item), target: '_blank' if item.views_count > 0
-    comments_link = "#{link_to t('comments_count', w: item.comments_count), site(item.user) + blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
+    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + blog_path(item), target: '_blank' if item.views_count > 0
+    comments_link = "#{link_to t('comments_count', :w => item.comments_count), site(item.user) + blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views_link}"
     content_tag(:span, _content, :class => 'rr')
   end
 
   def note_read_comment_recommend_user item
-    views_link = link_to t('views_count', w: item.views_count), site(item.user) + note_path(item), target: '_blank' if item.views_count > 0
-    comments_link = "#{link_to t('comments_count', w: item.comments_count), site(item.user) + note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
+    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + note_path(item), target: '_blank' if item.views_count > 0
+    comments_link = "#{link_to t('comments_count', :w => item.comments_count), site(item.user) + note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views_link}"
     content_tag(:span, _content, :class => 'rr')
   end
 
   def read_comment_recommend_show item
-    views = t('views_count', w: item.views_count)
-    comments = "#{link_to t('comments_count', w: item.comments_count), '#comments'}&nbsp;&nbsp;" if item.comments_count > 0
-    #recommend = "#{link_to t('recommend_count', w: item.recommend_count), 'javascript:;', onclick: ''}&nbsp;&nbsp;" if item.recommend_count > 0
+    views = t('views_count', :w => item.views_count)
+    comments = "#{link_to t('comments_count', :w => item.comments_count), '#comments'}&nbsp;&nbsp;" if item.comments_count > 0
+    #recommend = "#{link_to t('recommend_count', :w => item.recommend_count), 'javascript:;', onclick: ''}&nbsp;&nbsp;" if item.recommend_count > 0
     _content = raw "#{recommend_etc item}&nbsp;&nbsp;#{comments}#{views}"
     content_tag(:span, _content, :class => 'rr')
   end
@@ -205,7 +205,7 @@ module BlogsHelper
     if item.is_a? Blog
       link_to raw(item.title[0..21]), site(item.user) + blog_path(item), target: '_blank'
     elsif item.is_a? Note
-      link_to item.title.to_s=='' ? t('s_note', w: item.created_at.strftime(t'date_format')) : raw(item.title[0..21]), site(item.user) + note_path(item), target: '_blank'
+      link_to item.title.to_s=='' ? t('s_note', :w => item.created_at.strftime(t'date_format')) : raw(item.title[0..21]), site(item.user) + note_path(item), target: '_blank'
     else
       link_to raw(item.title[0..21]), site(item.user) + memoirs_path, target: '_blank'
     end

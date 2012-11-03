@@ -16,9 +16,9 @@ class CategoriesController < ApplicationController
     @category = Category.new(params[:category])
     @category.user_id = session[:id]
     if @category.save
-      flash[:notice] = t('create_succ',w: t('_category'))
+      flash[:notice] = t('create_succ', :w => t('_category'))
     else
-      flash[:error] = t'taken',w: @category.name
+      flash[:error] = t'taken', :w => @category.name
     end
     redirect_to categories_path
   end
@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update_attributes(params[:category])
-      redirect_to edit_category_path, notice: t('update_succ')
+      redirect_to edit_category_path, :notice => t('update_succ')
     else
       render :edit
     end
@@ -50,10 +50,10 @@ class CategoriesController < ApplicationController
       @categories = @user.categories.order('created_at')
       if @m
         @blogs = @category.blogs.where(:is_draft => false).page(params[:page]).order("created_at DESC")
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
         @blogs = @category.blogs.includes(:tags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
-        render layout: 'memoir'
+        render :layout => 'memoir'
       end
     else
       r404

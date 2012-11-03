@@ -54,7 +54,7 @@ class BlogcommentsController < ApplicationController
 
   def m_reply
     @comment = Blogcomment.find(params[:comment_id])
-    render 'm/shared/m_reply', layout: 'm/portal'
+    render 'm/shared/m_reply', :layout => 'm/portal'
   end
 
   def do_m_blogcomments_reply
@@ -65,7 +65,7 @@ class BlogcommentsController < ApplicationController
 
     user = comment.user
     user.update_attribute('unread_comments_count', user.unread_comments_count + 1)
-    render 'm/shared/notice', layout: 'm/portal'
+    render 'm/shared/notice', :layout => 'm/portal'
   end
 
   #A little bug: not update unread_comments_count.It is hard to do so.
@@ -74,14 +74,14 @@ class BlogcommentsController < ApplicationController
     @comment = @blog.blogcomments.find(params[:id])
     @comment.destroy
     Blog.update_all("comments_count = #{@blog.comments_count - 1}", "id = #{@blog.id}")
-    flash[:notice] = t('delete_succ1', w: t('comment'))
+    flash[:notice] = t('delete_succ1', :w => t('comment'))
     redirect_to blog_path(@blog) + "#notice"
   end
 
   def like
     comment = Blogcomment.find(params[:id])
     like_it comment
-    render json: comment.as_json
+    render :json => comment.as_json
   end
 
 end

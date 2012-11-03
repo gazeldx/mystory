@@ -12,13 +12,13 @@ class SchoolnamesController < ApplicationController
     group = Group.find_by_name_and_stype(params[:groupname], 1)
     #The defferences between .create! and create is excepton of create! will throw but create will not throw.So if use create here ,it will show create succ ,but reality it is not created.
     Schoolname.create!(name: params[:name], group: group)
-    redirect_to schoolnames_path, notice: t('new_succ')
+    redirect_to schoolnames_path, :notice => t('new_succ')
   end
 
   def destroy    
     @schoolname = Schoolname.find(params[:id])
     @schoolname.destroy
-    redirect_to schoolnames_path, notice: t('delete_succ')
+    redirect_to schoolnames_path, :notice => t('delete_succ')
   end
 
 end

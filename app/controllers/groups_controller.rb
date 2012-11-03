@@ -18,7 +18,7 @@ class GroupsController < ApplicationController
 
   #  def edit_about
   ##    @_group = Group.find_by_domain(@group.domain)
-  #    render layout: 'help'
+  #    render :layout => 'help'
   #  end
 
   def create
@@ -69,7 +69,7 @@ class GroupsController < ApplicationController
   end
 
   def about
-    render layout: 'group_about'
+    render :layout => 'group_about'
   end
 
   def send_invitation
@@ -85,10 +85,10 @@ class GroupsController < ApplicationController
       flash[:error] = t'_user_in_litsoc'
       redirect_to send_group_invitation_path
     else
-      @message = Message.create(:stype => MESSAGES_STYPE_GROUP_INVITATION, :body => t('_literary_invitation_body', w: @group.name, url: site(@group)), :parameters => "{\"group_id\":#{@group.id}}", :user => user)
+      @message = Message.create(:stype => MESSAGES_STYPE_GROUP_INVITATION, :body => t('_literary_invitation_body', :w => @group.name, url: site(@group)), :parameters => "{\"group_id\":#{@group.id}}", :user => user)
       if @message.save
         user.update_attribute('unread_messages_count', user.unread_messages_count + 1)
-        redirect_to send_group_invitation_path, notice: t('succ', w: t('_send'))
+        redirect_to send_group_invitation_path, :notice => t('succ', :w => t('_send'))
       else
         render :send_invitation
       end
@@ -99,7 +99,7 @@ class GroupsController < ApplicationController
     group = Group.find(params[:group_id])
     GroupsUsers.create(group: group, user: @user)
     expire_fragment("head_user_groups_#{session[:id]}")
-    redirect_to site(group), notice: t('join_group_succ')
+    redirect_to site(group), :notice => t('join_group_succ')
   end
 
 end

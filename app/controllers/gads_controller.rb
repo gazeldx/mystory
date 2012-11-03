@@ -25,7 +25,7 @@ class GadsController < ApplicationController
   def update
     @gad = Gad.find(params[:id])
     if @gad.update_attributes(params[:gad])
-      redirect_to gads_path, notice: t('update_succ')
+      redirect_to gads_path, :notice => t('update_succ')
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class GadsController < ApplicationController
   def destroy
     @gad = Gad.find(params[:id])
     @gad.destroy
-    redirect_to gads_path, notice: t('delete_succ')
+    redirect_to gads_path, :notice => t('delete_succ')
   end
   
 end

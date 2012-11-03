@@ -51,7 +51,7 @@ class PhotocommentsController < ApplicationController
     @comment = @photo.photocomments.find(params[:id])
     @comment.destroy
     Photo.update_all({:comments_count => @photo.comments_count - 1}, {:id => @photo.id})
-    flash[:notice] = t('delete_succ1', w: t('comment'))
+    flash[:notice] = t('delete_succ1', :w => t('comment'))
     redirect_to album_photo_path(@photo.album, @photo) + "#notice"
   end
 

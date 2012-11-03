@@ -8,7 +8,7 @@ class BoardsController < ApplicationController
     else
       @group = @board.group
       @posts = @board.posts.includes([:user, :postcomments]).page(params[:page]).order('replied_at DESC')
-      render mr, layout: 'm/portal' if @m
+      render mr, :layout => 'm/portal' if @m
     end
   end
 
@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
       r404
     else
       @fboards = Fboard.where("board_id = ?", params[:id]).includes(:user).order('created_at DESC')
-      render mr, layout: 'm/portal' if @m
+      render mr, :layout => 'm/portal' if @m
     end
   end
 
@@ -46,7 +46,7 @@ class BoardsController < ApplicationController
       fboard.board_id = @board.id
       fboard.save
     else
-      flash[:error] = t'taken', w: @board.name
+      flash[:error] = t'taken', :w => @board.name
     end
     redirect_to root_path
   end

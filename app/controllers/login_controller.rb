@@ -3,9 +3,9 @@ class LoginController < ApplicationController
 
   def to_login
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
-      render layout: 'portal_simple'
+      render :layout => 'portal_simple'
     end
   end
 
@@ -78,7 +78,7 @@ class LoginController < ApplicationController
 
   def login_now
     proc_session
-    flash[:notice] = t('succ', w: t('_login'))
+    flash[:notice] = t('succ', :w => t('_login'))
     redirect_to m_or(my_site + like_path)
   end
   

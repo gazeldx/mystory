@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   def index
     @users = User.paginate(:page => params[:page], :per_page => 100).order("created_at DESC")
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def show
@@ -14,32 +14,32 @@ class UsersController < ApplicationController
     @enjoy_musics = @user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
     @enjoy_movies = @user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
-      render layout: 'memoir'
+      render :layout => 'memoir'
     end
   end
 
   def edit
     @_user = User.find(session[:id])
     if @_user.email.match(/.*@mystory\.cc/)
-      render :edit_bind, layout: 'like'
+      render :edit_bind, :layout => 'like'
     else
       @schools = @_user.groups.where("stype = 1").select('name').order('groups_users.created_at').map { |t| t.name }.join(" ")
       @enjoy_books = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_musics = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       @enjoy_movies = @_user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at').map { |t| t.enjoy.name }.join(" ")
       if @m
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
-        render layout: 'help'
+        render :layout => 'help'
       end
     end
   end
 
   def edit_password
     @_user = User.find(session[:id])
-    render layout: 'like'
+    render :layout => 'like'
   end
 
   def update
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
       build_school_groups(@_user, params[:user][:school])
       @_user.update_attributes(params[:user])
       expire_fragment("head_user_groups_#{session[:id]}")
-      redirect_to m_or(my_site + profile_path), notice: t('update_succ')
+      redirect_to m_or(my_site + profile_path), :notice => t('update_succ')
     else
       _render :edit
     end
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       @_user.reload
       session[:name] = @_user.name
       session[:domain] = @_user.domain
-      redirect_to m_or(my_site + edit_profile_path), notice: t('update_succ')
+      redirect_to m_or(my_site + edit_profile_path), :notice => t('update_succ')
     else
       _render :edit_bind
     end
@@ -92,7 +92,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def create
@@ -121,16 +121,16 @@ class UsersController < ApplicationController
   end
 
   def help
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def as_a_writer
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def signature
     @_user = User.find(session[:id])
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def update_signature
@@ -147,7 +147,7 @@ class UsersController < ApplicationController
     @_user = User.find(params[:id])
     @roles = @_user.roles
     @all_roles = Role.order("created_at DESC")
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def do_assign_roles
@@ -158,17 +158,17 @@ class UsersController < ApplicationController
         user.roles << Role.find(k)
       end
     end
-    redirect_to users_path, notice: t('succ', w: t('assign_roles'))
+    redirect_to users_path, :notice => t('succ', :w => t('assign_roles'))
   end
 
   def top
     @users = User.order('followers_num DESC').limit(50)
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def comments
     @users = User.order('comments_count DESC').limit(50)
-    render :top, layout: 'help'
+    render :top, :layout => 'help'
   end
 
   def recommended
@@ -179,7 +179,7 @@ class UsersController < ApplicationController
     end
     r = User.find(ids)
     @users = ids.map{|id| r.detect{|e| e.id == id}}
-    render :top, layout: 'help'
+    render :top, :layout => 'help'
   end
 
   #Will never been use after initialized. Can delete
@@ -254,7 +254,7 @@ class UsersController < ApplicationController
             group.save!
           end
         end
-        GroupsUsers.create(group: group, user: user, created_at: Time.now)
+        GroupsUsers.create(group: group, user: user, :created_at => Time.now)
       end
     end
   end

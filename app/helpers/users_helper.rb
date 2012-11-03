@@ -76,7 +76,7 @@ module UsersHelper
   #    end
   #    comments = ""
   #    if count > 0
-  #      comments = ' ' + t('comments', w: count)
+  #      comments = ' ' + t('comments', :w => count)
   #    end
   #    if tmp.size > size + 30
   #      if count == 0
@@ -164,7 +164,7 @@ module UsersHelper
     #    end
     #    comments = ""
     #    if count > 0
-    #      comments = ' ' + t('comments', w: count)
+    #      comments = ' ' + t('comments', :w => count)
     #    end
     if something.content.size > size
       raw tmp + t('etc') + (link_to t('whole_article'), something, target: '_blank')
@@ -185,7 +185,7 @@ module UsersHelper
     end
     #    comments = ""
     #    if count > 0
-    #      comments = ' ' + t('comments', w: count)
+    #      comments = ' ' + t('comments', :w => count)
     #    end
     if something.content.size > size
       #      raw tmp + t('etc') + (link_to t('whole_article') + comments, site(something.user) + path, target: '_blank')
@@ -205,7 +205,7 @@ module UsersHelper
     comments = ""
     count = something.comments_count
     if count > 0
-      comments = ' ' + t('comments', w: count)
+      comments = ' ' + t('comments', :w => count)
     end
     if something.content.size > size
       raw tmp + t('etc') + (link_to t('whole_article') + comments, m(site(something.user) + path))

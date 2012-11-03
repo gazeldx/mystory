@@ -17,7 +17,7 @@ class RolesController < ApplicationController
     if @role.save
       flash[:notice] = t'create_succ'
     else
-      flash[:error] = t'taken', w: @role.name
+      flash[:error] = t'taken', :w => @role.name
     end
     redirect_to roles_path
   end
@@ -25,7 +25,7 @@ class RolesController < ApplicationController
   def update
     @role = Role.find(params[:id])
     if @role.update_attributes(params[:role])
-      redirect_to edit_role_path, notice: t('update_succ')
+      redirect_to edit_role_path, :notice => t('update_succ')
     else
       render :edit
     end
@@ -63,6 +63,6 @@ class RolesController < ApplicationController
         role.menus << Menu.find(k)
       end
     end
-    redirect_to roles_path, notice: t('succ', w: t('assign_menus'))
+    redirect_to roles_path, :notice => t('succ', :w => t('assign_menus'))
   end
 end

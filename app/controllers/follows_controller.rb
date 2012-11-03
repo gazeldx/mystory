@@ -14,7 +14,7 @@ class FollowsController < ApplicationController
       expire_cache
       if @m
         flash[:notice] = t'follow_succ'
-        render 'm/shared/notice', layout: 'm/portal'
+        render 'm/shared/notice', :layout => 'm/portal'
       else
         redirect_to :back
       end
@@ -33,7 +33,7 @@ class FollowsController < ApplicationController
       expire_cache
       if @m
         flash[:notice] = t'unfollow_succ'
-        render 'm/shared/notice', layout: 'm/portal'
+        render 'm/shared/notice', :layout => 'm/portal'
       else
         redirect_to :back
       end
@@ -41,11 +41,11 @@ class FollowsController < ApplicationController
   end
 
   def followers
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def following
-    render mr, layout: 'm/portal' if @m
+    render mr, :layout => 'm/portal' if @m
   end
 
   def update_follow_count

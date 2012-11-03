@@ -3,7 +3,7 @@ class MemoirsController < ApplicationController
 
   def portal
 #    @memoirs = Memoirs.all.order('updated_at DESC')
-    render layout: 'portal'
+    render :layout => 'portal'
   end
 
   def index
@@ -14,14 +14,14 @@ class MemoirsController < ApplicationController
       @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
     end
-    render layout: 'memoir_share'
+    render :layout => 'memoir_share'
   end
   
   def create
     @memoir = Memoir.new(params[:memoir])
     @memoir.user_id = session[:id]
     if @memoir.save
-      redirect_to edit_memoirs_path, notice: t('create_succ')
+      redirect_to edit_memoirs_path, :notice => t('create_succ')
     else
       render :edit
     end

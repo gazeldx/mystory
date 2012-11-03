@@ -44,11 +44,11 @@ class EnjoysController < ApplicationController
 
     respond_to do |format|
       if @enjoy.save
-        format.html { redirect_to @enjoy, notice: 'Enjoy was successfully created.' }
-        format.json { render json: @enjoy, status: :created, location: @enjoy }
+        format.html { redirect_to @enjoy, :notice => 'Enjoy was successfully created.' }
+        format.json { render json: @enjoy, :status => :created, location: @enjoy }
       else
         format.html { render action: "new" }
-        format.json { render json: @enjoy.errors, status: :unprocessable_entity }
+        format.json { render json: @enjoy.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class EnjoysController < ApplicationController
 
     respond_to do |format|
       if @enjoy.update_attributes(params[:enjoy])
-        format.html { redirect_to @enjoy, notice: 'Enjoy was successfully updated.' }
+        format.html { redirect_to @enjoy, :notice => 'Enjoy was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @enjoy.errors, status: :unprocessable_entity }
+        format.json { render json: @enjoy.errors, :status => :unprocessable_entity }
       end
     end
   end

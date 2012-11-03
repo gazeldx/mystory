@@ -44,11 +44,11 @@ class RhobbiesController < ApplicationController
 
     respond_to do |format|
       if @rhobby.save
-        format.html { redirect_to @rhobby, notice: 'Rhobby was successfully created.' }
-        format.json { render json: @rhobby, status: :created, location: @rhobby }
+        format.html { redirect_to @rhobby, :notice => 'Rhobby was successfully created.' }
+        format.json { render json: @rhobby, :status => :created, location: @rhobby }
       else
         format.html { render action: "new" }
-        format.json { render json: @rhobby.errors, status: :unprocessable_entity }
+        format.json { render json: @rhobby.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class RhobbiesController < ApplicationController
 
     respond_to do |format|
       if @rhobby.update_attributes(params[:rhobby])
-        format.html { redirect_to @rhobby, notice: 'Rhobby was successfully updated.' }
+        format.html { redirect_to @rhobby, :notice => 'Rhobby was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @rhobby.errors, status: :unprocessable_entity }
+        format.json { render json: @rhobby.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -15,9 +15,9 @@ class NotecatesController < ApplicationController
     @notecate = Notecate.new(params[:notecate])
     @notecate.user_id = session[:id]
     if @notecate.save
-      flash[:notice] = t('create_succ',w: t('_notecate'))
+      flash[:notice] = t('create_succ', :w => t('_notecate'))
     else
-      flash[:error] = t('taken',w: @notecate.name)
+      flash[:error] = t('taken', :w => @notecate.name)
     end
     redirect_to notecates_path
   end
@@ -25,7 +25,7 @@ class NotecatesController < ApplicationController
   def update
     @notecate = Notecate.find(params[:id])
     if @notecate.update_attributes(params[:notecate])
-      redirect_to edit_notecate_path, notice: t('update_succ')
+      redirect_to edit_notecate_path, :notice => t('update_succ')
     else
       render :edit
     end
@@ -49,10 +49,10 @@ class NotecatesController < ApplicationController
       @notecates = @user.notecates.order('created_at')
       if @m
         @notes = @notecate.notes.where(:is_draft => false).page(params[:page]).order("created_at DESC")
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
         @notes = @notecate.notes.includes(:notetags).where(:is_draft => false).page(params[:page]).order("created_at DESC")
-        render layout: 'memoir'
+        render :layout => 'memoir'
       end
     else
       r404

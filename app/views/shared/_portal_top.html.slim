@@ -11,12 +11,10 @@
         .nav.nav2
           ul.navG
             li.navL
-              a.nava href=s_site_root
-                b
-                  | 首页
+              = editor_show_index
             - Column.order("created_at").limit(8).each_with_index do |column, i|
               li.navL
-                a.nava href=s_site_root+column_path(column)
+                a.nava href=editor_root+column_path(column)
                   b
                     = column.name
       .nav

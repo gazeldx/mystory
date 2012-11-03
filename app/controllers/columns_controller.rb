@@ -8,7 +8,7 @@ class ColumnsController < ApplicationController
 #    @blogs = @column.blogs.includes(:user).page(params[:page]).order("created_at DESC")
 #    notes = @column.notes.includes(:user).page(params[:page]).order("created_at DESC")
 #    @all = (@blogs | notes).sort_by{|x| x.created_at}.reverse!
-    render layout: 'portal'
+    render :layout => 'portal'
   end
 
   def new
@@ -28,7 +28,7 @@ class ColumnsController < ApplicationController
     if @column.save
       flash[:notice] = t'create_succ'
     else
-      flash[:error] = t'taken', w: @column.name
+      flash[:error] = t'taken', :w => @column.name
     end
     redirect_to columns_path
   end
@@ -36,7 +36,7 @@ class ColumnsController < ApplicationController
   def update
     @column = Column.find(params[:id])
     if @column.update_attributes(params[:column])
-      redirect_to edit_column_path, notice: t('update_succ')
+      redirect_to edit_column_path, :notice => t('update_succ')
     else
       render :edit
     end

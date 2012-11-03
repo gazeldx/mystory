@@ -8,9 +8,9 @@ class PhotosController < ApplicationController
       @intersection = rphotos.map{|x| x.photo_id} & photos.map{|x| x.id}
       all = photos | rphotos
       @all = all.sort_by{|x| x.created_at}.reverse!
-      render 'portal' , layout: 'portal_photos'
+      render 'portal' , :layout => 'portal_photos'
     else
-      @photos = Photo.where(album_id: @user.albums).includes(:album).limit(50).order('id desc')
+      @photos = Photo.where(:album_id => @user.albums).includes(:album).limit(50).order('id desc')
     end
   end
 
@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
       comments = @photo.photocomments
       @all_comments = (comments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
       @comments_uids = comments.collect{|c| c.user_id}
-      render layout: 'album_share'
+      render :layout => 'album_share'
     else
       r404
     end
@@ -48,7 +48,7 @@ class PhotosController < ApplicationController
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
       expire_cache
-      redirect_to album_path(@album), notice: t('photo_upload_succ')
+      redirect_to album_path(@album), :notice => t('photo_upload_succ')
     else
       render :new
     end
@@ -61,7 +61,7 @@ class PhotosController < ApplicationController
       @photo.album.update_attribute(:photo_id, @photo.id) if ("1" == params[:setascover])
       head :ok
     else
-      render json: @photo.errors, status: :unprocessable_entity
+      render json: @photo.errors, :status => :unprocessable_entity
     end
   end
 
@@ -71,13 +71,13 @@ class PhotosController < ApplicationController
     @photo.album.update_attribute(:photo_id, nil) if (@photo.album.photo_id == @photo.id)
     @photo.destroy
     expire_cache
-    redirect_to album_path(@photo.album), notice: t('delete_succ')
+    redirect_to album_path(@photo.album), :notice => t('delete_succ')
   end
 
   def m_new
     if session[:id] == @user.id
       @photo = Photo.new
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
       r404
     end
@@ -94,16 +94,16 @@ class PhotosController < ApplicationController
     @photo = @album.photos.build(params[:photo])
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
-      render mn('photo_uploaded'), layout: 'm/portal'
+      render mn('photo_uploaded'), :layout => 'm/portal'
     else
-      render mn('m_new'), layout: 'm/portal'
+      render mn('m_new'), :layout => 'm/portal'
     end
   end
 
   def m_update_photo
     @photo = Photo.find(params[:photo][:id])
     @photo.update_attributes(params[:photo])
-    redirect_to upload_photo_path, notice: t('photo_updated_succ')
+    redirect_to upload_photo_path, :notice => t('photo_updated_succ')
   end
 
   private

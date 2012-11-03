@@ -6,9 +6,9 @@ class PostsController < ApplicationController
     @post.board_id = request.env["HTTP_REFERER"].match(/.*\/(\d{1,})$/)[1]
     @board = Board.find(@post.board_id)
     if @m
-      render mr, layout: 'm/portal'
+      render mr, :layout => 'm/portal'
     else
-      render layout: 'post_new'
+      render :layout => 'post_new'
     end
   end
 
@@ -33,9 +33,9 @@ class PostsController < ApplicationController
       @all_comments = @post.postcomments.order('likecount DESC, created_at')
       @comments_uids = @all_comments.collect{|c| c.user_id}
       if @m
-        render mr, layout: 'm/portal'
+        render mr, :layout => 'm/portal'
       else
-        render layout: 'post_share'
+        render :layout => 'post_share'
       end
     else
       r404
@@ -53,13 +53,13 @@ class PostsController < ApplicationController
   def bbs
     @fboards = @user.fboards.includes(:board).order('created_at')
     @posts = @user.posts.includes([:postcomments, :board]).page(params[:page]).order('id DESC')
-    render layout: 'memoir'
+    render :layout => 'memoir'
   end
 
   def reply
     @fboards = @user.fboards.includes(:board).order('created_at')
     @postcomments = @user.postcomments.includes(:post => [:user, :board, :postcomments]).page(params[:page]).order('id DESC')
-    render layout: 'memoir'
+    render :layout => 'memoir'
   end
   
   private

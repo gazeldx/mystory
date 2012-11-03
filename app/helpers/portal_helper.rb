@@ -19,13 +19,32 @@ module PortalHelper
     p_ugc = content_tag(:p, raw(ugc_c), :class => 'ugc')
     b_c = ''
     cc = item.comments_count
-    b_c += content_tag(:span, (s_link_to_comments t('comments_2', w: cc), item)) if cc > 0
+    b_c += content_tag(:span, (s_link_to_comments t('comments_2', :w => cc), item)) if cc > 0
     b_c += "&nbsp;&nbsp;&nbsp;#{fresh_time item.created_at}"
     b_tm = content_tag(:b, raw(b_c), :class => 'tm mi')
     twiB = content_tag(:div, b_tm, :class => 'twiB')
     twiC = content_tag(:div, raw("#{p_ugc}#{twiB}"), :class => 'twiC')
 
     content_tag(:div, raw("#{twiM}#{twiT}#{twiC}"), :class => t_class, id: item.id)
+  end
+  
+  def editor_show_index
+    if @user.nil?
+      url = site_url
+      show = t'home_page'
+    else
+      url = editor_path
+      show = t('who_editor', w: @user.name)
+    end
+    content_tag(:a, content_tag(:b, show), :href => url, :class => 'nava')
+  end
+    
+  def editor_root
+    if @user.nil?
+      site_url
+    else
+      site(@user)
+    end
   end
 
 end

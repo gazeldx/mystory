@@ -25,7 +25,7 @@ class WeiboController < ApplicationController
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id.to_s)
       if @user.nil?
-        render 'login_or_new', layout: 'help'
+        render 'login_or_new', :layout => 'help'
       else
         @user.update_attributes(:atoken => session[:atoken], :asecret => session[:expires_at])
         proc_session
@@ -64,7 +64,7 @@ class WeiboController < ApplicationController
       @weibo_user = client.users.show_by_uid(@_user.weiboid)
 #      @weibo_user = verify_credentials
     end
-    render layout: 'help'
+    render :layout => 'help'
   end
 
   def cancel_weibo_bind

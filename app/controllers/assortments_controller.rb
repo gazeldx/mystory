@@ -13,9 +13,9 @@ class AssortmentsController < ApplicationController
     @assortment = Assortment.new(params[:assortment])
     @assortment.user_id=session[:id]
     if @assortment.save
-      flash[:notice] = t('create_succ',w: t('_assortment'))
+      flash[:notice] = t('create_succ', :w => t('_assortment'))
     else
-      flash[:error] = t'taken',w: @assortment.name
+      flash[:error] = t'taken', :w => @assortment.name
     end
     redirect_to assortments_path
   end
@@ -23,7 +23,7 @@ class AssortmentsController < ApplicationController
   def update
     @assortment = Assortment.find(params[:id])
     if @assortment.update_attributes(params[:assortment])
-      redirect_to edit_assortment_path, notice: t('update_succ')
+      redirect_to edit_assortment_path, :notice => t('update_succ')
     else
       render :edit
     end

@@ -23,7 +23,7 @@ div id='note-#{note.id}_full'
   - count = note.notecomments.size
   - if count > 0
     |
-    = link_to t('comments_', w: count), note
+    = link_to t('comments_', :w => count), note
   = recommend_etc note
   br
 
