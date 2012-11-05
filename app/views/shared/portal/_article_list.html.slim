@@ -1,6 +1,10 @@
-- @portal_list.each do |item|
-  = portal_show_item item
-- if ['index', 'latest'].include? controller.action_name
+- if @portal_list.blank?
+  .b
+    | 还没有收编任何文章，#{@user.name}主编啊，该加油了！
+- else
+  - @portal_list.each do |item|
+    = portal_show_item item
+- if ['index', 'latest'].include? controller.action_name and @user.nil?
   .x style='text-align: center;'
     a id='a_show_more' href='javascript:;' onclick="show_more_articles(#{@last_blog_id}, #{@last_note_id})"
       | 查看更多>

@@ -382,6 +382,8 @@ zh:
 #  web_desc: "这世界，我来过"
   editor: "主编"
   who_editor: "%{w}主编"
+  editor_home_title: "%{w}主编_我的故事"
+  editor_it: "收编"
   see_what_he_edit: "看他推荐的内容"
   note_post_succ: "日记发布成功！"
   note_drafted_succ: "日记已保存为草稿，其它人无法看到。查看草稿请点击右上角的“设置 - 所有草稿”。"

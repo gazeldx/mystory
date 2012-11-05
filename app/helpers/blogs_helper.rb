@@ -197,7 +197,7 @@ module BlogsHelper
     views = t('views_count', :w => item.views_count)
     comments = "#{link_to t('comments_count', :w => item.comments_count), '#comments'}&nbsp;&nbsp;" if item.comments_count > 0
     #recommend = "#{link_to t('recommend_count', :w => item.recommend_count), 'javascript:;', onclick: ''}&nbsp;&nbsp;" if item.recommend_count > 0
-    _content = raw "#{recommend_etc item}&nbsp;&nbsp;#{comments}#{views}"
+    _content = raw "#{editor_it item}&nbsp;&nbsp;#{recommend_etc item}&nbsp;&nbsp;#{comments}#{views}"
     content_tag(:span, _content, :class => 'rr')
   end
 

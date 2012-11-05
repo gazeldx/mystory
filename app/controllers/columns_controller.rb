@@ -65,7 +65,19 @@ class ColumnsController < ApplicationController
   #    redirect_to columns_path
   #  end
 
-  
+
+  def query_user_columns
+    columns = Column.where(:user_id => session[:id]).order('created_at DESC')
+    html = ''
+    columns.each do |column|
+      checkbox = "<input type='checkbox' name='columns' value=#{column.id}>"
+      html += "#{checkbox}#{column.name}&nbsp;&nbsp;"
+    end
+    puts html
+    html += "<input type='button' value='#{t'save'}' onclick='update_article_columns()'>"
+    render :text => html
+  end
+
   private
   def exchange_create_at
     m_c_at = @column.created_at

@@ -19,6 +19,13 @@ div id='note-#{@blog.id}'
     .mi
       = blog_info @blog
       = read_comment_recommend_show @blog
+    - unless session[:id].nil?
+      #editor_columns.rr style='display:none'
+        = form_tag 'update_article_columns' do
+          = hidden_field_tag 'blog_id', @blog.id
+          = hidden_field_tag 'type', 'blog'
+          span id='columns_box'
+          = submit_tag t('save')
   div id='note_#{@blog.id}_full'
     pre.note_full
       = style_it @blog.content

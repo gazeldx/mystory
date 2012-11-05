@@ -12,7 +12,8 @@
           ul.navG
             li.navL
               = editor_show_index
-            - Column.order("created_at").limit(8).each_with_index do |column, i|
+            - cuid = @user.nil? ? 2 : @user.id
+            - Column.where(:user_id => cuid).order("created_at").each_with_index do |column, i|
               li.navL
                 a.nava href=editor_root+column_path(column)
                   b

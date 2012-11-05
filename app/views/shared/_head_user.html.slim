@@ -36,7 +36,7 @@
       | &nbsp;|&nbsp;
       = link_to "#{t('_blog')}#{@user.blogs_count}", blogs_path
       | &nbsp;|&nbsp;
-      = link_to t('editor'), editor_path
+      = link_to t('editor'), editor_path, style: 'color:red !important'
   ul
     - follow_flag = session[:id].nil? || (@user.id != session[:id] && !myself.following?(@user))
     - if follow_flag

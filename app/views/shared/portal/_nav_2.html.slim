@@ -1,6 +1,9 @@
 .b
-  a href=photos_path target='_blank'
+  a href=site_url+photos_path target='_blank'
     = t'_photo'
+  | &nbsp;|&nbsp;
+  a href=site_url+"/biographies"
+    = t'_memoir'
   | &nbsp;|&nbsp;
   a href=sub_site('literarysociety') target='_blank'
     = t'literary_society'
@@ -11,26 +14,17 @@
   a href=sub_site('bbs') target='_blank'
     = t'_forum'
   | &nbsp;|&nbsp;
-  a href=users_top_path target='_blank'
+  a href=site_url+users_top_path target='_blank'
     = t'_user'
-  span style='float:right'
-    /- unless controller.action_name=='index'
-    /  a href=root_path
-    /    | 默认
-    /  | &nbsp;|&nbsp;
-    a href=hotest_path
-      | 最热
-    | &nbsp;|&nbsp;
-    a href=latest_path
-      | 最新
+  - if @user.nil?
+    span style='float:right'
+      a href=site_url+hotest_path
+        | 最热
+      | &nbsp;|&nbsp;
+      a href=site_url+latest_path
+        | 最新
 .b
   span.red
     | 公告：
     a href=sub_site('zhangjian')+"/notes/117" target='_blank'
       | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
-  span style='float:right'
-    a href=site_url+"/biographies"
-      = t'_memoir'
-    | &nbsp;|&nbsp;
-    a href=site_url+"/columns/7"
-      | 创富

@@ -11,7 +11,7 @@ module RecommendHelper
     end
     r_count = "#{t('recommend')}#{item.recommend_count==0 ? '' : '(' + item.recommend_count.to_s + ')' }"
     if session[:id].nil?
-      r += link_to r_count, site_url, :title => t('please_login')
+      r += link_to r_count, site_url + login_path, :title => t('please_login')
     else
       if item.is_a? Note        
         r += link_to r_count, 'javascript:;', :id => "recommend_note_#{item.id}", :onclick => onclick

@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
   has_many :received_letters, :class_name => 'Letter', :foreign_key => 'recipient_id', :dependent => :destroy
   has_many :messages, :dependent => :destroy
   has_many :columns, :dependent => :destroy
+#  has_many :blogs_columnses, :through => :columns, :source => :blogs_columns
+#  has_many :notes_columnses, :through => :columns, :source => :notes_columns
+#  has_many :c_blogs, :through => :blogs_columnses, :source => :blog
+#  has_many :c_notes, :through => :notes_columnses, :source => :note
 
   acts_as_followable
   acts_as_follower

@@ -251,7 +251,7 @@ class ApplicationController < ActionController::Base
   def auto_emotion(mystr)
     emotions = emotions_hash
     reg_str = ""
-    emotions.each_with_index do |id, i|
+    emotions.each_with_index do |(id), i|
       reg_str += t("emotions.t#{id}")
       reg_str += "|" if i < emotions.size - 1
     end
@@ -265,7 +265,7 @@ class ApplicationController < ActionController::Base
   def ignore_emotions(mystr)
     emotions = emotions_hash
     reg_str = ""
-    emotions.each_with_index do |id, i|
+    emotions.each_with_index do |(id), i|
       reg_str += t("emotions.t#{id}")
       reg_str += "|" if i < emotions.size - 1
     end

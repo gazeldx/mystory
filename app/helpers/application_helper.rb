@@ -112,7 +112,7 @@ module ApplicationHelper
       i += " " + item.description
     end
     i += raw "<br/>"
-    i += content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), href: avatar.thumb.url)
+    i += content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), :href => avatar.thumb.url)
   end
 
   def m_rphoto_i(item)
@@ -124,14 +124,14 @@ module ApplicationHelper
     unless photo.description.nil?
       i += " " + photo.description
     end
-    i += raw "<br/>#{content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), href: avatar.thumb.url)}#{t'right_square'}"
+    i += raw "<br/>#{content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), :href => avatar.thumb.url)}#{t'right_square'}"
   end
 
   def m_photo_a(item)
     avatar = item.avatar
     i = ""
     i = "#{item.description}<br/>" unless item.description.to_s==''
-    raw i + content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), href: avatar.thumb.url)
+    raw i + content_tag(:a, image_tag(avatar.mthumb.url) + t('big_pic'), :href => avatar.thumb.url)
   end
 
   def my_nav
@@ -147,11 +147,22 @@ module ApplicationHelper
   end
 
   def portal_body_query
-    blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
-    notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
-    @last_blog_id = blogs.last.id
-    @last_note_id = notes.last.id
-    (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!
+    if @user.nil?
+      blogs = Blog.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
+      notes = Note.where(:is_draft => false).includes(:user).order("replied_at DESC").limit(20)
+      @last_blog_id = blogs.last.id
+      @last_note_id = notes.last.id
+      (blogs | notes).select{|x| !(x.content.size < 40 && x.comments_count==0)}.sort_by{|x| x.replied_at}.reverse!
+    else
+      column_ids = @user.columns.select('id')
+      blog_ids = BlogsColumns.where(:column_id => column_ids).select('blog_id')
+      blogs = Blog.where(:id => blog_ids).order("id DESC").limit(20)
+      note_ids = ColumnsNotes.where(:column_id => column_ids).select('note_id')
+      notes = Note.where(:id => note_ids).order("id DESC").limit(20)
+#      @last_blog_id = blogs.last.id unless blogs.blank?
+#      @last_note_id = notes.last.id unless notes.blank?
+      (blogs | notes).sort_by{|x| x.created_at}.reverse!
+    end    
   end
 
   def portal_hotest_query
@@ -184,7 +195,7 @@ module ApplicationHelper
   end
 
   def insert_emotion
-    image_tag("http://mystory.b0.upaiyun.com/images/emotions/209.gif", onclick: 'initEmotions()', id: 'emotions_link', style: 'vertical-align: middle;cursor: pointer;', title: t('insert_emotion'))
+    image_tag("http://mystory.b0.upaiyun.com/images/emotions/209.gif", :onclick => 'initEmotions()', :id => 'emotions_link', :style => 'vertical-align: middle;cursor: pointer;', :title => t('insert_emotion'))
   end
   #  def all_emotions
   #    e_hash = emotions_hash
