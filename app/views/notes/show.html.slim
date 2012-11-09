@@ -15,6 +15,7 @@ div id='note-#{@note.id}'
       = recommended_char if @all_cate_rnotes.include? @note
       = t'draft_desc' if @note.is_draft
       = edit_delete_note
+      = editor_box @note
     .mi
       = @note.created_at.strftime t'time_format'
       = t'write'

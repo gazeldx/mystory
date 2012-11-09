@@ -72,6 +72,7 @@ class ApplicationController < ActionController::Base
           @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'
           if @user.nil?
             @group = Group.find_by_domain(request.subdomain)
+            puts "hahaha"
             r_to 302 if @group.nil?
           end
         end
@@ -427,6 +428,7 @@ class ApplicationController < ActionController::Base
   #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
   #redirect_to default is 302
   def r_to code
+    puts "hahahaahadddd"
     #    if mystory?
     redirect_to site_url, :status => code
     #    else

@@ -1,3 +1,12 @@
+$.ajax
+    url: '/query_user_columns'
+    type: "POST"
+    success: (data) ->
+      html = "收编到：#{data}"
+      $('#columns_box').html html 
+
+
+
 <%= yield :summary %>
 
 <div class="Aside">

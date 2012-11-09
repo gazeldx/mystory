@@ -17,4 +17,18 @@ module EditorHelper
     end
   end
 
+  def editor_box item
+    unless session[:id].nil?
+      div_c = content_tag(:span, "", :class => 'green', :id => 'ctips')
+      div_c += hidden_field_tag 'article_id', item.id
+      if item.is_a? Note
+        type = 'note'
+      else
+        type = 'blog'
+      end
+      div_c += hidden_field_tag 'stype', type
+      div_c += content_tag(:span, "&nbsp;", :id => 'columns_box', :style => 'height:160')
+      content_tag(:div, div_c, :id => 'editor_columns', :class => 'rr', :style => 'display:none')
+    end
+  end
 end

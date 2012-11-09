@@ -1,6 +1,8 @@
 = title t'column.edit'
 .table.b
   = link_to t('return_which', w: t('column.edit')), columns_path
+  h2
+    = t'column.edit'
   = render 'shared/notice_error'
   = form_for @column do |f|
     = error_msg @column

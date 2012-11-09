@@ -227,6 +227,8 @@ zh:
     edit: "博客文章归类"
   assign_columns: "归类"
   s_assign_columns: "将博文“%{w}”归类到："
+  no_columns_tip: "你还没有建立栏目。请先"
+  
 
   set_as_good_article: "设为优质文章"
   good_article_manage: "优质文章管理"

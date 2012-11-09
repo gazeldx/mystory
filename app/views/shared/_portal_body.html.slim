@@ -1,4 +1,8 @@
-- cache "portal_body" do
+- if @user.nil?
+  - _cache = "portal_body"
+- else
+  - _cache = "editor_body_#{@cuid}"
+- cache _cache do
   .ap.stream
     .twis id='timeline'
       = render 'shared/portal/nav_2'

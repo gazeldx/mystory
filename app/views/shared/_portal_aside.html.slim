@@ -1,8 +1,7 @@
 .Aside
   .aside
-    - cuid = @user.nil? ? 2 : @user.id
-    - cache("columns_articles_#{cuid}") do
-      - Column.where(:user_id => cuid).order("created_at").each_with_index do |column, i|
+    - cache("columns_articles_#{@cuid}") do
+      - Column.where(:user_id => @cuid).order("created_at").each_with_index do |column, i|
         .ap
           h4
             span.opt
