@@ -1,11 +1,9 @@
 class BlogObserver < ActiveRecord::Observer
   #TODO after_create will do before blog.save! Is that a bug?
   def after_create(blog)
-    puts "enter after_create now......"
 #    if Rails.env.production?
     if 1
       unless blog.is_draft
-        puts "enter send weibo qq now......"
         user = blog.user
         if user.atoken
 #          begin
@@ -13,7 +11,6 @@ class BlogObserver < ActiveRecord::Observer
             str = "#{blog.title} - "
             data = "#{str}#{text_it_pure(blog.content)[0..130-str.size]}#{site(user) + blog_path(blog)}"
             Weibo::Base.new(oauth).update(data)
-            puts "weibo sent ......"
 #          rescue
 #            Rails.logger.warn("---Send_blog_to_weibo blog.id=#{blog.id} failed.Data is #{data} atoken=#{user.atoken}")
 #          end
@@ -29,7 +26,6 @@ class BlogObserver < ActiveRecord::Observer
             summary = "...#{text[41..160]}"
             #TODO image pengyou.com no data.来自不对
             qq.add_share(auth, blog.title, url, comment, summary, "", '1', site(user), '', '')
-            puts "qq sent ......"
             #        str = "#{blog.title} - "
             #        data = "#{str}#{text[0..130-str.size]}#{url}"
             #        qq.add_t(auth, '', '', '', '1', "testweibohaihihihih")

@@ -2,8 +2,7 @@
   .Tray id="crjs_headbar"
     p.Png
     .tray
-      - @cuid = @user.nil? ? 2 : @user.id
-      - cache("columns_navigation_#{@cuid}") do
+      - cache("columns_navigation_#{@_user.id}") do
         .jumper
           i.txt.blur
             = text_field_tag :title, params[:title], tabindex: 1
@@ -13,7 +12,7 @@
           ul.navG
             li.navL
               = editor_show_index            
-            - Column.where(:user_id => @cuid).order("created_at").each_with_index do |column, i|
+            - @_user.columns.order("created_at").each_with_index do |column, i|
               li.navL
                 a.nava href=editor_root+column_path(column)
                   b

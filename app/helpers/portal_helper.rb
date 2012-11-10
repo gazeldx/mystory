@@ -11,7 +11,7 @@ module PortalHelper
     twiM = content_tag(:div, content_tag(:p, thumb_here(item), :class => 'pics'), :class => 'twiM') if n > 0
 
     p_avt = content_tag(:p, user_pic(user), :class => 'avt ')
-    b_b = content_tag(:b, raw("#{content_tag(:b, (link_to user.name, site(user), target: '_blank'), :class => 'nm')}#{t'maohao'}#{s_link_to item}"), :class => 'b pd')
+    b_b = content_tag(:b, raw("#{content_tag(:b, (link_to user.name, site(user), :target => '_blank'), :class => 'nm')}#{t'maohao'}#{s_link_to item}"), :class => 'b pd')
     twiT = content_tag(:div, raw("#{p_avt}#{b_b}"), :class => 'twiT')
 
     ugc_c = auto_emotion(text_it_pure(item.content)[0..98])
@@ -25,7 +25,7 @@ module PortalHelper
     twiB = content_tag(:div, b_tm, :class => 'twiB')
     twiC = content_tag(:div, raw("#{p_ugc}#{twiB}"), :class => 'twiC')
 
-    content_tag(:div, raw("#{twiM}#{twiT}#{twiC}"), :class => t_class, id: item.id)
+    content_tag(:div, raw("#{twiM}#{twiT}#{twiC}"), :class => t_class, :id => item.id)
   end
   
   def editor_show_index
@@ -34,7 +34,7 @@ module PortalHelper
       show = t'home_page'
     else
       url = editor_path
-      show = t('who_editor', w: @user.name)
+      show = t('who_editor', :w => @user.name)
     end
     content_tag(:a, content_tag(:b, show), :href => url, :class => 'nava')
   end
@@ -45,6 +45,10 @@ module PortalHelper
     else
       site(@user)
     end
+  end
+  
+  def portal_user
+    @_user = @user.nil? ? User.find(2) : @user
   end
 
 end

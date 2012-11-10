@@ -37,7 +37,6 @@ class BlogsController < ApplicationController
         if @cate_rblogs.size < 4
           @cate_blogs = @user.blogs.where(["category_id = ? AND is_draft = false AND id not in (?)", @blog.category_id, not_in_blogs_ids]).order('created_at DESC').limit(4 - @cate_rblogs.size)
         end
-#        puts @blog.as_json
         
         if @m
           render mr, :layout => 'm/portal'
