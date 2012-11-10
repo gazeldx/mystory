@@ -23,8 +23,9 @@
       | &nbsp;|&nbsp;
       a href=site_url+latest_path
         | 最新
-.b
-  span.red
-    | 公告：
-    a href=sub_site('zhangjian')+"/notes/117" target='_blank'
-      | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
+- if @user.nil?
+  .b
+    span.red
+      | 公告：
+      a href=sub_site('zhangjian')+"/notes/117" target='_blank'
+        | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!

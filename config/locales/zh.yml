@@ -263,6 +263,7 @@ zh:
     edit: "栏目管理"
     name_must_notnull: "栏目名称必须填写！"
     new: "创建新栏目"
+    editor_title: "%{c}_%{n}主编_我的故事"
     
   category:
     name: "目录名"
