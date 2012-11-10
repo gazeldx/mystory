@@ -3,6 +3,7 @@ class ColumnsController < ApplicationController
   layout 'help'
 
   def show
+    puts "show co c"
     @column = Column.find(params[:id])
     render :layout => 'portal'
   end
