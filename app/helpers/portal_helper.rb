@@ -48,6 +48,7 @@ module PortalHelper
   end
   
   def portal_user
+    #TODO how to cache @_user?
     @_user = (@user.nil? ? User.find(2) : @user) if @_user.nil?
   end
 

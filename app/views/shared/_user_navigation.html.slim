@@ -4,7 +4,7 @@
 | &nbsp;&nbsp;&nbsp;&nbsp;
 = navigation_item(t('_album'), albums_path)
 | &nbsp;&nbsp;&nbsp;&nbsp;
-= navigation_item(t('_memoir'), memoirs_path)
+= navigation_item(t('_memoir'), autobiography_path)
 | &nbsp;&nbsp;&nbsp;&nbsp;
 - if controller_path != 'home'
   = navigation_item(t('s_home_page',w: @user.name), root_path)

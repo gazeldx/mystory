@@ -27,9 +27,9 @@ table.b.olt
             | #{t'_note'}&nbsp;
             = link_to_note_blank comment.note
           - elsif comment.is_a?Memoircomment
-            - reply_url = memoirs_path
+            - reply_url = autobiography_path
             | #{t'_memoir'}&nbsp;
-            = link_to comment.memoir.title, memoirs_path, target: '_blank'
+            = link_to comment.memoir.title, autobiography_path, target: '_blank'
           - elsif comment.is_a?Photocomment
             - photo = comment.photo
             - user = photo.album.user

@@ -86,7 +86,7 @@ module ApplicationHelper
   
   def m_memoir_i(item)
     user = item.user
-    raw "#{link_to user.name, m(site(user))}:#{t'update_memoir'} #{link_to item.title, m(site(user) + memoirs_path)} #{m_summary_no_comments_portal(item, 200)} #{m_thumbs_here(item, 1)}"
+    raw "#{link_to user.name, m(site(user))}:#{t'update_memoir'} #{link_to item.title, m(site(user) + autobiography_path)} #{m_summary_no_comments_portal(item, 200)} #{m_thumbs_here(item, 1)}"
   end
   
   def m_rnote_i(item)

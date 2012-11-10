@@ -70,7 +70,7 @@ ul.mbt
       - user = item.user
       li.mbtr
         span.gray.b
-          | #{link_to user.name, site(user), target: '_blank'} 更新自传 #{link_to item.title, site(user) + memoirs_path, target: '_blank'}&nbsp;
+          | #{link_to user.name, site(user), target: '_blank'} 更新自传 #{link_to item.title, site(user) + autobiography_path, target: '_blank'}&nbsp;
         br
         span.inq
           = summary_no_comments_portal(item, 200)

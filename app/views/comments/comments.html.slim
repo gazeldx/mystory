@@ -34,7 +34,7 @@ table.b.olt
             - user = item.user
             = link_to user.name, site(user), target: '_blank'
             | #{t'_memoir'}&nbsp;
-            = link_to item.title, site(user)+memoirs_path, target: '_blank'
+            = link_to item.title, site(user)+autobiography_path, target: '_blank'
           - elsif comment.is_a?Photocomment
             - photo = comment.photo
             - user = photo.album.user

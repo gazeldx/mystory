@@ -36,7 +36,7 @@ class MemoirsController < ApplicationController
     @memoir = Memoir.find_by_user_id(session[:id])
     if @memoir.update_attributes(params[:memoir])
       flash[:notice2] = t'update_succ'
-      redirect_to memoirs_path
+      redirect_to autobiography_path
     else
       render :edit
     end

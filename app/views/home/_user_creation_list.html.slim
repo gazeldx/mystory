@@ -185,7 +185,7 @@
       - elsif item.is_a?(Memoir)
         li.mbtr
           span.gray.b
-            | 更新自传 #{link_to item.title, memoirs_path, target: '_blank'}&nbsp;
+            | 更新自传 #{link_to item.title, autobiography_path, target: '_blank'}&nbsp;
           br
           span.inq
             = summary_no_comments(item, 200)

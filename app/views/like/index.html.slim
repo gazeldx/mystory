@@ -187,7 +187,7 @@
         li.mbtr
           = link_to user.name, site(user), target: '_blank'
           span.pl1
-            |  #{t'update_memoir'} #{link_to item.title, site(user) + memoirs_path, target: '_blank'}&nbsp;
+            |  #{t'update_memoir'} #{link_to item.title, site(user) + autobiography_path, target: '_blank'}&nbsp;
           span.inq
             = summary_no_comments_portal(item, 200)
             = thumbs_here(item, 5)

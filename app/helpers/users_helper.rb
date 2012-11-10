@@ -22,7 +22,7 @@ module UsersHelper
   def summary_no_comments(something, size)
     tmp = text_it(something.content[0, size])
     if something.is_a?(Memoir)
-      link_url = memoirs_path
+      link_url = autobiography_path
     else
       link_url = something
     end
@@ -38,7 +38,7 @@ module UsersHelper
   def summary_no_comments_portal(something, size)
     tmp = text_it(something.content[0, size])
     if something.is_a?(Memoir)
-      link_url = site(something.user) + memoirs_path
+      link_url = site(something.user) + autobiography_path
     else
       link_url = site(something.user) + something
     end
@@ -49,7 +49,7 @@ module UsersHelper
   def m_summary_no_comments_portal(something, size)
     tmp = text_it(something.content[0, size])
     if something.is_a?(Memoir)
-      link_url = m(site(something.user) + memoirs_path)
+      link_url = m(site(something.user) + autobiography_path)
     else
       link_url = m(site(something.user) + something)
     end

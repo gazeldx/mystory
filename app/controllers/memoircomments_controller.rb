@@ -43,7 +43,7 @@ class MemoircommentsController < ApplicationController
       save_rmemoir(@memoir, params[:memoircomment][:body]) if _r.nil?
       flash[:notice] = flash[:notice] + t('memoir_recommended')
     end
-    redirect_to memoirs_path + "#notice"
+    redirect_to autobiography_path + "#notice"
   end
 
   def destroy
@@ -52,7 +52,7 @@ class MemoircommentsController < ApplicationController
     @comment.destroy
     Memoir.update_all({:comments_count => @memoir.comments_count - 1}, {:id => @memoir.id})
     flash[:notice] = t('delete_succ1', :w => t('comment'))
-    redirect_to memoirs_path + "#notice"
+    redirect_to autobiography_path + "#notice"
   end
 
   def like
