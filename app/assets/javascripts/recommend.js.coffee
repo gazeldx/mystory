@@ -78,6 +78,14 @@ this.recommend_blog = (id) ->
     success: (data) ->
       change_show_content(id, data, 'blog')
 
+this.recommend_memoir = (id) ->
+  $.ajax
+    url: '/recommend_memoir'
+    data: "id=" + id
+    type: "POST"
+    success: (data) ->
+      change_show_content(id, data, 'memoir')
+
 this.cancel_recommend_note = (id) ->
   $.ajax
     url: '/recommend_note'

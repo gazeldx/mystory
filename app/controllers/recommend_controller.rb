@@ -52,7 +52,7 @@ class RecommendController < ApplicationController
       _r.destroy
       Memoir.update_all("recommend_count = #{memoir.recommend_count - 1}", "id = #{memoir.id}")
     end
-    render json: memoir.as_json
+    render json: memoir.reload.as_json
   end
 
   def modify_blog

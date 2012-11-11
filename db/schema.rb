@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102000127) do
+ActiveRecord::Schema.define(:version => 20121110130013) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121102000127) do
     t.integer  "recommend_count", :default => 0
     t.datetime "replied_at"
     t.boolean  "is_draft",        :default => false
+    t.integer  "columns_count",   :default => 0
   end
 
   add_index "blogs", ["category_id"], :name => "index_blogs_on_category_id"
@@ -311,6 +312,7 @@ ActiveRecord::Schema.define(:version => 20121102000127) do
     t.integer  "recommend_count", :default => 0
     t.boolean  "is_draft",        :default => false
     t.datetime "replied_at"
+    t.integer  "columns_count",   :default => 0
   end
 
   add_index "notes", ["notecate_id"], :name => "index_notes_on_notecate_id"

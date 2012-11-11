@@ -304,7 +304,7 @@ module CommentsHelper
 
   def user_said body
     unless body.nil?
-      raw "<br/>#{@user.name}&nbsp;#{content_tag(:span, t("talked_about"), :class => 'gray')}#{content_tag(:span, body, :class => 'green')}"
+      raw "<br/>#{@user.name}&nbsp;#{content_tag(:span, t("talked_about"), :class => 'gray')}#{content_tag(:span, raw(auto_emotion(body)), :class => 'green')}"
     end
   end
 

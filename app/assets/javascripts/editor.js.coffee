@@ -17,5 +17,6 @@ this.update_user_columns = ->
     url: '/update_user_columns'
     data: "id=" + $('#article_id').val() + "&columns=#{columns}" + "&stype=" + $('#stype').val()
     type: "POST"
-    success: ->
+    success: (r) ->
       $('#ctips').html '收编成功！'
+      $("#editor_a").html "收编(#{r})"

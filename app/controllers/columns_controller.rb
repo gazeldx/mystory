@@ -90,9 +90,11 @@ class ColumnsController < ApplicationController
   def update_user_columns
     case params[:stype]
     when 'blog'
+      class_name = Blog
       article = Blog.find(params[:id])
       article_columns = BlogsColumns
     when 'note'
+      class_name = Note
       article = Note.find(params[:id])
       article_columns = ColumnsNotes
     end
@@ -100,16 +102,22 @@ class ColumnsController < ApplicationController
     column_ids.each do |id|
       expire_fragment("editor_column_#{id}")
     end
-    article_columns.delete_all ["#{params[:stype]}_id = ? AND column_id IN (?)", article.id, column_ids] unless column_ids.blank?
+    new_columns_count = article.columns_count
+    unless column_ids.blank?
+      article_columns.delete_all ["#{params[:stype]}_id = ? AND column_id IN (?)", article.id, column_ids]
+      new_columns_count -= 1
+    end
     unless params[:columns].to_s == ''
       _columns = params[:columns].split ','
       _columns.each do |k, v|
         article_columns.create(params[:stype] => article, :column => Column.find(k))
       end
+      new_columns_count += 1
     end
+    class_name.update_all("columns_count = #{new_columns_count}", "id = #{article.id}") if new_columns_count != article.columns_count
     expire_fragment("columns_articles_#{session[:id]}")
     expire_fragment("editor_body_#{session[:id]}")
-    head :ok
+    render :text => new_columns_count
   end
 
   private
