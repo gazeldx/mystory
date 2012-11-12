@@ -4,6 +4,7 @@ log/*.log
 nbproject/
 public/photos
 public/uploads
+tmp/
 config/routes.rb
 config/database.yml
 config/environment.rb
@@ -13,7 +14,3 @@ config/initializers/session_store.rb
 config/initializers/carrierwave.rb
 Gemfile
 Gemfile.lock
-
-!tmp/
-tmp/*
-!tmp/pids/

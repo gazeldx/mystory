@@ -1,7 +1,7 @@
 - if @user.nil?
   - _cache = "portal_body"
-- else  
-  - _cache = "editor_body_#{@_user.id}"
+- else
+  - _cache = "editor_home_#{@_user.id}"
 - cache _cache do
   .ap.stream
     .twis id='timeline'

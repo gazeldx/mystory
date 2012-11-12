@@ -111,12 +111,13 @@ class ColumnsController < ApplicationController
       _columns = params[:columns].split ','
       _columns.each do |k, v|
         article_columns.create(params[:stype] => article, :column => Column.find(k))
+        expire_fragment("editor_column_#{k}")
       end
       new_columns_count += 1
     end
     class_name.update_all("columns_count = #{new_columns_count}", "id = #{article.id}") if new_columns_count != article.columns_count
     expire_fragment("columns_articles_#{session[:id]}")
-    expire_fragment("editor_body_#{session[:id]}")
+    expire_fragment("editor_home_#{session[:id]}")    
     render :text => new_columns_count
   end
 
