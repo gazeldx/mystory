@@ -25,7 +25,7 @@ class AlbumsController < ApplicationController
     @album = Album.new(params[:album])
     @album.user_id = session[:id]
     if @album.save
-      redirect_to new_album_photo_path(@album), :notice => t('create_succ')
+      redirect_to new_album_photo_path(@album), notice: t('create_succ')
     else
       render :new
     end

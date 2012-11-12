@@ -81,7 +81,8 @@ class HomeController < ApplicationController
           end
           all_ = all_ | memoirs
         end
-        @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
+#        @all = all_.sort_by{|x| x.created_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
+        @all = all_.sort_by{|x| x.created_at}.reverse!
       elsif t == 'note'
         @all = Note.where(:user_id => user_ids).where(:is_draft => false).includes(:user).limit(40).page(params[:page]).order('notes.id desc')
       elsif t == 'blog'
@@ -97,10 +98,10 @@ class HomeController < ApplicationController
           all_ = all_ | memoirs
         end
         #TODO paginate BUG? NOT SHOW 30 per page
-        @all = all_.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 15)
+        @all = all_.sort_by{|x| x.updated_at}.reverse!
       elsif t == 'memoir'
         memoirs = Memoir.where(:user_id => user_ids).includes(:user)
-        @all = memoirs.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 50)
+        @all = memoirs.sort_by{|x| x.updated_at}.reverse!.paginate(:page => params[:page], :per_page => 40)
       end
       
       render 'groups/show', :layout => 'group'

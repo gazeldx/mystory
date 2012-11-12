@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   layout 'portal_others'
-  before_filter :super_admin, :only => [:index, :assign_roles, :do_assign_roles, :destroy, :update_users_clicks_count]
+  before_filter :super_admin, :only => [:index, :assign_roles, :do_assign_roles, :destroy, :update_users_clicks_count, :edit_domain, :update_domain]
   before_filter :url_authorize, :only => [:edit, :edit_password, :signature]
   
   def index
@@ -199,6 +199,16 @@ class UsersController < ApplicationController
       all_clicks = notes_clicks + blogs_clicks + photos_clicks
       user.update_attribute(:clicks_count, all_clicks) if all_clicks > 0
     end
+  end
+
+  def edit_domain
+    render :layout => 'help'
+  end
+
+  def update_domain
+    user = User.find_by_domain params[:domain]
+    user.update_attribute(:domain, params[:new_domain])
+    redirect_to edit_domain_path, notice: 'Domain updated successfully!'
   end
 
   #Temp used, will never used.Can delete.

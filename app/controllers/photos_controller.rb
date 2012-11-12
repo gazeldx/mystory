@@ -94,6 +94,7 @@ class PhotosController < ApplicationController
     @photo = @album.photos.build(params[:photo])
     if @photo.save
       @album.update_attribute(:photo_id, @photo.id) if @album.photos.size == 1
+      expire_cache
       render mn('photo_uploaded'), :layout => 'm/portal'
     else
       render mn('m_new'), :layout => 'm/portal'
