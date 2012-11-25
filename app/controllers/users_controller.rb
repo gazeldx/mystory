@@ -10,9 +10,9 @@ class UsersController < ApplicationController
 
   def show
     @school_groups = @user.groups.where("stype = 1").order('groups_users.created_at')
-    @enjoy_books = @user.renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
-    @enjoy_musics = @user.renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
-    @enjoy_movies = @user.renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
+    @enjoy_books = @user.enjoy_books
+    @enjoy_musics = @user.enjoy_musics
+    @enjoy_movies = @user.enjoy_movies
     if @m
       render mr, :layout => 'm/portal'
     else

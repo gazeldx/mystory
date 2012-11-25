@@ -74,6 +74,18 @@ class User < ActiveRecord::Base
   validates :signature, :length => { :in => 0..300 }
   validates :source, :presence => true
   validate :domain_not_used
+
+  def enjoy_books
+    renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
+  end
+
+  def enjoy_musics
+    renjoys.includes(:enjoy).where("enjoys.stype = 2").order('renjoys.created_at')
+  end
+
+  def enjoy_movies
+    renjoys.includes(:enjoy).where("enjoys.stype = 3").order('renjoys.created_at')
+  end
   
   def domain_not_used
     errors.add(:domain, "has been used! Please change it.") unless Group.find_by_domain(domain).nil?

@@ -39,7 +39,7 @@ zh:
   none: "无"
   recommended_char: "荐"
   talked_about: "评价："
-  ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记：%{notes_count} 作品：%{blogs_count} 相片：%{photos_count} 粉丝：%{followers_num} 关注：%{following_num}\r\n%{maxin} %{memo}"
+  ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记:%{notes_count} 作品:%{blogs_count} 相片:%{photos_count} 粉丝:%{followers_num} 关注:%{following_num}\r\n%{maxin} %{memo}"
 #  ebook_profile: "%{name}，%{city} %{jobs} %{birthday} %{school} %{maxin} %{memo}"
 
   university: "大学"
