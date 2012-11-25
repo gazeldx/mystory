@@ -16,6 +16,7 @@ div id='note-#{@note.id}'
       = t'draft_desc' if @note.is_draft
       = edit_delete_note
       = editor_box @note
+      = article_editors
     .mi
       = @note.created_at.strftime t'time_format'
       = t'write'
@@ -38,13 +39,14 @@ div.note-ft id='note_#{@note.id}_footer'
   .sns-bar
     = render 'shared/share'
     .sns-bar-fav
+      = article_recommend_users
       span#r_count
-        | #{t('recommend_count2', w: @note.recommend_count) if @note.recommend_count > 0}
+        | #{link_to t('recommend_count2', w: @note.recommend_count), 'javascript:;', :onclick => "javascript:show_recommend_users()", :title => t('see_recommend_count') if @note.recommend_count > 0}
       - if session[:id].nil?
-        = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
+        = link_to t('recommend'), site_url, id: 'recommend', class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rnote.find_by_user_id_and_note_id(session[:id], @note.id)
-        - if ri.nil?          
+        - if ri.nil?
           = link_to t('recommend'), '#_', id: 'recommend', class: 'fav-add btn-fav'
         - else
           = link_to t('recommended'), '#_', id: 'recommend', class: 'fav-cancel btn-fav', title: t('click_cancel_recommend')

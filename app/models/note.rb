@@ -12,4 +12,7 @@ class Note < ActiveRecord::Base
   validates :notecate_id, :presence => true
   validates :user_id, :presence => true
   self.per_page = 20
+
+  scope :visible, where(:is_draft => false).order('created_at desc')
+  
 end

@@ -165,7 +165,7 @@ module BlogsHelper
   end
 
   def blog_read_comment_recommend item
-#    views_link = link_to t('views_count', :w => item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
+    #    views_link = link_to t('views_count', :w => item.views_count), blog_path(item), target: '_blank' if item.views_count > 0
     views = content_tag(:span, t('views_count', :w => item.views_count), :class => 'gray')
     comments_link = "#{link_to t('comments_count', :w => item.comments_count), blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     #    recommend_link = "#{link_to t('recommend_count', :w => item.recommend_count), blog_path(item) + '#recommend', target: '_blank'}&nbsp;&nbsp;" if item.recommend_count > 0
@@ -174,7 +174,7 @@ module BlogsHelper
   end
 
   def note_read_comment_recommend item
-#    views_link = link_to t('views_count', :w => item.views_count), note_path(item), target: '_blank' if item.views_count > 0
+    #    views_link = link_to t('views_count', :w => item.views_count), note_path(item), target: '_blank' if item.views_count > 0
     views = content_tag(:span, t('views_count', :w => item.views_count), :class => 'gray')
     comments_link = "#{link_to t('comments_count', :w => item.comments_count), note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views}"
@@ -182,7 +182,7 @@ module BlogsHelper
   end
 
   def blog_read_comment_recommend_user item
-#    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + blog_path(item), target: '_blank' if item.views_count > 0
+    #    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + blog_path(item), target: '_blank' if item.views_count > 0
     views = content_tag(:span, t('views_count', :w => item.views_count), :class => 'gray')
     comments_link = "#{link_to t('comments_count', :w => item.comments_count), site(item.user) + blog_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views}"
@@ -190,7 +190,7 @@ module BlogsHelper
   end
 
   def note_read_comment_recommend_user item
-#    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + note_path(item), target: '_blank' if item.views_count > 0
+    #    views_link = link_to t('views_count', :w => item.views_count), site(item.user) + note_path(item), target: '_blank' if item.views_count > 0
     views = content_tag(:span, t('views_count', :w => item.views_count), :class => 'gray')
     comments_link = "#{link_to t('comments_count', :w => item.comments_count), site(item.user) + note_path(item) + '#comments', target: '_blank'}&nbsp;&nbsp;" if item.comments_count > 0
     _content = raw "#{recommend_etc item}&nbsp;#{comments_link}#{views}"
@@ -201,7 +201,7 @@ module BlogsHelper
     views = t('views_count', :w => item.views_count)
     comments = "#{link_to t('comments_count', :w => item.comments_count), '#comments'}&nbsp;&nbsp;" if item.comments_count > 0
     #recommend = "#{link_to t('recommend_count', :w => item.recommend_count), 'javascript:;', onclick: ''}&nbsp;&nbsp;" if item.recommend_count > 0
-    _content = raw "#{editor_it item if [Note, Blog].include?(item.class)}&nbsp;&nbsp;#{recommend_etc item}&nbsp;&nbsp;#{comments}#{views}"
+    _content = raw "#{editor_it item if [Note, Blog].include?(item.class)}&nbsp;&nbsp;#{recommend_etc_in item}&nbsp;&nbsp;#{comments}#{views}"
     content_tag(:span, _content, :class => 'rr')
   end
 
@@ -293,4 +293,6 @@ module BlogsHelper
       end
     end
   end
+
+  
 end

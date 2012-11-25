@@ -87,6 +87,25 @@ class ColumnsController < ApplicationController
     render :text => html
   end
 
+  def query_article_editors    
+    case params[:stype]
+    when 'blog'
+      article = Blog.find(params[:id])
+    when 'note'
+      article = Note.find(params[:id])
+    end
+    columns = article.columns.includes(:user)
+    html = t'been_edited'
+    columns.each_with_index do |column, i|
+      user = column.user
+      html += "<a href='#{site(user)}' target='_blank'>#{user.name[0..4]}</a>><a href='#{site(user) + column_path(column)}' target='_blank'>#{column.name[0..4]}</a>"
+      unless i == columns.length - 1
+        html += ",&nbsp;"
+      end
+    end
+    render :text => html
+  end
+
   def update_user_columns
     case params[:stype]
     when 'blog'

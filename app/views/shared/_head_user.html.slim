@@ -13,7 +13,7 @@
         = render 'shared/quick_post_navigation'
   ul
     li
-      = link_to t('my_info'), profile_path
+      = link_to '本人', profile_path
       - if @user.id == session[:id]
         span
         | (
@@ -25,6 +25,8 @@
       = link_to t('_forum'), bbs_path
       | &nbsp;
       = link_to t('_comment'), comments_path
+      | &nbsp;
+      = link_to 'E书', ebook_path << ".txt", target: '_blank'
       | &nbsp;
       = link_to t('editor'), editor_path, style: 'color:red !important'
       - if @user.blogs_count+@user.notes_count>30         

@@ -75,4 +75,31 @@ class RecommendController < ApplicationController
     head :ok if @rmemoir.update_attributes(params[:ri])
   end
 
+  def query_recommend_users
+    case params[:stype]
+    when 'blog'
+      article = Blog.find(params[:id])
+      rs = article.rblogs
+    when 'note'
+      article = Note.find(params[:id])
+      rs = article.rnotes
+    when 'photo'
+      article = Photo.find(params[:id])
+      rs = article.rphotos
+    when 'memoir'
+      article = Memoir.find(params[:id])
+      rs = article.rmemoirs
+    end
+    r_recommends = rs.includes(:user)
+    text = t'been_recommended'
+    r_recommends.each_with_index do |r, i|
+      user = r.user
+      text += "<a href='#{site(user)}' target='_blank'>#{user.name[0..4]}</a>"
+      unless i == r_recommends.length - 1
+        text += ",&nbsp;"
+      end
+    end
+    render :text => text
+  end
+
 end

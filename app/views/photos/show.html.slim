@@ -57,8 +57,10 @@ br
       .sns-bar
         = render 'shared/share'
         .sns-bar-fav
+          = editor_box @photo
+          = article_recommend_users
           span#r_count
-            | #{t('recommend_count2', w: @photo.recommend_count) if @photo.recommend_count > 0}
+            | #{link_to t('recommend_count2', w: @photo.recommend_count), 'javascript:;', :onclick => "javascript:show_recommend_users()", :title => t('see_recommend_count') if @photo.recommend_count > 0}
           - if session[:id].nil?
             = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
           - else

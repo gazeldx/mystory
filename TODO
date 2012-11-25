@@ -1,3 +1,6 @@
+TODO
+photos_count not write.
+
 Write to blog
 if abc: not :abc =>
 IDE will not highlight double_click search .
@@ -45,8 +48,10 @@ ALLOW CHECK ONLY THE TOPIC REPLY OR RECOMMOND > 3
 Editor Page!
 @_user.update_attribute('signature', params[:user][:signature]) not validate
 
-update_users_clicks_count
-update_user_comments_count
-update_group_users_count
+
+/update_users_clicks_count
+/update_user_comments_count
+/update_group_users_count
+/group_index
 /groups/add_user_by_super
 /groups/assign_admin

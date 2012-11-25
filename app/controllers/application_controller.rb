@@ -151,6 +151,10 @@ class ApplicationController < ActionController::Base
     "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{mystr}".gsub(/\r\n/, "\r\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
   end
 
+  def auto_two_blank_start_ebook mystr
+    "#{t'two_blanks'}#{mystr}".gsub(/\r\n/, "\r\n#{t'two_blanks'}")
+  end
+
   def auto_style(mystr)
     m = mystr.scan(/(--([bxsrgylh]{1,3})(.*?)--)/m)
     m.each do |e|
@@ -300,6 +304,13 @@ class ApplicationController < ActionController::Base
     s = ignore_image_tag(s)
     #    auto_emotion(s)
     ignore_style_tag(s)
+  end
+
+  def text_it_ebook(something)
+    s = ignore_draft(something)
+    s = ignore_img(s)
+    s = ignore_image_tag(s)
+    ignore_style_tag(auto_two_blank_start_ebook(s))
   end
 
   def ignore_draft(mystr)
@@ -504,6 +515,29 @@ class ApplicationController < ActionController::Base
   def user_timeline(query={})
     oauth = weibo_auth
     Weibo::Base.new(oauth).user_timeline(query)
+  end
+
+  def article_title(article)
+    if article.is_a? Note
+      if article.title.to_s==''
+        t('s_note', :w => article.created_at.strftime(t'date_format'))
+      else
+        article.title
+      end
+    else
+      article.title
+    end
+  end
+
+  def article_url(article)
+    if article.is_a? Note
+      url = note_path(article)
+    elsif article.is_a? Blog
+      url = blog_path(article)
+    elsif article.is_a? Memoir
+      url = autobiography_path
+    end
+    "#{site(@user)}#{url}"
   end
   
   module Tags

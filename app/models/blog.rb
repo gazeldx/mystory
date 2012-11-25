@@ -17,4 +17,6 @@ class Blog < ActiveRecord::Base
   accepts_nested_attributes_for :tags, :allow_destroy => :true,
     :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   self.per_page = 20
+
+  scope :visible, where(:is_draft => false).order('created_at desc')
 end

@@ -1,6 +1,6 @@
 n = 0
 n += 1
-puts n
+puts %/sfjlsd""fsdkjl#{n}fsd/
 
 
 #def auto_emotion(mystr)

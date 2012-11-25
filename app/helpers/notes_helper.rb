@@ -52,5 +52,5 @@ module NotesHelper
     if @note.user_id == session[:id]
       raw "&nbsp;#{link_to t('edit'), edit_note_path(@note)}&nbsp;#{link_to t('delete'), @note, confirm: t('confirm.delete'), method: :delete}"
     end
-  end  
+  end
 end

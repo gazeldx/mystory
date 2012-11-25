@@ -1,17 +1,14 @@
-changeInButton = ->
+changeInButton = (data, type) ->
   if $('#recommend').attr('class') == 'fav-cancel btn-fav'
     $('#recommend').html('推荐')
     $('#recommend').attr('title', '')
-    $('#recommend').attr('class', 'fav-add btn-fav')
-    $('#r_count').html("#{$('#r_count').html().match(/\d+/)-1}人推荐")
-    #$('#ri_body').html('')
-    #$('#edit').html('')
+    $('#recommend').attr('class', 'fav-add btn-fav')    
   else
     $('#recommend').html('已推荐')
     $('#recommend').attr('title', '点击可取消推荐')
     $('#recommend').attr('class', 'fav-cancel btn-fav')
-    $('#r_count').html("#{(parseInt($('#r_count').html().match(/\d+/))||0) + 1}人推荐")
-    #showBodyEtc()
+  $('#r_count').html("<a href='javascript:;' onclick='show_recommend_users()'>#{data['recommend_count']}人推荐</a>")
+  $("#recommend_#{type}_count").html "(#{data['recommend_count']})"
 
 this.showBodyEtc = ->
   $('#bodydiv').css 'display', ''
@@ -52,7 +49,7 @@ this.recommend_note_in = (id) ->
     data: "id=" + id
     type: "POST"
     success: (data) ->
-      changeInButton()
+      changeInButton(data, 'note')
 
 this.recommend_blog_in = (id) ->
   $.ajax
@@ -60,7 +57,7 @@ this.recommend_blog_in = (id) ->
     data: "id=" + id
     type: "POST"
     success: (data) ->
-      changeInButton()
+      changeInButton(data, 'blog')
 
 this.recommend_note = (id) ->
   $.ajax
@@ -122,7 +119,7 @@ this.recommend_photo_in = (id) ->
     data: "id=" + id
     type: "POST"
     success: (data) ->
-      changeInButton()
+      changeInButton(data, 'photo')
 
 this.recommend_memoir_in = (id) ->
   $.ajax
@@ -130,7 +127,19 @@ this.recommend_memoir_in = (id) ->
     data: "id=" + id
     type: "POST"
     success: (data) ->
-      changeInButton()
+      changeInButton(data, 'memoir')
 
 change_show_content = (id, data, type) ->
   $("#recommend_#{type}_"+id).html "推荐(#{data['recommend_count']})"
+
+this.show_recommend_users = ->
+  users = $('#article_recommend_users')
+  if users.css('display') == 'none'
+    $.ajax
+      url: '/query_recommend_users'
+      data: "id=" + $('#article_id').val() + "&stype=" + $('#stype').val()
+      success: (data) ->
+        $('#users_box').html data
+    users.css 'display', ''
+  else
+    users.css 'display', 'none'

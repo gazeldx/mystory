@@ -39,6 +39,8 @@ zh:
   none: "无"
   recommended_char: "荐"
   talked_about: "评价："
+  ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记：%{notes_count} 作品：%{blogs_count} 相片：%{photos_count} 粉丝：%{followers_num} 关注：%{following_num}\r\n%{maxin} %{memo}"
+#  ebook_profile: "%{name}，%{city} %{jobs} %{birthday} %{school} %{maxin} %{memo}"
 
   university: "大学"
   _college: "学院"
@@ -130,7 +132,7 @@ zh:
   _latest_notes: "最近日记："
   upload_photo_to: "上传照片到"
   update_memoir: "更新自传"
-
+  two_blanks: "　　"
 
   big_pic: "大图"
 
@@ -387,6 +389,12 @@ zh:
   who_editor: "%{w}主编"
   editor_home_title: "%{w}主编_我的故事"
   editor_it: "收编"
+  been_edited: "已收编到:"
+  been_recommended: "推荐者:"
+  click_edit_this: "点击收编该文章"
+  see_editors_count: "查看谁收编了本文"
+  see_recommend_count: "查看谁推荐了本文"
+
   see_what_he_edit: "看他推荐的内容"
   note_post_succ: "日记发布成功！"
   note_drafted_succ: "日记已保存为草稿，其它人无法看到。查看草稿请点击右上角的“设置 - 所有草稿”。"
@@ -604,7 +612,7 @@ zh:
     domain_exist_password_wrong: "域名是存在的，但密码错误！"
   hello_login: "你好，%{w}。请输入你的管理密码："
   please_login: "请先登录"
-  comment_login_first: "登录后才可以发表评论！"
+  comment_login_first: "登录即可发表评论！"
   logout: "退出"
   password: "密码"
   edit_password: "修改密码"

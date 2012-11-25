@@ -19,4 +19,15 @@ this.update_user_columns = ->
     type: "POST"
     success: (r) ->
       $('#ctips').html '收编成功！'
-      $("#editor_a").html "收编(#{r})"
+      $("#columns_count").html "(#{r})"
+
+this.show_article_editors = ->
+  if $('#article_editors').css('display') == 'none'
+    $.ajax
+      url: '/query_article_editors'
+      data: "id=" + $('#article_id').val() + "&stype=" + $('#stype').val()
+      success: (data) ->
+        $('#editors_box').html data
+    $('#article_editors').css 'display', ''
+  else
+    $('#article_editors').css 'display', 'none'
