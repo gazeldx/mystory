@@ -13,6 +13,7 @@ class Group < ActiveRecord::Base
   has_many :gads, :dependent => :destroy
   has_many :notes, :through => :gcolumns
   has_many :blogs, :through => :gcolumns
+  has_many :chats, :dependent => :destroy
   belongs_to :board
   mount_uploader :avatar, AvatarUploader
   
@@ -24,5 +25,9 @@ class Group < ActiveRecord::Base
 
   def domain_not_used
     errors.add(:domain, "has been used! Please change it.") unless User.find_by_domain(domain).nil?
+  end
+
+  def member? user_id
+    groups_userss.detect{ |i| i.user_id == user_id.to_i } unless user_id.nil?
   end
 end

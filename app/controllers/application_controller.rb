@@ -459,6 +459,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #TODO maybe need change to Group model
   def group_admin? group
     g = group.groups_userss.detect{|i| i.user_id == session[:id]}
     g.is_admin unless g.nil?
@@ -466,6 +467,12 @@ class ApplicationController < ActionController::Base
 
   def group_admin
     unless group_admin? @group
+      redirect_to root_path
+    end
+  end
+
+  def group_member
+    unless @group.member? session[:id]
       redirect_to root_path
     end
   end

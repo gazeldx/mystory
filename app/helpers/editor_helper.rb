@@ -9,7 +9,7 @@ module EditorHelper
       r << (link_to t('editor_it'), 'javascript:;', :id => "editor_a", :onclick => "javascript:show_editor_columns()", :title => t('click_edit_this'))
     end
     r << (link_to count, 'javascript:;', :id => "columns_count", :onclick => "javascript:show_article_editors()", :title => t('see_editors_count')) unless count.nil?
-    raw r << "&nbsp;"
+    raw r
   end
 
   def editor_box item

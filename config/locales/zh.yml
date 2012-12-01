@@ -39,8 +39,8 @@ zh:
   none: "无"
   recommended_char: "荐"
   talked_about: "评价："
-  ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记:%{notes_count} 作品:%{blogs_count} 相片:%{photos_count} 粉丝:%{followers_num} 关注:%{following_num}\r\n%{maxin} %{memo}"
-#  ebook_profile: "%{name}，%{city} %{jobs} %{birthday} %{school} %{maxin} %{memo}"
+  ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记:%{notes_count} 作品:%{blogs_count} 粉丝:%{followers_num} 关注:%{following_num}\r\n%{maxin} %{memo}"
+  whose_articles: "%{who}的文章"
 
   university: "大学"
   _college: "学院"
@@ -179,6 +179,9 @@ zh:
   school_title: "校园_我的故事"
   literary_society_title: "文学社_我的故事"
   group_about_title: "介绍_%{w}_我的故事"
+  group_chat_title: "聊天_%{group}_我的故事"
+  chatroom: "聊天室"
+  #group_chat: "%{group}聊天室"
   _title: "校园_我的故事"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"
   
@@ -392,8 +395,8 @@ zh:
   been_edited: "已收编到:"
   been_recommended: "推荐者:"
   click_edit_this: "点击收编该文章"
-  see_editors_count: "查看谁收编了本文"
-  see_recommend_count: "查看谁推荐了本文"
+  see_editors_count: "看看谁收编了本文"
+  see_recommend_count: "看看谁推荐了本文"
 
   see_what_he_edit: "看他推荐的内容"
   note_post_succ: "日记发布成功！"

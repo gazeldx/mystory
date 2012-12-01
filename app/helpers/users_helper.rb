@@ -241,7 +241,16 @@ module UsersHelper
     s = auto_emotion(s)
     s = auto_photo(s)
     raw auto_style(auto_two_blank_start(s))
-  end  
+  end
+
+  def style_it_no_blank(something)
+    s = auto_draft(something)
+    s = auto_link(s)
+    s = auto_img(s)
+    s = auto_emotion(s)
+    s = auto_photo(s)
+    raw auto_style(s)
+  end
 
   def scan_photos(mystr, n)
     photos = []

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110130013) do
+ActiveRecord::Schema.define(:version => 20121129121237) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(:version => 20121110130013) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "chats", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "chats", ["group_id"], :name => "index_chats_on_group_id"
+  add_index "chats", ["user_id"], :name => "index_chats_on_user_id"
 
   create_table "columns", :force => true do |t|
     t.string   "name"

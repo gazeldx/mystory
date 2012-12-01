@@ -9,7 +9,7 @@ class EbooksController < ApplicationController
 
   private
   def as_txt(articles)    
-    txt = "#{t('ebook_profile', :name => @user.name, :site => site(@user), :city => @user.city, :jobs => @user.jobs, :birthday => @user.birthday, :school => @user.school, :maxin => @user.maxim, :memo => @user.memo, :blogs_count => @user.blogs_count, :notes_count => @user.notes_count, :photos_count => @user.photos_count, :followers_num => @user.followers_num, :following_num => @user.following_num)}\r\n"
+    txt = "#{t('ebook_profile', :name => @user.name, :site => site(@user), :city => @user.city, :jobs => @user.jobs, :birthday => @user.birthday, :school => @user.school, :maxin => @user.maxim, :memo => @user.memo, :blogs_count => @user.blogs_count, :notes_count => @user.notes_count, :followers_num => @user.followers_num, :following_num => @user.following_num)}\r\n"
     @user.hobbies.each_with_index do |hobby, i|
       txt << ("#{t'_hobby_'}") if i==0
       txt << "#{hobby.name} "
@@ -43,7 +43,8 @@ class EbooksController < ApplicationController
     end
     
     memoir = @user.memoir
-    txt << "\r\n\r\n#{@user.name}#{t'_memoir'} - #{memoir.title} #{memoir.updated_at.strftime t('time_format')}#{t'update'}\r\n#{article_url(memoir)}\r\n#{text_it_ebook(memoir.content)}\r\n\r\n" unless memoir.nil?
+    txt << "\r\n\r\n#{@user.name}#{t'_memoir'} - #{memoir.title} #{memoir.updated_at.strftime t('time_format')}#{t'update'}\r\n#{article_url(memoir)}\r\n#{text_it_ebook(memoir.content)}" unless memoir.nil?
+    txt << "\r\n\r\n#{t('whose_articles', :who => @user.name)}\r\n"
     articles.each do |article|
       txt << "#{article_title(article)} #{article.created_at.strftime t('time_format')}\r\n#{article_url(article)}\r\n#{text_it_ebook(article.content)}\r\n\r\n"
     end

@@ -21,7 +21,7 @@ module RecommendHelper
     else
       r << (link_to t('recommend'), 'javascript:;', :id => "recommend_#{type}_#{item.id}", :onclick => "javascript:recommend_#{type}_in(#{item.id})")
     end
-    raw r << (link_to (item.recommend_count == 0 ? "" : "(#{item.recommend_count})"), '#users_box', :title => t('see_recommend_count'), :id => "recommend_#{type}_count", :onclick => "javascript:show_recommend_users()") << "&nbsp;"
+    raw r << (link_to (item.recommend_count == 0 ? "" : "(#{item.recommend_count})"), '#users_box', :title => t('see_recommend_count'), :id => "recommend_#{type}_count", :onclick => "javascript:show_recommend_users()")
   end
 
   def article_recommend_users
