@@ -59,7 +59,7 @@
         - if college? group.name and group.member_count >= MIN_COLLEGE_MEMBER
           = link_to group.name, site(group), target: '_blank', title: "就读于#{group.name}，点此访问#{group.name}专页"
           | &nbsp;
-      - litsocs = @user.groups.where("stype = #{GROUPS_STYPE_LITERARY}").order('groups_users.created_at')
+      - litsocs = @user.groups.where("stype = #{GROUPS_STYPE_SOCIETY}").order('groups_users.created_at')
       - litsocs.each_with_index do |group, i|
         - if group.member_count >= MIN_COLLEGE_MEMBER
           = link_to group.name, site(group), target: '_blank', title: "#{group.name}成员，点此访问“#{group.name}”"

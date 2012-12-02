@@ -65,8 +65,8 @@ class ApplicationController < ActionController::Base
         @bbs_flag = true
       elsif request.subdomain == 'group'
         @group_flag = true
-      elsif request.subdomain == 'literarysociety'
-        @literarysociety_flag = true
+      elsif request.subdomain == 'society'
+        @society_flag = true
       else
         unless ['', 'blog'].include? request.subdomain
           @user = User.find_by_domain(request.subdomain) unless request.subdomain == 'www'

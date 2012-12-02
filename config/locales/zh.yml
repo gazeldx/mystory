@@ -177,7 +177,7 @@ zh:
   bbs_title: "讨论版_%{w}"
   group_title: "团体_我的故事"
   school_title: "校园_我的故事"
-  literary_society_title: "文学社_我的故事"
+  society_title: "社团_我的故事"
   group_about_title: "介绍_%{w}_我的故事"
   group_chat_title: "聊天_%{group}_我的故事"
   chatroom: "聊天室"
@@ -254,7 +254,7 @@ zh:
     maxim: '宗旨'
     name: "团体名称"
     memo: "介绍"
-    memo_memo: "可以填写文学社章程、成员名号等"
+    memo_memo: "可以填写社团章程、成员名号等"
     member: "成员"
   member_of_group: "%{w}的成员"
 
@@ -291,10 +291,10 @@ zh:
   assortment_addtip: "添加分组，请输入分组名称："
 
   #litsoc:
-  literary_society: "文学社"
+  society: "社团"
   invite_somebody_to_group: "邀请他人入社"
   _send_invitation: "发送邀请信"
-  _literary_invitation_body: "%{w}邀请你加入，网址：%{url}"
+  _society_invitation_body: "%{w}邀请你加入，网址：%{url}"
   _user_in_litsoc: "用户已在社内，不必发送邀请信。"
   ad_management: "管理广告位"
   upload_ad_image: "上传广告图片"
@@ -515,7 +515,7 @@ zh:
   all_boards: "所有讨论版"
   all_groups: "所有团体"
   all_schools: "所有校园"
-  all_literary_societies: "所有文学社"
+  all_societies: "所有社团"
 
   r_note: "%{w}推荐的日记"
   r_blog: "%{w}推荐的作品"
@@ -579,9 +579,9 @@ zh:
   _post: "发布"
   send: "发送"
   _introduce: "介绍"
-  literary_society_settings: "文学社设置"
+  society_settings: "社团设置"
   user_not_exist: "用户不存在！"
-  join_group_succ: "加入文学社成功！"
+  join_group_succ: "加入社团成功！"
   
   album:
     add: "创建新影集"
@@ -970,7 +970,7 @@ zh:
 
   site:
     name: "我的故事"
-    seotitle: "我的故事 - 写日记、自传，发作品、照片，尽情分享自己 |原创小说阅读网|好看的小说排行榜|玄幻穿越言情小说|诗歌散文文学社"
+    seotitle: "我的故事 - 写日记、自传，发作品、照片，尽情分享自己 |原创小说阅读网|好看的小说排行榜|玄幻穿越言情小说|诗歌散文文学社团"
     metadesc: "MyStory是原创的社交网络。方便你分享生活中的一切。这里还有很多有创造力的人,关注一下他们吧！"
     desc: "分享我的故事，让世界更美"
     detail: "原创社区。日记、作品同步到微博、QQ空间"

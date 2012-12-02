@@ -5,15 +5,15 @@
 .desc
   h1
     = group_banner_text
-    - if @group.stype==GROUPS_STYPE_LITERARY      
+    - if @group.stype==GROUPS_STYPE_SOCIETY      
       span#display.pl
         | &nbsp;#{link_to t('_introduce'), about_path}
         - if @group.member? session[:id]
           | &nbsp;&nbsp;#{link_to '聊天', chat_path}
         - if group_admin? @group
-          | &nbsp;&nbsp;#{link_to t('manage'), literary_society_admin_path}
+          | &nbsp;&nbsp;#{link_to t('manage'), society_admin_path}
         | &nbsp;(#{@group.maxim})
-  - if @group.stype==GROUPS_STYPE_LITERARY
+  - if @group.stype==GROUPS_STYPE_SOCIETY
     ul
       .info.b
         = render 'shared/group/navigation'

@@ -85,7 +85,7 @@ class GroupsController < ApplicationController
       flash[:error] = t'_user_in_litsoc'
       redirect_to send_group_invitation_path
     else
-      @message = Message.create(:stype => MESSAGES_STYPE_GROUP_INVITATION, :body => t('_literary_invitation_body', :w => @group.name, url: site(@group)), :parameters => "{\"group_id\":#{@group.id}}", :user => user)
+      @message = Message.create(:stype => MESSAGES_STYPE_GROUP_INVITATION, :body => t('_society_invitation_body', :w => @group.name, url: site(@group)), :parameters => "{\"group_id\":#{@group.id}}", :user => user)
       if @message.save
         user.update_attribute('unread_messages_count', user.unread_messages_count + 1)
         redirect_to send_group_invitation_path, :notice => t('succ', :w => t('_send'))
