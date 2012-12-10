@@ -1,29 +1,17 @@
 class SearchController < ApplicationController
   layout 'help'
-  
-  def index
-    
-  end
 
-  def blogs
-    if @user.nil?
-      blogs = Blog.includes(:user)
-    else
-      blogs = @user.blogs
-    end
-    @blogs = blogs.where("title like ?", "%#{params[:title]}%").order('created_at DESC').limit(100)
+  def index
   end
 
   def all
     if @user.nil?
-      blogs = Blog
-      notes = Note
+      blogs = Blog.where("upper(title) like upper(?)", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(100)
+      notes = Note.where("upper(title) like upper(?)", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(80)
     else
-      blogs = @user.blogs
-      notes = @user.notes
+      blogs = @user.blogs.where("upper(content) like upper(?)", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(100)
+      notes = @user.notes.where("upper(content) like upper(?)", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(80)
     end
-    blogs = blogs.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(100)
-    notes = notes.where("title like ?", "%#{params[:title]}%").includes(:user).order('comments_count DESC').limit(80)
     @all = (blogs | notes).sort_by{|x| x.comments_count}.reverse!
   end
 end

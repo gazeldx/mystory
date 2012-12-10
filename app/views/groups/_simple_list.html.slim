@@ -65,7 +65,7 @@ ul.mbt
           span.gray
             = fresh_time item.created_at
           br
-          | #{recommend_etc item}&nbsp;#{link_to "#{t('comment')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "#{album_photo_path(album, item)}#comments", target: '_blank'}
+          | #{recommend_etc item}&nbsp;#{link_to "#{t('comment')}#{item.comments_count==0 ? '' : '(' + item.comments_count.to_s + ')' }", "#{site(user) + album_photo_path(album, item)}#comments", target: '_blank'}
     - elsif item.is_a?(Memoir)
       - user = item.user
       li.mbtr

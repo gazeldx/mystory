@@ -1,7 +1,8 @@
+.idea/
 .bundle
-log/*.log
-.sass-cache/
+log/
 nbproject/
+.sass-cache/
 public/photos
 public/uploads
 tmp/

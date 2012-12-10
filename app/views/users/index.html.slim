@@ -68,7 +68,7 @@
         /  td
         /    = link_to t('assign_roles'), assign_roles_user_path(user)
         td
-          - if user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num == 0
+          - if user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num < 20
             = link_to '删', user_path(user), confirm:t('confirm.delete'), method: :delete
           - elsif user.blogs_count + user.notes_count + user.photos_count + user.followers_num + user.following_num < 3 and user.email.match(/.*@mystory\.cc/) and user.weiboid.to_s=='' and user.openid.to_s==''
             = link_to '-', user_path(user), confirm:t('confirm.delete'), method: :delete
