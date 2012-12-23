@@ -28,9 +28,8 @@ class PhotosController < ApplicationController
           break
         end
       }
-      comments = @photo.photocomments
-      @all_comments = (comments | @photo.rphotos.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-      @comments_uids = comments.collect{|c| c.user_id}
+      @all_comments = @photo.photocomments.order('likecount DESC, created_at')
+      @comments_uids = @all_comments.collect{|c| c.user_id}
       render :layout => 'album_share'
     else
       r404
