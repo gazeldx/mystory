@@ -3,7 +3,7 @@
 = title _title
 = summary @photo.description.to_s[0..S_SIZE-_title.size]
 br
-.pl style='padding:3px;border-bottom:1px solid #ddd;margin:0 0 10px 0;text-align:center' 
+.pl id='i' style='padding:3px;border-bottom:1px solid #ddd;margin:0 0 10px 0;text-align:center'
   span.rr
     | &gt; 
     = link_to @album.name, album_path(@album)
@@ -11,17 +11,17 @@ br
     | #{@photo_position}/#{@album.photos.size}
   | &nbsp;
   - unless @photo_new.nil?
-    = link_to t('a_new_photo'), album_photo_path(@album, @photo_new), id: 'pre_photo'
+    = link_to t('a_new_photo'), album_photo_path(@album, @photo_new) + '#i', id: 'pre_photo'
   - if (!@photo_new.nil? && !@photo_old.nil?)
     |  / 
   - unless @photo_old.nil?
-    = link_to t('a_old_photo'), album_photo_path(@album, @photo_old), id: 'next_photo'
+    = link_to t('a_old_photo'), album_photo_path(@album, @photo_old) + '#i', id: 'next_photo'
 .grid-18-6.clearfix
   .article
     - if @photo_old.nil?
       = image_tag(@photo.avatar.url)
     - else
-      a.mainphoto href=(album_photo_path(@album, @photo_old)) title=t'click_show_old'
+      a.mainphoto href=(album_photo_path(@album, @photo_old) + '#i') title=t'click_show_old'
         = image_tag(@photo.avatar.url)
     br
     span#photo_desc
@@ -74,7 +74,7 @@ br
   - if @photos.size>1
     .aside
       - @photos.each do |photo|
-        a.photolst_photo href=album_photo_path(@album, photo)
+        a.photolst_photo href=album_photo_path(@album, photo)+'#i'
           = image_tag(photo.avatar.square.url, title: photo.description.to_s[0..100], width: PHOTO_SQUARE_SIZE, height: PHOTO_SQUARE_SIZE)
 javascript:
   $('#recommend').live('click', function() {

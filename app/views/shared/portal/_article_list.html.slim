@@ -18,4 +18,4 @@
         data: "last_blog_id=#{last_blog_id}&last_note_id=#{last_note_id}"
         success: (v) ->
           $('div.twi:last').after v['html']
-          $('#a_show_more').attr('onclick', "show_more_articles(#{v['last_blog_id']},#{v['last_note_id']})")
+          $('#a_show_more').attr('onclick', "show_more_articles(#{v['last_blog_id']}, #{v['last_note_id']})")
