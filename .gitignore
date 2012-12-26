@@ -6,12 +6,7 @@ nbproject/
 public/photos
 public/uploads
 tmp/
-config/routes.rb
 config/database.yml
 config/environment.rb
-config/weibo.yml
 config/config.yml
-config/initializers/session_store.rb
-config/initializers/carrierwave.rb
-Gemfile
-Gemfile.lock
+
