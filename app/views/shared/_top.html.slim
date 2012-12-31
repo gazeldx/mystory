@@ -6,10 +6,10 @@
         = link_to t('_login'), s_site_root + login_path
         = link_to t('_register'), s_site_root + register_path
       - else
-        - if session[:atoken].nil?
+        - if need_bind_weibo?
           a href=weibo_connect_path
             = image_tag("#{YUN_IMAGES}weibo_login.png", title: '绑定后，可用微博帐号登录，可展示您的微博，日记、作品同步到微博', width: 126, height: 24)
-        - if session[:token].nil?
+        - if need_bind_qq?
           a href=qq_connect_path
             = image_tag("#{YUN_IMAGES}qq_login_2.png", title: '绑定后，可用QQ登录，日记、作品同步到腾讯微博、QQ空间说说', width: 120, height: 24)
         - if !@user.nil? and @user.id==session[:id]

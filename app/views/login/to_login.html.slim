@@ -39,10 +39,8 @@
               = t'password'
             = password_field_tag :passwd
           .item1
-            a href=weibo_connect_path
-              = image_tag("#{YUN_IMAGES}weibo_login.png", title: '使用微博帐号免注册登录', width: 126, height: 24)
+            = weibo_login_image
             | &nbsp;&nbsp;
-            a href=qq_connect_path
-              = image_tag("#{YUN_IMAGES}qq_login.png", title: '使用QQ号免注册登录', width: 63, height: 24)
+            = qq_login_image
             | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             input type='submit' value='登  录' class='bn-submit'

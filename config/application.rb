@@ -26,7 +26,6 @@ module Cms
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-#    %w( observers sweepers ).each do |dir|
     %w( sweepers ).each do |dir|
       config.autoload_paths << "#{Rails.root}/app/#{dir}"
     end

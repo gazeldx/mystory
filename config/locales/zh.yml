@@ -2,6 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 #TODO news should be defined by user，and Model should be changed to defined Chinese.
 zh:
+  awesome_setting: <%= "Did you know 5 + 5 = #{5 + 5}?" %>
+  site:
+    name: "我的故事"
+    seotitle: "我的故事 - 写日记、自传，发作品、照片，尽情分享自己 |原创小说阅读网|好看的小说排行榜|玄幻穿越言情小说|诗歌散文文学社团"
+    metadesc: "MyStory是原创的社交网络。方便你分享生活中的一切。这里还有很多有创造力的人,关注一下他们吧！"
+    desc: "分享我的故事，让世界更美"
+    detail: "原创社区。日记、作品同步到微博、QQ空间"
+
   a_b: "%{a}_%{b}"
   list: "列表"
   new: "添加"
@@ -87,6 +95,8 @@ zh:
   qq_login_succ: "QQ登录成功!"
   qq_bound_by_others: "该QQ帐号已经被其它人绑定了，您无法绑定。"
   show_weibo_title: "访问ta的新浪微博"
+  weibo_login_tip: "使用微博帐号免注册登录"
+  qq_login_tip: "使用QQ帐号免注册登录"
 
   like: "赞"
   have_liked: "已赞"
@@ -170,6 +180,7 @@ zh:
     new_of_board: "发表新帖 - %{w}"
     _new_of_board: " - 发表新帖"
   post_reply: "发表回复"
+  replay_deleted: "说的内容已删除！"
   latest_posts: "论坛新贴"
 
   #sub_site: "%{w} - %{s}原创社区"
@@ -268,7 +279,7 @@ zh:
     edit: "栏目管理"
     name_must_notnull: "栏目名称必须填写！"
     new: "创建新栏目"
-    editor_title: "%{c}_%{n}主编_我的故事"
+    editor_title: "%{c}_%{n}收藏_我的故事"
     
   category:
     name: "目录名"
@@ -388,14 +399,14 @@ zh:
   draft_desc: "(草稿状态,只对你可见)"
   all_drafts: "所有草稿"
 #  web_desc: "这世界，我来过"
-  editor: "主编"
-  who_editor: "%{w}主编"
-  editor_home_title: "%{w}主编_我的故事"
-  editor_it: "收编"
-  been_edited: "已收编到:"
+  editor: "收藏"
+  who_editor: "%{w}收藏"
+  editor_home_title: "%{w}收藏_我的故事"
+  editor_it: "收藏"
+  been_edited: "已收藏到:"
   been_recommended: "推荐者:"
-  click_edit_this: "点击收编该文章"
-  see_editors_count: "看看谁收编了本文"
+  click_edit_this: "点击收藏该文章"
+  see_editors_count: "看看谁收藏了本文"
   see_recommend_count: "看看谁推荐了本文"
 
   see_what_he_edit: "看他推荐的内容"
@@ -968,12 +979,7 @@ zh:
 #    article_end: "正文结束"
   copy_article: "转"
 
-  site:
-    name: "我的故事"
-    seotitle: "我的故事 - 写日记、自传，发作品、照片，尽情分享自己 |原创小说阅读网|好看的小说排行榜|玄幻穿越言情小说|诗歌散文文学社团"
-    metadesc: "MyStory是原创的社交网络。方便你分享生活中的一切。这里还有很多有创造力的人,关注一下他们吧！"
-    desc: "分享我的故事，让世界更美"
-    detail: "原创社区。日记、作品同步到微博、QQ空间"
+  
   cy:
     name: "创源智库"
     seotitle: "创源智库_博客日记|股票期货|金融财经|社会历史|民生银行|企业管理|黄金投资|货币经济|读书炒股|励志名人名言"

@@ -284,10 +284,10 @@ module BlogsHelper
 
   def sync_to_third_sites
     if controller.action_name == 'new'
-      unless session[:atoken].nil? and session[:token].nil?
+      if weibo_active? or qq_active?
         span_c = raw "&nbsp;&nbsp;#{t'sync_to'}"
-        span_c += raw "#{hidden_field_tag :sync_weibo, true}#{image_tag('/images/weibo16_16.png', width: 16, height: 16, onclick: 'switchWeiboSync()', id: 'weibo_sync', style: 'cursor: pointer;', title: t('sync_weibo_open'))}&nbsp;" unless session[:atoken].nil?
-        span_c += raw "#{hidden_field_tag :sync_qq, true}#{image_tag('/images/qq16_16.png', width: 16, height: 16, onclick: 'switchQqSync()', id: 'qq_sync', style: 'cursor: pointer;', title: t('sync_qq_open'))}" unless session[:token].nil?
+        span_c += raw "#{hidden_field_tag :sync_weibo, true}#{image_tag('/images/weibo16_16.png', width: 16, height: 16, onclick: 'switchWeiboSync()', id: 'weibo_sync', style: 'cursor: pointer;', title: t('sync_weibo_open'))}&nbsp;" if weibo_active?
+        span_c += raw "#{hidden_field_tag :sync_qq, true}#{image_tag('/images/qq16_16.png', width: 16, height: 16, onclick: 'switchQqSync()', id: 'qq_sync', style: 'cursor: pointer;', title: t('sync_qq_open'))}" if qq_active?
         label_c = content_tag(:span, span_c, :class => 'gray')
         content_tag(:label, label_c, :class => 'field')
       end

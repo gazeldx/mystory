@@ -49,7 +49,6 @@ class LettersController < ApplicationController
   end
 
   def index
-    # like weibo.com is best
     @user = User.find(session[:id])
     sent = @user.letters.order("created_at DESC").includes(:recipient).limit(50)
     received = Letter.where("recipient_id = ?", session[:id]).includes(:user).order("created_at DESC").limit(50)

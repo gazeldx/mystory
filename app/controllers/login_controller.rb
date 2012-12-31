@@ -38,7 +38,7 @@ class LoginController < ApplicationController
 
   #This is ajax login check.
   def bind_weibo_login
-    if check_member==0
+    if check_member == 0
       @user.update_attributes(:weiboid => params[:weiboid], :atoken => session[:atoken], :asecret => session[:expires_at])
       flash[:notice] = t'weibo_bind_succ'
       proc_session

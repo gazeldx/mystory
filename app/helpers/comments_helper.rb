@@ -62,6 +62,7 @@ module CommentsHelper
   end
   
   def comment_info_title(item)
+    return t('replay_deleted') if item.nil?
     body = item.body
     if item.is_a? Notecomment
       user = item.note.user

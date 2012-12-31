@@ -242,7 +242,7 @@ class BlogsController < ApplicationController
   private
   def send_weibo
     #TODO  UPDATE FROM IS_DRAFT TO FALSE HAVN'T DO SEND.
-    if session[:atoken] and @blog.is_draft==false and Rails.env.production? and params[:sync_weibo] != "false"
+    if weibo_active? and @blog.is_draft==false and Rails.env.production? and params[:sync_weibo] != "false"
       begin
         str = "#{@blog.title} - "
         data = "#{str}#{text_it_pure(@blog.content)[0..130-str.size]}#{site(@user) + blog_path(@blog)}"
@@ -255,7 +255,7 @@ class BlogsController < ApplicationController
   end
 
   def send_qq
-    if session[:token] and @blog.is_draft==false and Rails.env.production? and params[:sync_qq] != "false"
+    if qq_active? and @blog.is_draft==false and Rails.env.production? and params[:sync_qq] != "false"
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

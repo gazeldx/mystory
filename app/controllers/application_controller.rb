@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo, :group_admin?
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo, :group_admin?, :weibo_active?, :qq_active?
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -523,6 +523,14 @@ class ApplicationController < ActionController::Base
     oauth = weibo_auth
     Weibo::Base.new(oauth).user_timeline(query)
   end
+
+  def weibo_active?
+    Settings[:weibo] and session[:atoken]
+  end
+
+  def qq_active?
+    Settings[:qq] and session[:token]
+  end  
 
   def article_title(article)
     if article.is_a? Note

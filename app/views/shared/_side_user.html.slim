@@ -8,7 +8,7 @@
         | &nbsp;(
         = link_to t('whole_article'), autobiography_path
         | )
-    - unless @user.atoken.nil?
+    - if weibo_active?
       span.rr.mi
         = show_weibo
   .text

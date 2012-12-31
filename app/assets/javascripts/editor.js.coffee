@@ -18,7 +18,7 @@ this.update_user_columns = ->
     data: "id=" + $('#article_id').val() + "&columns=#{columns}" + "&stype=" + $('#stype').val()
     type: "POST"
     success: (r) ->
-      $('#ctips').html '收编成功！'
+      $('#ctips').html '收藏成功！'
       $("#columns_count").html "(#{r})"
 
 this.show_article_editors = ->

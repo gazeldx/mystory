@@ -1,13 +1,9 @@
 class WeiboController < ApplicationController
-  #  layout 'help'
+  
   include AutoCreatedUserInfo
   def connect
     client = WeiboOAuth2::Client.new
     redirect_to client.authorize_url
-    #    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-    #    request_token = oauth.consumer.get_request_token
-    #    session[:rtoken], session[:rsecret] = request_token.token, request_token.secret
-    #    redirect_to "#{request_token.authorize_url}&oauth_callback=http://#{request.env["HTTP_HOST"]}/weibo_callback"
   end
 
   def callback
@@ -16,12 +12,6 @@ class WeiboController < ApplicationController
     session[:atoken] = access_token.token
     session[:expires_at] = access_token.expires_at
     @weibo_user = client.users.show_by_uid(access_token.params["uid"].to_i)
-#    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-#    oauth.authorize_from_request(session[:rtoken], session[:rsecret], params[:oauth_verifier])
-#    session[:rtoken], session[:rsecret] = nil, nil
-#    session[:atoken], session[:asecret] = oauth.access_token.token, oauth.access_token.secret
-#    oauth.authorize_from_access(session[:atoken], session[:asecret])
-#    @weibo_user = Weibo::Base.new(oauth).verify_credentials
     if session[:id].nil?
       @user = User.find_by_weiboid(@weibo_user.id.to_s)
       if @user.nil?
@@ -62,7 +52,6 @@ class WeiboController < ApplicationController
       client = WeiboOAuth2::Client.new
       client.get_token_from_hash({:access_token => @_user.atoken, :expires_at => @_user.asecret})
       @weibo_user = client.users.show_by_uid(@_user.weiboid)
-#      @weibo_user = verify_credentials
     end
     render :layout => 'help'
   end
@@ -72,11 +61,5 @@ class WeiboController < ApplicationController
     @_user.update_attributes(:weiboid => nil, :atoken => nil, :asecret => nil)
     session[:atoken], session[:expires_at] = nil, nil
     redirect_to :back
-  end
-
-  def friends_timeline
-#    oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)
-#    oauth.authorize_from_access(session[:atoken], session[:asecret])
-#    @timeline = Weibo::Base.new(oauth).friends_timeline
-  end
+  end  
 end

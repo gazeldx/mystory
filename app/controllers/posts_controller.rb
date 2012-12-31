@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   
   private
   def send_weibo
-    if session[:atoken]
+    if weibo_active?
       begin
         oauth = weibo_auth
         str = "#{@post.title + ' - '}"
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
   end
 
   def send_qq
-    if session[:token]
+    if qq_active?
       begin
         qq = Qq.new
         auth = qq.gen_auth(session[:token], session[:openid])

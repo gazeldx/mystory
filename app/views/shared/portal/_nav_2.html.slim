@@ -25,10 +25,10 @@
         | 最新
 - if @user.nil?
   .b
-    span.red
+    span
       | 公告：
       a href=sub_site('zhangjian')+"/notes/117" target='_blank'
         | 连续21天，每天写一篇日记，即可获得价值106元的图书三本!
-    span style='float:right'
-      a href=sub_site('society') target='_blank'
-        | 社团入驻奖励！
+    span style='float:right;'
+      a style='color:red!important' href=sub_site('zhangjian')+"/notes/1157" target='_blank' title='想克隆一个和我的故事一样的网站？'
+        | 本站已开源！

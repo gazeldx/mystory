@@ -549,7 +549,7 @@ ActiveRecord::Schema.define(:version => 20121129121237) do
     t.integer  "comments_count",         :default => 0
     t.string   "contact"
     t.integer  "clicks_count",           :default => 0
-    t.datetime "view_messages_at",       :default => '2012-10-28 08:51:24'
+    t.datetime "view_messages_at",       :default => '2012-10-28 09:43:16'
     t.integer  "unread_messages_count",  :default => 0
   end
 

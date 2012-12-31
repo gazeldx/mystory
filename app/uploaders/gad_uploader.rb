@@ -1,6 +1,6 @@
 class GadUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :upyun
+  storage Settings[:upyun] ? :upyun : :file
 
   def store_dir
     "photos/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"

@@ -1,0 +1,35 @@
+defaults: &defaults
+  # 改为你的域名
+  domain: your_domain.com
+  
+  #QQ OPEN
+#  qq:
+#    appid: 
+#    appkey: 
+
+  #微博OPEN
+#  weibo:
+#    api_key: 
+#    api_secret: 
+
+  #利用upyun.com存储图片。如果想把图片存储在WEB服务器本地，不想使用upyun，请将以下四行注释掉。
+#  upyun:
+#    username: 
+#    password: 
+#    bucket: 
+#    bucket_domain: 
+    
+  #利用amazon SES发送邮件，当用注册时会给用户发邮件等邮件功能。如果没有amazon账号，可以去http://aws.amazon.com/申请。如果不想发送邮件，请将以下两行注释掉。
+#  aws:
+#    access_key_id: 
+#    secret_access_key: 
+
+development:
+  <<: *defaults
+#  domain: your_domain2.com
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,10 +1,10 @@
 .pl2
-  - if session[:atoken].nil?
+  - if need_bind_weibo?
     a href=weibo_connect_path target='_blank'
       | 绑定新浪微博
     | 后，自动同步到微博。
   | &nbsp;
-  - if session[:token].nil?
+  - if need_bind_qq?
     a href=qq_connect_path target='_blank'
       | 绑定QQ
     | 后，自动同步到腾讯微博、QQ空间。

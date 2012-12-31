@@ -5,21 +5,12 @@
   <p class="topP rr">
     <% if @user.nil? %>
       原创日记、照片、自传，尽情分享自我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <%#= link_to "日记、作品可同步到微博", site_url + login_path, title: "支持微博、QQ登录，点出进入登录页面", target: '_blank'%>
       <%= link_to "本页由张健编辑", sub_site('zhangjian'), title: "每个人都可以编辑我的故事网站哦", target: '_blank'%>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <%= link_to t('mobile_version'), m(site_url), :title => "手机访问本站时，将自动定位为手机版，不必特意访问http://m.mystory.cc/", :target => '_blank'%>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <% if session[:atoken].nil? %>
-        <a href=<%= weibo_connect_path %> title='使用微博帐号免注册登录'>
-          <%= image_tag("#{YUN_IMAGES}weibo_login.png", width: 126, height: 24) %>
-        </a>
-      <% end %>
-      <% if session[:token].nil? %>
-        <a href=<%= qq_connect_path %> title='使用QQ帐号免注册登录'>
-          <%= image_tag("#{YUN_IMAGES}qq_login.png", width: 63, height: 24) %>
-        </a>
-      <% end %>
+      <%= weibo_login_image %>
+      <%= qq_login_image %>
     <% else %>
       <%= link_to "#{@user.name}主页", site(@user), title: "访问#{@user.name}主页"%>
     <% end %>

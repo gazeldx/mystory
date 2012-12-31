@@ -1,12 +1,9 @@
 .idea/
 .bundle
+.sass-cache/
 log/
 nbproject/
-.sass-cache/
-public/photos
-public/uploads
 tmp/
-config/database.yml
-config/environment.rb
-config/config.yml
+public/uploads
+
 
