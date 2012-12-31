@@ -3,7 +3,7 @@ DEMO:我的故事网站http://mystory.cc/ 基于欧美主流WEB架构Ruby on Rai
 
 STEP 1： 申请一个域名和一台主机，并将域名解析到这台主机。
 主机可以用阿里云或者盛大云，建议用Ubuntu Server。域名解析用dnspod.cn，都是比较稳定的。
-因为用二级域名作为用户的博客URL，需要做泛域名解析。将 *.your_domain_name.com 解析你的主机。
+因为用二级域名作为用户的博客URL，需要做泛域名解析。将 *.your_domain.com 解析你的主机。
 远程登入云主机：$ ssh root@YOUR_SERVER_IP
 
 以下操作均在云主机上进行。
@@ -21,7 +21,7 @@ $ git clone http://github.com/gazeldx/mystory.git
 $ cd mystory
 $ bundle install
 
-STEP 3: 安装Postgres数据库
+STEP 3: 安装Postgresql数据库
 $ apt-get install postgresql-9.1
 1 修改 /etc/postgresql/8.4/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
 2 修改/etc/postgresql/8.4/main/pg_hba.conf，改为password(明文密码)：
@@ -37,15 +37,16 @@ $ rake db:migrate RAILS_ENV=production
 
 STEP 4： 修改配置
 修改config/config.yml
+修改config/locales/zh.yml
 
 STEP 5： 启动WEB服务
 $ cd mystory
 $ unicorn_rails -p 80
 现在你可以访问 http://your_domain.com了。
-$ unicorn_rails -p 80 -D是后台运行。还可以用Nginx，稍后我会写上如何配置Nginx。
+$ unicorn_rails -p 80 -D(-D是后台运行，-p指定端口)。还可以用Nginx，稍后我会写上如何配置Nginx。
 $ ps -ef|grep unicorn 可以查看到WEB的运行进程ID
 $ kill -9 进程ID（kill进程，也就是关闭了WEB服务。这里的进程ID是一个数字，如3456）
 
-任何问题可以在 https://github.com/gazeldx/mystory/或者 http://mystory.cc上向我发问。
+任何问题可以在 https://github.com/gazeldx/mystory/ 或者 http://mystory.cc上向我发问。
 我对使用源代码站长只有一个期待：和我一起做原创吧！做原创的站长将会获得我更多的技术支持哦！
 最后，对代码的重构一直都在持续。因此，请点击"Star"关注下，或点"Fork"帮助我一起改善代码吧。谢谢！
