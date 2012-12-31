@@ -12,7 +12,7 @@ STEP 2： 用RVM来安装RUBY
 $ \curl -L https://get.rvm.io | bash -s stable --ruby
 这一步报错是正常的，因为还要安装一些依赖
 $ rvm requirements
-$ apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
+$ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
 $ rvm gemset create 1.9.3@rails3.2.7
 $ rvm use 1.9.3@rails3.2.7 --default
 
@@ -22,7 +22,7 @@ $ cd mystory
 $ bundle install
 
 STEP 3: 安装Postgresql数据库
-$ apt-get install postgresql-9.1
+$ sudo apt-get install postgresql-9.1
 1 修改 /etc/postgresql/8.4/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
 2 修改/etc/postgresql/8.4/main/pg_hba.conf，改为password(明文密码)：
 local   all         postgres                          password
@@ -34,6 +34,7 @@ $ sudo -u postgres createdb mystory_production
 $ cd mystory
 $ rake db:migrate RAILS_ENV=production
 更多数据库见容见：http://zhangjian.mystory.cc/notes/736
+$ sudo apt-get install imagemagick
 
 STEP 4： 修改配置
 修改config/config.yml
