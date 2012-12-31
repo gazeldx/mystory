@@ -47,6 +47,6 @@ $ unicorn_rails -p 80 -D(-D是后台运行，-p指定端口)。还可以用Nginx
 $ ps -ef|grep unicorn 可以查看到WEB的运行进程ID
 $ kill -9 进程ID（kill进程，也就是关闭了WEB服务。这里的进程ID是一个数字，如3456）
 
-任何问题可以在 https://github.com/gazeldx/mystory/ 或者 http://mystory.cc上向我发问。
+任何问题可以在 https://github.com/gazeldx/mystory/ 或者 http://mystory.cc/ 上向我发问。
 我对使用源代码站长只有一个期待：和我一起做原创吧！做原创的站长将会获得我更多的技术支持哦！
 最后，对代码的重构一直都在持续。因此，请点击"Star"关注下，或点"Fork"帮助我一起改善代码吧。谢谢！
