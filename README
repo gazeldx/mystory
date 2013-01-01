@@ -23,8 +23,8 @@ $ bundle install
 
 STEP 3: 安装Postgresql数据库
 $ sudo apt-get install postgresql-9.1
-1 修改 /etc/postgresql/8.4/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
-2 修改/etc/postgresql/8.4/main/pg_hba.conf，改为password(明文密码)：
+1 修改 /etc/postgresql/9.1/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
+2 修改/etc/postgresql/9.1/main/pg_hba.conf，改为password(明文密码)：
 local   all         postgres                          password
 $ sudo -u postgres ./postgresql restart
 $ sudo -u postgres psql 进入posgres命令行

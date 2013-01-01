@@ -1,7 +1,4 @@
-class GadUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
-  storage Settings[:upyun] ? :upyun : :file
-
+class GadUploader < BaseUploader  
   def store_dir
     "photos/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -15,9 +12,5 @@ class GadUploader < CarrierWave::Uploader::Base
 
   version :side do
     process :resize_to_limit => [310, nil]
-  end
-
-  def extension_white_list
-    %w(jpg jpeg gif png)
   end
 end

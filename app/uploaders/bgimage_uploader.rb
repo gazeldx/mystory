@@ -1,4 +1,4 @@
-class BgimageUploader < CarrierWave::Uploader::Base
+class BgimageUploader < BaseUploader
   include CarrierWave::MiniMagick
   storage Settings[:upyun] ? :upyun : :file
 

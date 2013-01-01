@@ -1,7 +1,4 @@
-class PhotoUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
-  storage Settings[:upyun] ? :upyun : :file
-
+class PhotoUploader < BaseUploader
   def store_dir
     "photos/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -29,9 +26,5 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #Show in home_page index
   version :square do
     process :resize_to_fill => [115, 115]
-  end
-
-  def extension_white_list
-    %w(jpg jpeg gif png)
   end
 end
