@@ -4,7 +4,12 @@ DEMO:[我的故事网站](http://mystory.cc/)
 
 基于欧美主流WEB架构[Ruby on Rails](http//rubyonrails.org/)搭建。目前的版本已经可以正常使用。代码在持续重构中。
 
-很多站长用惯了php上传代码，看到下面DIY主机可能会感到害怕。请相信我，任何问题我都会帮你解决。只要你告诉我。而且[Ruby语言](http://www.ruby-lang.org/en/ )如今是敏捷开发的主力，代码易懂！不信请看看mystory的代码，看是不是能看懂。
+很多站长用惯了php上传代码，看到下面DIY主机可能会感到害怕。如果你信得过我，请将你的主机IP和密码告诉我，我会帮你安装、配置好服务器[详情](https://github.com/gazeldx/mystory/wiki/Install-host)。
+
+你也可以自己参考下文自行搭建主机。
+
+[Ruby语言](http://www.ruby-lang.org/en/ )如今是敏捷开发的主力，代码易懂！不信请看看mystory的代码，看是不是能看懂。
+
 请按顺序进行以下操作。
 
 ### STEP 1： 申请一个域名和一台主机，并将域名解析到这台主机。
