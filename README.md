@@ -20,6 +20,7 @@ DEMO:[我的故事网站](http://mystory.cc/)
 远程登入云主机(Windows系统下要下载'[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html/ )')：
 
 $ ssh root@YOUR_SERVER_IP
+[更多域名和主机见容](https://github.com/gazeldx/mystory/wiki/Domain-And-Host)
 
 以下操作均在云主机上进行。
 
@@ -33,12 +34,12 @@ $ ssh root@YOUR_SERVER_IP
     $ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
     $ rvm gemset create 1.9.3@rails3.2.7
     $ rvm use 1.9.3@rails3.2.7 --default
-
+[更多安装软件内容](https://github.com/gazeldx/mystory/wiki/Software)
 ### STEP 3： 下载源代码
     $ git clone http://github.com/gazeldx/mystory.git
     $ cd mystory
     $ bundle install
-
+[更多安装源代码内容](https://github.com/gazeldx/mystory/wiki/Source-code)
 ### STEP 4: 安装Postgresql数据库(Mysql也是支持的，安装说明还没有写。Postgresql比Mysql要好)
     $ sudo apt-get install postgresql-9.1
 1 修改 /etc/postgresql/9.1/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
@@ -72,7 +73,7 @@ $ ssh root@YOUR_SERVER_IP
     $ ps -ef|grep unicorn 可以查看到WEB的运行进程ID
     $ kill -9 进程ID（kill进程，也就是关闭了WEB服务。这里的进程ID是一个数字，如3456）
 
-“网站统计”代码在app/views/shared/_stat.html.slim中。请自行修改。
+[更多设置见容](https://github.com/gazeldx/mystory/wiki/Settings)
 
 任何问题可以在 https://github.com/gazeldx/mystory/issues 或者 http://mystory.cc/ 上向我发问。
 
