@@ -1,12 +1,12 @@
-DEMO:[我的故事网站](http://mystory.cc/)
+DEMO: [我的故事网站](http://mystory.cc/)
 
-如果要看详尽的内容，请[阅读WIKI](https://github.com/gazeldx/mystory/wiki/)
+如果要看详尽的内容，请[阅读WIKI](https://github.com/gazeldx/mystory/wiki/)。
 
 基于欧美主流WEB架构[Ruby on Rails](http//rubyonrails.org/)搭建。目前的版本已经可以正常使用。代码在持续重构中。
 
-很多站长用惯了php上传代码，看到DIY主机第一个想法就是“我不会”。如果你信得过我，请将你的主机IP和密码告诉我，我会帮你安装、配置好服务器[详情](https://github.com/gazeldx/mystory/wiki/Install-host)。
+很多站长用惯了php上传代码，看到DIY主机第一个想法就是“我不会”。如果你信得过我，请将你的主机IP和密码告诉我，我会帮你安装、配置好服务器 [查看详情](https://github.com/gazeldx/mystory/wiki/Install-host)。
 
-你也可以自己参考下文自行搭建主机。
+你也可以参考下文自行搭建主机。
 
 [Ruby语言](http://www.ruby-lang.org/en/ )如今是敏捷开发的主力，代码易懂！不信请看看mystory的代码，看是不是能看懂。
 
@@ -19,8 +19,8 @@ DEMO:[我的故事网站](http://mystory.cc/)
 
 远程登入云主机(Windows系统下要下载'[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html/ )')：
 
-$ ssh root@YOUR_SERVER_IP
-[更多域名和主机见容](https://github.com/gazeldx/mystory/wiki/Domain-And-Host)
+    $ ssh root@YOUR_SERVER_IP
+[查看更多域名和主机内容](https://github.com/gazeldx/mystory/wiki/Domain-And-Host)
 
 以下操作均在云主机上进行。
 
@@ -34,12 +34,12 @@ $ ssh root@YOUR_SERVER_IP
     $ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
     $ rvm gemset create 1.9.3@rails3.2.7
     $ rvm use 1.9.3@rails3.2.7 --default
-[更多安装软件内容](https://github.com/gazeldx/mystory/wiki/Software)
+[查看更多安装软件内容](https://github.com/gazeldx/mystory/wiki/Software)
 ### STEP 3： 下载源代码
     $ git clone http://github.com/gazeldx/mystory.git
     $ cd mystory
     $ bundle install
-[更多安装源代码内容](https://github.com/gazeldx/mystory/wiki/Source-code)
+[查看更多安装源代码内容](https://github.com/gazeldx/mystory/wiki/Source-code)
 ### STEP 4: 安装Postgresql数据库(Mysql也是支持的，安装说明还没有写。Postgresql比Mysql要好)
     $ sudo apt-get install postgresql-9.1
 1 修改 /etc/postgresql/9.1/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
@@ -47,6 +47,8 @@ $ ssh root@YOUR_SERVER_IP
 2 修改/etc/postgresql/9.1/main/pg_hba.conf，改为password(明文密码)：
 
     local   all         postgres                          password
+然后
+
     $ sudo -u postgres ./postgresql restart
     $ sudo -u postgres psql 进入posgres命令行
     $ ALTER USER postgres PASSWORD 'yourpassword';
@@ -55,7 +57,7 @@ $ ssh root@YOUR_SERVER_IP
 
     $ cd mystory
     $ rake db:migrate RAILS_ENV=production
-[更多数据库见容](https://github.com/gazeldx/mystory/wiki/Postresql)
+[查看更多数据库内容](https://github.com/gazeldx/mystory/wiki/Postresql)
 
     $ sudo apt-get install imagemagick
 
@@ -72,8 +74,7 @@ $ ssh root@YOUR_SERVER_IP
     $ unicorn_rails -p 80 -D(-D是后台运行，-p指定端口)。还可以用Nginx，稍后我会写上如何配置Nginx。
     $ ps -ef|grep unicorn 可以查看到WEB的运行进程ID
     $ kill -9 进程ID（kill进程，也就是关闭了WEB服务。这里的进程ID是一个数字，如3456）
-
-[更多设置见容](https://github.com/gazeldx/mystory/wiki/Settings)
+[查看更多设置内容](https://github.com/gazeldx/mystory/wiki/Settings)
 
 任何问题可以在 https://github.com/gazeldx/mystory/issues 或者 http://mystory.cc/ 上向我发问。
 
