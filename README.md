@@ -4,7 +4,7 @@ DEMO:[我的故事网站](http://mystory.cc/)
 
 基于欧美主流WEB架构[Ruby on Rails](http//rubyonrails.org/)搭建。目前的版本已经可以正常使用。代码在持续重构中。
 
-很多站长用惯了php上传代码，看到下面DIY主机可能会感到害怕。如果你信得过我，请将你的主机IP和密码告诉我，我会帮你安装、配置好服务器[详情](https://github.com/gazeldx/mystory/wiki/Install-host)。
+很多站长用惯了php上传代码，看到DIY主机第一个想法就是“我不会”。如果你信得过我，请将你的主机IP和密码告诉我，我会帮你安装、配置好服务器[详情](https://github.com/gazeldx/mystory/wiki/Install-host)。
 
 你也可以自己参考下文自行搭建主机。
 
@@ -51,13 +51,16 @@ $ ssh root@YOUR_SERVER_IP
     $ ALTER USER postgres PASSWORD 'yourpassword';
     $ sudo -u postgres createdb mystory_production
 修改config/database.yml
+
     $ cd mystory
     $ rake db:migrate RAILS_ENV=production
-更多数据库见容见：http://zhangjian.mystory.cc/notes/736
+[更多数据库见容](https://github.com/gazeldx/mystory/wiki/Postresql)
+
     $ sudo apt-get install imagemagick
 
 ### STEP 5： 修改配置
 修改config/config.yml
+
 修改config/locales/zh.yml
 
 ### STEP 6： 启动WEB服务
