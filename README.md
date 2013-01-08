@@ -24,36 +24,75 @@ DEMO: [我的故事网站](http://mystory.cc/)
 
 以下操作均在云主机上进行。
 
-### STEP 2： 用RVM来安装RUBY
+### STEP 2： 安装软件
+**用RVM来安装RUBY**
+
 下文参考自https://rvm.io/rvm/install/
 
-    $ \curl -L https://get.rvm.io | bash -s stable --ruby
-这一步报错是正常的，因为还要安装一些依赖
-
-    $ rvm requirements
     $ sudo apt-get install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion pkg-config
-    $ rvm gemset create 1.9.3@rails3.2.7
+    $ \curl -L https://get.rvm.io | bash -s stable --ruby
+安装最后，会提示类似这样的一名话：
+
+    * To start using RVM you need to run `source /usr/local/rvm/scripts/rvm`
+你照着做。下面是一个例子：
+
+    $ source /usr/local/rvm/scripts/rvm
+创建gemset并将此gemset设为默认：
+
+    $ rvm gemset create rails3.2.7
     $ rvm use 1.9.3@rails3.2.7 --default
+**安装其它软件**
+
+    $ sudo apt-get install libpq-dev imagemagick
 [查看更多“安装软件”内容](https://github.com/gazeldx/mystory/wiki/Software)
 ### STEP 3： 下载源代码
     $ git clone http://github.com/gazeldx/mystory.git
     $ cd mystory
     $ bundle install
 [查看更多“安装源代码”内容](https://github.com/gazeldx/mystory/wiki/Source-code)
-### STEP 4: 安装Postgresql数据库(Mysql也是支持的，安装说明还没有写。Postgresql比Mysql要好)
-    $ sudo apt-get install postgresql-9.1
-1 修改 /etc/postgresql/9.1/main/postgresql.conf，去掉listen_addresses = 'localhost'前面的#
+### STEP 4: Postgresql数据库
+因为Postgresql简单好用，性能可能比Mysql还要好，所以我没有用其它数据库。
 
-2 修改/etc/postgresql/9.1/main/pg_hba.conf，改为password(明文密码)：
+**安装**
+
+参考了http://www.postgresql.org/download/linux/debian/
+
+    $ sudo apt-get install postgresql-9.1
+**设置**
+
+修改
+
+    /etc/postgresql/9.1/main/postgresql.conf
+去掉listen_addresses = 'localhost'前面的#
+
+重启数据库
+
+    $ sudo service postgresql restart
+进入psql命令行
+
+    $ sudo -u postgres psql
+设置'postgres'用户的密码
+
+    $ ALTER USER postgres PASSWORD 'yourpassword';
+退出psql命令行
+
+    \q
+修改
+    /etc/postgresql/9.1/main/pg_hba.conf
+改为password(明文密码)：
 
     local   all         postgres                          password
-然后
+重启数据库
 
-    $ sudo -u postgres ./postgresql restart
-    $ sudo -u postgres psql 进入posgres命令行
-    $ ALTER USER postgres PASSWORD 'yourpassword';
+    $ sudo service postgresql restart
+**创建数据库**
+
     $ sudo -u postgres createdb mystory_production
-修改config/database.yml
+修改config/database.yml，改为你创建的数据库名和postgres用户密码。
+
+**创建表**
+
+注意：本步骤的操作需要先完成 [[下载源代码|Source-Code]]
 
     $ cd mystory
     $ rake db:migrate RAILS_ENV=production
