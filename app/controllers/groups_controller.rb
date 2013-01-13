@@ -66,6 +66,7 @@ class GroupsController < ApplicationController
     groups.each do |group|
       group.update_attribute('member_count', group.users.count)
     end
+    redirect_to my_path, notice: t('refresh_succ')
   end
 
   def about

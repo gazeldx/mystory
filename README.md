@@ -95,7 +95,8 @@ DEMO: [我的故事网站](http://mystory.cc/)
 注意：本步骤的操作需要先完成 [[下载源代码|Source-Code]]
 
     $ cd mystory
-    $ rake db:migrate RAILS_ENV=production
+    $ rake db:setup
+    $ rake db:seed RAILS_ENV=production
 [查看更多“数据库”内容](https://github.com/gazeldx/mystory/wiki/Postresql)
 
     $ sudo apt-get install imagemagick

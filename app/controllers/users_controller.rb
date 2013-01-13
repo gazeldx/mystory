@@ -199,6 +199,7 @@ class UsersController < ApplicationController
       all_clicks = notes_clicks + blogs_clicks + photos_clicks
       user.update_attribute(:clicks_count, all_clicks) if all_clicks > 0
     end
+    redirect_to my_path, notice: t('refresh_succ')
   end
 
   def edit_domain

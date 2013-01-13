@@ -1,9 +1,9 @@
 = title t('account_settings', w: site_name)
 = render 'shared/notice_error'
 .b
-  - unless @user.roles.blank?
-    a href=sub_site('blog')+my_path
-      | 后台管理
+  - if !@user.roles.blank? || super_admin?
+    a href=my_path
+      | [后台管理]
     br
     br
   = link_to t('my_info'), edit_profile_path

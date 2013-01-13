@@ -4,8 +4,8 @@
   = t'all_groups'
   br
   - @groups.each do |group|
-    | #{link_to group.name, site(group), target: '_blank'}(#{group.member_count})
+    | #{link_to group.name, site(group), target: '_blank'}(#{group.member_count}人,ID:#{group.id})
     - if super_admin?
-      = link_to 'edit', edit_group_path(group)
-    | &nbsp;&nbsp;
+      = link_to t(:edit), edit_group_path(group)
+    | &nbsp;&nbsp;&nbsp;&nbsp;
   br

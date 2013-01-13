@@ -51,6 +51,7 @@ class CommentsController < ApplicationController
     users.each do |user|
       user.update_attribute('comments_count', user.blogcomments.count + user.notecomments.count + user.photocomments.count)
     end
+    redirect_to my_path, notice: t('refresh_succ')
   end
 
 end

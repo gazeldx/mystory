@@ -10,8 +10,24 @@
     a href=roles_path
       = t'role.edit'
     br
-    a href=columns_path
-      = t'column.edit'
+    br
+    | 日常维护
+    br
+    /TODO Should auto updated!
+    a href=update_users_clicks_count_path
+      | 更新用户主页访问量
+    | &nbsp;|&nbsp;
+    a href=update_user_comments_count_path
+      | 更新用户评论数
+    | &nbsp;|&nbsp;
+    a href=update_group_users_count_path
+      | 更新社团、校园成员数量
+    br
+    a href=groups_add_user_by_super_path
+      = t'add_user_to_group'
+    | &nbsp;|&nbsp;  
+    a href=groups_assign_admin_path
+      = t'set_user_as_group_admin'
     br
     br
     | 后台普通权限

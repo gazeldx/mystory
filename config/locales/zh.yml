@@ -5,8 +5,8 @@ zh:
   awesome_setting: <%= "Did you know 5 + 5 = #{5 + 5}?" %>
   site:
     name: "我的故事"
-    seotitle: "我的故事 - 写日记、自传，发作品、照片，尽情分享自己 |原创小说阅读网|好看的小说排行榜|玄幻穿越言情小说|诗歌散文文学社团"
-    metadesc: "MyStory是原创的社交网络。方便你分享生活中的一切。这里还有很多有创造力的人,关注一下他们吧！"
+    seotitle: "Ruby Blog 我的故事 - 免费开源多人博客系统"
+    metadesc: "MyStory是原创的社交网络，已经开放源代码。用户可以写日记、自传，分享照片，关注有趣的人。"
     desc: "分享我的故事，让世界更美"
     detail: "原创社区。日记、作品同步到微博、QQ空间"
 
@@ -27,6 +27,7 @@ zh:
   new_succ: "添加成功！"
   create_succ: "创建成功！"
   update_succ: "修改成功！"
+  refresh_succ: "更新成功！"
   delete_succ: "删除成功！"
   create_succ1: "%{w}创建成功！"
   update_succ1: "%{w}修改成功！"
@@ -49,6 +50,8 @@ zh:
   talked_about: "评价："
   ebook_profile: "主页：%{site}\r\n%{name}，%{city} %{jobs} %{birthday} %{school}\r\n日记:%{notes_count} 作品:%{blogs_count} 粉丝:%{followers_num} 关注:%{following_num}\r\n%{maxin} %{memo}"
   whose_articles: "%{who}的文章"
+  add_user_to_group: 将用户加到社团中
+  set_user_as_group_admin: 将用户设置为社团管理员
 
   university: "大学"
   _college: "学院"
@@ -563,17 +566,7 @@ zh:
   detail_info: "详细资料"
 
   at: "在"
-
-  yesterday: "昨天"
-  qian_day: "前天"
-  _time: "时间"
-  time_format: "%Y年%m月%d日 %H:%M"
-  date_format: "%Y年%m月%d日"
-  date_without_year: "%m月%d日"
-  date_format_: "%Y-%m-%d"
-  no_year: "%m月%d日 %H:%M"
-  no_year_simple: "%m-%d %H:%M"
-  h_m: "%H:%M"
+  
   posted_in: "发表在"
 
   view_blogs_in_category: "查看该分类下的作品"
@@ -647,10 +640,7 @@ zh:
   domain_setted_desc: " 可用“%{w}”登录，如需更改，请私信站长"
   real_name: "真实姓名"
   name_desc: "会显示在主页。“%{w}”是真实社交网络，建议填写真实姓名！实名注册的用户会被重点推荐。"
-
-
-  num_error: "个原因"
-  op_error: "使得操作未成功"
+  
   sort: "排序"
   confirm:
     delete: "确定删除吗?"
@@ -714,6 +704,21 @@ zh:
 #      messages:
 #        taken: "应该是唯一的。系统里已经存在这个值，请修改！"
 #        blank: "是必填项哦！"
+
+  yesterday: "昨天"
+  qian_day: "前天"
+  _time: "时间"
+  time_format: "%Y年%m月%d日 %H:%M"
+  date_format: "%Y年%m月%d日"
+  date_without_year: "%m月%d日"
+  date_format_: "%Y-%m-%d"
+  no_year: "%m月%d日 %H:%M"
+  no_year_simple: "%m-%d %H:%M"
+  h_m: "%H:%M"
+  
+  num_error: "个原因"
+  op_error: "使得操作未成功"
+  
   will_paginate:
     previous_label: "&#8592; 上一页"
     next_label: "下一页 &#8594;"
@@ -1036,3 +1041,13 @@ zh:
     t226: "雪糕"
     t227: "下雨"
     t229: "强"
+#  seed:
+#    column:
+#      name1: 小说
+#      name2: 散文
+#      name3: 诗歌
+#      name4: 杂文
+#      name5: 日记
+#      name6: 故事
+#      name7: 读书
+#      name8: 影视

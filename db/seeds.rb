@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
+#
+
+
+users = User.create([{ :username => 'webmaster', :domain => 'webmaster', :email => 'webmaster@test.com', :name => 'Web Master', :passwd => Digest::SHA1.hexdigest('webmaster'), :memo => 'I am the Web Master! Please contact me!' }])
+['Novels', 'Essays', 'Poems', 'Notes', 'Diaries', 'Stories', 'Books', 'Movies'].each do |name|
+  Column.create(:name => name, :user => users.first)
+end

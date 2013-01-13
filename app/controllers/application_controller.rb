@@ -450,7 +450,7 @@ class ApplicationController < ActionController::Base
   end
 
   def super_admin?
-    ['zhangjian'].include? session[:domain]
+    ['webmaster'].include? session[:domain]
   end
   
   def super_admin

@@ -1,8 +1,12 @@
-= form_tag '/assign_group_admin' do
-  | admin's user id
-  = text_field_tag :user_id
-  br
-  | group id:
-  = text_field_tag :group_id
-  br
-  input type='submit' value='确认授权'
+h2
+  = my_nav
+  = t'set_user_as_group_admin'
+.b
+  = form_tag '/assign_group_admin' do
+    | 用户ID:
+    = text_field_tag :user_id
+    br
+    | 社团ID:
+    = text_field_tag :group_id
+    br
+    input type='submit' value='确认授权'

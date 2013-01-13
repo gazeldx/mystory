@@ -46,6 +46,10 @@ module ApplicationHelper
     #      sub_site('blog')
     #    end
   end
+
+  def webmaster
+    whose_site('webmaster')
+  end
   
   #month as 201204
   def chinese_month(month)
