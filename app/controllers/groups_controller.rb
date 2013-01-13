@@ -54,11 +54,13 @@ class GroupsController < ApplicationController
     group = Group.find(params[:group_id])
     user = User.find(params[:user_id])
     GroupsUsers.create(group: group, user: user)
+    redirect_to my_path, notice: t('operate_succ')
   end
 
   def do_assign_admin
     group_user = GroupsUsers.find_by_group_id_and_user_id(params[:group_id], params[:user_id])
     GroupsUsers.update_all({:is_admin => true}, {:group_id => group_user.group_id, :user_id => group_user.user_id})
+    redirect_to my_path, notice: t('operate_succ')
   end
 
   def update_group_users_count

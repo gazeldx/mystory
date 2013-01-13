@@ -12,11 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def site_url
-    if [80, 8080].include? request.port
-      "http://mystory.cc"
-    else
-      "http://mystory2.cc:#{request.port.to_s}"
-    end
+    url = "http://#{Settings.domain}"
+    url << ":#{request.port.to_s}" unless request.port == 80
   end
   
   def my_site
@@ -31,16 +28,8 @@ class ApplicationController < ActionController::Base
     site_url.sub(/\:\/\//, "://" + str + ".")
   end
 
-  #  def mystory?
-  #    ["mystory.cc", "mystory2.cc"].include? request.domain
-  #  end
-
   def site_name
-    #    if mystory?
     t'site.name'
-    #    else
-    #      t'cy.name'
-    #    end
   end
 
   def authorize(item)
@@ -115,10 +104,8 @@ class ApplicationController < ActionController::Base
   def summary_common_no_comment(something, size, tmp)
     if something.is_a?(Note)
       si = note_path(something)
-      #      count = something.notecomments.size
     elsif something.is_a?(Blog)
       si = blog_path(something)
-      #      count = something.blogcomments.size
     end
     if something.content.size > size
       tmp + t('etc') + "<a href='#{si}' target='_blank'>" + t('whole_article') + "</a>"
@@ -490,12 +477,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless super_admin? or user.menus.any?{|x| x.code==code}
   end
 
-  #  def production_mode
-  #    unless Rails.env.production?
-  #      redirect_to root_path
-  #    end
-  #  end
-
   def archives_months_count
     _ns = @user.notes.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
     _bs = @user.blogs.where(:is_draft => false).select("to_char(created_at, 'YYYYMM') as t_date, count(id) as t_count").group("to_char(created_at, 'YYYYMM')")
@@ -661,12 +642,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  #  module Archives
-  #
-  #  end
-
   module Sina
-    #    130 => 1300112204 letter is so little
     if ENV["RAILS_ENV"] == "production"
       USER_HASH_OLD = { 131 => 1447497337, 127 => 1163218074, 140 => 1338246804, 126 => 1631985261, 141 => 1407728082, 142 => 1245732825, 143 => 1870913595, 144 => 1410248531, 145 => 1347189314, 146 => 1655219222 }
       USER_HASH = { 131 => 1447497337, 145 => 1347189314 }
@@ -676,7 +652,6 @@ class ApplicationController < ActionController::Base
     end
     #    CODE_HASH= { 127 => "MASSd53c41267bf6", 141 => "MASSb2a806bf5bfa" }
   end
-
 
   def mr
     "m/#{controller_path}/#{params[:action]}"
@@ -696,7 +671,5 @@ class ApplicationController < ActionController::Base
     else
       url
     end
-  end
-
-  
+  end  
 end

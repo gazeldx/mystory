@@ -1,6 +1,6 @@
 defaults: &defaults
   # 改为你的域名
-  domain: your_domain.com
+  domain: yourdomain.com
   
   #QQ OPEN
 #  qq:
@@ -26,7 +26,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
-#  domain: your_domain2.com
+  domain: yourdomain2.com
 
 test:
   <<: *defaults
