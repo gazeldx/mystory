@@ -10,6 +10,12 @@
     a href=roles_path
       = t'role.edit'
     br
+    a href=users_path
+      | 所有用户
+    br
+    a href=group_index_path
+      = t'all_groups'
+    br
     br
     | 日常维护
     br
@@ -30,11 +36,8 @@
       = t'set_user_as_group_admin'
     br
     br
-    | 后台普通权限
-    br
-  - if manage? 'users'
-    a href=users_path
-      = t'user.edit'
-    br
-    a href=column_blogs_path
-      = t'columnblogs.edit'
+  /  | 后台普通权限
+  /  br
+  /- if manage? 'users'
+  /  a href=users_path
+  /    = t'user.edit'

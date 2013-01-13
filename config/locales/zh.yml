@@ -528,9 +528,8 @@ zh:
   _relative_articles: "相关文章："
   _my_boards: "我的讨论版："
   all_boards: "所有讨论版"
-  all_groups: "所有团体"
+  all_groups: "所有社团"
   all_schools: "所有校园"
-  all_societies: "所有社团"
 
   r_note: "%{w}推荐的日记"
   r_blog: "%{w}推荐的作品"

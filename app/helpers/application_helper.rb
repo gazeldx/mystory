@@ -139,7 +139,7 @@ module ApplicationHelper
   end
 
   def my_nav
-    raw "#{link_to t('_manage'), sub_site('blog') + my_path} >&nbsp;"
+    raw "#{link_to t('_manage'), my_path} >&nbsp;"
   end
 
   def setting_nav
