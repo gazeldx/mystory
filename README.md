@@ -15,7 +15,7 @@ DEMO: [我的故事网站](http://mystory.cc/)
 ### STEP 1： 申请一个域名和一台主机，并将域名解析到这台主机。
 主机可以用阿里云或者盛大云，建议用Ubuntu Server。域名解析用dnspod.cn，都是比较稳定的。
 
-因为用二级域名作为用户的博客URL，需要做泛域名解析。将 *.your_domain.com 解析你的主机。
+因为用二级域名作为用户的博客URL，需要做泛域名解析。将 *.yourdomain.com 解析你的主机。
 
 远程登入云主机(Windows系统下要下载'[PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html/ )')：
 
@@ -109,7 +109,7 @@ DEMO: [我的故事网站](http://mystory.cc/)
 ### STEP 6： 启动WEB服务
     $ cd mystory
     $ unicorn_rails -p 80
-现在你可以访问 http://your_domain.com了。
+现在你可以访问 http://yourdomain.com了。
 
     $ unicorn_rails -p 80 -D(-D是后台运行，-p指定端口)。还可以用Nginx，稍后我会写上如何配置Nginx。
     $ ps -ef|grep unicorn 可以查看到WEB的运行进程ID

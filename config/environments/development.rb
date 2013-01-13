@@ -1,8 +1,4 @@
 Cms::Application.configure do
-#  DOMAINS = ['mystory2.cc']
-#  REDURL = '&redirect_uri=mystory2.cc/qq_callback'
-#  WeiboOAuth2::Config.redirect_uri = "http://mystory2.cc/weibo_callback"
-  #  site_url = "http://" + DOMAIN_NAME + ":8080"
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
