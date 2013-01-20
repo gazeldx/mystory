@@ -13,7 +13,7 @@ DEMO: [我的故事网站](http://mystory.cc/)
 请按顺序进行以下操作。
 
 ### STEP 1： 申请一个域名和一台主机，并将域名解析到这台主机。
-主机可以用阿里云或者盛大云，建议用Ubuntu Server。域名解析用dnspod.cn，都是比较稳定的。
+主机可以用[阿里云](http://www.aliyun.com/cps/rebate?from_uid=10HMVVRwi6QE1DS+vAgUA07z9lZ7NuFi)或者盛大云，建议用Ubuntu Server。域名解析用dnspod.cn，都是比较稳定的。
 
 因为用二级域名作为用户的博客URL，需要做泛域名解析。将 *.yourdomain.com 解析你的主机。
 
@@ -92,7 +92,7 @@ DEMO: [我的故事网站](http://mystory.cc/)
 
 **创建表**
 
-注意：本步骤的操作需要先完成 [[下载源代码|Source-Code]]
+注意：本步骤的操作需要先完成 [下载源代码](https://github.com/gazeldx/mystory/wiki/Source-code)
 
     $ cd mystory
     $ rake db:setup RAILS_ENV=production

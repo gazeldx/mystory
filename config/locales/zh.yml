@@ -2,7 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 #TODO news should be defined by user，and Model should be changed to defined Chinese.
 zh:
-  awesome_setting: <%= "Did you know 5 + 5 = #{5 + 5}?" %>
   site:
     name: "我的故事"
     seotitle: "Ruby Blog - 我的故事 - 免费开源多人博客系统"
@@ -117,8 +116,6 @@ zh:
   latest_attention: "最新关注"
   most_comments_articles: "热评"
   top_commentators: "评论排行"
-  #top_users: "博客排行"
-
 
   send_again: "再发一封"
   _archive: "归档"
@@ -140,9 +137,7 @@ zh:
   become_writer: "成为作者"
   _ad_plan: "我的故事广告共享计划"
   
-  #latest_blogs: "最近作品"
   _latest_blogs: "最近作品："
-  #latest_notes: "最近日记"
   _latest_notes: "最近日记："
   upload_photo_to: "上传照片到"
   update_memoir: "更新自传"
@@ -178,7 +173,6 @@ zh:
     member: "粉丝"
     _member: " - 粉丝"
     member_of: "粉丝_%{w}_%{s}论坛"
-    #_member_of: "%{w}成员"
   post:
     new: "发表新帖"
     new_of_board: "发表新帖 - %{w}"
@@ -187,8 +181,6 @@ zh:
   replay_deleted: "说的内容已删除！"
   latest_posts: "论坛新贴"
 
-  #sub_site: "%{w} - %{s}原创社区"
-
   bbs_title: "讨论版_%{w}"
   group_title: "团体_我的故事"
   school_title: "校园_我的故事"
@@ -196,11 +188,9 @@ zh:
   group_about_title: "介绍_%{w}_我的故事"
   group_chat_title: "聊天_%{group}_我的故事"
   chatroom: "聊天室"
-  #group_chat: "%{group}聊天室"
   _title: "校园_我的故事"
   reply_what: "<span class='pl'>(%{u}说：%{w})</span>"
   
-#  delete_failed: "删除失败！%{w}"
   used: "该数据已经被其他数据使用，不允许删除！"
   article_in: "下的文章"
   taken: "%{w}已存在！"
@@ -305,7 +295,6 @@ zh:
     has_when_delete: "该分组下有你关注的人或你推荐的文章，不可以删除。将关注的人或推荐的文章后转到其它分后，才可以删除。"
   assortment_addtip: "添加分组，请输入分组名称："
 
-  #litsoc:
   society: "社团"
   invite_somebody_to_group: "邀请他人入社"
   _send_invitation: "发送邀请信"
@@ -316,9 +305,7 @@ zh:
   update_ad_image: "更改广告信息"
   delete_ad_image: "删除广告图片"
   ad_image_not_upload: "图片尚未上传"
-
   
-  #notecate_default_tip: "分类“个人日记”是系统默认的。"
   no_category: "未分类"
   comments: "(评论%{w})"
   comments_2: "评论(%{w})"
@@ -334,7 +321,6 @@ zh:
   comment_time: "评论时间"
 
   fans_each_other: "互相关注"
-
 
   _forum: "版聊"
   _group: "团体"
@@ -383,7 +369,6 @@ zh:
   tags_who_title: "标签_%{w}"
   idol_who: "%{w} - 同道中人"
 
-
   modify_recommend_reason: "修改推荐理由"
   recommended: "已推荐"
   click_cancel_recommend: "点击可取消推荐"
@@ -402,7 +387,6 @@ zh:
   save_as_draft: "存为草稿"
   draft_desc: "(草稿状态,只对你可见)"
   all_drafts: "所有草稿"
-#  web_desc: "这世界，我来过"
   editor: "收藏"
   who_editor: "%{w}收藏"
   editor_home_title: "%{w}收藏_我的故事"
@@ -424,17 +408,11 @@ zh:
   recommend: "推荐"
   cancel_recommend: "取消推荐"
   recommend_succ: "推荐成功！"
-#  recommend_him: "推荐他"
-#  cancel_recommend_him: "取消推荐"
   _comment: "评论"
   _active: "动态"
   active_state: "%{w}关注的人动态"
-#  i_now: "%{w}的动态"
   
   ren: "人"
-  #all: "阅读全文"
-  
-#    desc: "人，诗意处栖居！"
   more: "更多"
   avatar: "头像"
 
@@ -446,13 +424,10 @@ zh:
   my_home_page: "我的主页"
   plaza: "广场"
   mobile_version: "手机版"
-  #my_story: "我的故事"
   my_note: "我的日记"
   my_blog: "我的作品"
   my_photo: "我的影集"
   my_vedio: "我的视频"
-  #my_memoir: "我的自传"
-  #my_idol: "我的偶像"
   my_info: "个人资料"
   edit_profile: "编辑个人资料"
   split_with_blank_time: "多个以空格分隔，距今近的写在前面"
@@ -503,7 +478,6 @@ zh:
   s_notecates: "%{w}日记分类"
   s_recommend: "%{w}推荐作品"
   s_recommend_note: "%{w}推荐日记"
-#  s_cate_recommend: "“%{w}”下的文章推荐"
   s_idol: "%{w}的偶像"
   s_hobby: "%{w}的爱好"
   s_editor: "%{w}推荐"
@@ -516,7 +490,6 @@ zh:
   s_note_date_title: "%{t}_%{c}_%{w}日记"
   s_note_date2: "%{w} - %{w3}%{w2}日记"
   s_note_date_edit: "编辑 - %{w}%{w2}日记"
-  #s_note_date3: "%{w}日记"
   s_category: "%{w2} - %{w}作品"
   s_category_title: "%{c}_%{w}作品"
   s_notecate: "%{w2} - %{w}日记"
@@ -565,8 +538,7 @@ zh:
 
   detail_info: "详细资料"
 
-  at: "在"
-  
+  at: "在"  
   posted_in: "发表在"
 
   view_blogs_in_category: "查看该分类下的作品"
@@ -623,7 +595,6 @@ zh:
   logout: "退出"
   password: "密码"
   edit_password: "修改密码"
-  #member_login: "会员登录"
   _user: "用户"
   register_new_user: "注册新用户"
   _register: "注册"
@@ -652,7 +623,6 @@ zh:
   caption: "提示："
   modify_desc: "修改描述"
 
-  #view: "视角"
   home_page: "首页"
   return_home: "返回他的首页"
   return_root: "%{w}首页"
@@ -677,33 +647,9 @@ zh:
   unfinished: "正在研发中，敬请期待……"
 
   page_not_found: "页面不存在！返回<a href='http://mystory.cc'>%{w}原创社区</a>"
-  
-  #sitename: "网站名称"
-  #official_website: "官方网站"
-  #_menu: "导航"
-#  menu:
-#    name: "名称"
-#    url: "链接url"
-#    description: "描述"
-#    add: "添加新导航"
 
-  
-  
-  #book_phone: "订餐热线:"
-  #is_permanent_url: "是本站的永久访问地址"
 
-  #invalid_format: "格式不合要求！"
 
-#  activerecord:
-#    errors:
-#      template:
-#        header:
-#          one:   "操作没能成功"
-#          other: "%{count} 个错误使得 %{model} 未能成功保存"
-#        body:    "下面一些原因使得操作未成功:"
-#      messages:
-#        taken: "应该是唯一的。系统里已经存在这个值，请修改！"
-#        blank: "是必填项哦！"
 
   yesterday: "昨天"
   qian_day: "前天"
@@ -975,22 +921,18 @@ zh:
     select:
       prompt: "请选择"
     submit:
-      #新增%{model}
       create: "新增"
       update: "更新"
       submit: "提交"
-#  sina:
-#    article_start: "正文开始"
-#    article_end: "正文结束"
   copy_article: "转"
 
   
-  cy:
-    name: "创源智库"
-    seotitle: "创源智库_博客日记|股票期货|金融财经|社会历史|民生银行|企业管理|黄金投资|货币经济|读书炒股|励志名人名言"
-    metadesc: "“创源智库”由一群对经济、民生、文化有着积极思考的人发起，志在传播优质思想。"
-    desc: "创造之源，智慧宝库"
-    detail: "创建你自己的研究项目，众人为你出主意"
+#  cy:
+#    name: "创源智库"
+#    seotitle: "创源智库_博客日记|股票期货|金融财经|社会历史|民生银行|企业管理|黄金投资|货币经济|读书炒股|励志名人名言"
+#    metadesc: "“创源智库”由一群对经济、民生、文化有着积极思考的人发起，志在传播优质思想。"
+#    desc: "创造之源，智慧宝库"
+#    detail: "创建你自己的研究项目，众人为你出主意"
   insert_emotion: "插入表情"
   emotion: "表情"
   emotions:
@@ -1041,13 +983,3 @@ zh:
     t226: "雪糕"
     t227: "下雨"
     t229: "强"
-#  seed:
-#    column:
-#      name1: 小说
-#      name2: 散文
-#      name3: 诗歌
-#      name4: 杂文
-#      name5: 日记
-#      name6: 故事
-#      name7: 读书
-#      name8: 影视

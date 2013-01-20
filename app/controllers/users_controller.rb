@@ -105,7 +105,7 @@ class UsersController < ApplicationController
     #@user.avatar_identifier = @user.avatar_identifier.sub!(/.*\./, "me.")
     if @user.save
       proc_session
-      UserMailer.welcome_new_user(@user).deliver if Rails.env.production? and !Settings[:aws].nil?
+      UserMailer.welcome_new_user(@user).deliver if Rails.env.production? and Settings[:aws]
       flash[:notice] = t'regiter_succ_memo'
       redirect_to m_or(my_site + edit_profile_path)
     else

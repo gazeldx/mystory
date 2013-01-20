@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="ua-ff4" lang="zh-CN">
+<html>
 <head>
-  <title>对不起，什么地方出错了。 (500)</title>
+  <title>这个页面是不存在的 (404)</title>
   <style type="text/css">
     body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
     div.dialog {
@@ -17,11 +17,12 @@
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
+  <!-- This file lives in public/404.html -->
   <div class="dialog">
-    <h1>对不起，什么地方出错了。网站刚上线，请您谅解！</h1>
-    <p>我们正在解决这个问题中.您可以向我们提交问题。感谢！<br/>
-      ——#{site_name}原创社区</p>
+    <h1>这个页面是不存在的.</h1>
+    <p>您可能敲错了网址或者这个网址已经转移了.
+      <br/>去别的页面看看吧！——<%= link_to  "#{@user.nil? ? "" : @user.name}首页", root_path %>
+    </p>
   </div>
 </body>
 </html>

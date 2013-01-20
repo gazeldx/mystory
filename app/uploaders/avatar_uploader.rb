@@ -38,7 +38,7 @@ class AvatarUploader < BaseUploader
 #    puts "super2 is #{File.extname(super)}"
    #TODO WHY create blogcomment will have exception: TypeError in BlogcommentsController#create an't convert nil into String
     begin
-      "avatar#{File.extname(super)}"
+      "avatar#{File.extname(super).downcase}"
     rescue
       ""
     end

@@ -24,11 +24,11 @@
   a href=idols_path
     | 偶像
   | &nbsp;&nbsp;|&nbsp;&nbsp;
-  - unless Settings[:weibo].nil?
+  - if Settings[:weibo]
     a href=weibo_account_path
       | 新浪微博绑定
     | &nbsp;&nbsp;&nbsp;
-  - unless Settings[:qq].nil?
+  - if Settings[:qq]
     a href=qq_account_path
       | QQ绑定
   br

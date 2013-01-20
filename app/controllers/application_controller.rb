@@ -3,7 +3,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
-  
+
+#  ActiveRecord::RecordInvalid
+#  rescue_from ActionController::RoutingError, :with => :r404
+  rescue_from ActiveRecord::RecordNotFound, :with => :r404
+#
+#  rescue_from 'MyAppError::Base' do |exception|
+#    render :xml => exception, :status => 500
+#  end
+#
+#  protected
+#
+#  def show_errors(exception)
+#    exception.record.new_record? ? ...
+#  end
+
   #This can be used in any controller to skip all filter
   #  skip_filter _process_action_callbacks.map(&:filter)
 
@@ -419,7 +433,8 @@ class ApplicationController < ActionController::Base
   
 
   def r404
-    render :text => t('page_not_found', :w => site_name), :status => 404
+    render :template => "/errors/#{status}.html.erb", :status => 404, :layout => "help"
+#    render :text => t('page_not_found', :w => site_name), :status => 404
   end
 
   #302 301 diffenerce see: http://stackoverflow.com/questions/3025475/what-is-the-difference-between-response-redirect-and-response-status-301-redirec
