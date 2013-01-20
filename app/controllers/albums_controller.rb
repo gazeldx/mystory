@@ -7,7 +7,6 @@ class AlbumsController < ApplicationController
   end
 
   def show
-    #TODO SHOW PAGE? Should auto direct to 404. Not write r404
     @album = Album.find(params[:id])
     if @album.user == @user
       @photos = Photo.where(["album_id = ?", params[:id]]).order("created_at DESC").page(params[:page])

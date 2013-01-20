@@ -34,16 +34,12 @@ class AvatarUploader < BaseUploader
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-#    puts "super is #{super}"
-#    puts "super2 is #{File.extname(super)}"
-   #TODO WHY create blogcomment will have exception: TypeError in BlogcommentsController#create an't convert nil into String
+   # WHY create blogcomment will have exception: TypeError in BlogcommentsController#create an't convert nil into String
     begin
       "avatar#{File.extname(super).downcase}"
     rescue
       ""
     end
-#    super.chomp(File.extname(super)) + '.png'
-#     "something.jpg" if original_filename
   end
 
 end
