@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   def site_url
     url = "http://#{Settings.domain}"
     url << ":#{request.port.to_s}" unless request.port == 80
+    url
   end
   
   def my_site
