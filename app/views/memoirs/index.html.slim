@@ -21,8 +21,7 @@
   span.mi
     = @memoir.updated_at.strftime t'time_format'
     |  更新&nbsp;&nbsp;
-    - if weibo_active?
-      = show_weibo
+    = show_weibo if @user.weibo_active?
     = read_comment_recommend_show @memoir
   div id='note_#{@memoir.id}_full'
     pre.note_full

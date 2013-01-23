@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
   validates :source, :presence => true
   validate :domain_not_used
 
+  def weibo_active?
+    Settings[:weibo] and self.weiboid
+  end
+
   def enjoy_books
     renjoys.includes(:enjoy).where("enjoys.stype = 1").order('renjoys.created_at')
   end

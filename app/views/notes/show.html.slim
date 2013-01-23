@@ -31,7 +31,7 @@ div id='note-#{@note.id}'
       = style_it @note.content
       br
       br
-      = show_weibo if weibo_active?
+      = show_weibo if @user.weibo_active?
       = style_it @user.signature.to_s
 div.note-ft id='note_#{@note.id}_footer'
   .note_upper_footer

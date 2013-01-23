@@ -508,7 +508,7 @@ class ApplicationController < ActionController::Base
 
   def weibo_active?
     Settings[:weibo] and session[:atoken]
-  end
+  end  
 
   def qq_active?
     Settings[:qq] and session[:token]
