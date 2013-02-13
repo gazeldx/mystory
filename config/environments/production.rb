@@ -60,6 +60,6 @@ Cms::Application.configure do
   # config.assets.manifest = YOUR_PATH
   
   config.assets.js_compressor  = :uglifier
-  config.assets.css_compressor = :scss
+#  config.assets.css_compressor = :scss
   config.assets.precompile += %w(application.css application.js blogs.js emotions.js idols.js photos.js post.js recommend.js style.css form.css create_note.css dialog.css emotion.css hu_base.css)
 end
