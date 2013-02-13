@@ -150,6 +150,7 @@ class BlogsController < ApplicationController
     user = @blog.user
     #    expire_fragment('columns_articles') if @blog.columns.size > 0
     @blog.destroy
+    #TODO NEED REFACTOR TO model user
     user.update_attribute('blogs_count', user.blogs_count - 1)
     flash[:notice] = t'delete_succ'
     if @m

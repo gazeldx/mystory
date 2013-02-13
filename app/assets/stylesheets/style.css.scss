@@ -75,10 +75,7 @@ input,button,textarea,select {
   display:inline-block;
   _height:1px
 }
-*html .clearfix {
-  height:1%
-}
-*+html .clearfix {
+html .clearfix {
   height:1%
 }
 .clearfix {
@@ -848,12 +845,6 @@ body .note {
   clear:both;
   text-align:center
 }
-*html .clearfix {
-  height:1%
-}
-.clearfix {
-  display:block
-}
 .show {
   display:block
 }
@@ -1070,18 +1061,18 @@ ul li {
 }
 .obu{
   dt {
-  margin:0;
-  height:50px;
-  overflow:hidden;
-  text-align:center;
-  line-height:$b;
-}
-dd {
-  margin:0;
-  height:55px;
-  text-align:center;
-  overflow:hidden
-}
+    margin:0;
+    height:50px;
+    overflow:hidden;
+    text-align:center;
+    line-height:$b;
+  }
+  dd {
+    margin:0;
+    height:55px;
+    text-align:center;
+    overflow:hidden
+  }
 }
 .photitle {
   border-bottom:1px solid #ddd;

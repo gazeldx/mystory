@@ -10,9 +10,9 @@ class MemoirsController < ApplicationController
     @memoir = Memoir.find_by_user_id(@user.id)
     unless @memoir.nil?
       add_view_count
-      comments = @memoir.memoircomments
-      @all_comments = (comments | @memoir.rmemoirs.select{|x| !(x.body.nil? or x.body.size == 0)}).sort_by{|x| x.created_at}
-      @comments_uids = comments.collect{|c| c.user_id}
+      #TODO refactor
+      @all_comments = @memoir.memoircomments.order('likecount DESC, created_at')
+      @comments_uids = @all_comments.collect{|c| c.user_id}
     end
     render :layout => 'memoir_share'
   end
