@@ -87,6 +87,6 @@ div.note-ft id='note_#{@note.id}_footer'
 - @clazz = 'note'
 = comments
 javascript:
-  $('#recommend').live('click', function() {
+  $('#recommend').on('click', function() {
     recommend_note_in(#{@note.id});
   });

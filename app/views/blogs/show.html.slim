@@ -82,6 +82,6 @@ div id='note-#{@blog.id}'
 - @clazz = 'blog'
 = comments
 javascript:
-  $('#recommend').live('click', function() {
+  $('#recommend').on('click', function() {
     recommend_blog_in(#{@blog.id});
   });
