@@ -5,8 +5,7 @@ module Rails
     end
   end
 end
-#rails_env = ENV["RAILS_ENV"] || "production"
-p Rails.root
+
 preload_app true
 working_directory Rails.root
 pid "#{Rails.root}/tmp/pids/unicorn.pid"

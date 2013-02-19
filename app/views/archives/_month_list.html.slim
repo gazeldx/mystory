@@ -8,6 +8,6 @@
       = date[0..3] + t('year')
       | &nbsp;&nbsp;&nbsp;
     - link_css = "selected" if date[0..5]==params[:month]
-    = link_to date[4..5] + t('month'), (@clazz.nil? ? "" : "/#{@clazz}") + "/archives/#{date}", class: link_css
+    = link_to date[4..5].to_i + t('month'), (@clazz.nil? ? "" : "/#{@clazz}") + "/archives/#{date}", class: link_css
     | (#{item.t_count})&nbsp;&nbsp;
     - _year = date[0..3]

@@ -1,5 +1,9 @@
 .b
-  | 标题：
+  - if request.subdomain.to_s==""
+    | 标题
+  - else
+    | 标题或正文
+  | ：
   = text_field_tag :title, params[:title]
   | &nbsp;
   input type='button' value=t'_search' onclick='goSearch()'

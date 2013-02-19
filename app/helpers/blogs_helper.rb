@@ -31,12 +31,6 @@ module BlogsHelper
     info + ' ' + join_tags(blog)
   end
 
-  #  def blog_info2(blog)
-  #    info = blog.created_at.strftime t('date_without_year') + ' '
-  #    info += link_to blog.category.name, blog.category, title: t('view_blogs_in_category')
-  #    raw info
-  #  end
-
   def article_time(item)
     r = ""
     if params[:t] == 'updated' or item.is_a?(Memoir)

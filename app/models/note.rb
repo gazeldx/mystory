@@ -7,8 +7,8 @@ class Note < ActiveRecord::Base
   has_many :rnotes, :dependent => :destroy
   has_many :notetags, :dependent => :destroy
 
-  validates :title, :length => { :in => 0..60 }
-  validates :content, :length => { :in => 1..10000 }
+  validates :title, :length => { :in => 0..80 }
+  validates :content, :length => { :in => 1..30000 }
   validates :notecate_id, :presence => true
   validates :user_id, :presence => true
   self.per_page = 20
