@@ -7,6 +7,8 @@
   = text_field_tag :title, params[:title]
   | &nbsp;
   input type='button' value=t'_search' onclick='goSearch()'
+= render 'shared/search/title_js'
 coffee:
+  $('#title').focus()
   this.goSearch = ->
     window.location.href = "/s/" + $('#title').val()

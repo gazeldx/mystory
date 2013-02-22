@@ -31,11 +31,8 @@
       = link_to t('editor'), editor_path, style: 'color:red !important'
       - if @user.blogs_count+@user.notes_count>30         
         .rr
-          = text_field_tag :search_title, '搜', size: 6, title: "按回车键搜#{@user.name}的文章", style: "border: 1px solid #A6D098;color: gray;", onfocus: "if (this.value=='搜') {this.value=''}"
-          coffee:
-            $('#search_title').on 'keypress', (e) ->
-              if e.keyCode == 13
-                window.location.href = "/s/" + $('#search_title').val()
+          = text_field_tag :title, '搜', size: 6, title: "按回车键搜#{@user.name}的文章", style: "border: 1px solid #A6D098;color: gray;", onfocus: "if (this.value=='搜') {this.value=''}"
+          = render 'shared/search/title_js'
   ul
     li
       = link_to "#{t('following')}#{@user.following_num}", following_path
