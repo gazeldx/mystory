@@ -26,7 +26,7 @@ gem "acts_as_follower"# 关注功能
 gem "settingslogic", "~> 2.0.6"# 将配置文件生成为Object或Hash，方便程序使用.见对config.yml的处理。
 gem "aws-ses", "~> 0.4.4", :require => 'aws/ses'# 用Amazon的邮件服务SES发送邮件
 gem "weibo_2"# 支持weibo.com的同步和登录等
-gem 'books'
-#gem 'books', :git => "git://github.com/gazeldx/books.git"
+#gem 'books'
+gem 'books', :git => "git://github.com/gazeldx/books.git"
 # This is for your development.
 #gem 'books', path: "~/books"
