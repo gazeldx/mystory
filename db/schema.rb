@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129121237) do
+ActiveRecord::Schema.define(:version => 20130227005407) do
 
   create_table "albums", :force => true do |t|
     t.string   "name"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(:version => 20121129121237) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "books_books", :force => true do |t|
+    t.string   "title"
+    t.text     "summary"
+    t.text     "body"
+    t.string   "writer"
+    t.string   "translator"
+    t.float    "price"
+    t.string   "avatar"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "categories", :force => true do |t|

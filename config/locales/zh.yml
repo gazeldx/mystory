@@ -18,6 +18,7 @@ zh:
   delete: "删除"
   update: "更新"
   save: "保存"
+  _return: 返回
   _search: "搜索"
   up: "上移"
   down: "下移"
@@ -420,7 +421,7 @@ zh:
   photo:
     recent: "最近照片"
   has_draft: "（这儿有一段草稿）"
-
+  read_book: "读书"
   my_home_page: "我的主页"
   plaza: "广场"
   mobile_version: "手机版"

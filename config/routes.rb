@@ -1,4 +1,6 @@
 Cms::Application.routes.draw do
+
+  mount Books::Engine, :at => "/books"
   get 'ebook' => 'ebooks#txt'
   get 'query_user_columns' => 'columns#query_user_columns'
   match 'update_user_columns' => 'columns#update_user_columns'

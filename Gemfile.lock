@@ -1,3 +1,9 @@
+PATH
+  remote: ~/books
+  specs:
+    books (0.0.2)
+      rails (~> 3.2.11)
+
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -35,8 +41,6 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
-    books (0.0.2)
-      rails (~> 3.2.11)
     builder (3.0.4)
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
@@ -56,6 +60,8 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     haml (3.1.4)
     hashie (1.2.0)
     hike (1.2.1)
@@ -160,10 +166,11 @@ PLATFORMS
 DEPENDENCIES
   acts_as_follower
   aws-ses (~> 0.4.4)
-  books
+  books!
   carrierwave (= 0.6.2)
   carrierwave-upyun (~> 0.1.3)
   coffee-rails (~> 3.2.1)
+  formtastic
   haml (= 3.1.4)
   jquery-rails
   mini_magick (~> 3.3)

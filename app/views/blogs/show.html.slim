@@ -37,7 +37,7 @@ div id='note-#{@blog.id}'
       span#r_count
         | #{link_to t('recommend_count2', w: @blog.recommend_count), 'javascript:;', :onclick => "javascript:show_recommend_users()", :title => t('see_recommend_count') if @blog.recommend_count > 0}
       - if session[:id].nil?
-        = link_to t('recommend'), site_url, id: 'recommend', class: 'fav-add btn-fav', title: t('please_login')
+        = link_to t('recommend'), site_url, class: 'fav-add btn-fav', title: t('please_login')
       - else
         - ri = Rblog.find_by_user_id_and_blog_id(session[:id], @blog.id)
         - if ri.nil?
