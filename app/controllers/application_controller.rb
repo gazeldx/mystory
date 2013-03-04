@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
                site(@user),
                eval("#{item.class.name.downcase}_url(item)"),
                site(@user) + feed_path)
-    puts b
+    logger.info(b)
     google = XMLRPC::Client.new2("http://blogsearch.google.com/ping/RPC2")
     google.timeout = 5
     g = google.call("weblogUpdates.extendedPing",
@@ -102,9 +102,9 @@ class ApplicationController < ActionController::Base
                eval("#{item.class.name.downcase}_url(item)"),
                site(@user) + feed_path,
                item.tags.join('|'))    
-    puts g
+    logger.info(g)
   rescue Exception => e
-    puts e
+    logger.warn(e)
   end
 
   def summary_common(something, size, tmp)
