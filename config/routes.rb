@@ -1,6 +1,7 @@
 Cms::Application.routes.draw do
 
   mount Books::Engine, :at => "/books"
+  match '/feed' => 'blogs#feed', :as => :feed, :defaults => { :format => 'atom' }
   get 'ebook' => 'ebooks#txt'
   get 'query_user_columns' => 'columns#query_user_columns'
   match 'update_user_columns' => 'columns#update_user_columns'

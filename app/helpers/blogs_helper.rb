@@ -1,4 +1,5 @@
 module BlogsHelper
+  require 'xmlrpc/client'
   
   def blog_info(blog)
     info = blog.created_at.strftime t('time_format')
@@ -286,7 +287,5 @@ module BlogsHelper
         content_tag(:label, label_c, :class => 'field')
       end
     end
-  end
-
-  
+  end  
 end

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo, :group_admin?, :weibo_active?, :qq_active?
+  helper_method :site_url, :my_site, :site, :sub_site, :site_name, :ping_search_engine, :auto_photo, :auto_emotion, :ignore_emotions, :auto_draft, :auto_link, :auto_style, :auto_img, :auto_two_blank_start, :ignore_draft, :ignore_img, :ignore_image_tag, :ignore_style_tag, :m, :super_admin?, :manage?, :archives_months_count, :photos_count, :fresh_time, :scan_photo, :group_admin?, :weibo_active?, :qq_active?
   protect_from_forgery
   before_filter :redirect_mobile, :query_user_by_domain
   before_filter :url_authorize, :only => [:edit, :delete]
@@ -80,6 +80,31 @@ class ApplicationController < ActionController::Base
     session[:domain] = @user.domain
     session[:atoken], session[:expires_at] = @user.atoken, @user.asecret
     session[:token], session[:openid] = @user.token, @user.openid    
+  end
+
+  # blog search ping for SEO purpose
+  def ping_search_engine(item)
+    # http://www.google.cn/intl/zh-CN/help/blogsearch/pinging_API.html
+    # http://www.baidu.com/search/blogsearch_help.html
+    baidu = XMLRPC::Client.new2("http://ping.baidu.com/ping/RPC2")
+    baidu.timeout = 5  # set timeout 5 seconds
+    b = baidu.call("weblogUpdates.extendedPing",
+               "#{@user.name}_#{t'site.name'}",
+               site(@user),
+               eval("#{item.class.name.downcase}_url(item)"),
+               site(@user) + feed_path)
+    puts b
+    google = XMLRPC::Client.new2("http://blogsearch.google.com/ping/RPC2")
+    google.timeout = 5
+    g = google.call("weblogUpdates.extendedPing",
+               "#{@user.name}_#{t'site.name'}",
+               site(@user),
+               eval("#{item.class.name.downcase}_url(item)"),
+               site(@user) + feed_path,
+               item.tags.join('|'))    
+    puts g
+  rescue Exception => e
+    puts e
   end
 
   def summary_common(something, size, tmp)

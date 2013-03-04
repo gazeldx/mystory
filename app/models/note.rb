@@ -15,4 +15,7 @@ class Note < ActiveRecord::Base
 
   scope :visible, where(:is_draft => false).order('created_at desc')
   
+  def tags
+    notetags
+  end
 end

@@ -5,9 +5,12 @@
     <meta name="description" content="<%= yield :metadesc %>" />
     <%= stylesheet_link_tag "user" %>
     <%= javascript_include_tag "user_home" %>
+    <%= auto_discovery_link_tag :atom, "/feed" %>
+    <%= auto_discovery_link_tag :rss, "/feed.rss" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
+    = todo add tag to atom
     <%= render 'shared/top' %>
     <div id='wrapper'>
       <div id='content'>

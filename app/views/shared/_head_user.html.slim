@@ -12,7 +12,7 @@
       span.rr.pl2
         = render 'shared/quick_post_navigation'
   ul
-    li
+    li      
       = link_to '本人', profile_path
       - if @user.id == session[:id]
         span

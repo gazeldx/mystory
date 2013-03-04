@@ -59,6 +59,7 @@ class NotesController < ApplicationController
       else
         flash[:notice2] = t'note_post_succ'
       end
+      ping_search_engine(@note)
       send_weibo
       send_qq
       redirect_to note_path(@note)

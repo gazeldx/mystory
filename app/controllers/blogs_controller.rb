@@ -6,10 +6,26 @@ class BlogsController < ApplicationController
   
   layout 'memoir'
   
+  # RSS and atom Feed.
+  def feed    
+    notes = @user.notes.where(:is_draft => false).limit(30).order("updated_at desc")
+    blogs = @user.blogs.where(:is_draft => false).limit(20).order("updated_at desc")
+    @all = (notes | blogs).sort_by{|x| x.updated_at}.reverse!    
+
+    respond_to do |format|
+      format.atom { render :layout => false }
+      # we want the RSS feed to redirect permanently to the ATOM feed
+      format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently }
+    end
+  end
+
   def index
     @rids = @user.rblogs.select('blog_id').map{|x| x.blog_id}
     @blogs = @user.blogs.includes([:tags, :category]).where(:is_draft => false).page(params[:page]).order("created_at DESC")
     @categories = @user.categories.order('created_at')
+    respond_to do |format|
+      format.html      
+    end
   end
 
   def show
@@ -109,6 +125,7 @@ class BlogsController < ApplicationController
         flash[:notice2] = t'blog_posted'
       end
       #      expire_action :action => :index
+      ping_search_engine(@blog)
       send_weibo
       send_qq
       redirect_to blog_path(@blog)
