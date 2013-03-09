@@ -28,8 +28,8 @@
       | &nbsp;
       = link_to 'E书', ebook_path << ".txt", target: '_blank'
       | &nbsp;
-      = link_to t('editor'), editor_path, style: 'color:red !important'
-      - if @user.blogs_count+@user.notes_count>30         
+      = link_to '美文', editor_path
+      - if @user.blogs_count + @user.notes_count > 30
         .rr
           = text_field_tag :title, '搜', size: 6, title: "按回车键搜#{@user.name}的文章", style: "border: 1px solid #A6D098;color: gray;", onfocus: "if (this.value=='搜') {this.value=''}"
           = render 'shared/search/title_js'

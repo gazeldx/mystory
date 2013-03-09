@@ -84,25 +84,27 @@ class ApplicationController < ActionController::Base
 
   # blog search ping for SEO purpose
   def ping_search_engine(item)
-    # http://www.google.cn/intl/zh-CN/help/blogsearch/pinging_API.html
-    # http://www.baidu.com/search/blogsearch_help.html
-    baidu = XMLRPC::Client.new2("http://ping.baidu.com/ping/RPC2")
-    baidu.timeout = 5  # set timeout 5 seconds
-    b = baidu.call("weblogUpdates.extendedPing",
-               "#{@user.name}_#{t'site.name'}",
-               site(@user),
-               eval("#{item.class.name.downcase}_url(item)"),
-               site(@user) + feed_path)
-    logger.info(b)
-    google = XMLRPC::Client.new2("http://blogsearch.google.com/ping/RPC2")
-    google.timeout = 5
-    g = google.call("weblogUpdates.extendedPing",
-               "#{@user.name}_#{t'site.name'}",
-               site(@user),
-               eval("#{item.class.name.downcase}_url(item)"),
-               site(@user) + feed_path,
-               item.tags.join('|'))    
-    logger.info(g)
+    if item.is_draft == false and Rails.env.production?
+      # http://www.google.cn/intl/zh-CN/help/blogsearch/pinging_API.html
+      # http://www.baidu.com/search/blogsearch_help.html
+      baidu = XMLRPC::Client.new2("http://ping.baidu.com/ping/RPC2")
+      baidu.timeout = 5  # set timeout 5 seconds
+      b = baidu.call("weblogUpdates.extendedPing",
+                 "#{@user.name}_#{t'site.name'}",
+                 site(@user),
+                 eval("#{item.class.name.downcase}_url(item)"),
+                 site(@user) + feed_path)
+      logger.info(b)
+      google = XMLRPC::Client.new2("http://blogsearch.google.com/ping/RPC2")
+      google.timeout = 5
+      g = google.call("weblogUpdates.extendedPing",
+                 "#{@user.name}_#{t'site.name'}",
+                 site(@user),
+                 eval("#{item.class.name.downcase}_url(item)"),
+                 site(@user) + feed_path,
+                 item.tags.join('|'))    
+      logger.info(g)
+    end
   rescue Exception => e
     logger.warn(e)
   end

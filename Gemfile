@@ -30,3 +30,5 @@ gem "weibo_2"# 支持weibo.com的同步和登录等
 gem 'books', :git => "git://github.com/gazeldx/books.git"
 # This is for your development.
 #gem 'books', path: "~/books"
+
+gem 'github-markdown', :require => 'github/markdown'

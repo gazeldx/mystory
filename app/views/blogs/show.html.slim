@@ -22,9 +22,8 @@ div id='note-#{@blog.id}'
       = blog_info @blog
       = read_comment_recommend_show @blog
   div id='note_#{@blog.id}_full'
+    = show_content @blog
     pre.note_full
-      = style_it @blog.content
-      br
       br
       = show_weibo if @user.weibo_active?
       = style_it @user.signature.to_s

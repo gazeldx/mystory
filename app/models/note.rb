@@ -18,4 +18,6 @@ class Note < ActiveRecord::Base
   def tags
     notetags
   end
+
+  include Markdown
 end

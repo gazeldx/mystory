@@ -8,3 +8,5 @@
     }
   )
 end
+
+require 'markdown'

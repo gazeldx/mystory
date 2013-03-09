@@ -20,6 +20,14 @@ module BlogsHelper
     info
   end
 
+  def show_content item
+    if item.markdown?
+      render('shared/markdown') + content_tag(:div, raw(item.md_content), :class => 'note_full')
+    else
+      content_tag(:pre, style_it(item.content), :class => 'note_full')
+    end
+  end
+
   def m_article_info(item)
     raw "#{item.created_at.strftime t('time_format')}#{t'write'}&nbsp;#{update_info item}"
   end

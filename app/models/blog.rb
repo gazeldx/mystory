@@ -19,4 +19,6 @@ class Blog < ActiveRecord::Base
   self.per_page = 20
 
   scope :visible, where(:is_draft => false).order('created_at desc')
+
+  include Markdown
 end

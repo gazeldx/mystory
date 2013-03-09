@@ -252,6 +252,24 @@ module UsersHelper
     raw auto_style(s)
   end
 
+  # def mixed_style(something)
+  #   s = auto_draft(something)
+  #   s = auto_img(s)
+  #   s = auto_emotion(s)
+  #   s = auto_photo(s)
+  #   s = without_html_tag_br(s)
+  #   s = without_html_tag_p(s)
+  #   raw auto_style(auto_two_blank_start(s))
+  # end
+
+  # def without_html_tag_br(mystr)
+  #   "#{mystr}".gsub(/<br>/, "")
+  # end
+
+  # def without_html_tag_p(mystr)
+  #   "#{mystr}".gsub(/<p>/, "").gsub(/<\/p>/, "")
+  # end
+
   def scan_photos(mystr, n)
     photos = []
     k = 0

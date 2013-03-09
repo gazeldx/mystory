@@ -1,5 +1,5 @@
 module CommonHelper
-	def storage_type
+  def storage_type
     Settings[:upyun] ? :upyun : :file
   end
 end
