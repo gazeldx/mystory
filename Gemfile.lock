@@ -1,5 +1,6 @@
-PATH
-  remote: ~/books
+GIT
+  remote: git://github.com/gazeldx/books.git
+  revision: 527e3016cf9fb7f2b267992f4459324ed36571cb
   specs:
     books (0.0.3)
       rails (~> 3.2.11)

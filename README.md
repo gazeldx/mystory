@@ -39,8 +39,8 @@ DEMO: [我的故事网站](http://mystory.cc/)
     $ source /usr/local/rvm/scripts/rvm
 创建gemset并将此gemset设为默认：
 
-    $ rvm gemset create rails3.2.7
-    $ rvm use 1.9.3@rails3.2.7 --default
+    $ rvm gemset create rails3.2.11
+    $ rvm use 2.0.0@rails3.2.11 --default
 **安装其它软件**
 
     $ sudo apt-get install libpq-dev imagemagick
