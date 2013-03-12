@@ -80,10 +80,11 @@ class ColumnsController < ApplicationController
       html += "#{checkbox}#{column.name}&nbsp;&nbsp;"
     end
     if all_columns.blank?
-      html += "#{t'no_columns_tip'}<a href='#{sub_site(session[:domain]) + new_column_path}' target='_blank'>#{t'column.new'}</a>"
+      html += "#{t'no_columns_tip'}"
     else
       html += "<input type='button' value='#{t'save'}' onclick='update_user_columns()'>"
     end
+    html += "<a href='#{sub_site(session[:domain]) + new_column_path}' target='_blank'>#{t'column.new'}</a>"
     render :text => html
   end
 

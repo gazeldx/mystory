@@ -36,9 +36,9 @@
           = link_to site_name, site_url, title: t('return_root', w: site_name)
         li.on
           = link_to t('read_book'), site_url + "/books"
-        li.on
-          = link_to t('society'), sub_site('society')
-        li.on
-          = link_to t('_school'), sub_site('group')
+        /li.on
+        /  = link_to t('society'), sub_site('society')
+        /li.on
+        /  = link_to t('_school'), sub_site('group')
         li.on
           = link_to t('_forum'), sub_site('bbs')
