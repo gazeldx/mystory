@@ -99,8 +99,6 @@ DEMO: [我的故事网站](http://mystory.cc/)
     $ rake db:seed RAILS_ENV=production
 [查看更多“数据库”内容](https://github.com/gazeldx/mystory/wiki/Postresql)
 
-    $ sudo apt-get install imagemagick
-
 ### STEP 5： 修改配置
 修改config/config.yml
 

@@ -1,6 +1,7 @@
 class ColumnsController < ApplicationController
   skip_before_filter :url_authorize
   layout 'help'
+  include OrderByCreatedAt
 
   def show
     @column = Column.find(params[:id])
@@ -39,18 +40,6 @@ class ColumnsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def up
-    @column = Column.find(params[:id])
-    @column_t = Column.where("created_at < ?", @column.created_at).order('created_at DESC').first
-    exchange_create_at
-  end
-
-  def down
-    @column = Column.find(params[:id])
-    @column_t = Column.where("created_at > ?", @column.created_at).order('created_at').first
-    exchange_create_at
   end
 
   #  def destroy
@@ -139,13 +128,5 @@ class ColumnsController < ApplicationController
     expire_fragment("columns_articles_#{session[:id]}")
     expire_fragment("editor_home_#{session[:id]}")    
     render :text => new_columns_count
-  end
-
-  private
-  def exchange_create_at
-    m_c_at = @column.created_at
-    @column.update_attribute('created_at', @column_t.created_at)
-    @column_t.update_attribute('created_at', m_c_at)
-    redirect_to columns_path
-  end
+  end  
 end

@@ -652,6 +652,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  module OrderByCreatedAt
+    def up
+      @column = controller_name.classify.constantize.find(params[:id])
+      @column_t = controller_name.classify.constantize.where("created_at < ?", @column.created_at).order('created_at DESC').first
+      exchange_create_at
+    end
+
+    def down
+      @column = controller_name.classify.constantize.find(params[:id])
+      @column_t = controller_name.classify.constantize.where("created_at > ?", @column.created_at).order('created_at').first
+      exchange_create_at
+    end
+
+    def exchange_create_at
+      m_c_at = @column.created_at
+      @column.update_attribute('created_at', @column_t.created_at)
+      @column_t.update_attribute('created_at', m_c_at)
+      redirect_to send("#{controller_name.pluralize}_path")
+    end
+  end
+
   module AutoCreatedUserInfo
     def same_user_info
       @user.name = t'default_real_name'

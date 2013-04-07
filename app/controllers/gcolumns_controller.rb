@@ -2,7 +2,8 @@ class GcolumnsController < ApplicationController
   before_filter :group_admin, :except => [:show]
   skip_before_filter :url_authorize
   layout 'help'
-
+  include OrderByCreatedAt
+  
   def show
     @gcolumn = Gcolumn.find(params[:id])
     notes = @gcolumn.notes.where(:is_draft => false).limit(30).order("created_at DESC")
@@ -41,25 +42,5 @@ class GcolumnsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def up
-    @gcolumn = Gcolumn.find(params[:id])
-    @gcolumn_t = Gcolumn.where("created_at < ?", @gcolumn.created_at).order('created_at DESC').first
-    exchange_create_at
-  end
-
-  def down
-    @gcolumn = Gcolumn.find(params[:id])
-    @gcolumn_t = Gcolumn.where("created_at > ?", @gcolumn.created_at).order('created_at').first
-    exchange_create_at
-  end
-  
-  private
-  def exchange_create_at
-    m_c_at = @gcolumn.created_at
-    @gcolumn.update_attribute('created_at', @gcolumn_t.created_at)
-    @gcolumn_t.update_attribute('created_at', m_c_at)
-    redirect_to gcolumns_path
   end
 end
