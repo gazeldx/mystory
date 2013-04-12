@@ -69,6 +69,17 @@ table.b align='center' width='100%' cellpadding='5'
           - @enjoy_movies.each do |enjoy|
             = enjoy.enjoy.name
             | &nbsp;&nbsp;&nbsp;
+    /- cache("head_user_groups_#{@user.id}") do      
+    - litsocs = @user.groups.where("stype = #{GROUPS_STYPE_SOCIETY}").order('groups_users.created_at')
+    - unless litsocs.blank?
+      tr
+        td class='mrw'
+          | #{t'society'}:
+        td
+          - litsocs.each_with_index do |group, i|
+            /- if group.member_count >= MIN_COLLEGE_MEMBER
+            = link_to group.name, site(group), target: '_blank', title: "#{group.name}成员，点此访问“#{group.name}”"
+            | &nbsp;
     tr
       td
       td

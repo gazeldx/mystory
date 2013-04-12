@@ -62,7 +62,13 @@ module Cms
 
 #    require "#{Rails.root}/lib/custom_domain_cookie.rb"
 #    config.middleware.use CustomDomainCookie
-
-
+    
+    # config.middleware.use Helios::Application do
+    #   service :data, model: 'path/to/DataModel.xcdatamodel'
+    #   service :push_notification
+    #   service :in_app_purchase
+    #   service :passbook
+    # end
+    
   end
 end

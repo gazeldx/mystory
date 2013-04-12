@@ -31,3 +31,5 @@ gem 'books', :git => "git://github.com/gazeldx/books.git"
 # gem 'books', path: "~/books"# This is for your development.
 
 gem 'github-markdown', :require => 'github/markdown'
+gem 'grape'
+# gem 'helios'

@@ -44,12 +44,12 @@
     span.pl
       = t'blog.memo'
   - if @blog.is_draft
-    = f.submit t('save_as_draft'), name: 'save_as_draft', class: 'btn'
+    = f.submit t('save_as_draft'), name: 'save_as_draft', class: 'btn', :disable_with => t('save_as_draft')
     | &nbsp;&nbsp;
-  = f.submit t('_post'), class: 'btn'
+  = f.submit t('_post'), class: 'btn', :disable_with => "#{t('_post')}..."
   - unless @blog.is_draft
     | &nbsp;&nbsp;
-    = f.submit t('save_as_draft'), name: 'save_as_draft', class: 'btn'
+    = f.submit t('save_as_draft'), name: 'save_as_draft', class: 'btn', :disable_with => t('save_as_draft')
 br
 = render 'shared/tip_tag_usage'
 coffee:

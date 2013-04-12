@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       build_enjoys @_user
       build_school_groups(@_user, params[:user][:school])
       @_user.update_attributes(params[:user])
-      expire_fragment("head_user_groups_#{session[:id]}")
+      # expire_fragment("head_user_groups_#{session[:id]}")
       redirect_to m_or(my_site + profile_path), :notice => t('update_succ')
     else
       _render :edit
