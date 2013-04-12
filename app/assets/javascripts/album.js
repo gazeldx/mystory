@@ -1,4 +1,4 @@
-//= require jquery
+//= require jquery-1.7.1.min.js
 //= require jquery_ujs
 //= require photos
 //= require recommend
